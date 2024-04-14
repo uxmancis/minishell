@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/14 11:54:00 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:58:11 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,21 @@
 # include <unistd.h> //write
 # include <readline/readline.h> //readline - Además, al compilar, añadir flag -lreadline. Ex.: gcc -lreadline -o minishell minishell.c
 # include <readline/history.h>
+# include <stdlib.h> //exit
 
 //minishell.c
 void ft_begin(int argc, char **argv, char **env);
 
 //analyse_input.c
-void ft_comillas(char *input);
+int ft_quotes(char *input, char **dictionary);
 void ft_analyse_input(char *input);
 
 //utils.c
 int	ft_putchar_fd(int c, int fd);
 int	ft_putstr_fd(char *str, int fd);
 void	ft_print_welcome(void);
+size_t	ft_strlen(char *str);
+void	ft_puterror_exit(char *str);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
