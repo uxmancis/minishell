@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../ikersojo_minishell"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"libft.h": "c",
+			"history.h": "c",
+			"minishell.h": "c"
+		}
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:04:48 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/14 15:58:00 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:38:09 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ size_t	ft_strlen(char *str)
 Exits the program, outputting a string with the details on the error to STDOUT.
 If str is "errno" the default description of error is displayed. Else, the
 custom str will be used as description of the error.
----------------------------------------------------------------------------- */
+---------------------------------------------------------------------------- 
 void	ft_puterror_exit(char *str)
 {
 	if (ft_strncmp("errno", str, 5) == 0)
@@ -88,6 +88,13 @@ void	ft_puterror_exit(char *str)
 		ft_putstr_fd("\033[0;39m", 2);
 	}
 	exit(127);
+}*/
+
+void ft_puterror(char *str)
+{
+	ft_putstr_fd("\033[31mError: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\033[0;39m", 2);
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)

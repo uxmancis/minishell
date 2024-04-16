@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:27:41 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/14 16:03:05 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:51:21 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void ft_begin(int argc, char **argv, char **env)
 {
     char *input;
+    t_prompt prompt;
 
     (void)argc;
     (void)argv;
@@ -26,7 +27,9 @@ void ft_begin(int argc, char **argv, char **env)
     printf(YELLOW);
     printf("input a analizar = %s ||| len = %d\n", input, (int)ft_strlen(input));
     printf(RESET_COLOR);
-    ft_analyse_input(input);
+    //prompt = NULL;
+    ft_analyse_input(input, &prompt);
+    //ft_exec
 }
 
 int main(int argc, char **argv, char **env)

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/14 15:58:11 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:30:17 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,30 @@
 # include <readline/history.h>
 # include <stdlib.h> //exit
 
+/*Stores info about the received prompt*/
+typedef struct s_prompt
+{
+    int are_there_pipes; //-1: no pipe, >0:number of pipes
+}   t_prompt;
+
 //minishell.c
 void ft_begin(int argc, char **argv, char **env);
 
 //analyse_input.c
 int ft_quotes(char *input, char **dictionary);
-void ft_analyse_input(char *input);
+int ft_quotes_2(char *input, char **dictionary, int i);
+int ft_quotes_3(char *input, char **dictionary, int i);
+void init_instructions(char *input, t_prompt *prompt);
+
+void ft_analyse_input(char *input, t_prompt *prompt);
 
 //utils.c
 int	ft_putchar_fd(int c, int fd);
 int	ft_putstr_fd(char *str, int fd);
 void	ft_print_welcome(void);
 size_t	ft_strlen(char *str);
-void	ft_puterror_exit(char *str);
+//void	ft_puterror_exit(char *str);
+void ft_puterror(char *str);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
