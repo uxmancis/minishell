@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   99_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:04:48 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/16 19:38:09 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/04/28 12:13:40 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int ft_isspace(int c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' || c == '\v')
+		return (1);
+    return (0);
+}
 
 /* DESCRIPTION:
 Outputs the char c to the file descriptor fd.
@@ -69,26 +76,13 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-/* DESCRIPTION:
-Exits the program, outputting a string with the details on the error to STDOUT.
-If str is "errno" the default description of error is displayed. Else, the
-custom str will be used as description of the error.
----------------------------------------------------------------------------- 
-void	ft_puterror_exit(char *str)
+void ft_puterror_exit(char *str)
 {
-	if (ft_strncmp("errno", str, 5) == 0)
-	{
-		perror("\033[31mError");
-		ft_putstr_fd("\033[0;39m", 2);
-	}
-	else
-	{
-		ft_putstr_fd("\033[31mError: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\033[0;39m", 2);
-	}
-	exit(127);
-}*/
+	ft_putstr_fd("\033[31mError: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\033[0;39m", 2);
+	exit(EXIT_FAILURE);
+}
 
 void ft_puterror(char *str)
 {
@@ -110,6 +104,35 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		}
 		else
 			return ((unsigned char ) s1[i] - (unsigned char) s2[i]);
+	}
+	return (0);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	sign;
+	int	num;
+
+	i = 0;
+	sign = 1;
+	num = 0;
+	while (str[i] != '\0')
+	{
+		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
+			i++;
+		if (str[i] == '+' || str[i] == '-')
+		{
+			if (str[i++] == '-')
+				sign = -1;
+		}
+		while (str[i] >= '0' && str[i] <= '9')
+		{	
+			num = (num * 10) + (str[i] - 48);
+			i++;
+		}
+		return (num * sign);
 	}
 	return (0);
 }
