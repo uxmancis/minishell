@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   00_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:27:41 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/28 15:48:23 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:47:37 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_get_substr(t_prompt *prompt)
+int ft_get_substr(t_prompt *prompt)
 {    
     int nb_of_substr;
     //char **total_substr_input;
@@ -59,13 +59,13 @@ void ft_get_substr(t_prompt *prompt)
         }*/
     }
     printf(AQUAMARINE"RESULTADO SPLITEADO:\n");
-    i = 0;
+    /*i = 0;
 	while (nb_of_substr > 0)
 	{
 		printf(AQUAMARINE"substr%d = %s\n"RESET_COLOR, i, prompt->total_substr_input[i]);
 		nb_of_substr--;
 		i++;
-	}
+	}*/
     //una función a la que yo pueda llamar y me devuelva si me encuentro dentro o fuera de comillas. Hola, cuando encuentro un echo o algo de esto (edozer gauza), checkeo con esta función aber si estoy dentro o fuera para ver cómo debo actuar.
 }
 
@@ -85,6 +85,16 @@ void ft_begin(int argc, char **argv, char **env)
     printf(RESET_COLOR);
     //prompt = NULL;
     ft_get_substr(&prompt);
+    int i;
+    int nb_of_substr;
+    i = 0;
+    nb_of_substr = prompt.nb_of_pipes + 1;
+	while (nb_of_substr > 0)
+	{
+		printf(AQUAMARINE"substr%d = %s\n"RESET_COLOR, i, prompt->total_substr_input[i]);
+		nb_of_substr--;
+		i++;
+	}
     //ft_exec
 }
 

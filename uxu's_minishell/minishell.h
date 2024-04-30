@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/28 16:07:15 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/04/29 23:35:59 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <readline/readline.h> //readline - Además, al compilar, añadir flag -lreadline. Ex.: gcc -lreadline -o minishell minishell.c
 # include <readline/history.h>
 # include <stdlib.h> //exit EXIT FAILURE
+# include <stdio.h> //printf
 
 typedef struct s_box
 {
