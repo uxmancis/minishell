@@ -1,60 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_quotes.c                                     :+:      :+:    :+:   */
+/*   01_input_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:53:21 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/28 15:40:40 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:59:07 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_quotes_2(t_prompt **prompt, int i)
+//int ft_quotes_2(t_prompt **prompt, int i)
+int ft_quotes_2(char *input, int **dict_quotes, int i)
 {
-    printf(YELLOW);
-    printf("        ENTRADA comillas simples, input[%d] = %c\n", i, (*prompt)->input[i]);
-    printf(RESET_COLOR);
-    (*prompt)->dict_quotes[i] = '0'; //comillas principales (simples) están fuera de comillas
+    //printf(YELLOW"        ENTRADA comillas simples, input[%d] = %c\n"RESET_COLOR, i, input[i]);
+    (*dict_quotes)[i] = 0; //comillas principales (simples) están fuera de comillas
     //printf("i++, line 29, input[%d] = %c\n", i, (*prompt)->input[i]);
     i++;
-    while ((*prompt)->input[i] != '\0' && (*prompt)->input[i] != '\'')
+    while (input[i] != '\0' && input[i] != '\'')
     {
-        printf("             dentro comillas simples, input[%d] = %c\n", i, (*prompt)->input[i]);
-        (*prompt)->dict_quotes[i] = '1'; //dentro de comillas simples
+        //printf("             dentro comillas simples, input[%d] = %c\n", i, input[i]);
+        (*dict_quotes)[i] = 1; //dentro de comillas simples
         i++;
-        printf("             i++, line 44, input[%d] = %c\n", i, (*prompt)->input[i]);
+        //printf("             i++, line 44, input[%d] = %c\n", i, input[i]);
     }
-    printf(YELLOW);
-    printf("        SALIDA comillas simples, input[%d] = %c\n\n", i, (*prompt)->input[i]);
-    printf(RESET_COLOR);
-    if (i == (int)ft_strlen((*prompt)->input))
+    //printf(YELLOW"        SALIDA comillas simples, input[%d] = %c\n\n"RESET_COLOR, i, input[i]);
+    if (i == (int)ft_strlen(input))
             return (-1); //Error: unclosed quotes
     else
         return (i);
 }
 
-int ft_quotes_3(t_prompt **prompt, int i)
+//int ft_quotes_3(t_prompt **prompt, int i)
+int ft_quotes_3(char *input, int **dict_quotes, int i)
 {
-    printf(MAGENTA);
-    printf("        ENTRADA comillas DOBLES, input[%d] = %c\n", i, (*prompt)->input[i]);
-    printf(RESET_COLOR);
-    (*prompt)->dict_quotes[i] = '0'; //comillas principales (dobles) están fuera de comillas
+    //printf(MAGENTA"        ENTRADA comillas DOBLES, input[%d] = %c\n"RESET_COLOR, i, input[i]);
+    (*dict_quotes)[i] = 0; //comillas principales (dobles) están fuera de comillas
     i++;
-    printf("             i++, line 44, input[%d] = %c\n", i, (*prompt)->input[i]);
-    while ((*prompt)->input[i] != '\0' && (*prompt)->input[i] != '\"')
+    //printf("             i++, line 44, input[%d] = %c\n", i, input[i]);
+    while (input[i] != '\0' && input[i] != '\"')
     {
-        printf("             dentro comillas DOBLES, input[%d] = %c\n", i, (*prompt)->input[i]);
-        (*prompt)->dict_quotes[i] = '2'; //dentro de comillas dobles
+        //printf("             dentro comillas DOBLES, input[%d] = %c\n", i, input[i]);
+        (*dict_quotes)[i] = 2; //dentro de comillas dobles
         i++;
-        printf("             i++, line 44, input[%d] = %c\n", i, (*prompt)->input[i]);
+        //printf("             i++, line 44, input[%d] = %c\n", i, input[i]);
     }
-    printf(MAGENTA);
-    printf("        SALIDA comillas DOBLES, input[%d] = %c\n\n", i, (*prompt)->input[i]);
-    printf(RESET_COLOR);
-    if (i == (int)ft_strlen((*prompt)->input))
+    //printf(MAGENTA"        SALIDA comillas DOBLES, input[%d] = %c\n\n"RESET_COLOR, i, input[i]);
+    if (i == (int)ft_strlen(input))
         return (-1); //Error: unclosed quotes
     else
         return (i);
@@ -72,38 +66,45 @@ int ft_quotes_3(t_prompt **prompt, int i)
 *
 *   Calls ft_quotes_2 and ft_quotes_3 to make function shorter 
 *   (less than 25 line) because of 42 Norminette.
+*
+*   I want to use ft_quotes for dict_quotes in t_prompt, but also
+*   dict_quotes in t_box. 
 --------------------------------------------------------------*/
-int ft_quotes(t_prompt **prompt) //kenduta komentarixuak
+//int ft_quotes(t_prompt **prompt) //kenduta komentarixuak
+int ft_quotes(char *input, int **dict_quotes)
 {
-    int i;
-    //int *dictionary; 
+    int i; 
 
     i = 0;
-    printf(RED);
-    printf(">> entrada en bucle - análisis comillas\n");
+    //printf("len_input = %d, input = %s\n", (int)ft_strlen(input), input);
+    (*dict_quotes)[0] = 1;
+    (*dict_quotes)[1] = 1;
+    (*dict_quotes)[2] = 1;
+    //printf(RED">> entrada en bucle - análisis comillas\n"RESET_COLOR);
+    //(*dict_quotes[0])
     printf(RESET_COLOR);
-    while ((*prompt)->input[i] != '\0')
+    while (input[i] != '\0')
     {
-        if ((*prompt)->input[i] == '\'') //una vez entramos en comilla SIMPLE verificamos si están cerradas
+        if (input[i] == '\'') //una vez entramos en comilla SIMPLE verificamos si están cerradas
         {
-            i = ft_quotes_2(prompt, i); //
+            i = ft_quotes_2(input, dict_quotes, i); //
             if (i == -1)
                 return (-1);
         }
-        if ((*prompt)->input[i] == '\"')//una vez entramos en comilla DOBLE verificamos si están cerradas
+        if (input[i] == '\"')//una vez entramos en comilla DOBLE verificamos si están cerradas
         {
-            i = ft_quotes_3(prompt, i);
+            i = ft_quotes_3(input, dict_quotes, i);
             if (i == -1)
                 return (-1);
         }
-        (*prompt)->dict_quotes[i] = '0'; //fuera de comillas
-        if (i != (int)ft_strlen((*prompt)->input)) //solo para printear. Sin este if nos imprime un caracter de más, yendo ya más allá de la cadena "input". Eso ya no quiero que me lo imprimas.
-            printf("i++, line 49, input[%d] = %c\n", i, (*prompt)->input[i]);
+        //printf("pre ++, i = %d\n", i);
+        (*dict_quotes)[i] = 0; //fuera de comillas
+        if (i != (int)ft_strlen(input)) //solo para printear. Sin este if nos imprime un caracter de más, yendo ya más allá de la cadena "input". Eso ya no quiero que me lo imprimas.
+            //printf("i++, line 49, input[%d] = %c\n", i, input[i]);
         i++;
+        //printf("post ++, i = %d\n", i);
     }
-    printf(GREEN);
-    printf("<< salida de bucle - análisis comillas\n");
-    printf(RESET_COLOR);
+    //printf(GREEN"<< salida de bucle - análisis comillas\n"RESET_COLOR);
     return (0); //Success, quotes properly closed and dictionary created
 }
 

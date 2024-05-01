@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   99_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:04:48 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/29 21:15:10 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:10:33 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_print_welcome(void)
 	ft_putstr_fd(DEF_COLOR, 1);
 }
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 

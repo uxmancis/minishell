@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_pipe.c                                       :+:      :+:    :+:   */
+/*   01_input_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 12:55:10 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/28 15:49:01 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:00:15 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int ft_is_pipe(t_prompt **prompt)
     while ((*prompt)->input[i] != '\0')
     {
         //printf(MAGENTA"case %d: input[%d] = %c, dict: %c\n"RESET_COLOR, i, i, prompt->input[i], prompt->dict_quotes[i]);
-        if ((*prompt)->input[i] == '|' && (*prompt)->dict_quotes[i] == '0') //eztakit dictionarykin zeba einbihoten konparau con '0' en vez de 0, ze ya no son chars, son int.
+        if ((*prompt)->input[i] == '|' && (*prompt)->dict_quotes[i] == 0) //eztakit dictionarykin zeba einbihoten konparau con '0' en vez de 0, ze ya no son chars, son int.
         {
             if (ft_pipe_first_or_last((*prompt)->input) == -1) //first or last position  --> //PDTE. actualizar lo de última posición: implementarlo bien. No nececsariamente tiene que estar en strlen -1 -> puede ser |   ddkfjjdsdf |      (espacios)
                 return (-1);
@@ -154,7 +154,7 @@ void set_index_pipe(t_prompt **prompt)
     {
         if ((*prompt)->input[i] == '|')
         {
-            if ((*prompt)->dict_quotes[i] == '0') //si sí está fuera de comillas el pipe, '0' en el diccionario, entonces sí es un pipe cuyo índice quiero guardar
+            if ((*prompt)->dict_quotes[i] == 0) //si sí está fuera de comillas el pipe, '0' en el diccionario, entonces sí es un pipe cuyo índice quiero guardar
             {
                 (*prompt)->arr_index_pipes[y] = i; //me guardo el índice del pipe en arr_index_pipes
                 y++;
@@ -174,24 +174,23 @@ void ft_where_r_pipes(t_prompt **prompt)
     //char *arr_index_pipes; //must be created here (not sent as parameter and updated with &) as we need nb_of_pipes to know len of arr_index_pipes (for malloc)
     int aux_para_imprimir_nb_of_pipes;
     
-    printf(MAGENTA"FT_WHERE_R_PIPES:\n"RESET_COLOR);
     (*prompt)->nb_of_pipes = ft_is_pipe(prompt); //el valor que queremos obtener es nb_of_pipes, por lo que desreferenciamos prompt (*prompt), no necesitamos que sus valores se actualicen
-    printf(MAGENTA"input_pipe.c (ft_where_r_pipes): nb_of_pipes = %d\n"RESET_COLOR, (*prompt)->nb_of_pipes);
+    printf(MAGENTA"01_input_pipe.c - ft_where_r_pipes: nb_of_pipes = %d\n"RESET_COLOR, (*prompt)->nb_of_pipes);
     if ((*prompt)->nb_of_pipes == -1)
         ft_puterror_exit("syntax error near unexpected token `|'\n");
     else if ((*prompt)->nb_of_pipes > 0) // si sí que hay algún pipe carcter
     {
-        (*prompt)->arr_index_pipes = malloc(sizeof(int) * ((*prompt)->nb_of_pipes + 1)); //sin el más uno, es int*, no tiene '\0' al final para indicar final. Puedo usar el 0 como indicador de final. Ze la posición nunca será 0, ese error ya lo habré gestinado. Ze ona! Ta hola ahall dot len lortu! Aunque un poco rebuscado/chapu igual?
+        (*prompt)->arr_index_pipes = malloc(sizeof(int) * ((*prompt)->nb_of_pipes)); //sin el más uno, es int*, no tiene '\0' al final para indicar final. Puedo usar el 0 como indicador de final. Ze la posición nunca será 0, ese error ya lo habré gestinado. Ze ona! Ta hola ahall dot len lortu! Aunque un poco rebuscado/chapu igual?
         if (!(*prompt)->arr_index_pipes)
             ft_puterror_exit("malloc error\n");
-        (*prompt)->arr_index_pipes[(*prompt)->nb_of_pipes] = 0; //ahal dot hola ein, ze sekula ezta izengo 0, ze el contenido = índices = ezta sekula izengo 0.
+        //(*prompt)->arr_index_pipes[(*prompt)->nb_of_pipes] = 0; //ahal dot hola ein, ze sekula ezta izengo 0, ze el contenido = índices = ezta sekula izengo 0.
         //printf(YELLOW"last_arr[%d] = %d\n"RESET_COLOR, nb_of_pipes, prompt->arr_index_pipes[nb_of_pipes]);
         set_index_pipe(prompt);
         int i; 
         i = 0;
         //while ((*prompt)->arr_index_pipes[i] != '0')
         aux_para_imprimir_nb_of_pipes = (*prompt)->nb_of_pipes; //eztot nahi el real variable txikitxerik tamainuz
-        while ((aux_para_imprimir_nb_of_pipes + 1) > 0) //bakarrik inprimitzeko
+        while ((aux_para_imprimir_nb_of_pipes) > 0) //bakarrik inprimitzeko
         {
             printf(MAGENTA"arr_index_pipes[%d] = %d\n"RESET_COLOR, i, (*prompt)->arr_index_pipes[i]);
             i++;
@@ -200,6 +199,6 @@ void ft_where_r_pipes(t_prompt **prompt)
         printf(MAGENTA"salida de ft_where_r_pipes\n");
         //return ((*prompt)->arr_index_pipes); //cuando devolvemos arr_index_pipes ya sabremos number of pipes, con ft_strlen
     }
-    printf(MAGENTA"salida de ft_where_r_pipes\n");
+    //printf(MAGENTA"salida de ft_where_r_pipes\n");
     //return (0); //no pipes found
 }

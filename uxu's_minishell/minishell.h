@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 11:58:14 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:43:43 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ typedef struct s_box
 {   char    *input_substr; //Substr virgen
     //int     id_substr;
     //pdte. dict_quotes
+    int     *dict_quotes;
     int     nb_of_redir; //number of redirecciones
-    int   **total_red_type_index; //[0]: index, [1]: type
+    int   **dict_red_index_type; //[0]: index, [1]: type
 }   t_box;                        //[0]: index, [1]: type
 
 typedef enum e_red_type
@@ -70,24 +71,30 @@ int ft_is_pipe(t_prompt **t_prompt); //¿Hay pipes en posición válida? Y/N/Cu�
 void set_index_pipe(t_prompt **prompt); //¿En qué posición están estos pipes? Input: dictionary. Output: arr_index_pipes
 
 //01_input_quotes.c
-int ft_quotes(t_prompt **prompt);
-int ft_quotes_2(t_prompt **prompt, int i);
-int ft_quotes_3(t_prompt **prompt, int i);
+//int ft_quotes(t_prompt **prompt);
+int ft_quotes(char *input, int **dict_quotes);
+//int ft_quotes_2(t_prompt **prompt, int i);
+int ft_quotes_2(char *input, int **dict_quotes, int i);
+//int ft_quotes_3(t_prompt **prompt, int i);
+int ft_quotes_3(char *input, int **dict_quotes, int i);
 int ft_where_r_u (int index, int *dictionary);
 
 //01_input_split.c
-int ft_split_input(t_prompt **prompt);
+void ft_split_input(t_prompt **prompt);
 char *ft_split_from_to(int start, int end, char *src_input);
 //char	**ft_split_input(t_prompt prompt);
 
 //02_boxes.c
-void ft_analyse_boxes(t_prompt *prompt);
+void ft_gen_boxes(t_prompt *prompt);
 void ft_boxes_init(t_prompt *prompt, int substr_id);
+void get_dict_quotes(t_box *box);
+void generate_substr(t_prompt *prompt, int substr_id, t_box *box);
+void ft_strcpy (char *str_src, char **str_dst);
 
 //02_boxes_redir.c
 int get_redirections(t_box *box);
 void ft_fill_red_info(t_box **box);
-void set_red_type_index(t_box **box);
+void set_red_index_type(t_box **box);
 int set_red_greater_than(t_box **box, int *i, int index_of_arr);
 int set_red_less_than(t_box **box, int *i, int index_of_arr);
 int ft_get_numof_redir(t_box *box);
@@ -98,7 +105,7 @@ int ft_isspace(int c);
 int	ft_putchar_fd(int c, int fd);
 int	ft_putstr_fd(char *str, int fd);
 void	ft_print_welcome(void);
-size_t	ft_strlen(char *str);
+size_t	ft_strlen(const char *str);
 //int	ft_atoi(const char *str);
 //void	ft_puterror_exit(char *str);
 void ft_puterror_exit(char *str);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_split.c                                      :+:      :+:    :+:   */
+/*   01_input_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:43:54 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/28 14:54:39 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:37:09 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,24 @@ char *ft_split_from_to(int start, int end, char *src_input)
 *
 *	Returns: nb_of_substr (solo para debuggear)
 */
-int ft_split_input(t_prompt **prompt)
+void ft_split_input(t_prompt **prompt)
 {
-	int nb_of_substr;
+	int tmp_nb_of_substr;
 	//char **total_substr_input;
-	int aux_para_imprimir_nb_of_pipes_mas_1_final;
+	//int aux_para_imprimir_nb_of_pipes_mas_1_final;
 	int x; 
 	int start;
 	int index_end;
 	int i;
-	int aux_para_imprimir_nb_of_substr;
+	//int aux_para_imprimir_nb_of_substr;
 	
 	//nb_of_substr = ft_strlen(arr_index_pipes) + 1;
-	nb_of_substr = (*prompt)->nb_of_pipes + 1;
-	aux_para_imprimir_nb_of_substr = nb_of_substr; //pdte. eliminar. Para debugear
-	printf(GREEN"nb_of_substr = %d\n"RESET_COLOR, nb_of_substr);
-	(*prompt)->total_substr_input = malloc(sizeof(char *) * (nb_of_substr));
+	//nb_of_substr = (*prompt)->nb_of_pipes + 1;
+	//aux_para_imprimir_nb_of_substr = nb_of_substr; //pdte. eliminar. Para debugear
+	//printf(GREEN"nb_of_substr = %d\n"RESET_COLOR, nb_of_substr);
+	(*prompt)->nb_of_substr = (*prompt)->nb_of_pipes + 1;
+	//printf(YELLOW"01_input_split.c - line 77, nb_substr = %d\n"RESET_COLOR, (*prompt)->nb_of_substr);
+	(*prompt)->total_substr_input = malloc(sizeof(char *) * ((*prompt)->nb_of_substr));
 	//total_substr_input[nb_of_substr][0] = '\0';
 	if (!(*prompt)->total_substr_input)
 		ft_puterror_exit("malloc error\n");
@@ -81,7 +83,7 @@ int ft_split_input(t_prompt **prompt)
 	index_end = 0;;
 	x = 0;
 	//printf(BLUE"input_splic.c - INDEX of PIPES:\n");
-	aux_para_imprimir_nb_of_pipes_mas_1_final = (*prompt)->nb_of_pipes + 1;
+	/*aux_para_imprimir_nb_of_pipes_mas_1_final = (*prompt)->nb_of_pipes + 1;
 	i = 0;
 	while (aux_para_imprimir_nb_of_pipes_mas_1_final > 0)
 	{
@@ -89,22 +91,43 @@ int ft_split_input(t_prompt **prompt)
 		i++;
 		aux_para_imprimir_nb_of_pipes_mas_1_final--;
 	}
-	printf(RESET_COLOR);
-	while (nb_of_substr > 0)
+	printf(RESET_COLOR);*/
+	int tmp_num_pipes;
+	//int i;
+	i = 0;
+	tmp_num_pipes = (*prompt)->nb_of_pipes;
+	//printf("nb_pipes = %d, tmp_num_pipes = %d\n", (*prompt)->nb_of_pipes, tmp_num_pipes);
+	while (tmp_num_pipes > 0)
 	{
-		//printf(RED"x = %d\n", x);
-		if (nb_of_substr == 1) //en la última vuelta, se gestiona para que end index = fin de cadena (ft_strlen(input))
+		printf("array_index_pipes[%d] = %d\n", i, (*prompt)->arr_index_pipes[i]);
+		tmp_num_pipes--;
+		i++;
+	}
+	//printf(RED"holahola\n"RESET_COLOR);
+	tmp_nb_of_substr = (*prompt)->nb_of_substr;
+	printf(GREEN"tmp_nb_of_substr = %d\n"RESET_COLOR, tmp_nb_of_substr);
+	while (tmp_nb_of_substr > 0)
+	{
+		printf(RED"x = %d, tmp_nb_of_substr = %d\n", x, tmp_nb_of_substr);
+		if (tmp_nb_of_substr == 1) //en la última vuelta, se gestiona para que end index = fin de cadena (ft_strlen(input))
+		{
+			printf("YAS!, x = %d\n", x);
 			(*prompt)->total_substr_input[x] = ft_split_from_to(start, (ft_strlen((*prompt)->input) - 1), (*prompt)->input); //-1 ze uste dot bebai izengo zala hasta la posición anterior
+			printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
+			break; //end of loop, no need to continue
+		}	
 		else
 		{
 			// printf(MAGENTA"x = %d\n "RESET_COLOR, x);
 			(*prompt)->total_substr_input[x] = ft_split_from_to(start, ((*prompt)->arr_index_pipes[index_end] - 1), (*prompt)->input); //-1: substr hasta la posición anterior beti
-		}	
+			printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
+		}
+		//printf("situ control, start = %d, index_end = %d, arr_index_pipes[%d] = %d\n", start, index_end, index_end, (*prompt)->arr_index_pipes[index_end]);
 		start = ((*prompt)->arr_index_pipes[index_end]) + 1;
 		index_end++,
-		nb_of_substr--;
+		tmp_nb_of_substr--;
 		x++;
-		//printf(MAGENTA"nb_of_substr = %d\n"RESET_COLOR, nb_of_substr);
+		printf(MAGENTA"tmp_nb_of_substr = %d\n"RESET_COLOR, tmp_nb_of_substr);
 	}
 	/*printf(GREEN"substr spliteados, RTDO:\n");
 	i = 0;
@@ -114,5 +137,5 @@ int ft_split_input(t_prompt **prompt)
 		aux_para_imprimir_nb_of_substr--;
 		i++;
 	}*/
-	return (aux_para_imprimir_nb_of_substr);
+	//return (aux_para_imprimir_nb_of_substr);
 }
