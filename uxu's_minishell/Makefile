@@ -6,7 +6,7 @@
 #    By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/14 11:09:00 by uxmancis          #+#    #+#              #
-#    Updated: 2024/04/28 11:22:15 by uxmancis         ###   ########.fr        #
+#    Updated: 2024/04/30 21:50:34 by uxmancis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 # Source files and object files
-SRC = input_pipe.c input_quotes.c input_split.c minishell.c 99_utils.c
+SRC = 00_minishell.c 01_input_pipe.c 01_input_quotes.c 01_input_split.c 02_boxes_redir.c 02_boxes.c 99_puterror.c 99_utils.c
 OBJ = $(SRC:.c=.o)
 
 # Executable name

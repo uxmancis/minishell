@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/04/29 23:35:59 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/01 11:58:14 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,43 +32,68 @@
 # include <stdlib.h> //exit EXIT FAILURE
 # include <stdio.h> //printf
 
-typedef struct s_box
-{
-    char    *input_substr;
-    int     id_substr;
-}   t_box;
-
 /*Stores info about the received prompt*/
 typedef struct s_prompt
 {
     char *input; //Input virgen
-    char **total_substr_input; //Input dividido en n cadenas (en base a pipes fuera de comillas)
     int *dict_quotes; //'0': outside of quotes, '1' inside single quotes, '2' inside double quotes
     int nb_of_pipes; //-1: pipe wrong position, 0: no pipe, >0: number of pipes
     int *arr_index_pipes; //index of pipes
+    int nb_of_substr;
+    char **total_substr_input; //Input dividido en n cadenas (en base a pipes fuera de comillas)
 }   t_prompt;
 
-//minishell.c
+typedef struct s_box
+{   char    *input_substr; //Substr virgen
+    //int     id_substr;
+    //pdte. dict_quotes
+    int     nb_of_redir; //number of redirecciones
+    int   **total_red_type_index; //[0]: index, [1]: type
+}   t_box;                        //[0]: index, [1]: type
+
+typedef enum e_red_type
+{
+    NO_REDIRECTION, //0
+    OUTFILE_APPEND, //1: >>
+    OUTFILE_STRONG, //2: >
+    INFILE, //3: <
+    HEREDOC //4: <<
+}   t_red_type;
+
+//00_minishell.c
 void ft_begin(int argc, char **argv, char **env);
 void ft_get_substr(t_prompt *prompt);
 
-//input_pipe.c
+//01_input_pipe.c
 void ft_where_r_pipes(t_prompt **prompt); //función Índice - Principal
 int ft_is_pipe(t_prompt **t_prompt); //¿Hay pipes en posición válida? Y/N/Cuántos
 void set_index_pipe(t_prompt **prompt); //¿En qué posición están estos pipes? Input: dictionary. Output: arr_index_pipes
 
-//input_quotes.c
+//01_input_quotes.c
 int ft_quotes(t_prompt **prompt);
 int ft_quotes_2(t_prompt **prompt, int i);
 int ft_quotes_3(t_prompt **prompt, int i);
 int ft_where_r_u (int index, int *dictionary);
 
-//input_split.c
+//01_input_split.c
 int ft_split_input(t_prompt **prompt);
 char *ft_split_from_to(int start, int end, char *src_input);
 //char	**ft_split_input(t_prompt prompt);
 
-//99_utils.c
+//02_boxes.c
+void ft_analyse_boxes(t_prompt *prompt);
+void ft_boxes_init(t_prompt *prompt, int substr_id);
+
+//02_boxes_redir.c
+int get_redirections(t_box *box);
+void ft_fill_red_info(t_box **box);
+void set_red_type_index(t_box **box);
+int set_red_greater_than(t_box **box, int *i, int index_of_arr);
+int set_red_less_than(t_box **box, int *i, int index_of_arr);
+int ft_get_numof_redir(t_box *box);
+char *ft_enum_to_str(int enumerator);
+
+//99_utils.
 int ft_isspace(int c);
 int	ft_putchar_fd(int c, int fd);
 int	ft_putstr_fd(char *str, int fd);

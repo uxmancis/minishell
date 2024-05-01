@@ -90,6 +90,7 @@ typedef enum e_red_type
 typedef struct s_box
 {
     char    *input_substr;
+    int     nb_of_redir;
     int     id_substr;
     int   **total_red_type_index; //[0]: index, [1]: type
 }   t_box;                        //[0]: index, [1]: type
@@ -210,7 +211,7 @@ int ft_get_numof_redir(t_box *box)
     //printf("i = %d\n", i);
     len = (int)ft_strlen((*box)->input_substr);
     //printf("len = %d\n", (int)ft_strlen((*box)->input_substr));
-    while (/*(*box)->input_substr[i] != '\0'len > 0)
+    while ((*box)->input_substr[i] != '\0'len > 0)
     {
         if ((*box)->input_substr[i] == '<' || (*box)->input_substr[i] == '>' ) //1.a topatuta
         {
@@ -354,7 +355,7 @@ void set_red_type_index(t_box **box)
         //printf(YELLOW"before, ++, i = %d, input_substr[%d] = %c\n"RESET_COLOR, i, i, (*box)->input_substr[i]); //wtf cómo que printf hau gabe eztabela ondo funzionatzen?? jaja 
         i++; //es como que necesita el printf de arriba para que sí funcione este i++, wtf
         //printf(BLUE"before, i = %d\n"RESET_COLOR, i); hau barek bai, de este parece que sí se puede prescindir jaja wtf
-        index_of_arr;
+        index_of_arr++;
         len--;
         //printf("vuelta completed, i = %d\n", i);
     }
@@ -394,14 +395,14 @@ int ft_is_redir(t_box *box)
 {
     int i;
     int index_total_redir;
-    int nb_of_red; //to malloc total_redir...
+    //int nb_of_red; //to malloc total_redir...
 
-    nb_of_red = ft_get_numof_redir(box);
-    printf(AQUAMARINE"nb_of_red = %d\n"RESET_COLOR, nb_of_red);
-    if (nb_of_red == 0)
+    box->nb_of_redir = ft_get_numof_redir(box);
+    printf(AQUAMARINE"nb_of_red = %d\n"RESET_COLOR, box->nb_of_redir);
+    if (box->nb_of_redir == 0)
         return (0);
-    box->total_red_type_index = malloc(sizeof(char*)*nb_of_red); //1 array para cada redirección. En cada array, [0] = tipo de redir, [1] índice en el que se encuentra en el input_substr
-    ft_fill_red_info(&box, nb_of_red); //se informa total_red_type_index
+    box->total_red_type_index = malloc(sizeof(char*)*(box->nb_of_redir)); //1 array para cada redirección. En cada array, [0] = tipo de redir, [1] índice en el que se encuentra en el input_substr
+    ft_fill_red_info(&box, box->nb_of_redir); //se informa total_red_type_index
     return (1);
 }
 
@@ -409,7 +410,7 @@ int main(void)
 {
     t_box box;
 
-    box.input_substr = "< >> >> << < < > holi";
+    box.input_substr = "echo hola > ressult ";
     //printf("str = %s\n", box.input_substr);
     if (!ft_is_redir(&box)) //al llamar, si hay redirecciones, ya se rellena el array de redirecciones (total_red_type_index). Si no, imprimimos resultado.
         printf("No redirections found\n");
