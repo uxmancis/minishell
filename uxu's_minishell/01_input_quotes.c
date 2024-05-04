@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:53:21 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 16:59:07 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:05:08 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int ft_quotes(char *input, int **dict_quotes)
 
     i = 0;
     //printf("len_input = %d, input = %s\n", (int)ft_strlen(input), input);
-    (*dict_quotes)[0] = 1;
-    (*dict_quotes)[1] = 1;
-    (*dict_quotes)[2] = 1;
+    //(*dict_quotes)[0] = 1;
+    //(*dict_quotes)[1] = 1;
+    //(*dict_quotes)[2] = 1;
     //printf(RED">> entrada en bucle - análisis comillas\n"RESET_COLOR);
     //(*dict_quotes[0])
     printf(RESET_COLOR);

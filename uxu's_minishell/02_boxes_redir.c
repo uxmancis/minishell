@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:14:39 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 19:49:26 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:04:09 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int ft_get_numof_redir(t_box *box)
     i = 0;
     counter = 0;
     printf(RED"               input_substr = %s, len = %d\n"RESET_COLOR, box->input_substr, (int)ft_strlen(box->input_substr));
-    len = (int)ft_strlen(box->input_substr); //ns porq tengo que hacer -1 para que cuadre
+    len = (int)ft_strlen(box->input_substr); //ns porq tengo que hacer -1 para que cuadre. Ya ez :)
     keep_len = len;
-    //printf("len = %d\n", len);
-    while (box->input_substr[i] != '\0'/*len > 0*/)
+    printf("len = %d\n", len);
+    while (i < keep_len/*box->input_substr[i] != '\0'*//*len > 0*/)
     {
         if (i < keep_len && (box->input_substr[i] == '<' || box->input_substr[i] == '>' )) //1.a topatuta
         {
-            printf("i = %d, len = %d\n", i, len);
+            //printf("i = %d, len = %d\n", i, len);
             if (/*i < (keep_len - 1) && */(box->input_substr[i + 1] == '<' || box->input_substr[i + 1] == '>'))
             {
                 if (box->input_substr[i + 2] == '<' || box->input_substr[i + 2] == '>')
@@ -74,7 +74,7 @@ int ft_get_numof_redir(t_box *box)
         }
         i++;
         len--;
-        printf("i = %d, len = %d\n", i, len);
+        //printf("i = %d, len = %d\n", i, len);
     }
     //printf("nb_of_redirections = %d\n", counter);
     //printf(BLUE"               nb_of_red = %d\n"RESET_COLOR, box->nb_of_redir);
@@ -155,7 +155,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
             
             if ((*box)->dict_quotes[(*i)] == 0)//si está fuera de comillas
             {
-                printf("line 140 | i = %d\n", (*i));
+                //printf("line 140 | i = %d\n", (*i));
                 //Redirection assignment (OUTFILE_APPEND)
                 (*box)->dict_red_index_type[index_of_arr][0] = (*i); //INDEX of heredoc
                 (*box)->dict_red_index_type[index_of_arr][1] = OUTFILE_APPEND; //TYPE of Redirection
@@ -173,7 +173,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
             if ((*box)->dict_quotes[(*i)] == 0)//si está fuera de comillas
             {
                 //printf("index_or_arr = %d, i = %d\n", index_of_arr, (*i));
-                printf("line 156 | i = %d\n", (*i));
+                //printf("line 156 | i = %d\n", (*i));
                 //Redirection assignment (HEREDOC)
                 (*box)->dict_red_index_type[index_of_arr][0] = (*i); //INDEX of heredoc
                 (*box)->dict_red_index_type[index_of_arr][1] = OUTFILE_STRONG; //TYPE of Redirection
@@ -195,7 +195,7 @@ void set_red_index_type(t_box **box)
     index_of_arr = 0;
     //printf(AQUAMARINE"set_red_type_index\n"RESET_COLOR);
     len = (int)ft_strlen((*box)->input_substr);
-    printf("     02_boxes_redir.c - "BLUE"set_red_type_index"RESET_COLOR"| Info about redirecciones is stored here:\n");
+    printf("     02_boxes_redir.c - "BLUE"set_red_index_type"RESET_COLOR"| Info about redirecciones is stored here:\n");
     while (i < len)
     {
         //printf(AQUAMARINE"hasi! i = %d\n"RESET_COLOR, i);
