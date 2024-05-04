@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:43:54 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 15:37:09 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:11:29 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ void ft_split_input(t_prompt **prompt)
 	}
 	//printf(RED"holahola\n"RESET_COLOR);
 	tmp_nb_of_substr = (*prompt)->nb_of_substr;
-	printf(GREEN"tmp_nb_of_substr = %d\n"RESET_COLOR, tmp_nb_of_substr);
+	//printf(GREEN"tmp_nb_of_substr = %d\n"RESET_COLOR, tmp_nb_of_substr);
 	while (tmp_nb_of_substr > 0)
 	{
-		printf(RED"x = %d, tmp_nb_of_substr = %d\n", x, tmp_nb_of_substr);
+		//printf(RED"x = %d, tmp_nb_of_substr = %d\n", x, tmp_nb_of_substr);
 		if (tmp_nb_of_substr == 1) //en la última vuelta, se gestiona para que end index = fin de cadena (ft_strlen(input))
 		{
-			printf("YAS!, x = %d\n", x);
+			//printf("YAS!, x = %d\n", x);
 			(*prompt)->total_substr_input[x] = ft_split_from_to(start, (ft_strlen((*prompt)->input) - 1), (*prompt)->input); //-1 ze uste dot bebai izengo zala hasta la posición anterior
 			printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
 			break; //end of loop, no need to continue

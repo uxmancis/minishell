@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:14:39 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 10:04:09 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:09:15 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int ft_get_numof_redir(t_box *box)
     printf(RED"               input_substr = %s, len = %d\n"RESET_COLOR, box->input_substr, (int)ft_strlen(box->input_substr));
     len = (int)ft_strlen(box->input_substr); //ns porq tengo que hacer -1 para que cuadre. Ya ez :)
     keep_len = len;
-    printf("len = %d\n", len);
+    //printf("len = %d\n", len);
     while (i < keep_len/*box->input_substr[i] != '\0'*//*len > 0*/)
     {
         if (i < keep_len && (box->input_substr[i] == '<' || box->input_substr[i] == '>' )) //1.a topatuta

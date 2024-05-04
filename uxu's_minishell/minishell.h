@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 17:43:43 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:50:19 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void ft_strcpy (char *str_src, char **str_dst);
 //02_boxes_redir.c
 int get_redirections(t_box *box);
 void ft_fill_red_info(t_box **box);
-void set_red_index_type(t_box **box);
+void set_red_index_type(t_box **box); 
 int set_red_greater_than(t_box **box, int *i, int index_of_arr);
 int set_red_less_than(t_box **box, int *i, int index_of_arr);
 int ft_get_numof_redir(t_box *box);
