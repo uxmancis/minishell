@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:14:39 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 10:09:15 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:07:21 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int ft_get_numof_redir(t_box *box)
                     {
                         counter++;
                         i = i + 2; //juateko ya hurrengora
-                        printf(YELLOW"i = %d\n"RESET_COLOR, i);
+                        //printf(YELLOW"i = %d\n"RESET_COLOR, i);
                     }
                 }
             }
@@ -68,7 +68,7 @@ int ft_get_numof_redir(t_box *box)
                 {
                     counter++;
                     i++;
-                    printf(MAGENTA"i = %d\n"RESET_COLOR, i);
+                    //printf(MAGENTA"i = %d\n"RESET_COLOR, i);
                 }
             }
         }

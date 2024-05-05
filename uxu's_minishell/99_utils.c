@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:04:48 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 15:10:33 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:57:00 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,3 +121,5 @@ int	ft_atoi(const char *str)
 	}
 	return (0);
 }
+
+//void ft_malloc(void *)

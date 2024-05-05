@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:22:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 17:48:40 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:37:23 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
     get_dict_quotes(&box); //dict_quotes
     printf("     02_boxes.c - ft_boxes_init|"BLUE" dict_quotes"RESET_COLOR" generated✅\n");
     get_redirections(&box);
+    //box.nb_of_heredocs = ft_get_numof_heredocs(&box);
+    //printf("nb_of_heredocs = %d\n", box.nb_of_heredocs);
+    get_rest(&box);
     printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
     printf(BLUE"BOXES GENERATION COMPLETED✅, NB_OF_BOXES generated = %d\n"RESET_COLOR, prompt->nb_of_substr);
 }

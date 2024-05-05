@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 10:50:19 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/05 11:57:29 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define WHITE "\033[0;97m"
 # define RESET_COLOR   "\033[0m"
 #define AQUAMARINE "\033[0;96m"
+# define GRASS "\033[0;32m"
 
 
 # include <unistd.h> //write
@@ -49,7 +50,8 @@ typedef struct s_box
     //pdte. dict_quotes
     int     *dict_quotes;
     int     nb_of_redir; //number of redirecciones
-    int   **dict_red_index_type; //[0]: index, [1]: type
+    int     **dict_red_index_type; //[0]: index, [1]: type
+    int     nb_of_heredocs;
 }   t_box;                        //[0]: index, [1]: type
 
 typedef enum e_red_type
@@ -99,6 +101,12 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr);
 int set_red_less_than(t_box **box, int *i, int index_of_arr);
 int ft_get_numof_redir(t_box *box);
 char *ft_enum_to_str(int enumerator);
+
+//02_boxes_rest.c
+void get_rest (t_box *box);
+int ft_get_numof_heredocs(t_box **box);
+int ft_confirmed_end(t_box **box);
+void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
 
 //99_utils.
 int ft_isspace(int c);
