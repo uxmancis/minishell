@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/05 11:57:29 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:27:28 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ void get_rest (t_box *box);
 int ft_get_numof_heredocs(t_box **box);
 int ft_confirmed_end(t_box **box);
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
+
+//98_exec_david.c
+void	exec_heredoc(char *delimiter);
+int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x);
 
 //99_utils.
 int ft_isspace(int c);

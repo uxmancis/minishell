@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:32:24 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/05 13:38:18 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/05 17:15:47 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void get_arr_heredoc(int **arr_ind_heredoc, t_box **box)
 *       1: YES, word was found (different to spaces and tabs)
 *       0: NO, no word was found
 */
-int is_end_word(int start, int end, t_box **box)
+int has_end_last_check(int start, int end, t_box **box)
 {
     //printf("             start index = %d, end index = %d\n", start, end);
     while (start < end)
@@ -90,6 +90,10 @@ int is_end_word(int start, int end, t_box **box)
 *       Return: 
 *           1: YES, last redir
 *           0: NO, there are more redirs along input_substr
+*
+*   Parameters:
+*       int index_current_heredoc: position (index) of current heredoc
+*                                  in input_substr (t_box box)
 */
 int is_last_redir(t_box **box, int index_current_heredoc)
 {
@@ -101,7 +105,7 @@ int is_last_redir(t_box **box, int index_current_heredoc)
     tmp_total_nb_of_redir = (*box)->nb_of_redir;
     counter_position = 1; //lo vamos a comparar con el número total de redirecciones
     redir_position = 0;
-    //printf("        total nb of redir: %d\n", (*box)->nb_of_redir);
+    //printf("\n        total nb of redir: %d\n", (*box)->nb_of_redir);
     //printf("        index_current_heredoc: %d\n", index_current_heredoc);
     while (tmp_total_nb_of_redir > 0)
     {
@@ -129,7 +133,7 @@ int is_last_redir(t_box **box, int index_current_heredoc)
 *       start: index position of heredoc + 2.
 *       end: position of next redirección, or ft_strlen
 */
-int check_end(int **arr_ind_heredoc, t_box **box)
+/*int check_end(int **arr_ind_heredoc, t_box **box)
 {
     int nb_of_times_to_check; //por claridad
     int i;
@@ -153,55 +157,158 @@ int check_end(int **arr_ind_heredoc, t_box **box)
             if ((*arr_ind_heredoc)[index_arr_heredoc] + 2 == (int)ft_strlen((*box)->input_substr)) //si en la posición de después de heredoc no hay espacios ni hay nada. Heredoc sí o sí son 2 posiciones
             {
                 printf(GREEN"sí es last redir, no hay nada más\n"RESET_COLOR);
+                printf("    CONCLUSIÓN - 0: NO tiene end_delimiter\n\n");
                 break;
             }
             printf(GREEN"sí es last redir, hay más len\n"RESET_COLOR);
-            if (is_end_word((*arr_ind_heredoc)[index_arr_heredoc] + 2, (int)ft_strlen((*box)->input_substr), box)) //end = ft_strlen(input_substr);
+            if (has_end_last_check((*arr_ind_heredoc)[index_arr_heredoc] + 2, (int)ft_strlen((*box)->input_substr), box)) //end = ft_strlen(input_substr);
             {
-                printf("    CONCLUSIÓN: sí tiene end_delimiter\n");
+                printf("    CONCLUSIÓN - 1: sí tiene end_delimiter\n\n");
                 counter_end_delimiter++;
             }
             break;
         }
         printf(RED"no es last dir, dir. n.º %d\n"RESET_COLOR, index_arr_heredoc);
-        if (is_end_word((*arr_ind_heredoc)[index_arr_heredoc] + 2, (*box)->dict_red_index_type[index_arr_heredoc + 1][0], box)) //si todavía hay más redirecciones --> end = posición de la próxima redirección
+        if (has_end_last_check((*arr_ind_heredoc)[index_arr_heredoc] + 2, (*box)->dict_red_index_type[index_arr_heredoc + 1][0] - 1, box)) //si todavía hay más redirecciones --> end = posición de la próxima redirección
         {
-            printf("    CONCLUSIÓN: sí tiene end_delimiter\n");
+            printf("    CONCLUSIÓN - 2: sí tiene end_delimiter\n\n");
             counter_end_delimiter++;
         }
         else
-            printf("    CONCLUSIÓN: NO tiene end_delimiter\n");   
+            printf("    CONCLUSIÓN - 3: NO tiene end_delimiter\n\n");   
         i++;
         nb_of_times_to_check--;
         index_arr_heredoc++;
-        
     }
     if (counter_end_delimiter == nb_of_times_to_check)
         return (1);
     return (0);
+}*/
+
+/*  
+*   Parameters:
+*       index_hrdc_in_substr: index of heredoc in substr.
+*       red_nb_x: redirección number X. Zenbagarren redirekziñua da.
+*                 Adib.: baldin badare guztira Y redirekziño, hau da
+*                        X.a
+*
+*   Returns:
+*       1: YES has delimiter
+*       0: NO no delimiter
+*/
+int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x)
+{
+    int total_nb_of_redir;
+    
+    printf(YELLOW"red_nb_x = %d\n"RESET_COLOR, red_nb_x);
+    total_nb_of_redir = (*box)->nb_of_redir;
+    if (is_last_redir(box, index_hrdc_in_substr))
+    {
+        if (index_hrdc_in_substr + 2 == (int)ft_strlen((*box)->input_substr)) //si en la posición de después de heredoc no hay espacios ni hay nada. Heredoc sí o sí son 2 posiciones
+        {
+            printf(GREEN"sí es last redir, no hay nada más\n"RESET_COLOR);
+            printf("     CONCLUSIÓN - 0: NO tiene end_delimiter. Return:"BLUE" 0\n\n"RESET_COLOR);
+            return (0);
+        }
+        printf(GREEN"sí es last redir, hay más len\n"RESET_COLOR);
+        if (has_end_last_check(index_hrdc_in_substr + 2, (int)ft_strlen((*box)->input_substr), box)) //end = ft_strlen(input_substr);
+        {
+            printf("    CONCLUSIÓN - 1: sí tiene end_delimiter. Return:"BLUE" 1\n\n"RESET_COLOR);
+            return (1);
+        }
+    }
+    printf(RED"no es last redir\n"RESET_COLOR);
+    printf("FROM (start) index_hrdc_in_substr + 2 = %d\n", index_hrdc_in_substr + 2);
+    printf("TO (end) index of next redir - 1: %d\n", (*box)->dict_red_index_type[red_nb_x][0] - 1);
+    if (has_end_last_check(index_hrdc_in_substr + 2, (*box)->dict_red_index_type[red_nb_x][0] - 1, box)) //si todavía hay más redirecciones --> end = posición de la próxima redirección
+    {
+        printf("    CONCLUSIÓN - 2: sí tiene end_delimiter. Return:"BLUE" 1\n\n"RESET_COLOR);
+        return (1);
+    }
+    printf("    CONCLUSIÓN - 3: NO tiene end_delimiter. Return:"BLUE" 0\n\n"RESET_COLOR);
+    return (0);
 }
+
+/*get_end_arr: Informes arr_end variable: filled with 0 and 1.
+*      1: YES end delimiter
+*      0: NO end delimiter
+*
+* Variables:
+*       int *arr_ind_heredoc: specific array which contains indexes of
+*                             total heredocs found along input_substr.
+*                             (based on nb_of_heredocs).
+*
+*/
+void get_end_arr(int **arr_end, t_box **box, int *arr_ind_heredoc)
+{
+    int tmp_nb_of_heredocs;
+    int i;
+    int red_nb_x;
+    int tmp_to_debug_nb_of_heredocs;
+    //int tmp_to_debug_i;
+
+    tmp_nb_of_heredocs = (*box)->nb_of_heredocs;
+    tmp_to_debug_nb_of_heredocs = tmp_nb_of_heredocs;
+    red_nb_x = 1; //empieza en 1 porque indica zenbagarrena. Gero konparaukou con el número total. Hemen behinguagaitxik ez gara 0tik hasten
+    i = 0;
+    while (tmp_nb_of_heredocs > 0)
+    {
+        (*arr_end)[i] = has_end_word(arr_ind_heredoc[i], box, red_nb_x);
+        tmp_nb_of_heredocs--;
+        red_nb_x++;
+        i++;
+    }
+    /*printf(YELLOW"tmp_to_debug_nb_of_heredocs = %d\n", tmp_to_debug_nb_of_heredocs);
+    tmp_to_debug_i = 0;
+    while (tmp_to_debug_nb_of_heredocs > 0)
+    {
+        printf("end delimiter YES-NO[%d] = %d\n", tmp_to_debug_i, (*arr_end)[tmp_to_debug_i]);
+        tmp_to_debug_nb_of_heredocs--;
+    }*/
+}
+
 
 /*ft_check_end
 *   Checks whether of 100% heredocs in substr do have
 *   a end_indicator.
+*
+*   Variables:
+*       int *arr_end: array which len is number of heredocs.
+*                     In each position stores 1 or 0, depending
+*                     on if heredocs have end delimiter or not.
+*
 *       Returns:
 *           1: YES, 100% heredocs have a end delimiter
 *           0: NO, at least 1 heredoc identified with no end delimiter
 */
-int ft_confirmed_end(t_box **box)
+int ft_check_delimiter(t_box **box)
 {
     int *arr_ind_heredoc; //por claridad en el código
+    int *arr_end;
+    int tmp_to_debug_nb_of_heredocs;
+    int tmp_to_debug_i;
     //printf(GREEN"NB_OF_HEREDOCS = %d\n"RESET_COLOR, (*box)->nb_of_heredocs);
     arr_ind_heredoc = malloc(sizeof(int) * (*box)->nb_of_heredocs);
     if (!arr_ind_heredoc)
         ft_puterror_exit ("malloc error\n");
     get_arr_heredoc(&arr_ind_heredoc, box);
-    if (check_end(&arr_ind_heredoc, box))
+    arr_end = malloc(sizeof(int) * (*box)->nb_of_heredocs);
+    get_end_arr(&arr_end, box, arr_ind_heredoc);
+    tmp_to_debug_nb_of_heredocs = (*box)->nb_of_heredocs;
+    tmp_to_debug_i = 0;
+    printf(YELLOW"tmp_to_debug_nb_of_heredocs = %d\n", tmp_to_debug_nb_of_heredocs);
+    while (tmp_to_debug_nb_of_heredocs > 0)
+    {
+        printf("end delimiter YES-NO[%d] = %d\n", tmp_to_debug_i, arr_end[tmp_to_debug_i]);
+        tmp_to_debug_nb_of_heredocs--;
+        tmp_to_debug_i++;
+    }
+    /*if (check_end(&arr_ind_heredoc, box))
     {
         printf(BLUE"yes end delimiter was found\n"RESET_COLOR);
         return (1);
     }
-    printf("NO, end delimiter was not found\n");
+    printf("NO, end delimiter was not found\n");*/
     return (0);
 }
 
@@ -249,7 +356,7 @@ void ft_heredocs(t_box **box)
 {
     (*box)->nb_of_heredocs = ft_get_numof_heredocs(box);
     printf("     02_boxes.c - ft_heredocs| numof_heredocs = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_heredocs);
-    if (!ft_confirmed_end(box)) 
+    if (!ft_check_delimiter(box)) 
         ft_puterror_exit("syntax error near unexpected token `newline'\n");
 }
 
