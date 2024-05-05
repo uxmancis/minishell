@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:32:24 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/05 12:21:31 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/05 13:38:18 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,9 +181,6 @@ int check_end(int **arr_ind_heredoc, t_box **box)
     return (0);
 }
 
-
-
-
 /*ft_check_end
 *   Checks whether of 100% heredocs in substr do have
 *   a end_indicator.
@@ -207,7 +204,6 @@ int ft_confirmed_end(t_box **box)
     printf("NO, end delimiter was not found\n");
     return (0);
 }
-
 
 /*void ft_is_heredoc(t_box **box)
 {
