@@ -297,7 +297,7 @@ int are_all_delimiters(int *arr_end, t_box **box)
 *
 *   It might be necessary to add end jeje #segfault (:
 */
-void get_word(int start/*, int end, */,t_box **box, int heredoc_nb)
+void get_word(int start, int end,t_box **box, int heredoc_nb)
 {
     int len_delimiter;
     int keep_start_word;
@@ -310,12 +310,12 @@ void get_word(int start/*, int end, */,t_box **box, int heredoc_nb)
         start++;
     keep_start_word = start;
     //rintf("start = %d\n", start);
-    while(!ft_isspace((*box)->input_substr[start])/* && start < end*/)
+    while(!ft_isspace((*box)->input_substr[start]) && start < end)
     {
         start++;
         len_delimiter++;
     }
-    //printf("len_delimiter = %d\n", len_delimiter);
+    printf("len_delimiter = %d\n", len_delimiter);
     (*box)->heredoc_delimiters[heredoc_nb] = malloc(sizeof(char) * (len_delimiter + 1));
     (*box)->heredoc_delimiters[heredoc_nb][len_delimiter] = '\0';
     i = 0;
