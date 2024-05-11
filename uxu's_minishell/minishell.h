@@ -52,6 +52,10 @@ typedef struct s_box
     int     nb_of_redir; //number of redirecciones
     int     **dict_red_index_type; //[0]: index, [1]: type
     int     nb_of_heredocs;
+    char    **heredoc_delimiters; //delimiter words
+    //[0] word 1
+    //[1] word 2
+
 }   t_box;                        //[0]: index, [1]: type
 
 typedef enum e_red_type
@@ -107,6 +111,7 @@ void get_rest (t_box *box);
 int ft_get_numof_heredocs(t_box **box);
 int ft_confirmed_end(t_box **box);
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
+int are_all_delimiters(int *arr_end, t_box **box);
 
 //98_exec_david.c
 void	exec_heredoc(char *delimiter);
