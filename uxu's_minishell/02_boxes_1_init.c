@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_boxes.c                                         :+:      :+:    :+:   */
+/*   02_boxes_1_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:22:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 17:37:23 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:50:17 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void generate_substr(t_prompt *prompt, int substr_id, t_box *box)
     int len;
 
     //printf(MAGENTA"generate_substr, substr_id = %d\n"RESET_COLOR, substr_id);
-    //printf(MAGENTA"substr to be printed, [%d] = %s\n"RESET_COLOR, substr_id, prompt->total_substr_input[substr_id]);
-    len = (int)ft_strlen(prompt->total_substr_input[substr_id]);
-    printf("len substr = %d\n", len);
+    //printf(MAGENTA"substr to be printed, [%d] = %s\n"RESET_COLOR, substr_id, prompt->total_substr_input[substr_id - 1]);
+    len = (int)ft_strlen(prompt->total_substr_input[substr_id - 1]);
+    //printf("len substr = %d\n", len);
     box->input_substr = malloc(sizeof(char) * (len + 1)); //+1: valor nulo final
     box->input_substr[len] = '\0';
-    ft_strcpy(prompt->total_substr_input[substr_id], &box->input_substr);
+    ft_strcpy(prompt->total_substr_input[substr_id - 1], &box->input_substr);
     //printf("Copied! :) BOX: substr = %s\n", box->input_substr);
 }
 
@@ -90,6 +90,7 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
     //tmp_len = ft_strlen(prompt->total_substr_input[substr_id] + 1);
     //printf("tmp_len = %d\n", tmp_len);
     //printf("substr = %s\n", prompt->total_substr_input[substr_id]);
+    printf(BLUE"\n\n\n======ִֶָ𓂃 ࣪˖ ִֶָ🐇་༘࿐====ᯓ★_⋆˚࿔ 📦BOX NB: %d 𝜗𝜚˚⋆========𓇼🐚☾☼🦪========;༊;༊__\n"RESET_COLOR, substr_id);
     printf("     02_boxes.c - "BLUE"ft_boxes_init"RESET_COLOR": Boxes are generated here. Nb_of_substr to be created = "BLUE"%d"RESET_COLOR". Let's start!\n", prompt->nb_of_substr);
     if (prompt->nb_of_substr == 1)
         get_single_str(prompt, &box);
@@ -104,7 +105,8 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
     //printf("nb_of_heredocs = %d\n", box.nb_of_heredocs);
     get_rest(&box);
     printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
-    printf(BLUE"BOXES GENERATION COMPLETED✅, NB_OF_BOXES generated = %d\n"RESET_COLOR, prompt->nb_of_substr);
+    printf(BLUE"BOX GENERATION COMPLETED✅, box number = %d\n"RESET_COLOR, substr_id);
+    printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);
 }
 
 /*
@@ -121,11 +123,21 @@ void ft_gen_boxes(t_prompt *prompt)
     printf("     02_boxes.c - ft_gen_boxes| nb_boxes = %d\n", prompt->nb_of_substr);
     //if (prompt->nb_of_substr == 1)
         //printf("")
-    substr_id = 0;
+    substr_id = 1;
     while (tmp_nb_boxes > 0)
     {
         ft_boxes_init(prompt, substr_id);
         tmp_nb_boxes--;
         substr_id++;
     }
+}
+
+void get_rest (t_box *box)
+{
+    printf(GREEN"02_boxes_rest.c | get_rest\n"RESET_COLOR);
+    //box->nb_of_heredocs = ft_get_numof_heredocs(box);
+    //printf("GET REST | nb_of_heredocs = %d\n", box->nb_of_heredocs);
+    //box->nb_of_heredocs = ft_get_numof_heredocs(box);
+    ft_heredocs(&box, HEREDOC);
+    ft_infiles(&box, INFILE);
 }

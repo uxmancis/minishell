@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/05 16:27:28 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:31:09 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,23 @@ typedef struct s_box
     int     *dict_quotes;
     int     nb_of_redir; //number of redirecciones
     int     **dict_red_index_type; //[0]: index, [1]: type
+
+    //About redirecciones:
     int     nb_of_heredocs;
     char    **heredoc_delimiters; //delimiter words
-    //[0] word 1
-    //[1] word 2
+    int     is_infile; //YES[1]/NO[0] is there any infile '<' along dict_red_index_type
+    int     nb_of_infile; //How many infile
+    char    **infile_filenames;
+    int     is_outfile_append; //YES[1]/NO[0] is there any outfile_append '>>' along dict_red_index_type
+    int     nb_of_outfile_append; //How many outfile append
+    char    **outfile_ap_filenames;
+    int     is_outfile_strong; //YES[1]/NO[0] is there any outfile_append '>' along dict_red_index_type
+    int     nb_of_outfile_strong; //How many outfile strong
+    char    **outfile_st_filenames;
 
-}   t_box;                        //[0]: index, [1]: type
+    //About command, flags and argumentos:
+
+}   t_box;                      
 
 typedef enum e_red_type
 {
@@ -111,7 +122,54 @@ void get_rest (t_box *box);
 int ft_get_numof_heredocs(t_box **box);
 int ft_confirmed_end(t_box **box);
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
-int are_all_delimiters(int *arr_end, t_box **box);
+int are_all_delimiters(int *arr_word_yes_no, t_box **box, t_red_type red_type);
+
+//02_boxes_hrdc_1.c
+void ft_heredocs(t_box **box, enum e_red_type);
+int ft_get_numof_heredocs(t_box **box);
+void ft_check_delimiter(t_box **box);
+void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
+void get_end_arr(int **arr_end, t_box **box, int *arr_ind_heredoc);
+
+//02_boxes_hrdc_2.c
+int get_ind (int hrdc_ind_in_substr, t_box **box);
+void get_delimiters(int *arr_ind_heredoc, t_box **box);
+void get_word(int start, int end,t_box **box, int heredoc_nb);
+
+//02_boxes_red_utils.c
+int get_nb_of_red_type(t_box **box, t_red_type red_type);
+void get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_type);
+void get_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type);
+void get_word_mgmt(int *arr_ind_red_type, t_box **box, t_red_type red_type);
+void ft_check_first_word(t_box **box, t_red_type red_type);
+
+//02_boxes_utils_nav.c
+int has_end_last_check(int start, int end, t_box **box);
+int is_last_redir(t_box **box, int index_current_heredoc);
+int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x);
+
+//02_boxes_4_infile.c
+int ft_infiles(t_box **box, t_red_type red_type);
+int is_infile(t_box **box);
+int ft_get_numof_infile(t_box **box);
+
+//02_boxes_word_utils_hrdc.c
+void get_word_hrdc_1(t_box **box, int *arr_ind_red_type);
+void get_word_hrdc_2(int start, int end, t_box **box, int heredoc_nb);
+
+//02_boxes_word_utils_infile.c
+void get_word_infile_1(t_box **box, int *arr_ind_red_type);
+void get_word_infile_2(int start, int end, t_box **box, int red_type_nb_x);
+
+//02_boxes_word_utils_outf_app.c
+void get_word_outf_app_1(t_box **box, int *arr_ind_red_type);
+void get_word_outf_app_2(int start, int end, t_box **box, int red_type_nb_x);
+
+//02_boxes_word_utils_outf_str.c
+void get_word_outf_str_1(t_box **box, int *arr_ind_red_type);
+void get_word_outf_str_2(int start, int end, t_box **box, int red_type_nb_x);
+
+
 
 //98_exec_david.c
 void	exec_heredoc(char *delimiter);
