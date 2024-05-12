@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 13:40:59 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:06:42 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_box
 
     //About command, flags and argumentos:
 
-}   t_box;                      
+}   t_box;
 
 typedef enum e_red_type
 {

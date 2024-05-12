@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:25:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:52:43 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:55:55 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,12 +216,16 @@ void ft_check_first_word(t_box **box, t_red_type red_type)
         tmp_to_debug_nb_of_red_type--;
         tmp_to_debug_i++;
     }*/
-    if (!are_all_delimiters(arr_word_yes_no, box, red_type) && (red_type==HEREDOC || red_type==INFILE))
+    if (!are_all_delimiters(arr_word_yes_no, box, red_type))
     {
         if (red_type == HEREDOC)
             ft_puterror_exit("syntax error near unexpected token `<<'\n");
         if (red_type == INFILE)
             ft_puterror_exit("syntax error near unexpected token `<'\n");
+        if (red_type == OUTFILE_APPEND)
+            ft_puterror_exit("syntax error near unexpected token `>>'\n");
+        if (red_type == INFILE)
+            ft_puterror_exit("syntax error near unexpected token `>'\n");
     }
     get_word_mgmt(specif_arr_ind_red_type, box, red_type);
 }
