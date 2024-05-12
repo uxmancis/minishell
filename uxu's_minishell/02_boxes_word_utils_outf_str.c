@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:14:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/11 21:18:28 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:45:21 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void get_word_outf_str_1(t_box **box, int *arr_ind_red_type)
     int i;
 
     tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_STRONG);
-    (*box)->outfile_st_filenames = malloc(sizeof(char *) * tmp_nb_of_red_type);
+    (*box)->words_outfile_strong = malloc(sizeof(char *) * tmp_nb_of_red_type);
     red_type_nb_x = 0;
     i = 0;
     while (tmp_nb_of_red_type > 0)
@@ -41,11 +41,12 @@ void get_word_outf_str_1(t_box **box, int *arr_ind_red_type)
     i = 0;
     while (tmp_nb_of_red_type > 0)
     {
-        printf("                   word[%d] = "BLUE"%s\n"RESET_COLOR, i, (*box)->outfile_st_filenames[i]);
+        printf("                   word[%d] = "BLUE"%s\n"RESET_COLOR, i, (*box)->words_outfile_strong[i]);
         tmp_nb_of_red_type--;
         i++;
     }
-    printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **heredoc_delimiters"RESET_COLOR" generated✅\n");
+    printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_outfile_strong"RESET_COLOR" generated✅\n");
+    printf("     -----------------------------------------------\n\n");
 }
 
 /* 
@@ -80,13 +81,13 @@ void get_word_outf_str_2(int start, int end, t_box **box, int red_type_nb_x)
         //printf("yes\n");
     }
     //printf("len_delimiter = %d\n", len_delimiter);
-    (*box)->outfile_ap_filenames[red_type_nb_x] = malloc(sizeof(char) * (len_delimiter + 1));
-    (*box)->outfile_ap_filenames[red_type_nb_x][len_delimiter] = '\0';
+    (*box)->words_outfile_strong[red_type_nb_x] = malloc(sizeof(char) * (len_delimiter + 1));
+    (*box)->words_outfile_strong[red_type_nb_x][len_delimiter] = '\0';
     i = 0;
     while (len_delimiter > 0)
     {
         //printf(GREEN"yepejoxepe, heredoc_nb = %d, i = %d, keep_start_word = %d\n"RESET_COLOR, heredoc_nb, i, keep_start_word);
-        (*box)->outfile_ap_filenames[red_type_nb_x][i] = (*box)->input_substr[keep_start_word];
+        (*box)->words_outfile_strong[red_type_nb_x][i] = (*box)->input_substr[keep_start_word];
         i++;
         keep_start_word++;
         len_delimiter--;

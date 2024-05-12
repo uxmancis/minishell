@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:33:15 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/11 21:29:24 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:35:20 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 *   dict_red_index_type[x][0]. When match is found, returns x = equivalent
 *   to zenbagarren redirekziñua dan = position in dict_red_index_type.
 */
-int get_ind (int hrdc_ind_in_substr, t_box **box)
+int get_ind (int redir_ind_in_substr, t_box **box)
 {
     int tmp_nb_of_redir;
     int x;
@@ -46,7 +46,7 @@ int get_ind (int hrdc_ind_in_substr, t_box **box)
     x = 0;
     while (tmp_nb_of_redir > 0)
     {
-        if ((*box)->dict_red_index_type[x][0] == hrdc_ind_in_substr)
+        if ((*box)->dict_red_index_type[x][0] == redir_ind_in_substr)
             return (x);
         tmp_nb_of_redir--;
         x++;
@@ -88,7 +88,7 @@ int get_ind (int hrdc_ind_in_substr, t_box **box)
 *   Gets delimiter words and puts them in char **heredoc_delimiters
 *   variable in box structure.
 */
-void get_delimiters(int *arr_ind_heredoc, t_box **box)
+/*void get_delimiters(int *arr_ind_heredoc, t_box **box)
 {
     int tmp_nb_of_heredocs;
     int i;
@@ -120,7 +120,7 @@ void get_delimiters(int *arr_ind_heredoc, t_box **box)
         i++;
     }
     printf("     02_boxes_rest.c - get_delimiters| "BLUE"char **heredoc_delimiters"RESET_COLOR" generated✅\n");
-}
+}*/
 
 /* 
 *   Puts each delimiter word in corresponding space
@@ -154,13 +154,13 @@ void get_word(int start, int end, t_box **box, int heredoc_nb)
         //printf("yes\n");
     }
     //printf("len_delimiter = %d\n", len_delimiter);
-    (*box)->heredoc_delimiters[heredoc_nb] = malloc(sizeof(char) * (len_delimiter + 1));
-    (*box)->heredoc_delimiters[heredoc_nb][len_delimiter] = '\0';
+    (*box)->words_hrdc[heredoc_nb] = malloc(sizeof(char) * (len_delimiter + 1));
+    (*box)->words_hrdc[heredoc_nb][len_delimiter] = '\0';
     i = 0;
     while (len_delimiter > 0)
     {
         //printf(GREEN"yepejoxepe, heredoc_nb = %d, i = %d, keep_start_word = %d\n"RESET_COLOR, heredoc_nb, i, keep_start_word);
-        (*box)->heredoc_delimiters[heredoc_nb][i] = (*box)->input_substr[keep_start_word];
+        (*box)->words_hrdc[heredoc_nb][i] = (*box)->input_substr[keep_start_word];
         i++;
         keep_start_word++;
         len_delimiter--;

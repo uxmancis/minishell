@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/11 21:31:09 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 13:40:59 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ typedef struct s_box
 
     //About redirecciones:
     int     nb_of_heredocs;
-    char    **heredoc_delimiters; //delimiter words
+    char    **words_hrdc; //delimiter words
     int     is_infile; //YES[1]/NO[0] is there any infile '<' along dict_red_index_type
     int     nb_of_infile; //How many infile
-    char    **infile_filenames;
+    char    **words_infile; //infile filenames
     int     is_outfile_append; //YES[1]/NO[0] is there any outfile_append '>>' along dict_red_index_type
     int     nb_of_outfile_append; //How many outfile append
-    char    **outfile_ap_filenames;
+    char    **words_outfile_append; //outfile filenames
     int     is_outfile_strong; //YES[1]/NO[0] is there any outfile_append '>' along dict_red_index_type
     int     nb_of_outfile_strong; //How many outfile strong
-    char    **outfile_st_filenames;
+    char    **words_outfile_strong; //outfile filenames
 
     //About command, flags and argumentos:
 
@@ -152,6 +152,14 @@ int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x);
 int ft_infiles(t_box **box, t_red_type red_type);
 int is_infile(t_box **box);
 int ft_get_numof_infile(t_box **box);
+
+//02_boxes_5_outfile_append.c
+int ft_outfile_append(t_box **box, t_red_type red_type);
+int is_red_type(t_box **box, t_red_type red_type); //generic para todos (NEW)
+int ft_get_numof_red_type(t_box **box, t_red_type red_type); //generic para todos (NEW)
+
+//02_boxes_5_outfile_strong.c
+int ft_outfile_strong(t_box **box, t_red_type red_type);
 
 //02_boxes_word_utils_hrdc.c
 void get_word_hrdc_1(t_box **box, int *arr_ind_red_type);

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:22:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/11 20:50:17 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 13:34:37 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,6 @@ void get_rest (t_box *box)
     //box->nb_of_heredocs = ft_get_numof_heredocs(box);
     ft_heredocs(&box, HEREDOC);
     ft_infiles(&box, INFILE);
+    ft_outfile_append(&box, OUTFILE_APPEND);
+    ft_outfile_strong(&box, OUTFILE_APPEND);
 }

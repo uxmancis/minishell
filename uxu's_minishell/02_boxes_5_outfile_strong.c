@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_boxes_4_infile.c                                :+:      :+:    :+:   */
+/*   02_boxes_5_outfile_strong.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/11 19:13:15 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:38:17 by uxmancis         ###   ########.fr       */
+/*   Created: 2024/05/12 13:39:46 by uxmancis          #+#    #+#             */
+/*   Updated: 2024/05/12 14:38:23 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 *
 *   Returns nothing. Used for exiting ft_infiles function when needed.
 */
-int ft_infiles(t_box **box, t_red_type red_type)
+int ft_outfile_strong(t_box **box, t_red_type red_type)
 {
-    //printf("WE ARE IN ft_infile :)\n");
+    //printf("WE ARE IN ft_outfile_strong :)\n");
     if (!is_red_type(box, red_type))
         return(0);
-    (*box)->is_infile = 1;
-    (*box)->nb_of_infile = ft_get_numof_red_type(box, red_type);
-    printf("     02_boxes_4_infile.c - ft_infiles| Let's go analyse! :)\n");
-    printf("               nb_of_infile = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_infile);
+    (*box)->is_outfile_strong = 1;
+    (*box)->nb_of_outfile_strong = ft_get_numof_red_type(box, red_type);
+    printf("     02_boxes_5_outfile_strong.c - ft_outfile_strong| Let's go analyse! :)\n");
+    printf("               nb_of_outfile_strong = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_infile);
     ft_check_first_word(box, red_type);
     return (0);
 }

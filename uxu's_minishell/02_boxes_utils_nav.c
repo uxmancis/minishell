@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:23:03 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/11 18:30:47 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:31:01 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,29 @@ int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x)
     }
     //printf("    CONCLUSIÓN - 3: NO tiene end_delimiter. Return:"BLUE" 0\n\n"RESET_COLOR);
     return (0);
+}
+
+/* get_word_mgmt
+*
+*   Function called when 100% of heredocs do have a delimiter.
+*   
+*   Gets delimiter words and puts them in char **heredoc_delimiters
+*   variable in box structure.
+*/
+void get_word_mgmt(int *arr_ind_red_type, t_box **box, t_red_type red_type)
+{
+    //int tmp_nb_of_red_type;
+    //int i;
+    //int heredoc_nb; //zenbagarren heredoc-a dan. Gero goiaz konparatzera en get_word con 
+    
+    printf("     02_boxes_rest.c - get_word_mgmt| Let's go get "BLUE" words"RESET_COLOR" for red_type = "BLUE"%s! :)\n"RESET_COLOR, ft_enum_to_str(red_type));
+    //tmp_nb_of_red_type = get_nb_of_red_type(box, red_type);
+    if ((int)red_type == HEREDOC)
+        get_word_hrdc_1(box, arr_ind_red_type);
+    else if ((int)red_type == INFILE)
+        get_word_infile_1(box, arr_ind_red_type);
+    else if ((int)red_type == OUTFILE_APPEND)
+        get_word_outf_app_1(box, arr_ind_red_type);
+    else if ((int)red_type == OUTFILE_STRONG)
+        get_word_outf_str_1(box, arr_ind_red_type);
 }

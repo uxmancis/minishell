@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:28:28 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/11 21:28:18 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/12 14:43:23 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int ft_get_numof_heredocs(t_box **box)
 *           1: YES, 100% heredocs have a end delimiter
 *           0: NO, at least 1 heredoc identified with no end delimiter
 */
-void ft_check_delimiter(t_box **box)
+/*void ft_check_delimiter(t_box **box)
 {
     int *arr_ind_heredoc; //por claridad en el código
     int *arr_end;
@@ -97,7 +97,7 @@ void ft_check_delimiter(t_box **box)
     if (!are_all_delimiters(arr_end, box, HEREDOC))
         ft_puterror_exit("syntax error near unexpected token `<<'\n");
     get_delimiters(arr_ind_heredoc, box);
-}
+}*/
 
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box)
 {
