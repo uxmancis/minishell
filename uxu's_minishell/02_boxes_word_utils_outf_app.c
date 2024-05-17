@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:14:14 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:45:07 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:36:00 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,34 @@
 void get_word_outf_app_1(t_box **box, int *arr_ind_red_type)
 {
     int tmp_nb_of_red_type;
+    int keep_nb_of_red_type;
     int total_red_nb_x; //zenbagarrena dan --> index en dict_red_index_type (bebai ahal da lortu con get_in)
     int red_type_nb_x; //zenbagarrena en el particularmente entre este tipo de red. Utiilizado para ubicación en words_infile[n] (words_hrdc, el que sea)
     int i;
 
+    //printf("get_word_outf_app_1\n");
     tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_APPEND);
+    keep_nb_of_red_type = tmp_nb_of_red_type;
     //printf("tmp_nb_of_red_type = %d\n", tmp_nb_of_red_type);
     (*box)->words_outfile_append = malloc(sizeof(char *) * tmp_nb_of_red_type);
     red_type_nb_x = 0;
-    i = 0;
     total_red_nb_x = 0;
+    i = 0;
     //printf("nb_of_outf_appends = %d\n", tmp_nb_of_red_type);
     while (tmp_nb_of_red_type > 0)
     {
         //if (is_last_redir(box, arr_ind_red_type[i]))
-        if (is_last_redir(box, (*box)->dict_red_index_type[total_red_nb_x][0]))
+        //printf(YELLOW">>>>>>>>>>>>>>>>>>>>i = %d, total_red_nb = %d\n", i, total_red_nb_x);
+        //printf("arr_ind_red_type[%d] = %d\n"RESET_COLOR, i, arr_ind_red_type[i]);
+        if (is_last_redir(box, arr_ind_red_type[i]/*(*box)->dict_red_index_type[total_red_nb_x][0]*/))
         {
             //printf(GREEN"yes is last redir of total, total_red_nb_x = %d, no more redirs\n"RESET_COLOR, total_red_nb_x);
             //printf("total_red_nb_x = %d\n", total_red_nb_x);
-            if ((*box)->dict_red_index_type[total_red_nb_x][1] == OUTFILE_APPEND)
+            if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == OUTFILE_APPEND)
                 get_word_outf_app_2(arr_ind_red_type[red_type_nb_x] + 2, (int)ft_strlen((*box)->input_substr) - 1, box, red_type_nb_x);
             break;
         }
-        //printf(MAGENTA"still more redirs after, i = %d\n"RESET_COLOR, i);
+        //printf(MAGENTA"still more redirs after, total_red_nb_x = %d\n"RESET_COLOR, total_red_nb_x);
         //printf("red_type_nb_x = %d, arr_ind_red_type[%d] = %d\n", red_type_nb_x, red_type_nb_x, arr_ind_red_type[red_type_nb_x]);
         //printf("red_type_nb_x = %d\n", red_type_nb_x);
         //printf("total_red_nb_x = %d\n", total_red_nb_x);
@@ -48,18 +53,24 @@ void get_word_outf_app_1(t_box **box, int *arr_ind_red_type)
             get_word_outf_app_2(arr_ind_red_type[red_type_nb_x] + 2, (*box)->dict_red_index_type[total_red_nb_x + 1][0] - 1, box, red_type_nb_x);
             tmp_nb_of_red_type--;
             red_type_nb_x++;
+            i++;
         }
-        else
+        //else
             //printf(RED"no coincide\n"RESET_COLOR);
+        if (i == keep_nb_of_red_type) //si es la última de su tipo. Habremos hecho ya i++ cuando sí ha coincidido
+        {
+            //printf(RED"salimos de aquí por última redir de su tipo, no necesitamos más words\n"RESET_COLOR);
+            break;//salte de aquí, ya has hecho tu trabajo
+        }
         total_red_nb_x++;
-        //i++;
+        //printf(YELLOW"total_red_nb_x = %d\n", total_red_nb_x);
     }
     tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_APPEND);
     //printf("tmp_nb_of_red_type = %d\n", tmp_nb_of_red_type);
     red_type_nb_x = 0;
     while (tmp_nb_of_red_type > 0)
     {
-        printf("                   word[%d] = "BLUE"%s\n"RESET_COLOR, i, (*box)->words_outfile_append[red_type_nb_x]);
+        printf("                   word[%d] = "BLUE"%s\n"RESET_COLOR, red_type_nb_x, (*box)->words_outfile_append[red_type_nb_x]);
         tmp_nb_of_red_type--;
         red_type_nb_x++;
     }

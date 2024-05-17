@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:23:03 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:31:01 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 21:22:01 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int is_last_redir(t_box **box, int index_current_heredoc)
     tmp_total_nb_of_redir = (*box)->nb_of_redir;
     counter_position = 1; //lo vamos a comparar con el número total de redirecciones
     redir_position = 0;
-    //printf("\n        total nb of redir: %d\n", (*box)->nb_of_redir);
-    //printf("        index_current_heredoc: %d\n", index_current_heredoc);
+    //printf("-        total nb of redir: %d", (*box)->nb_of_redir);
+    //printf("        index_current_redir: %d    -", index_current_heredoc);
     while (tmp_total_nb_of_redir > 0)
     {
         //printf("                counter_position: %d\n", counter_position);
@@ -91,22 +91,22 @@ int is_last_redir(t_box **box, int index_current_heredoc)
 *       1: YES has delimiter
 *       0: NO no delimiter
 */
-int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x)
+int has_end_word(int index_red_in_substr, t_box **box, int red_nb_x)
 {
     //int total_nb_of_redir;
     
     //printf(GREEN">>> has_end_word: index_hrdc_in_substr = %d, red_nb_x = %d\n"RESET_COLOR, index_hrdc_in_substr, red_nb_x);
     //total_nb_of_redir = (*box)->nb_of_redir;
-    if (is_last_redir(box, index_hrdc_in_substr))
+    if (is_last_redir(box, index_red_in_substr))
     {
-        if (index_hrdc_in_substr + 2 == (int)ft_strlen((*box)->input_substr)) //si en la posición de después de heredoc no hay espacios ni hay nada. Heredoc sí o sí son 2 posiciones
+        if (index_red_in_substr + 2 == (int)ft_strlen((*box)->input_substr)) //si en la posición de después de heredoc no hay espacios ni hay nada. Heredoc sí o sí son 2 posiciones
         {
             //printf(GREEN"sí es last redir, no hay nada más\n"RESET_COLOR);
             //printf("     CONCLUSIÓN - 0: NO tiene end_delimiter. Return:"BLUE" 0\n\n"RESET_COLOR);
             return (0);
         }
         //printf(GREEN"sí es last redir, hay más len\n"RESET_COLOR);
-        if (has_end_last_check(index_hrdc_in_substr + 2, (int)ft_strlen((*box)->input_substr), box)) //end = ft_strlen(input_substr);
+        if (has_end_last_check(index_red_in_substr + 2, (int)ft_strlen((*box)->input_substr), box)) //end = ft_strlen(input_substr);
         {
             //printf("    CONCLUSIÓN - 1: sí tiene end_delimiter. Return:"BLUE" 1\n\n"RESET_COLOR);
             return (1);
@@ -117,7 +117,7 @@ int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x)
     //printf("FROM (start) index_hrdc_in_substr + 2 = %d\n", index_hrdc_in_substr + 2);
     //printf(MAGENTA"red_nb_x = %d\n"RESET_COLOR, red_nb_x);
     //printf("TO (end) index of next redir - 1: %d\n", (*box)->dict_red_index_type[red_nb_x + 1][0] - 1);
-    if (has_end_last_check(index_hrdc_in_substr + 2, (*box)->dict_red_index_type[red_nb_x + 1][0] - 1, box)) //si todavía hay más redirecciones --> end = posición de la próxima redirección
+    if (has_end_last_check(index_red_in_substr + 2, (*box)->dict_red_index_type[red_nb_x + 1][0] - 1, box)) //si todavía hay más redirecciones --> end = posición de la próxima redirección
     {
         //printf("    CONCLUSIÓN - 2: sí tiene end_delimiter. Return:"BLUE" 1\n\n"RESET_COLOR);
         return (1);
@@ -139,7 +139,7 @@ void get_word_mgmt(int *arr_ind_red_type, t_box **box, t_red_type red_type)
     //int i;
     //int heredoc_nb; //zenbagarren heredoc-a dan. Gero goiaz konparatzera en get_word con 
     
-    printf("     02_boxes_rest.c - get_word_mgmt| Let's go get "BLUE" words"RESET_COLOR" for red_type = "BLUE"%s! :)\n"RESET_COLOR, ft_enum_to_str(red_type));
+    //printf("     02_boxes_rest.c - get_word_mgmt| Let's go get "BLUE" words"RESET_COLOR" for red_type = "BLUE"%s! :)\n"RESET_COLOR, ft_enum_to_str(red_type));
     //tmp_nb_of_red_type = get_nb_of_red_type(box, red_type);
     if ((int)red_type == HEREDOC)
         get_word_hrdc_1(box, arr_ind_red_type);

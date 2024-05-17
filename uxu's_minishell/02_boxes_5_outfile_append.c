@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 13:35:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:38:55 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:09:53 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ int ft_outfile_append(t_box **box, t_red_type red_type)
         return(0);
     (*box)->is_outfile_append = 1;
     (*box)->nb_of_outfile_append = ft_get_numof_red_type(box, red_type);
-    printf("     02_boxes_5_outfile_append.c - ft_outfile_append| Let's go analyse! :)\n");
-    printf("               nb_of_outfile_append = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_infile);
+    printf("     02_boxes_5_outfile_append.c - "BLUE"ft_outfile_append"RESET_COLOR"| nb_of_outfile_append = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_outfile_append);
     ft_check_first_word(box, red_type);
     return (0);
 }

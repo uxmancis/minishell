@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:33:15 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:35:20 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:36:40 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 *   What? Gets zenbagarren redirekziñua dan, del total (not only hrdcs).
 *   Baina, instead of formato 1.a, 2.a... it gives it us in index form.
 *   
-*   Receives as parameter hrdc_ind_in_substr: position of heredoc in
+*   Receives as parameter redir_ind_in_substr: position of redirección in
 *   input_substr.
 *
 *   Returns:
@@ -32,7 +32,7 @@
 *   int     **dict_red_index_type[x][0].
 *       -1: Failure (not expected) in any case.
 *
-*   How? Based on int hrdc_ind_in_substr identifies which hrdc are we
+*   How? Based on int redir_ind_in_substr identifies which redirección are we
 *   talking about particularly. Then, compares this index with content in
 *   dict_red_index_type[x][0]. When match is found, returns x = equivalent
 *   to zenbagarren redirekziñua dan = position in dict_red_index_type.
@@ -53,74 +53,6 @@ int get_ind (int redir_ind_in_substr, t_box **box)
     }
     return (-1);
 }
-
-/*
-*   Returns:
-*       1 - YES all heredocs have delimiter
-*       0 - NO, heredoc was found with no delimiter
-*/
-/*int are_all_delimiters(int *arr_end, t_box **box)
-{
-    int tmp_nb_of_heredocs;
-    int i;
-
-    tmp_nb_of_heredocs = (*box)->nb_of_heredocs;
-    i = 0;
-    while (tmp_nb_of_heredocs > 0)
-    {
-        //printf("arr_end[%d] = %d\n", i, arr_end[i]);
-        if (arr_end[i] == 0)
-        {
-            //printf("NO DELIMITER, heredoc [%d]\n", i);
-            return (0);
-        }
-        tmp_nb_of_heredocs--;
-        i++;
-    }
-    //printf("ALL HEREDOCS HAVE DELIMITER :)\n");
-    return (1);
-}*/ //old version when just specific for heredoc. New one is in 02_boxes_red_utils.c and works for any type of redirección
-
-/* get_delimiters
-*
-*   Function called when 100% of heredocs do have a delimiter.
-*   
-*   Gets delimiter words and puts them in char **heredoc_delimiters
-*   variable in box structure.
-*/
-/*void get_delimiters(int *arr_ind_heredoc, t_box **box)
-{
-    int tmp_nb_of_heredocs;
-    int i;
-    int heredoc_nb; //zenbagarren heredoc-a dan. Gero goiaz konparatzera en get_word con 
-    
-    printf("     02_boxes_rest.c - get_delimiters| Let's go get "BLUE"delimiter words"RESET_COLOR"! :)\n");
-    (*box)->heredoc_delimiters = malloc(sizeof(char *)*(*box)->nb_of_heredocs);
-    tmp_nb_of_heredocs = (*box)->nb_of_heredocs;
-    i = 0;
-    heredoc_nb = 0; //índice del heredoc en arr_ind_heredoc --> zenbagarren heredoc da
-    while (tmp_nb_of_heredocs > 0)
-    {
-        if (is_last_redir(box, arr_ind_heredoc[i])) //si este heredoc particularmente es la última redirección
-        {
-            get_word(arr_ind_heredoc[i] + 2, (int)ft_strlen((*box)->input_substr) - 1, box, heredoc_nb);
-            break;
-        }    //end = ft_strlen
-        get_word(arr_ind_heredoc[i] + 2, (*box)->dict_red_index_type[i + 1][0] - 1, box, heredoc_nb);
-        tmp_nb_of_heredocs--;
-        heredoc_nb++;
-        i++;
-    }
-    tmp_nb_of_heredocs = (*box)->nb_of_heredocs;
-    i = 0;
-    while (tmp_nb_of_heredocs > 0)
-    {
-        printf("                   delimiter[%d] = "BLUE"%s\n"RESET_COLOR, i, (*box)->heredoc_delimiters[i]);
-        tmp_nb_of_heredocs--;
-        i++;
-    }
-    printf("     02_boxes_rest.c - get_delimiters| "BLUE"char **heredoc_delimiters"RESET_COLOR" generated✅\n");
-}*/
 
 /* 
 *   Puts each delimiter word in corresponding space

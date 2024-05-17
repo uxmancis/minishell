@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 15:06:42 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:10:52 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void get_word(int start, int end,t_box **box, int heredoc_nb);
 //02_boxes_red_utils.c
 int get_nb_of_red_type(t_box **box, t_red_type red_type);
 void get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_type);
-void get_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type);
+void is_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type);
 void get_word_mgmt(int *arr_ind_red_type, t_box **box, t_red_type red_type);
 void ft_check_first_word(t_box **box, t_red_type red_type);
 

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:25:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:55:55 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 21:22:56 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int get_nb_of_red_type(t_box **box, t_red_type red_type)
 
 /* get_specif_index_red
 *
-*   Informs arr_ind_red_type variable.
+*   Informs specif_arr_ind_red_type.
 *
-*   arr_ind_red_type: stores indexes of red type specified (e_red_type).
-*                     Len of array = number of redirecciones found of specified type (e_red_type).
+*   specif_arr_ind_red_type: stores indexes of red_type specified.
+*                     Len of array = number of redirecciones found of specified type (red_type).
 */
 void get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_type)
 {
@@ -99,7 +99,7 @@ void get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_ty
 *                             total redireccioness found along input_substr of
 *                             specified red type (e_red_type):
 */
-void get_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type)
+void is_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type)
 {
     int tmp_nb_of_red_type;
     int i;
@@ -178,7 +178,7 @@ int are_all_delimiters(int *arr_word_yes_no, t_box **box, t_red_type red_type)
 *               OUTFILE (strong or append): outfile filename
 *
 *   Variables:
-*       int *arr_ind_red_type: specific array which stores specific indexes of
+*       int *specif_arr_ind_red_type: specific array which stores specific indexes of
 *                              specified e_red_type.
 *                              E.g. if HEREDOCS are going to be analysed, array
 *                                   will store indexes of HEREDOCS. If another type
@@ -200,13 +200,13 @@ void ft_check_first_word(t_box **box, t_red_type red_type)
     //printf(GREEN"NB_OF_HEREDOCS = %d\n"RESET_COLOR, (*box)->nb_of_heredocs);
     
     nb_of_red_type = get_nb_of_red_type(box, red_type);
-    //printf("red_type = %s, nb_of_red_type = %d\n", ft_enum_to_str(red_type), nb_of_red_type);
+    //printf(YELLOW"\n     >> ft_check_first_word| red_type = %s, nb_of_red_type = %d\n"RESET_COLOR, ft_enum_to_str(red_type), nb_of_red_type);
     specif_arr_ind_red_type = malloc(sizeof(int) * nb_of_red_type);
     if (!specif_arr_ind_red_type)
         ft_puterror_exit ("malloc error\n");
     get_specif_index_red(&specif_arr_ind_red_type, box, red_type);
     arr_word_yes_no = malloc(sizeof(int) * nb_of_red_type);
-    get_word_red(&arr_word_yes_no, box, specif_arr_ind_red_type, red_type);
+    is_word_red(&arr_word_yes_no, box, specif_arr_ind_red_type, red_type);
     //tmp_to_debug_nb_of_red_type = nb_of_red_type;
     //tmp_to_debug_i = 0;
     //printf(YELLOW"tmp_to_debug_nb_of_red_type = %d\n", tmp_to_debug_nb_of_red_type);

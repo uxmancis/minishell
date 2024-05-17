@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:22:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 13:34:37 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:14:33 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,18 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
     printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);
 }
 
+void get_rest (t_box *box)
+{
+    //printf(GREEN"02_boxes_rest.c | get_rest\n"RESET_COLOR);
+    //box->nb_of_heredocs = ft_get_numof_heredocs(box);
+    //printf("GET REST | nb_of_heredocs = %d\n", box->nb_of_heredocs);
+    //box->nb_of_heredocs = ft_get_numof_heredocs(box);
+    ft_heredocs(&box, HEREDOC);
+    ft_infiles(&box, INFILE);
+    ft_outfile_append(&box, OUTFILE_APPEND);
+    ft_outfile_strong(&box, OUTFILE_STRONG);
+}
+
 /*
 *   Generates boxes based on nb_of_substr indicated in prompt
 *   structure.
@@ -132,14 +144,4 @@ void ft_gen_boxes(t_prompt *prompt)
     }
 }
 
-void get_rest (t_box *box)
-{
-    printf(GREEN"02_boxes_rest.c | get_rest\n"RESET_COLOR);
-    //box->nb_of_heredocs = ft_get_numof_heredocs(box);
-    //printf("GET REST | nb_of_heredocs = %d\n", box->nb_of_heredocs);
-    //box->nb_of_heredocs = ft_get_numof_heredocs(box);
-    ft_heredocs(&box, HEREDOC);
-    ft_infiles(&box, INFILE);
-    ft_outfile_append(&box, OUTFILE_APPEND);
-    ft_outfile_strong(&box, OUTFILE_APPEND);
-}
+

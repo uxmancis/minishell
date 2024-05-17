@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:14:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:45:21 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:37:04 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,40 @@
 void get_word_outf_str_1(t_box **box, int *arr_ind_red_type)
 {
     int tmp_nb_of_red_type;
+    int keep_nb_of_red_type;
+    int total_red_nb_x; //zenbagarrena dan --> index en dict_red_index_type (bebai ahal da lortu con get_in)
     int red_type_nb_x; //zenbagarrena dan
     int i;
 
     tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_STRONG);
+    keep_nb_of_red_type = tmp_nb_of_red_type;
     (*box)->words_outfile_strong = malloc(sizeof(char *) * tmp_nb_of_red_type);
     red_type_nb_x = 0;
+    total_red_nb_x = 0;
     i = 0;
     while (tmp_nb_of_red_type > 0)
     {
         if (is_last_redir(box, arr_ind_red_type[i]))
         {
-            get_word_infile_2(arr_ind_red_type[i] + 1, (int)ft_strlen((*box)->input_substr) - 1, box, red_type_nb_x);
+            get_word_outf_str_2(arr_ind_red_type[i] + 1, (int)ft_strlen((*box)->input_substr) - 1, box, red_type_nb_x);
             break;
         }
-        get_word_hrdc_2(arr_ind_red_type[i] + 1, (*box)->dict_red_index_type[i + 1][0] - 1, box, red_type_nb_x);
-        tmp_nb_of_red_type--;
-        red_type_nb_x++;
-        i++;
+        if ((*box)->dict_red_index_type[total_red_nb_x][1] == OUTFILE_STRONG)
+        {
+            //printf(GREEN"bai, coincide\n"RESET_COLOR);
+            get_word_outf_str_2(arr_ind_red_type[red_type_nb_x] + 1, (*box)->dict_red_index_type[total_red_nb_x + 1][0] - 1, box, red_type_nb_x);
+            tmp_nb_of_red_type--;
+            red_type_nb_x++;
+            i++;
+        }
+        //else
+            //printf(RED"no coincide\n"RESET_COLOR);
+        if (i == keep_nb_of_red_type) //si es la última de su tipo. Habremos hecho ya i++ cuando sí ha coincidido
+        {
+            //printf(RED"salimos de aquí por última redir de su tipo, no necesitamos más words\n"RESET_COLOR);
+            break;//salte de aquí, ya has hecho tu trabajo
+        }
+        total_red_nb_x++;
     }
     tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_STRONG);
     i = 0;

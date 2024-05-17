@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:28:28 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:43:23 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:11:34 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,76 +28,13 @@
 */
 void ft_heredocs(t_box **box, t_red_type red_type)
 {
-    (*box)->nb_of_heredocs = ft_get_numof_heredocs(box);
-    printf("     02_boxes.c - ft_heredocs| numof_heredocs = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_heredocs);
-    printf("              do heredocs have" BLUE" delimiter"RESET_COLOR"? yes[1] / no[0]\n");
+    (*box)->nb_of_heredocs = ft_get_numof_red_type(box, red_type);
+    printf("     02_boxes_3_hrdc_1.c - "BLUE"ft_heredocs"RESET_COLOR"| numof_heredocs = "BLUE"%d"RESET_COLOR".\n", (*box)->nb_of_heredocs);
+    //printf("              do heredocs have" BLUE" delimiter"RESET_COLOR"? yes[1] / no[0]\n");
     //ft_check_delimiter(box); //if 1 heredoc has no delimiter, program finishes
     ft_check_first_word(box, red_type);
     //printf(MAGENTA"<<<<<<<<<<<<    check_delimiter completed     >>>>>>>>>>>>>\n"RESET_COLOR);
 }
-
-int ft_get_numof_heredocs(t_box **box)
-{
-    int tmp_nb_of_redir;
-    int counter_heredoc;
-    int i;
-    //int *arr_index_heredoc; //por claridad en el código
-
-    tmp_nb_of_redir = (*box)->nb_of_redir;
-    counter_heredoc = 0;
-    i = 0;
-    //contar cuántos heredocs tenemos
-    while (tmp_nb_of_redir > 0)
-    {
-        if ((*box)->dict_red_index_type[i][1] == HEREDOC)
-            counter_heredoc++; //número de heredocs
-        i++;
-        tmp_nb_of_redir--;
-    }
-    //printf("counter_heredoc = %d\n", counter_heredoc);
-    return (counter_heredoc);
-}
-
-/*ft_check_end
-*   Checks whether of 100% heredocs in substr do have
-*   a end_indicator. If heredoc with no delimiter is found, 
-*   error message is printed and program finishes its execution.
-*
-*   Variables:
-*       int *arr_end: array which len is number of heredocs.
-*                     In each position stores 1 or 0, depending
-*                     on if heredocs have end delimiter or not.
-*
-*       Returns:
-*           1: YES, 100% heredocs have a end delimiter
-*           0: NO, at least 1 heredoc identified with no end delimiter
-*/
-/*void ft_check_delimiter(t_box **box)
-{
-    int *arr_ind_heredoc; //por claridad en el código
-    int *arr_end;
-    int tmp_to_debug_nb_of_heredocs;
-    int tmp_to_debug_i;
-    //printf(GREEN"NB_OF_HEREDOCS = %d\n"RESET_COLOR, (*box)->nb_of_heredocs);
-    arr_ind_heredoc = malloc(sizeof(int) * (*box)->nb_of_heredocs);
-    if (!arr_ind_heredoc)
-        ft_puterror_exit ("malloc error\n");
-    get_arr_heredoc(&arr_ind_heredoc, box);
-    arr_end = malloc(sizeof(int) * (*box)->nb_of_heredocs);
-    get_end_arr(&arr_end, box, arr_ind_heredoc);
-    tmp_to_debug_nb_of_heredocs = (*box)->nb_of_heredocs;
-    tmp_to_debug_i = 0;
-    //printf(YELLOW"tmp_to_debug_nb_of_heredocs = %d\n", tmp_to_debug_nb_of_heredocs);
-    while (tmp_to_debug_nb_of_heredocs > 0)
-    {
-        printf("                   HEREDOC delimiter YES-NO[%d] = "BLUE"%d\n"RESET_COLOR, tmp_to_debug_i, arr_end[tmp_to_debug_i]);
-        tmp_to_debug_nb_of_heredocs--;
-        tmp_to_debug_i++;
-    }
-    if (!are_all_delimiters(arr_end, box, HEREDOC))
-        ft_puterror_exit("syntax error near unexpected token `<<'\n");
-    get_delimiters(arr_ind_heredoc, box);
-}*/
 
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box)
 {

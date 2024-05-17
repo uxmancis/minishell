@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 20:43:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/12 14:44:33 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/17 21:26:59 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
 {
     int tmp_nb_of_red_type;
+    int keep_nb_of_red_type;
     int total_red_nb_x; //zenbagarrena dan --> index en dict_red_index_type (bebai ahal da lortu con get_in)
     int red_type_nb_x; //zenbagarrena en el particularmente entre este tipo de red. Utiilizado para ubicación en words_infile[n] (words_hrdc, el que sea)
     int i;
 
     tmp_nb_of_red_type = get_nb_of_red_type(box, HEREDOC);
+    keep_nb_of_red_type = tmp_nb_of_red_type;
     //printf("tmp_nb_of_red_type = %d\n", tmp_nb_of_red_type);
     (*box)->words_hrdc = malloc(sizeof(char *) * tmp_nb_of_red_type);
     red_type_nb_x = 0;
@@ -29,11 +31,12 @@ void get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
     while (tmp_nb_of_red_type > 0)
     {
         //if (is_last_redir(box, arr_ind_red_type[i]))
-        if (is_last_redir(box, (*box)->dict_red_index_type[total_red_nb_x][0]))
+        //if (is_last_redir(box, (*box)->dict_red_index_type[total_red_nb_x][0]))
+        if (is_last_redir(box, arr_ind_red_type[i]))
         {
             //printf(GREEN"yes is last redir of total i = %d, no more redirs\n"RESET_COLOR, i);
             //printf("total_red_nb_x = %d\n", total_red_nb_x);
-            if ((*box)->dict_red_index_type[total_red_nb_x][1] == HEREDOC)
+            if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == HEREDOC)
                 get_word_hrdc_2(arr_ind_red_type[red_type_nb_x] + 2, (int)ft_strlen((*box)->input_substr) - 1, box, red_type_nb_x);
             break;
         }
@@ -42,17 +45,22 @@ void get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
         //printf("red_type_nb_x = %d\n", red_type_nb_x);
         //printf("total_red_nb_x = %d\n", total_red_nb_x);
         //printf("dict_red_index_type[%d][1] == %s\n", total_red_nb_x, ft_enum_to_str((*box)->dict_red_index_type[total_red_nb_x][1]));
-        if ((*box)->dict_red_index_type[total_red_nb_x][1] == HEREDOC)
+        if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == HEREDOC)
         {
             //printf(GREEN"bai, coincide\n"RESET_COLOR);
             get_word_hrdc_2(arr_ind_red_type[red_type_nb_x] + 2, (*box)->dict_red_index_type[total_red_nb_x + 1][0] - 1, box, red_type_nb_x);
             tmp_nb_of_red_type--;
             red_type_nb_x++;
+            i++;
         }
-        else
+        //else
             //printf(RED"no coincide\n"RESET_COLOR);
+        if (i == keep_nb_of_red_type) //si es la última de su tipo. Habremos hecho ya i++ cuando sí ha coincidido
+        {
+            //printf(RED"salimos de aquí por última redir de su tipo, no necesitamos más words\n"RESET_COLOR);
+            break;//salte de aquí, ya has hecho tu trabajo
+        }
         total_red_nb_x++;
-        //i++;
     }
     tmp_nb_of_red_type = get_nb_of_red_type(box, HEREDOC);
     //printf("tmp_nb_of_red_type = %d\n", tmp_nb_of_red_type);
