@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 17:10:52 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:26:59 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ typedef struct s_box
     char    **words_outfile_strong; //outfile filenames
 
     //About command, flags and argumentos:
+    char    *what_to_take;
+    int     nb_of_words_rest;
+    int    *index_beginning_words_rest;
+    char    **rest_info_potential_cmd;
+    char    *micasa;
+    int     *telf_casa;
 
 }   t_box;
 
@@ -160,6 +166,9 @@ int ft_get_numof_red_type(t_box **box, t_red_type red_type); //generic para todo
 
 //02_boxes_5_outfile_strong.c
 int ft_outfile_strong(t_box **box, t_red_type red_type);
+
+//02_boxes_6_cmd.c
+void   ft_cmd_args (t_box **box);
 
 //02_boxes_word_utils_hrdc.c
 void get_word_hrdc_1(t_box **box, int *arr_ind_red_type);

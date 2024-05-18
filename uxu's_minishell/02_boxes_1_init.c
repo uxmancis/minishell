@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:22:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 20:14:33 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:46:14 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
 {
     t_box box;
     //int tmp_len;
+    int len;
+    int i;
 
     //tmp_len = ft_strlen(prompt->total_substr_input[substr_id] + 1);
     //printf("tmp_len = %d\n", tmp_len);
@@ -97,6 +99,14 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
     else
         generate_substr(prompt, substr_id, &box); //input_substr virgen
     //printf(GREEN"ft_boxes_init, substr to be printed[%d] = %s, len = %d\n"RESET_COLOR, substr_id, prompt->total_substr_input[substr_id], (int)ft_strlen(prompt->total_substr_input[substr_id]));
+    len = ft_strlen(box.input_substr);
+    i = 0;
+    while (len > 0)
+    {
+        printf("               input_substr[%d] = %c\n", i, box.input_substr[i]);
+        i++;
+        len--;
+    }
     printf("     02_boxes.c - ft_boxes_init| Copied!✅"BLUE" input_substr"RESET_COLOR" generated:"GREEN" %s\n"RESET_COLOR, box.input_substr);
     get_dict_quotes(&box); //dict_quotes
     printf("     02_boxes.c - ft_boxes_init|"BLUE" dict_quotes"RESET_COLOR" generated✅\n");
@@ -119,6 +129,13 @@ void get_rest (t_box *box)
     ft_infiles(&box, INFILE);
     ft_outfile_append(&box, OUTFILE_APPEND);
     ft_outfile_strong(&box, OUTFILE_STRONG);
+    //box->micasa = malloc(sizeof(char) * 4);
+    //box->micasa[0] = 'u';
+    //box->micasa[1] = 'u';
+    //box->micasa[2] = 'u';
+    //box->micasa[3] = '\0';
+    //printf(">>>>>>>>>>>> name = %s\n", box->micasa);
+    ft_cmd_args(&box);
 }
 
 /*

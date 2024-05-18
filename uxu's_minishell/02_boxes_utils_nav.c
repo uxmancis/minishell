@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:23:03 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 21:22:01 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:24:55 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int has_end_last_check(int start, int end, t_box **box)
 *       int index_current_heredoc: position (index) of current heredoc
 *                                  in input_substr (t_box box)
 */
-int is_last_redir(t_box **box, int index_current_heredoc)
+int is_last_redir(t_box **box, int index_current_redir)
 {
     int tmp_total_nb_of_redir; //por claridad y para no cambiarle el valor el original
     int redir_position; //zenbagarrena da? --> hau azkenian counter_position-ek esango nuke eitxen dabela
@@ -60,11 +60,11 @@ int is_last_redir(t_box **box, int index_current_heredoc)
     counter_position = 1; //lo vamos a comparar con el número total de redirecciones
     redir_position = 0;
     //printf("-        total nb of redir: %d", (*box)->nb_of_redir);
-    //printf("        index_current_redir: %d    -", index_current_heredoc);
+    //printf("        index_current_redir: %d    -", index_current_redir);
     while (tmp_total_nb_of_redir > 0)
     {
         //printf("                counter_position: %d\n", counter_position);
-        if (index_current_heredoc == (*box)->dict_red_index_type[redir_position][0])
+        if (index_current_redir == (*box)->dict_red_index_type[redir_position][0])
             break;
         tmp_total_nb_of_redir--;
         counter_position++;

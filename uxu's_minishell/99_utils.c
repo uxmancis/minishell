@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   99_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:04:48 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 17:57:00 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:20:41 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int ft_isspace(int c)
 {
+	//printf(">>> c = %d\n", c);
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' || c == '\v')
 		return (1);
     return (0);
