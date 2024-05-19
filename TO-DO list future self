@@ -1,0 +1,6 @@
+1) heredcocs al guardarnos el end delimiter --> gestión de comillas
+P.ej.: <<"ba" --> end delimiter tiene que ser ba, no "ba".
+
+2) En el momento que después de una redirección, (ft_isspace ++), lo siguiente
+que haya sea otra redirección, syntax error. Entre redirecciones debe haber contenido
+sí o sí. Si no, llorar.
