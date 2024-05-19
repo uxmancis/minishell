@@ -6,11 +6,11 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:46:55 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 16:44:02 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:36:10 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 /*  ft_get_what_to_take
 *
@@ -26,14 +26,15 @@ void ft_get_what_to_take(t_box **box)
     int len;
     int i;
     
-    (*box)->what_to_take = malloc(sizeof(char)*(ft_strlen((*box)->input_substr)+1));
-    (*box)->what_to_take[ft_strlen((*box)->input_substr)] = '\0';
+    len = ft_strlen((*box)->input_substr);
+    (*box)->what_to_take = malloc(sizeof(char)*(len +1));
+    (*box)->what_to_take[len] = '\0';
     init_what_to_take(box); //Everything initializes as 'Y'
     mark_redir(box);
     mark_word(box);
     //printf("hemen gare bueltan\n");
     //Result of_what_to_take:
-    len = ft_strlen((*box)->input_substr);
+    
     //len = ft_strlen((*box)->what_to_take); ns porq no funciona, baina bueno, me vale también input_substr porque tienen el mismo len
     i = 0;
     printf("     what_to_take: len = %d\n", len);
@@ -91,7 +92,6 @@ void ft_get_only_needed(t_box **box)
     printf("               rest_numof_words | counter = "MAGENTA"%d\n"RESET_COLOR, (*box)->nb_of_words_rest);
     rest_get_ind_beginning_words(box);
     cpy_rest_words(box);
-    
     /*len_rest = get_len_only_needed(box);
     (*box)->rest_info_potential_cmd = malloc(sizeof(char *) * (len_rest + 1))
     (*box)->rest_info_potential_cmd[len_rest] = '\0';
@@ -102,14 +102,16 @@ void ft_get_only_needed(t_box **box)
     }*/
 }
 
-void ft_get_cmd_args(t_box **box)
+void ft_get_cmd_args(t_box **box, t_prompt **prompt)
 {
     ft_get_what_to_take(box);
     printf(MAGENTA"     char *what_to_take"RESET_COLOR" generated✅\n");
     ft_get_only_needed(box);
     //printf("nb_of_words_rest = %d\n", (*box)->nb_of_words_rest);
+    //printf(YELLOW"yepe\n"RESET_COLOR);
     if ((*box)->nb_of_words_rest) //solo vamos a analizar dólar si hay palabras a analizar
-        check_dollars_expansion(box);
+        check_dollars_expansion(box, prompt);
+    //printf("done\n");
 }
 
 void   ft_cmd_args (t_box **box, t_prompt **prompt)
