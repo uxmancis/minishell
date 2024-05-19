@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:23:03 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/18 16:24:55 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:19:04 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int has_end_last_check(int start, int end, t_box **box)
         while (ft_isspace((*box)->input_substr[start]))
             start++;
         if (!ft_isspace((*box)->input_substr[start]))
+        {
+            //printf("something was found!\n");
             return (1); //something was found! a word that works as end delimiter! :)
+        }
     }
     //printf(YELLOW"               NO HAY PALABRA FINAL\n"RESET_COLOR);
     return (0);
@@ -99,6 +102,7 @@ int has_end_word(int index_red_in_substr, t_box **box, int red_nb_x)
     //total_nb_of_redir = (*box)->nb_of_redir;
     if (is_last_redir(box, index_red_in_substr))
     {
+        //printf("last redir here! :)\n");
         if (index_red_in_substr + 2 == (int)ft_strlen((*box)->input_substr)) //si en la posición de después de heredoc no hay espacios ni hay nada. Heredoc sí o sí son 2 posiciones
         {
             //printf(GREEN"sí es last redir, no hay nada más\n"RESET_COLOR);
@@ -111,6 +115,7 @@ int has_end_word(int index_red_in_substr, t_box **box, int red_nb_x)
             //printf("    CONCLUSIÓN - 1: sí tiene end_delimiter. Return:"BLUE" 1\n\n"RESET_COLOR);
             return (1);
         }
+        return (0); //cuando no es el caso del primer if, pero tampoco tiene word has_last_check=0
     }
     //cuando todavía sí hay alguna otra redirección posterior
     //printf(RED"no es last redir, index_hrdc_in_substr = %d\n"RESET_COLOR, index_hrdc_in_substr);

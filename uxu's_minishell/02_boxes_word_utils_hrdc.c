@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 20:43:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 21:26:59 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 10:49:56 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
     i = 0;
     while (tmp_nb_of_red_type > 0)
     {
-        printf("                   word[%d] = "BLUE"%s\n"RESET_COLOR, i, (*box)->words_hrdc[i]);
+        printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_hrdc[i]);
         tmp_nb_of_red_type--;
         i++;
     }
@@ -92,15 +92,25 @@ void get_word_hrdc_2(int start, int end, t_box **box, int red_type_nb_x)
     int len_delimiter;
     int keep_start_word;
     int i;
+    int len_input_str;
 
     //printf("get_word\n");
     //printf(BLUE"start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, red_type_nb_x);
     len_delimiter = 0;
-    while (ft_isspace((*box)->input_substr[start]))
+    len_input_str = ft_strlen((*box)->input_substr);
+    //while (ft_isspace((*box)->input_substr[start]))
+        //start++;
+    while (!possible_cases(box, start) && start < len_input_str)
         start++;
-    keep_start_word = start;
+    keep_start_word = start; //el bueno, este vamos a usar como real comienzo desde el que empezar a copiar
     //printf(MAGENTA"start = %d\n"RESET_COLOR, start);
-    while(!ft_isspace((*box)->input_substr[start]) && start <= end)
+    /*while(!ft_isspace((*box)->input_substr[start]) && start <= end)
+    {
+        start++;
+        len_delimiter++;
+        //printf("yes\n");
+    }*/
+    while(possible_cases(box, start) && start <= end)
     {
         start++;
         len_delimiter++;

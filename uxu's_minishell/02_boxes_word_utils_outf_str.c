@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:14:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 20:37:04 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 10:50:47 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void get_word_outf_str_1(t_box **box, int *arr_ind_red_type)
     red_type_nb_x = 0;
     total_red_nb_x = 0;
     i = 0;
+    printf("get_word_outf_str_1\n");
     while (tmp_nb_of_red_type > 0)
     {
         if (is_last_redir(box, arr_ind_red_type[i]))
@@ -57,7 +58,7 @@ void get_word_outf_str_1(t_box **box, int *arr_ind_red_type)
     i = 0;
     while (tmp_nb_of_red_type > 0)
     {
-        printf("                   word[%d] = "BLUE"%s\n"RESET_COLOR, i, (*box)->words_outfile_strong[i]);
+        printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_outfile_strong[i]);
         tmp_nb_of_red_type--;
         i++;
     }
@@ -83,7 +84,7 @@ void get_word_outf_str_2(int start, int end, t_box **box, int red_type_nb_x)
     int keep_start_word;
     int i;
 
-    //printf("get_word\n");
+    printf("get_word_outf_str_2\n");
     //printf(BLUE"start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, heredoc_nb);
     len_delimiter = 0;
     while (ft_isspace((*box)->input_substr[start]))

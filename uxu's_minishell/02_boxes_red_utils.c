@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:25:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 21:22:56 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:18:17 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,9 @@ void is_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_re
     {
         /*if ((*box)->dict_red_index_type[ind_red_total][1] == HEREDOC)
         {*/
+        //printf("i = %d\n", i);
         (*arr_word_yes_no)[i] = has_end_word(arr_ind_red_type[i], box, get_ind(arr_ind_red_type[i], box));
+        //printf("arr_word_yes_no[%d] = %d\n", i, (*arr_word_yes_no)[i]);
         tmp_nb_of_red_type--;
         i++;
         //}
@@ -152,7 +154,7 @@ int are_all_delimiters(int *arr_word_yes_no, t_box **box, t_red_type red_type)
     i = 0;
     while (tmp_nb_of_red_type > 0)
     {
-        //printf("arr_end[%d] = %d\n", i, arr_end[i]);
+        //printf(GREEN"arr_end[%d] = %d\n"RESET_COLOR, i, arr_word_yes_no[i]);
         if (arr_word_yes_no[i] == 0)
         {
             //printf("NO DELIMITER, heredoc [%d]\n", i);
@@ -161,7 +163,7 @@ int are_all_delimiters(int *arr_word_yes_no, t_box **box, t_red_type red_type)
         tmp_nb_of_red_type--;
         i++;
     }
-    //printf("ALL HEREDOCS HAVE DELIMITER :)\n");
+    //printf("ALL REDIRS HAVE DELIMITER :)\n");
     return (1);
 }
 
@@ -194,8 +196,8 @@ void ft_check_first_word(t_box **box, t_red_type red_type)
 {
     int *specif_arr_ind_red_type; //por claridad en el código
     int *arr_word_yes_no;
-    //int tmp_to_debug_nb_of_red_type;
-    //int tmp_to_debug_i;
+    int tmp_to_debug_nb_of_red_type;
+    int tmp_to_debug_i;
     int nb_of_red_type;
     //printf(GREEN"NB_OF_HEREDOCS = %d\n"RESET_COLOR, (*box)->nb_of_heredocs);
     
@@ -207,24 +209,26 @@ void ft_check_first_word(t_box **box, t_red_type red_type)
     get_specif_index_red(&specif_arr_ind_red_type, box, red_type);
     arr_word_yes_no = malloc(sizeof(int) * nb_of_red_type);
     is_word_red(&arr_word_yes_no, box, specif_arr_ind_red_type, red_type);
-    //tmp_to_debug_nb_of_red_type = nb_of_red_type;
-    //tmp_to_debug_i = 0;
-    //printf(YELLOW"tmp_to_debug_nb_of_red_type = %d\n", tmp_to_debug_nb_of_red_type);
-    /*while (tmp_to_debug_nb_of_red_type > 0)
+    tmp_to_debug_nb_of_red_type = nb_of_red_type;
+    tmp_to_debug_i = 0;
+    //printf(YELLOW"tmp_to_debug_nb_of_red_type = %d\n"RESET_COLOR, tmp_to_debug_nb_of_red_type);
+    while (tmp_to_debug_nb_of_red_type > 0)
     {
-        //printf("           is WORD after red_type? YES-NO[%d] = "BLUE"%d\n"RESET_COLOR, tmp_to_debug_i, arr_word_yes_no[tmp_to_debug_i]);
+        printf("           is WORD after red_type? YES-NO[%d] = "BLUE"%d\n"RESET_COLOR, tmp_to_debug_i, arr_word_yes_no[tmp_to_debug_i]);
         tmp_to_debug_nb_of_red_type--;
         tmp_to_debug_i++;
-    }*/
+    }
+    //printf("hellowis\n");
     if (!are_all_delimiters(arr_word_yes_no, box, red_type))
     {
+        printf("dentro, red_type = %s\n", ft_enum_to_str(red_type));
         if (red_type == HEREDOC)
             ft_puterror_exit("syntax error near unexpected token `<<'\n");
         if (red_type == INFILE)
             ft_puterror_exit("syntax error near unexpected token `<'\n");
         if (red_type == OUTFILE_APPEND)
             ft_puterror_exit("syntax error near unexpected token `>>'\n");
-        if (red_type == INFILE)
+        if (red_type == OUTFILE_STRONG)
             ft_puterror_exit("syntax error near unexpected token `>'\n");
     }
     get_word_mgmt(specif_arr_ind_red_type, box, red_type);

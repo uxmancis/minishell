@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:37:02 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/18 15:26:59 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:46:18 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define GRASS "\033[0;32m"
 
 
-# include <unistd.h> //write
+# include <unistd.h> //write, getpid
 # include <readline/readline.h> //readline - Además, al compilar, añadir flag -lreadline. Ex.: gcc -lreadline -o minishell minishell.c
 # include <readline/history.h>
 # include <stdlib.h> //exit EXIT FAILURE
@@ -70,8 +70,12 @@ typedef struct s_box
     int     nb_of_words_rest;
     int    *index_beginning_words_rest;
     char    **rest_info_potential_cmd;
-    char    *micasa;
-    int     *telf_casa;
+    //int     flag_pass_cmd_to_next_process;
+
+    //Env expansion con $
+    
+
+    //Order of execution, in which outf to show content (el comando con qué redir va)
 
 }   t_box;
 
@@ -167,8 +171,26 @@ int ft_get_numof_red_type(t_box **box, t_red_type red_type); //generic para todo
 //02_boxes_5_outfile_strong.c
 int ft_outfile_strong(t_box **box, t_red_type red_type);
 
-//02_boxes_6_cmd.c
+//02_boxes_6_cmd_1.c
 void   ft_cmd_args (t_box **box);
+int possible_cases(t_box **box, int index);
+
+//02_boxes_6_cmd_2.c
+void init_what_to_take(t_box **box);
+void mark_redir(t_box **box);
+void mark_word_2(int start, int end, t_box **box);
+void mark_word(t_box **box);
+int is_last_redir_2(t_box **box, int nb_redir_x);
+
+//02_boxes_6_cmd_3.c
+int rest_numof_words(t_box **box);
+void rest_get_ind_beginning_words(t_box **box);
+int possible_cases(t_box **box, int index);
+void cpy_1_word(t_box **box, int nb_of_word);
+
+
+//02_boxes_7_dollar.c
+void check_dollars_expansion(t_box **box);
 
 //02_boxes_word_utils_hrdc.c
 void get_word_hrdc_1(t_box **box, int *arr_ind_red_type);

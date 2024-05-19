@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_boxes_redir.c                                   :+:      :+:    :+:   */
+/*   02_boxes_2_redir.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:14:39 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 17:07:21 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:16:31 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
     //printf("< found, i = %d\n", (*i));
     //make sure it is correct that we enter here
     //printf(YELLOW"<     i = %d\n", (*i));
-    if ((*box)->input_substr[(*i)] != '<')
+    if ((*box)->input_substr[(*i)] != '<' && (*box)->dict_quotes[(*i)] == 0)
         return(EXIT_FAILURE); //was not supposed to be here
-    else if ((*box)->input_substr[(*i)] == '<')
+    else if ((*box)->input_substr[(*i)] == '<' && (*box)->dict_quotes[(*i)] == 0)
     {
-        if ((*box)->input_substr[(*i) + 1] == '<')
+        if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
-            if ((*box)->input_substr[(*i)+2] == '<' || (*box)->input_substr[(*i)+2] == '>')//3rd position any kind of redirection = error
+            if (((*box)->input_substr[(*i)+2] == '<' && (*box)->dict_quotes[(*i) + 2] == 0) || ((*box)->input_substr[(*i)+2] == '>' && (*box)->dict_quotes[(*i) + 2] == 0))//3rd position any kind of redirection = error
                 ft_puterror_exit("syntax error near unexpected token `newline'\n");
 
             //printf(">> i = %d, dict_quotes[%d] = %d\n", (*i), (*i), (*box)->dict_quotes[(*i)]);
@@ -114,7 +114,7 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
             else
                 return (-1);  
         }
-        else if ((*box)->input_substr[(*i) + 1] == '>') //si en 2ª posición está el contrario: error
+        else if ((*box)->input_substr[(*i) + 1] == '>' && (*box)->dict_quotes[(*i) + 1] == 0) //si en 2ª posición está el contrario: error
             ft_puterror_exit("syntax error near unexpected token `newline'\n");
         else 
         {
@@ -144,16 +144,16 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
     //make sure it is correct that we enter here
     //printf("> found\n");
     //printf(MAGENTA">     i = %d\n", (*i));
-    if ((*box)->input_substr[(*i)] != '>')
+    if ((*box)->input_substr[(*i)] != '>' && (*box)->dict_quotes[(*i)] == 0)
         return(EXIT_FAILURE); //was not supposed to be here
-    else if ((*box)->input_substr[(*i)] == '>')
+    else if ((*box)->input_substr[(*i)] == '>' && (*box)->dict_quotes[(*i)] == 0)
     {
-        if ((*box)->input_substr[(*i) + 1] == '>')
+        if ((*box)->input_substr[(*i) + 1] == '>' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
-            if ((*box)->input_substr[(*i)+2] == '<' || (*box)->input_substr[(*i)+2] == '>') //3rd position any kind of redirection = error
+            if (((*box)->input_substr[(*i)+2] == '<' && (*box)->dict_quotes[(*i) + 2] == 0) || ((*box)->input_substr[(*i)+2] == '>' && (*box)->dict_quotes[(*i) + 2] == 0)) //3rd position any kind of redirection = error
                 ft_puterror_exit("syntax error near unexpected token `newline'\n");
             
-            if ((*box)->dict_quotes[(*i)] == 0)//si está fuera de comillas
+            if ((*box)->dict_quotes[(*i)] == 0 )//si está fuera de comillas
             {
                 //printf("line 140 | i = %d\n", (*i));
                 //Redirection assignment (OUTFILE_APPEND)
@@ -166,7 +166,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
             else
                 return (-1);
         }
-        else if ((*box)->input_substr[(*i) + 1] == '<') //si en 2ª posición está el contrario: error
+        else if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0) //si en 2ª posición está el contrario: error
             ft_puterror_exit("syntax error near unexpected token `newline'\n");
         else 
         {
@@ -199,7 +199,7 @@ void set_red_index_type(t_box **box)
     while (i < len)
     {
         //printf(AQUAMARINE"hasi! i = %d\n"RESET_COLOR, i);
-        if ((*box)->input_substr[i] == '<')
+        if ((*box)->input_substr[i] == '<' && (*box)->dict_quotes[i] == 0)
         {
             //printf(AQUAMARINE"< identified! - Send to LESS THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = %c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
             //printf("less than\n");
@@ -210,7 +210,7 @@ void set_red_index_type(t_box **box)
             }      
                     
         }
-        else if ((*box)->input_substr[i] == '>')
+        else if ((*box)->input_substr[i] == '>' && (*box)->dict_quotes[i] == 0)
         {
             //printf(AQUAMARINE"> identified! - Send to GREATER THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = %c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
             //printf("greater than\n");

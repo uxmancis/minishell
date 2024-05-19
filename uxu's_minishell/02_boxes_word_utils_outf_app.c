@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:14:14 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 20:36:00 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 10:50:41 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void get_word_outf_app_1(t_box **box, int *arr_ind_red_type)
     red_type_nb_x = 0;
     while (tmp_nb_of_red_type > 0)
     {
-        printf("                   word[%d] = "BLUE"%s\n"RESET_COLOR, red_type_nb_x, (*box)->words_outfile_append[red_type_nb_x]);
+        printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", red_type_nb_x, (*box)->words_outfile_append[red_type_nb_x]);
         tmp_nb_of_red_type--;
         red_type_nb_x++;
     }
