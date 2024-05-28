@@ -6,11 +6,11 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:25:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 11:18:17 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:11:28 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 //Pretends to be the single functions used for all redirections to check content (first word)
 //after redirección.

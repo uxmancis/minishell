@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   01_input_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 12:55:10 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/01 17:00:15 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:10:31 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*  ft_pipe_last
 *

@@ -6,11 +6,11 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:28:28 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 20:11:34 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:10:54 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*Contains following functions: 
 1. void ft_heredocs(t_box **box)

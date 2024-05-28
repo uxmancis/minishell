@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 20:14:39 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 11:16:31 by uxmancis         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/05/19 15:10:51 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
+
 
 //useful to debug: to print enum name
 char *ft_enum_to_str(int enumerator)

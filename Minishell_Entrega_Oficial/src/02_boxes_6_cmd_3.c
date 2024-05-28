@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   02_boxes_6_cmd_3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:41:36 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 15:54:21 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:11:14 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*rest_numof_words
 *

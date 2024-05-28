@@ -1,0 +1,20 @@
+
+// VUELVETE LOCO
+
+echo hola << mari | << meri  echo "hola | << miri
+
+
+
+
+ls | grep .txt, ls
+
+/* CESAR */
+
+<borrar.txt "wc -l" | "wc -l" > out
+<in wc-l | wc -c > out2 | <borrar.txt wc -l | wc -c > out
+<borrar.txt wc -l | <in wc -l | wc -c > out
+
+/* ------------------------- */
+
+Next test (uxu - 27052024)
+$$$$$$$$$$$$$USER$yes se me queda atascadete, listo ya no se me queda atascadete!! solved!! :)

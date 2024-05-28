@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   01_input_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 14:43:54 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 10:11:29 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:10:43 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*
 *	ft_split_from_to:

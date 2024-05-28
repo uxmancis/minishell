@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   02_boxes_1_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:22:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 16:47:25 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:24:20 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 void ft_strcpy (char *str_src, char **str_dst)
 {
@@ -114,7 +114,7 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
     //box.nb_of_heredocs = ft_get_numof_heredocs(&box);
     //printf("nb_of_heredocs = %d\n", box.nb_of_heredocs);
     get_rest(&box, &prompt);
-    initialize_cmd(&box, prompt, substr_id);
+    //execute_commands(box);
     printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
     printf(BLUE"BOX GENERATION COMPLETED✅, box number = %d\n"RESET_COLOR, substr_id);
     printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);

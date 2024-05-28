@@ -6,11 +6,11 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:33:15 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 18:36:40 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:10:58 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*Contains following functions: 
 1. int get_ind (int hrdc_ind_in_substr, t_box **box)

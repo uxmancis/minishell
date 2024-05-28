@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   99_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:04:48 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 03:56:31 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:05:25 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,37 @@
 // 		return (1);
 //     return (0);
 // }
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void			*dst;
+	unsigned char	*temp;
+	size_t			total;
+
+	// i = 0;
+	total = size * count;
+	dst = malloc (total);
+	if (!dst)
+		return (0);
+	temp = dst;
+	while (total > 0)
+	{
+		*temp = '\0';
+		temp++;
+		total--;
+	}
+	return (dst);
+}
+/*int main(void)
+{
+	size_t mem_size;
+	size_t str_size;
+	char *str = "uxu";
+
+
+	str_size = ft_strlen(str);
+	printf("%s", ft_calloc(str_size, sizeof(char)));
+}*/
 
 // /* DESCRIPTION:
 // Outputs the char c to the file descriptor fd.

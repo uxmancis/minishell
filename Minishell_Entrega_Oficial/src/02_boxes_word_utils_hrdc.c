@@ -6,11 +6,11 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 20:43:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 10:49:56 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:11:32 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 void get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
 {

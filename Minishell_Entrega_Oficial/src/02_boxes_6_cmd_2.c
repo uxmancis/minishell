@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   02_boxes_6_cmd_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:37:06 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 16:06:04 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:11:12 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*  init_what_to_take
 *
@@ -23,19 +23,12 @@ void init_what_to_take(t_box **box)
 {
     int len;
     int i;
-    //int tmp_len;
 
-    //tmp_len = ft_strlen((*box)->input_substr);
-    //printf("tmp_len = %d\n", tmp_len);
-    //printf("init_what_to_take\n");
     i = 0;
     len = ft_strlen((*box)->input_substr);
-    //printf("len = %d\n", len);
     while (len > 0)
     {
         (*box)->what_to_take[i] = 'Y';
-        //printf("what_to_take[%d] = %c", i, (*box)->what_to_take[i]);
-        //printf(" - assigned!\n");
         len--;
         i++;
     }

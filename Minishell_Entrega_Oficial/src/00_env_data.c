@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00_env_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 10:45:53 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/18 20:20:13 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/26 12:47:55 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ static void	ft_export_all(t_vars *list)
 // }
 t_vars *ft_getenv_local(t_vars *line, char *name)
 {
-	 if (line == NULL) 
-		{
+	//printf("     00_env_data.c - "YELLOW"ft_getenv_local"RESET_COLOR" | str to find = %s\n", name);
+	if (line == NULL) 
+	{
 		perror("Error: No  or pwd\n");
-        return (NULL);   
-		}
+		return (NULL);   
+	}
     while (line)
     {
         // Asegúrate de que 'line->name' está correctamente inicializado

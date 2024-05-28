@@ -6,11 +6,11 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 13:35:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/17 20:09:53 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:11:06 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*ft_get_numof_infile
 *

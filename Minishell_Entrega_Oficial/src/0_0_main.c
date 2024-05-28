@@ -15,10 +15,14 @@
 
 static void ft_begin(t_prompt *data)
 {
+ 
+
     if (!(data->prompt= ft_put_name_system(data)))
-        free(data->prompt);   
+        free(data->prompt);
+    
     if(!(data->input = readline(data->prompt)))
         exit(EXIT_SUCCESS);
+    
     if (data->input && ft_strlen(data->input) > 0)
     {
         add_history(data->input);

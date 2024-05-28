@@ -6,11 +6,11 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 14:23:03 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/19 11:19:04 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:11:30 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 /*Contains following functions:
 1. int has_end_last_check(int start, int end, t_box **box)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   01_input_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 10:53:21 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/04 10:05:08 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:10:40 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
 //int ft_quotes_2(t_prompt **prompt, int i)
 int ft_quotes_2(char *input, int **dict_quotes, int i)
