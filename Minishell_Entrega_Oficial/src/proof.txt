@@ -17,4 +17,6 @@ ls | grep .txt, ls
 /* ------------------------- */
 
 Next test (uxu - 27052024)
-$$$$$$$$$$$$$USER$yes se me queda atascadete, listo ya no se me queda atascadete!! solved!! :)
+$$$$$$$$$$$$$USER$yes solved!! :)
+
+$$$$$$$$$$$$$USER$USER

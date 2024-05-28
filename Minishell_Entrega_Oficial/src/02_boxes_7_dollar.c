@@ -168,11 +168,11 @@ int next_is_sec_dollar(t_box **box, t_x_y_rest_info x_y)
     {
         if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y + 1] == '$')
         {
-            printf("second dollar identified!\n");
+            //printf("                         second dollar identified!\n");
             return (1);
         }
     }
-    printf("no second dollar\n");
+    //printf("                         no second dollar\n");
     return (0);
 }
 
@@ -237,12 +237,13 @@ void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int
     //1. Hasta el $, simplemente copia
     while (ind_pid_str != ind_dollar)
     {
+        printf(YELLOW"letsgo y = %d", x_y.index_y);
         (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = str_src[ind_old_word]; //hasi dana kopixatzen hasta el dólar
         ind_pid_str++; //para que luego cojamos bien desde el dólar
         ind_old_word++;
         x_y.index_y++;
+        printf("printed\n"RESET_COLOR);
     }
-    
     //2. Una vez encontramos el dólar, sustituimos
     if (ind_pid_str == ind_dollar) //un poquito redundante, y un poquito jugón el bucle anterior. En mi cabeza tiene que darse siempre ok, pero imagínate que no.. posible bucle infinito? jaj
     {
@@ -296,7 +297,11 @@ void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int
 int is_special_char(char c)
 {
     if (c >= 0 && c <= 47)
+    {
+        //printf("yes special char\n");
         return (1);
+    }
+    //printf("no special char\n");
     return (0);
 }
 
@@ -308,24 +313,31 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y)
     int counter; //len_potential_env_variable_word;
     int len_word;
 
-    printf("get_len_word, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
+    //printf("get_len_word, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
     counter = 0;
     len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
-    printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
+    //printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
     x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
+    //printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,(int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
     while (x_y.index_y < len_word)
     {
         if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] !='$' && !is_special_char((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]))
         {
             counter++;
-            x_y.index_y++;
+            //x_y.index_y++;
         }
-        printf("y = %d, len_word = %d\n", x_y.index_y, len_word);
+        else
+        {
+            //printf("didn't count, y = %d, len_word = %d\n", x_y.index_y, len_word);
+            return (counter);
+        }
+            
+            
         if (x_y.index_y == len_word)
             break; //safety
         x_y.index_y++;
     }
-    printf("counter = %d\n", counter);
+    //printf("counter = %d\n", counter);
     return (counter);
 }
 
@@ -382,7 +394,7 @@ void replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new
         len_new_total_word--;
         x_y.index_y++;
     }
-    printf(GREEN"x = %d\n"RESET_COLOR, x_y.index_x);
+    //printf(GREEN"x = %d\n"RESET_COLOR, x_y.index_x);
     //printf("after: %s\n", (*box)->rest_info_potential_cmd[x_y.index_x]);
 }
 
@@ -567,9 +579,9 @@ char *get_word_2(t_box **box, t_x_y_rest_info x_y)
     int len_word;
     int x;
 
-    printf("get_word_2\n");
+    //printf("                         get_word_2\n");
     len_word = get_len_word(box, x_y);
-    printf("          len_word_potential_variable = %d\n", len_word);
+    //printf("                         len_word_potential_variable = %d\n", len_word);
     env_variable = malloc(sizeof(char) * (len_word + 1));
     env_variable[len_word] = '\0';
     x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
@@ -581,7 +593,7 @@ char *get_word_2(t_box **box, t_x_y_rest_info x_y)
         x++;
         x_y.index_y++;
     }
-    printf("get_word_2 | word to find in env: %s\n", env_variable);
+    //printf("                         get_word_2 | word to find in env: %s\n", env_variable);
     return (env_variable);
 }
 
@@ -594,13 +606,13 @@ char *get_word_2(t_box **box, t_x_y_rest_info x_y)
 */
 int is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
 {
-    printf("          is word in env? ");
+    //printf("                         is word in env? ");
     if (ft_getenv_local((*prompt)->vars, get_word_2(box, x_y)))
     {
-        printf(GREEN" YES\n"RESET_COLOR);
+        //printf(GREEN" YES\n"RESET_COLOR);
         return (1);
     }
-    printf(RED" NO\n"RESET_COLOR);   
+    //printf(RED" NO\n"RESET_COLOR);   
     return (0);
 }
 
@@ -646,7 +658,7 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     int keep_len_new_word;
     char *str_to_find;
     int len_str_to_find;
-    printf("replace_env | x = %d, y = %d\n", x_y.index_x, x_y.index_y);
+    //printf("replace_env | x = %d, y = %d\n", x_y.index_x, x_y.index_y);
     ind_new_word = 0;
     
     //1st: copy old info (old word in rest_info y la palabra a buscar)
@@ -655,6 +667,7 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     get_old_word((*box)->rest_info_potential_cmd[x_y.index_x], &tmp_old_word_before_free); //tmp_old_word_before_free ya lo tee
     str_to_find = get_word_2(box, x_y);
     len_str_to_find = ft_strlen(str_to_find);
+    //printf("                         old word to keep = %s\n", tmp_old_word_before_free);
     
     //2. Hacer free de la info antigua
     ft_free((*box)->rest_info_potential_cmd[x_y.index_x]);
@@ -667,22 +680,27 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     len_val = ft_strlen(tmp_val);
     ind_val = 0;
     keep_len_new_word = new_len;
-    printf("new_len = %d\n", new_len);
-    while (new_len > 0)
-    {
+    //printf("                         new_len = %d, keep_new_len = %d\n", new_len, keep_len_new_word);
+    /*while (new_len > 0)
+    {*/
         //1. si antes del dólar hay cositas, copiarlas
-        while (ind_new_word < ind_dollar)
+        if (ind_new_word < ind_dollar) //if to debug, print just in this case, but only once (outside of while loop)
         {
-            (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = tmp_old_word_before_free[ind_old_word];
-            ind_new_word++;
-            ind_old_word++;
-            x_y.index_y++;
-        }
-
+            while (ind_new_word < ind_dollar /*&& new_len > 0*/) //lo de new_len es una manera de prevent overflow
+            {
+                (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = tmp_old_word_before_free[ind_old_word];
+                ind_new_word++;
+                ind_old_word++;
+                x_y.index_y++;
+                new_len--;
+            }
+            //printf("                         1st step BEFORE dollar completed, str = "BLUE"%s"RESET_COLOR", %d len left\n", (*box)->rest_info_potential_cmd[x_y.index_x], keep_len_new_word - new_len);
+        } 
+        
         //2. una vez llegamos a la posición del dólar
         if (ind_new_word == ind_dollar)
         {
-            ind_old_word++; // pasar del dólar
+            //ind_old_word++; // pasar del dólar
             while (len_str_to_find > 0)
             {
                 ind_old_word++; //de la palabra "USER" también vamos a pasar
@@ -690,23 +708,32 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
             }
             while (len_val > 0)
             {
-                printf("y = %d, ind_val = %d\n", x_y.index_y, ind_val);
+                //printf("y = %d, ind_val = %d\n", x_y.index_y, ind_val);
                 (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = tmp_val[ind_val];
                 ind_val++;
                 x_y.index_y++;
                 len_val--;
             }
+            //printf("                         2nd step REPLACE dollar with ENV VAR completed, str = "BLUE"%s"RESET_COLOR", %d len left\n", (*box)->rest_info_potential_cmd[x_y.index_x], keep_len_new_word - new_len);
+
         }
 
         //3. Si todavía hay más info después de val
-        while ((x_y.index_y + 1) < keep_len_new_word)
+        if (x_y.index_y < keep_len_new_word) //if to debug, print just in this case, but only once (outside of while loop)
         {
-            (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = tmp_old_word_before_free[ind_old_word];
-            x_y.index_y++;
-            ind_old_word++;
+            ind_old_word++; //hurrengora
+            //printf("                              Step 3: y = %d, len_total = %d\n", x_y.index_y, keep_len_new_word);
+            while (x_y.index_y < keep_len_new_word)
+            {
+                (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = tmp_old_word_before_free[ind_old_word];
+                //printf("                              assigned! [%d][%d] = %c\n", x_y.index_x, x_y.index_y,(*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
+                x_y.index_y++;
+                ind_old_word++;
+            }
+            //printf("                         3rd step AFTER dollar completed, str = "BLUE"%s"RESET_COLOR", %d len left\n", (*box)->rest_info_potential_cmd[x_y.index_x], keep_len_new_word - new_len);
         }
-        new_len--;
-    }
+        //new_len--;
+    //}
 }
 
 
@@ -719,7 +746,7 @@ void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
     tmp_val = malloc(sizeof(char)*(len_val + 1));
     tmp_val[len_val] = '\0';
     cpy_to_val ((ft_getenv_local((*prompt)->vars, get_word_2(box, x_y)))->val, &tmp_val);
-    printf("          mngt_to_replace_env | tmp_val copied! = "YELLOW"%s\n"RESET_COLOR, tmp_val);
+    //printf("          mngt_to_replace_env | tmp_val copied! = "YELLOW"%s\n"RESET_COLOR, tmp_val);
     replace_env(box, x_y, tmp_val);
 }
 
@@ -729,7 +756,7 @@ void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
 int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word, t_prompt **prompt)
 {
     //int len_word; //to debug
-    printf(MAGENTA"find_dollars_and_replace, x = %d, y = %d\n"RESET_COLOR, x_y.index_x, x_y.index_y);
+    //printf("                    find_dollars_and_replace, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
     //len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
     //printf("     find_dollars_and_replace | "MAGENTA"y = %d, len_word = %d\n"RESET_COLOR, x_y.index_y, len_word);
     /*while (len_word > 0)
@@ -738,29 +765,38 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_qu
       */
     if (is_dollar(box, x_y, tmp_dict_quotes_word))
     {
-        printf(YELLOW"          dollar was found\n"RESET_COLOR);
+        //printf("                    dollar was found, y = %d, len_total = %d\n", x_y.index_y, (int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
         if (next_is_space_or_end(box, x_y))
+        {
+            //printf("                    case "YELLOW"1: only $\n"RESET_COLOR);
             return (0); //no need to replace, $ stays
+        }
+            
         else //después tiene contenido el dólar
         {
-            printf(YELLOW"else\n"RESET_COLOR);
+            //printf(YELLOW"else\n"RESET_COLOR);
             if (next_is_sec_dollar(box, x_y)) //$$
             {
-                printf("               two dollars here! let's get pid! - ");
+                //printf("                    case "YELLOW"2: double $$ replace pid\n"RESET_COLOR);
                 mng_to_replace_sec_dollar(box, x_y, tmp_dict_quotes_word);
+                //printf(GREEN"                    >> Result str = %s\n\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
                 //printf(YELLOW"uxu we're here\n"RESET_COLOR);
                 //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
                 //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);
             }
             else if (is_in_env(box, x_y, prompt)) //sí en env . Coger hassta fin palabra o hasta próximo dólar
             {
-                printf("          yes variable exists in env, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
+                //printf("                    case "YELLOW"3: env variable found\n"RESET_COLOR);
                 mng_to_replace_env(box, x_y, prompt);
+                //printf(BLUE"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
+
             }
             else //no en env
             {
-                printf(" - no variable is not in env\n");
+                //printf("                    case "YELLOW"4: replace by [], not an env variable\n"RESET_COLOR);
                 mng_to_replace_delete(box, x_y, prompt);
+                //printf(MAGENTA"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
+
             }
         }
         //}
@@ -819,7 +855,7 @@ int *generate_specif_dict_quotes(t_box **box, t_x_y_rest_info x_y, int len)
     tmp_dict_quotes_word = malloc(sizeof(int)*len); //no necesito +1 para valor nulo
     //printf("word nb_word_x= %d, tmp_dict_quotes_word - "MAGENTA" len = %d\n"RESET_COLOR, nb_word_x, len_word);
     nb_word_x = x_y.index_x;
-    printf("generate_specif_dict_quotes | len = %d, nb_word_x = %d, y = %d\n", len, nb_word_x, x_y.index_y);
+    //printf("generate_specif_dict_quotes | len = %d, nb_word_x = %d, y = %d\n", len, nb_word_x, x_y.index_y);
     fill_tmp_dict_quotes(box, &tmp_dict_quotes_word, len, (*box)->index_beginning_words_rest[nb_word_x]);
     //printf("          ");
     //put_arr(tmp_dict_quotes_word, len);
@@ -859,7 +895,7 @@ void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
     //2. find_dollars_and_replace
     while (1) //que recorra esta palabra (nb_word_x) tantas veces sea necesario (el len se va modificando when find_dollars_and_replace)hasta que no more dolars found along word
     {
-        printf(BLUE"vuelta n.º %d - "RESET_COLOR, tmp_to_debug);
+        //printf(BLUE"     vuelta n.º %d - "RESET_COLOR, tmp_to_debug);
         len_word = ft_strlen((*box)->rest_info_potential_cmd[nb_word_x]);
         //1. Generate (updadte*) tmp_dict_quotes
         //printf(MAGENTA"len_word = %d, x = %d\n"RESET_COLOR, len_word, nb_word_x);
@@ -892,7 +928,7 @@ void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
         //printf("tmp_dict_qotes[%d] = %d\n", 2, tmp_dict_quotes_word[2]);
         if (no_more_dollars(box, x_y, &tmp_dict_quotes_word))
         {
-            printf(BLUE">>>>>>>>> no more dollars in word\n"RESET_COLOR);
+            //printf(BLUE">>>>>>>>> no more dollars in word\n"RESET_COLOR);
             break;
         }
         if ((x_y.index_y + 1) == len_word) //prevent overflow, safety :)
