@@ -56,6 +56,12 @@ typedef struct s_prompt     t_prompt;
 typedef struct s_box        t_box;
 typedef struct s_vars       t_vars;
 
+typedef struct s_x_y_rest_info
+{
+    int index_x;
+    int index_y;
+}   t_x_y_rest_info;
+
 enum e_red_type
 {
     NO_REDIRECTION, //0
@@ -97,6 +103,10 @@ struct s_box
     int     nb_of_words_rest;
     int    *index_beginning_words_rest;
     char    **rest_info_potential_cmd;
+
+    //Others, for convenience:
+    pid_t tmp_pid;
+    char *tmp_pid_str;
 
     t_prompt *prompt;
 };                        
