@@ -55,7 +55,7 @@ void get_dict_quotes(t_box *box)
     box->dict_quotes = malloc(sizeof(int)*len); //conscientemente solo creo con largo de len, no necesito 1 más para nulo.
     //printf("get_dict_quotes, len = %d\n", len);
     if (ft_quotes (box->input_substr, &box->dict_quotes)== -1) //1. Asegurar 100% comillas principales cerradas y generar dict_quotes (&: para que se actualicen los valores = se informe por primera vez el diccionario dict_quotes). Mando &prompt, para que se actualice el diccionario de vuelta.
-        ft_puterror_exit("syntax error: unclosed quotes\n");
+        ft_puterror("syntax error: unclosed quotes\n");
     i = 0;
     while (len > 0)
     {

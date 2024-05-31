@@ -205,7 +205,7 @@ void ft_check_first_word(t_box **box, t_red_type red_type)
     //printf(YELLOW"\n     >> ft_check_first_word| red_type = %s, nb_of_red_type = %d\n"RESET_COLOR, ft_enum_to_str(red_type), nb_of_red_type);
     specif_arr_ind_red_type = malloc(sizeof(int) * nb_of_red_type);
     if (!specif_arr_ind_red_type)
-        ft_puterror_exit ("malloc error\n");
+        ft_puterror ("malloc error\n");
     get_specif_index_red(&specif_arr_ind_red_type, box, red_type);
     arr_word_yes_no = malloc(sizeof(int) * nb_of_red_type);
     is_word_red(&arr_word_yes_no, box, specif_arr_ind_red_type, red_type);
@@ -223,13 +223,13 @@ void ft_check_first_word(t_box **box, t_red_type red_type)
     {
         printf("dentro, red_type = %s\n", ft_enum_to_str(red_type));
         if (red_type == HEREDOC)
-            ft_puterror_exit("syntax error near unexpected token `<<'\n");
+            ft_puterror("syntax error near unexpected token `<<'\n");
         if (red_type == INFILE)
-            ft_puterror_exit("syntax error near unexpected token `<'\n");
+            ft_puterror("syntax error near unexpected token `<'\n");
         if (red_type == OUTFILE_APPEND)
-            ft_puterror_exit("syntax error near unexpected token `>>'\n");
+            ft_puterror("syntax error near unexpected token `>>'\n");
         if (red_type == OUTFILE_STRONG)
-            ft_puterror_exit("syntax error near unexpected token `>'\n");
+            ft_puterror("syntax error near unexpected token `>'\n");
     }
     get_word_mgmt(specif_arr_ind_red_type, box, red_type);
 }

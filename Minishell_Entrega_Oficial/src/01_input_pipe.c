@@ -177,12 +177,12 @@ void ft_where_r_pipes(t_prompt **prompt)
     (*prompt)->nb_of_pipes = ft_is_pipe(prompt); //el valor que queremos obtener es nb_of_pipes, por lo que desreferenciamos prompt (*prompt), no necesitamos que sus valores se actualicen
     printf(MAGENTA"01_input_pipe.c - ft_where_r_pipes: nb_of_pipes = %d\n"RESET_COLOR, (*prompt)->nb_of_pipes);
     if ((*prompt)->nb_of_pipes == -1)
-        ft_puterror_exit("syntax error near unexpected token `|'\n");
+        ft_puterror("syntax error near unexpected token `|'\n");
     else if ((*prompt)->nb_of_pipes > 0) // si sí que hay algún pipe carcter
     {
         (*prompt)->arr_index_pipes = malloc(sizeof(int) * ((*prompt)->nb_of_pipes)); //sin el más uno, es int*, no tiene '\0' al final para indicar final. Puedo usar el 0 como indicador de final. Ze la posición nunca será 0, ese error ya lo habré gestinado. Ze ona! Ta hola ahall dot len lortu! Aunque un poco rebuscado/chapu igual?
         if (!(*prompt)->arr_index_pipes)
-            ft_puterror_exit("malloc error\n");
+            ft_puterror("malloc error\n");
         //(*prompt)->arr_index_pipes[(*prompt)->nb_of_pipes] = 0; //ahal dot hola ein, ze sekula ezta izengo 0, ze el contenido = índices = ezta sekula izengo 0.
         //printf(YELLOW"last_arr[%d] = %d\n"RESET_COLOR, nb_of_pipes, prompt->arr_index_pipes[nb_of_pipes]);
         set_index_pipe(prompt);

@@ -21,7 +21,7 @@ void ft_get_substr(t_prompt *prompt)
     prompt->dict_quotes = malloc(sizeof(int) * (ft_strlen(prompt->input) + 1));
     prompt->dict_quotes[ft_strlen(prompt->input)] = '0'; //es para indicar final de array. Al ser int *, no nos deja '\0' para finalizar array. El 9 es el final. ¿Podríamos hacerlo char *? Sí, pero los indicadres son 0, 1, 2, integers. Podríamos hacerlo '0', '1' y '2', pero no quiero.
     if (ft_quotes (prompt->input, &prompt->dict_quotes)== -1) //1. Asegurar 100% comillas principales cerradas y generar dict_quotes (&: para que se actualicen los valores = se informe por primera vez el diccionario dict_quotes). Mando &prompt, para que se actualice el diccionario de vuelta.
-        ft_puterror_exit("syntax error: unclosed quotes\n");
+        ft_puterror("syntax error: unclosed quotes\n");
     //test dictionary
     printf(BLUE);
     //printf("test dictionary, len = %d\n", (int)ft_strlen(prompt->dict_quotes)); //ya ezin leike ze dict_quotes da int *

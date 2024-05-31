@@ -37,7 +37,7 @@ char *ft_split_from_to(int start, int end, char *src_input)
 	dst = malloc(sizeof(char)*(len_substr + 1));
 	dst[len_substr] = '\0';
 	if (!dst)
-		ft_puterror_exit("malloc error\n");
+		ft_puterror("malloc error\n");
 	index_src = start;
 	index_dst = 0;
 	while (index_src <= end)
@@ -78,7 +78,7 @@ void ft_split_input(t_prompt **prompt)
 	(*prompt)->total_substr_input = malloc(sizeof(char *) * ((*prompt)->nb_of_substr));
 	//total_substr_input[nb_of_substr][0] = '\0';
 	if (!(*prompt)->total_substr_input)
-		ft_puterror_exit("malloc error\n");
+		ft_puterror("malloc error\n");
 	start = 0;
 	index_end = 0;;
 	x = 0;

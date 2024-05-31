@@ -20,3 +20,10 @@ Next test (uxu - 27052024)
 $$$$$$$$$$$$$USER$yes solved!! :)
 
 $$$$$$$$$$$$$USER$USER
+
+____
+1. Gallego: manolito< end --> coge sin querer la redir, si detecta redir parar
+2. quitarle el puterrorexit
+3. LEAKS
+4. e"c"h'o' --> que las comillas
+5. $?

@@ -137,6 +137,17 @@ int possible_cases(t_box **box, int index)
     return (0);
 }
 
+/*Returns:
+*   1: Success, it's a redirección
+*   0: Failure, it's not a redirección
+*/
+int is_red(t_box **box, int index)
+{
+    if ((*box)->input_substr[index] == '<' || (*box)->input_substr[index] == '>')
+        return (1);
+    return (0);
+}
+
 /*cpy_1_word
 *
 *   Variables:
@@ -155,13 +166,13 @@ void cpy_1_word(t_box **box, int nb_of_word)
     keep_start = start;
     len = 0;
     //printf("start = %d\n", start);
-    while (possible_cases(box, start) && (start < (int)ft_strlen((*box)->input_substr)))
+    while (possible_cases(box, start) && (start < (int)ft_strlen((*box)->input_substr)) && !is_red(box, start))
     {
         start++;
         len++;
         //printf("yes\n");
     }
-    //printf("len = %d\n", len);
+    printf("len = %d\n", len);
     //printf("holiwis\n");
     (*box)->rest_info_potential_cmd[nb_of_word] = malloc(sizeof(char) * (len + 1));
     (*box)->rest_info_potential_cmd[nb_of_word][len] = '\0';

@@ -56,6 +56,8 @@ typedef struct s_prompt     t_prompt;
 typedef struct s_box        t_box;
 typedef struct s_vars       t_vars;
 
+
+
 typedef struct s_x_y_rest_info
 {
     int index_x;
@@ -65,8 +67,8 @@ typedef struct s_x_y_rest_info
 enum e_red_type
 {
     NO_REDIRECTION, //0
-    OUTFILE_APPEND, //1: >>
-    OUTFILE_STRONG, //2: >
+    OUTFILE_APPEND, //1: >> añade
+    OUTFILE_STRONG, //2: > sobreescribe "trunc"
     INFILE, //3: <
     HEREDOC //4: <<
 };
@@ -240,12 +242,51 @@ void rest_get_ind_beginning_words(t_box **box);
 int possible_cases(t_box **box, int index);
 void cpy_1_word(t_box **box, int nb_of_word);
 
-//02_boxes_7_dollar.c
+//02_boxes_7_dollar_1.c
+int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word, t_prompt **prompt);
+int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word);
+int *generate_specif_dict_quotes(t_box **box, t_x_y_rest_info x_y, int len);
+void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt);
 void check_dollars_expansion(t_box **box, t_prompt **prompt);
+
+//02_boxes_7_dollar_2.c
+void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val);
+char *get_word_2(t_box **box, t_x_y_rest_info x_y);
+void cpy_to_val(char *str_src, char **str_dst);
+void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
+
+//02_boxes_7_dollar_3.c
+void finish_to_update_dict_quotes (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word);
+void put_arr(int *arr, int len);
+void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word);
+int is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
+void get_old_word(char *str_src, char **str_dst);
+
+//02_boxes_7_dollar_4.c
+int get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word);
+void replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new_total_word);
+void mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
+void cpy_arr_with_len(int **arr_src, int *arr_dst, int len);
+void fill_with_nine(int **tmp_dict_quotes_word, int len);
+
+//02_boxes_7_dollar_5.c
+void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int **tmp_dict_quotes_word, int len_new_word);
+int is_special_char(char c);
+int get_len_word(t_box **box, t_x_y_rest_info x_y);
+
+//02_boxes_7_dollar_6.c
+int is_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes);
+int next_is_space_or_end (t_box **box, t_x_y_rest_info x_y);
+int next_is_sec_dollar(t_box **box, t_x_y_rest_info x_y);
+void cpy_word (char *str_src, char **str_dst);
+int get_len_pid (t_box **box);
+
+//02_boxes_7_dollar_.c
+void ft_free(void *arr);
 int get_nb_of_dollars(t_box **box, int ind);
 void ft_replace (t_box **box, int ind, char *str_after);
 char *basic_itoa(int nb);
-void get_updated_words(t_box **box, int ind, t_prompt **prompt);
+void fill_tmp_dict_quotes(t_box **box, int **tmp_dict_quotes_word, int len, int start);
 
 //02_boxes_word_utils_hrdc.c
 void get_word_hrdc_1(t_box **box, int *arr_ind_red_type);

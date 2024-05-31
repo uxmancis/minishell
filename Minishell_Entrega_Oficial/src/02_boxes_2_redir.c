@@ -52,7 +52,7 @@ int ft_get_numof_redir(t_box *box)
             if (/*i < (keep_len - 1) && */(box->input_substr[i + 1] == '<' || box->input_substr[i + 1] == '>'))
             {
                 if (box->input_substr[i + 2] == '<' || box->input_substr[i + 2] == '>')
-                    ft_puterror_exit("syntax error near unexpected token `newline'\n");
+                    ft_puterror("syntax error near unexpected token `newline'\n");
                 else //2.a topatuta
                 {
                     if (box->dict_quotes[i] == 0) //asegurar que está fuera de comillas
@@ -100,8 +100,7 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
         if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
             if (((*box)->input_substr[(*i)+2] == '<' && (*box)->dict_quotes[(*i) + 2] == 0) || ((*box)->input_substr[(*i)+2] == '>' && (*box)->dict_quotes[(*i) + 2] == 0))//3rd position any kind of redirection = error
-                ft_puterror_exit("syntax error near unexpected token `newline'\n");
-
+                ft_puterror("syntax error near unexpected token `newline'\n");
             //printf(">> i = %d, dict_quotes[%d] = %d\n", (*i), (*i), (*box)->dict_quotes[(*i)]);
             //Redirection assignment (HEREDOC)
             if ((*box)->dict_quotes[(*i)] == 0) //si está fuera de comillas
@@ -116,7 +115,7 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
                 return (-1);  
         }
         else if ((*box)->input_substr[(*i) + 1] == '>' && (*box)->dict_quotes[(*i) + 1] == 0) //si en 2ª posición está el contrario: error
-            ft_puterror_exit("syntax error near unexpected token `newline'\n");
+            ft_puterror("syntax error near unexpected token `newline'\n");
         else 
         {
             //printf(">> i = %d, dict_quotes[%d] = %d\n", (*i), (*i), (*box)->dict_quotes[(*i)]);
@@ -152,7 +151,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
         if ((*box)->input_substr[(*i) + 1] == '>' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
             if (((*box)->input_substr[(*i)+2] == '<' && (*box)->dict_quotes[(*i) + 2] == 0) || ((*box)->input_substr[(*i)+2] == '>' && (*box)->dict_quotes[(*i) + 2] == 0)) //3rd position any kind of redirection = error
-                ft_puterror_exit("syntax error near unexpected token `newline'\n");
+                ft_puterror("syntax error near unexpected token `newline'\n");
             
             if ((*box)->dict_quotes[(*i)] == 0 )//si está fuera de comillas
             {
@@ -168,7 +167,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
                 return (-1);
         }
         else if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0) //si en 2ª posición está el contrario: error
-            ft_puterror_exit("syntax error near unexpected token `newline'\n");
+            ft_puterror("syntax error near unexpected token `newline'\n");
         else 
         {
             if ((*box)->dict_quotes[(*i)] == 0)//si está fuera de comillas

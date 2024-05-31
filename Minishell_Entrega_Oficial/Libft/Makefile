@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+         #
+#    By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 20:29:37 by uxmancis          #+#    #+#              #
-#    Updated: 2024/05/17 00:24:06 by dbonilla         ###   ########.fr        #
+#    Updated: 2024/05/31 16:54:29 by uxmancis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	libft.a
 INCLUDES	=	inc/
 SRC_DIR		=	src/
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror #-fsanitize=address -g3
+CCFLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
 AR			=	ar rc
 RM			=	rm -f
 

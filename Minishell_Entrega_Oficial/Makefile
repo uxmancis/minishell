@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+         #
+#    By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 20:19:46 by codespace         #+#    #+#              #
-#    Updated: 2024/05/19 10:34:50 by dbonilla         ###   ########.fr        #
+#    Updated: 2024/05/31 18:07:58 by uxmancis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,13 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_6_cmd_1.c\
 				02_boxes_6_cmd_2.c\
 				02_boxes_6_cmd_3.c\
-				02_boxes_7_dollar.c\
+				02_boxes_7_dollar_1.c\
+				02_boxes_7_dollar_2.c\
+				02_boxes_7_dollar_3.c\
+				02_boxes_7_dollar_4.c\
+				02_boxes_7_dollar_5.c\
+				02_boxes_7_dollar_6.c\
+				02_boxes_7_dollar_7.c\
 				02_boxes_red_utils.c \
 				02_boxes_utils_nav.c \
 				02_boxes_word_utils_hrdc.c \
@@ -58,7 +64,7 @@ OBJS_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 
 
-CC			= gcc #-fsanitize=address -g3
+CC			= gcc -fsanitize=address -g3
 FLAGS		= -Wall -Wextra -Werror
 # LIBS		=  -lreadline
 RM			= rm -rf
