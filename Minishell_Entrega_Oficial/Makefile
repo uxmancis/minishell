@@ -6,7 +6,7 @@
 #    By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 20:19:46 by codespace         #+#    #+#              #
-#    Updated: 2024/05/31 18:07:58 by uxmancis         ###   ########.fr        #
+#    Updated: 2024/06/01 16:29:19 by uxmancis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,26 +49,23 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_word_utils_outf_app.c \
 				02_boxes_word_utils_outf_str.c \
 				03_initialize_cmd.c \
-				04_generate_pipe.c \
-				05_redirections.c \
+				04_generate_forks.c \
+				05_here_docs.c \
+				05_redirects.c \
 				05_signals.c \
 				06_execute_commands.c \
 				99_puterror.c \
-				99_utils.c
+				99_utils.c \
+				exec_builtin.c
 				
 # main_redirections.c 
 				
-				
 OBJS_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-
-
-
-CC			= gcc -fsanitize=address -g3
+CC			= gcc #-fsanitize=address -g3
 FLAGS		= -Wall -Wextra -Werror
 # LIBS		=  -lreadline
 RM			= rm -rf
-
 
 DEF_COLOR = \033[0;39m
 GRAY = \033[0;90m
@@ -90,7 +87,7 @@ all:		$(NAME)
 
 
 $(NAME): $(LIBFT) $(OBJS_FILES) 
-	@mkdir -p $(BINDIR)
+	mkdir -p $(BINDIR)
 	@$(CC) -o ./$(BINDIR)/$(NAME) $(FLAGS) $(OBJS_FILES) $(LIBFT) -I$(INC) -lreadline
 	@echo "$(BLUE)COMPILING MINISHELL...$(CLEAR)"
 	@echo "$(GREEN)MINISHELL COMPILED SUCCESFUL!$(CLEAR)"

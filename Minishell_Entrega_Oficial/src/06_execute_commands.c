@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   06_execute_commands.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:00:19 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/05/16 22:53:10 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:29:51 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

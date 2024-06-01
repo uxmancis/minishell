@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:39:46 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/05/17 00:11:16 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:29:39 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

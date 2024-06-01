@@ -12,7 +12,6 @@
 
 # include "../inc/minishell.h"
 
-
 static void	ft_export_all(t_vars *list)
 {
 	t_vars	*tmp;
@@ -40,12 +39,11 @@ static void	ft_export_all(t_vars *list)
 // }
 t_vars *ft_getenv_local(t_vars *line, char *name)
 {
-	//printf("     00_env_data.c - "YELLOW"ft_getenv_local"RESET_COLOR" | str to find = %s\n", name);
-	if (line == NULL) 
-	{
+	 if (line == NULL) 
+		{
 		perror("Error: No  or pwd\n");
-		return (NULL);   
-	}
+        return (NULL);   
+		}
     while (line)
     {
         // Asegúrate de que 'line->name' está correctamente inicializado
@@ -154,6 +152,8 @@ static void ft_import_envp(t_prompt *data, char **envp)
 			flag = ft_setenv_local(data->vars, name, value, 0);
 			// Function to set the environment variable and store it in the "Flag" variable	after checking if the variable already exists
 			// printf("flag = %d\n", flag);
+			free(name);
+			free(value);
 			if (flag == -1)
 			// ft_free_all(data)
 			write(1, "Error: Malloc failed.\n", 22);
@@ -182,8 +182,8 @@ t_prompt *ft_init_data(char **envp)
 		perror("Error: Malloc failed.\n");
 	ft_import_envp(data, envp);
 	// Initializes the data structure with the fuction duplicate the file descriptor
-	data->line_infd = dup(STDIN_FILENO);
-    data->line_outfd = dup(STDOUT_FILENO);
+	// data->line_infd = dup(STDIN_FILENO);
+    // data->line_outfd = dup(STDOUT_FILENO);
 	// Initializes the data structure
 	data->input = NULL;
 	// data->cmd = NULL;
@@ -192,9 +192,8 @@ t_prompt *ft_init_data(char **envp)
 	printf("Data Initialized\n");
 	return(data);
 }
- 
- 
 
+ 
 // int	main(int argc, char **argv, char **envp)
 // {
 // 	(void)argv;

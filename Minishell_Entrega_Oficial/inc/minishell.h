@@ -55,8 +55,7 @@ typedef enum   e_red_type   t_red_type;
 typedef struct s_prompt     t_prompt;
 typedef struct s_box        t_box;
 typedef struct s_vars       t_vars;
-
-
+typedef struct s_cmd        t_cmd;
 
 typedef struct s_x_y_rest_info
 {
@@ -71,6 +70,25 @@ enum e_red_type
     OUTFILE_STRONG, //2: > sobreescribe "trunc"
     INFILE, //3: <
     HEREDOC //4: <<
+};
+
+struct s_cmd
+{
+    char    **envp;
+	char	**command;
+	int		nb_substr;
+	int		heredoc;
+	int		fd_in;
+    int     close_in; 
+	int		fd_out;
+    int     close_out;
+	int		*pipefd[2];
+	int		nb_cmds;
+	int		child;
+	pid_t   *pids;
+    int     parent_pid;
+	char	**cmd_options;
+	char	*cmd_path;
 };
 
 struct s_box
@@ -146,6 +164,11 @@ struct s_prompt
 //00_minishell.c
 // void ft_begin(int argc, char **argv, char **env);
 void ft_get_substr(t_prompt *prompt);
+
+//00_env_data.c
+t_vars *ft_getenv_local(t_vars *line, char *name);
+t_prompt *ft_init_data(char **envp);
+t_vars *ft_varsnew(char *name, char *value);
 
 //01_input_pipe.c
 void ft_where_r_pipes(t_prompt **prompt); //función Índice - Principal
@@ -304,83 +327,44 @@ void get_word_outf_app_2(int start, int end, t_box **box, int red_type_nb_x);
 void get_word_outf_str_1(t_box **box, int *arr_ind_red_type);
 void get_word_outf_str_2(int start, int end, t_box **box, int red_type_nb_x);
 
+//03_initialize_cmd.c
+//static t_cmd clean_cmd_init(void);
+t_cmd init_cmd(t_box *box, t_prompt *data, int sub_box_id);
+int initialize_cmd(t_box *box, t_prompt *data, int substr_box_id);
 
-//98_exec_david.c
-void	exec_heredoc(char *delimiter);
-int has_end_word(int index_hrdc_in_substr, t_box **box, int red_nb_x);
-//99_utils.c
-// int     ft_isspace(int c);
-// int	ft_putchar_fd(int c, int fd);
-// int	ft_putstr_fd(char *str, int fd);
-void    ft_print_welcome(void);
-// size_t	ft_strlen(char *str);
-//int	ft_atoi(const char *str);
-//void	ft_puterror_exit(char *str);
-void    ft_puterror_exit(char *str);
-void    ft_puterror(char *str);
-// int	ft_strncmp(const char *s1, const char *s2, size_t n);
+//04_generate_forks.c
+int create_pipes(t_cmd *cmd_data);
+int close_fdin_fdout(t_cmd *cmd_data, int index_child);
+int close_pipefd(t_cmd *cmd_data);
+int  baby_sister_for_the_childs(int input, int output, t_cmd *cmd_data);
+int childs(t_cmd *cmd_data, int index_child, t_box **box, t_prompt **data);
+char	*get_cmd(t_cmd *cmd_data, t_prompt *data);
+int create_child_process(t_cmd *cmd_data, t_prompt *data, t_box **box);
+int handle_parent_process(t_cmd *cmd_data, int index_childd);
 
-
-// We will use the following functions to manage the input of the shell
-//in the cases of redirections and pipes.
-// void here_doc(t_prompt *data);
-
-/* FUNCTIONS FOR INITIALIZING COMMANDS */
-int initialize_cmd(t_box *box, t_prompt *data, int substr_id);
-
-
-/* FUNCTIONS OF THE PIPES */
-
-int create_pipe(t_box *box);
-int handle_child_process(t_box *box, t_prompt *data, int id_box);
-int handle_parent_process(t_box *box);
-int close_files(t_box *box, int i);// int handle_input(t_box *box);
-
-/*  FUNCTIONS OF THE REDIRECTIONS */ 
-int handle_redirection(t_box **box, t_prompt *data); 
-int handle_output(t_box *box, int i);
-
-/* FUNCTIONS FOR HANDLING DIFFERENT TYPES OF REDIRECTIONS */
+//05_here_docs.c
 int handle_heredoc(t_box **box);
-int handle_input_infile(t_box **box);
-int handle_output_append(t_box **box,int i);
-int handles_output_strong(t_box **box);
 
+//05_redirects.c
+int close_files(t_cmd *cmd_data) ;
+int handle_input_infile(t_box **box, t_cmd *cmd_data, int index_red);
+int handle_output_append(t_box **box, t_cmd *cmd_data, int index_red);
+int handle_output_strong(t_box **box, t_cmd *cmd_data, int index_red);
+int handle_redirects(t_box **box, t_cmd *cmd_data);
 
-/* FUNCTIONS FOR EXECUTING COMMANDS */
-int execute_multiple_commands(t_box *box);
-int execute_simple_command(t_box *box);
-int execute_commands(t_box *box);
+//99_utils.c
+char	*ft_put_name_system(t_prompt *data);
+void	ft_print_welcome(void);
+int ft_sstrncmp(char *str, char c);
+void ft_puterror(char *str);
 
+//05_signals.c
+//06_execute_commands.c
 
-/* FUNCTIONS OF SIGNALS */													
-
-int handle_sigint(int sig);
-int handle_eof(int sig);
-int handle_sigquit(int sig);
-
-
-/* FUNCTIOS OF ENVIRONMENT */
-
-t_prompt *ft_init_data(char **envp); 
-///The ft_init_data function initializes the data structure.
-int		ft_setenv_local(t_vars *list, char *name, char *value, int overwrite); 
-// This function sets a new variable in the environment local and volcate memory for it
-// t_vars *ft_getenv_local(t_vars *line, char *name);
-t_vars *ft_getenv_local(t_vars *line, char *name);
-
-// This function searches the environment list to find the environment variable name, 
-// and returns a pointer to the corresponding element
-t_vars	*ft_varsnew(char *name, char *value); 
-// This function creates a new linked list of
-// environment local and volcate memory for it
-int		ft_sstrncmp(char *str, char c); 
-// This fuction compares the first character of a string with a character.
-char	*ft_put_name_system(t_prompt *prompt);
-// This function sets the name of the system in the prompt of the shell or terminal
-
-
-
-
+//exec_builtin.c
+int ft_strcmp_2(char *str_2_check, char *cmd);
+void ft_putchar(char c);
+void ft_builtin_pwd(t_prompt **prompt);
+int which_cmd(t_box **box, t_prompt **prompt);
 
 #endif

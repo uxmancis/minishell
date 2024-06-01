@@ -19,37 +19,6 @@
 //     return (0);
 // }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	void			*dst;
-	unsigned char	*temp;
-	size_t			total;
-
-	// i = 0;
-	total = size * count;
-	dst = malloc (total);
-	if (!dst)
-		return (0);
-	temp = dst;
-	while (total > 0)
-	{
-		*temp = '\0';
-		temp++;
-		total--;
-	}
-	return (dst);
-}
-/*int main(void)
-{
-	size_t mem_size;
-	size_t str_size;
-	char *str = "uxu";
-
-
-	str_size = ft_strlen(str);
-	printf("%s", ft_calloc(str_size, sizeof(char)));
-}*/
-
 // /* DESCRIPTION:
 // Outputs the char c to the file descriptor fd.
 // The function returns the number of characters printed and -1 if fails to print.
@@ -149,17 +118,23 @@ char	*ft_put_name_system(t_prompt *data)
     char *sysname;
     char *user_name;
     char *pwd;
-    if (!(ft_getenv_local(data->vars, "LOGNAME")) || !(ft_getenv_local(data->vars, "PWD")))
+    if (!(ft_getenv_local(data->vars, "USER")) || !(ft_getenv_local(data->vars, "PWD")))
             return (printf("Error: No user or pwd\n"), NULL);
     user_name = ft_getenv_local(data->vars, "USER")->val;
     pwd = ft_getenv_local(data->vars, "PWD")->val;
     if ((!(sysname = (char *)malloc(ft_strlen(user_name) + ft_strlen(pwd) + 200))))
         return (NULL); // its important to return 0 if malloc fails
-    ft_strcpyy(sysname, "\033[31m@");
-    ft_strcat(sysname, user_name);
-    ft_strcat(sysname, " ➜ ");
-    ft_strcat(sysname, pwd);
-    ft_strcat(sysname, " $ \033[0m");
+    ft_strcpyy(sysname, RED);
+	ft_strcat(sysname, "@");
+	ft_strcat(sysname, CYAN);
+	ft_strcat(sysname, user_name);
+	ft_strcat(sysname, WHITE);
+	ft_strcat(sysname, " ➜ ");
+	ft_strcat(sysname, GREEN);
+	ft_strcat(sysname, pwd);
+	ft_strcat(sysname, WHITE);
+	ft_strcat(sysname, " $ " GREEN);
+	ft_strcat(sysname, RESET_COLOR);
     data->prompt = sysname;
     
     return (sysname);

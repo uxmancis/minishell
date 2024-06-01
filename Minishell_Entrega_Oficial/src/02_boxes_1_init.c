@@ -114,7 +114,9 @@ void ft_boxes_init(t_prompt *prompt, int substr_id)
     //box.nb_of_heredocs = ft_get_numof_heredocs(&box);
     //printf("nb_of_heredocs = %d\n", box.nb_of_heredocs);
     get_rest(&box, &prompt);
-    //execute_commands(box);
+
+    //David aquí
+    initialize_cmd(&box, prompt, substr_id);
     printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
     printf(BLUE"BOX GENERATION COMPLETED✅, box number = %d\n"RESET_COLOR, substr_id);
     printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);
