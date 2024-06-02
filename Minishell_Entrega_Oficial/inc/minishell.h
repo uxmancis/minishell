@@ -302,8 +302,7 @@ void fill_with_nine(int **tmp_dict_quotes_word, int len);
 //02_boxes_7_dollar_5.c
 void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int **tmp_dict_quotes_word, int len_new_word);
 int is_special_char(char c);
-int get_len_word(t_box **box, t_x_y_rest_info x_y);
-
+int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
 //02_boxes_7_dollar_6.c
 int is_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes);
 int next_is_space_or_end (t_box **box, t_x_y_rest_info x_y);
@@ -311,12 +310,15 @@ int next_is_sec_dollar(t_box **box, t_x_y_rest_info x_y);
 void cpy_word (char *str_src, char **str_dst);
 int get_len_pid (t_box **box);
 
-//02_boxes_7_dollar_.c
+//02_boxes_7_dollar_7.c
 void ft_free(void *arr);
 int get_nb_of_dollars(t_box **box, int ind);
 void ft_replace (t_box **box, int ind, char *str_after);
 char *basic_itoa(int nb);
 void fill_tmp_dict_quotes(t_box **box, int **tmp_dict_quotes_word, int len, int start);
+
+//02_boxes_7_dollar_8.c
+int next_is_question(t_box **box, t_x_y_rest_info x_y);
 
 //02_boxes_word_utils_hrdc.c
 void get_word_hrdc_1(t_box **box, int *arr_ind_red_type);

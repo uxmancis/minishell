@@ -32,40 +32,39 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_qu
         {
             //printf("                    case "YELLOW"1: only $\n"RESET_COLOR);
             return (0); //no need to replace, $ stays
-        }
-            
-        else //después tiene contenido el dólar
+        }  
+        else if(next_is_sec_dollar(box, x_y)) //después tiene contenido el dólar
         {
-            //printf(YELLOW"else\n"RESET_COLOR);
-            if (next_is_sec_dollar(box, x_y)) //$$
-            {
-                //printf("                    case "YELLOW"2: double $$ replace pid\n"RESET_COLOR);
+            //printf("                    case "YELLOW"2: double $$ replace pid\n"RESET_COLOR);
                 mng_to_replace_sec_dollar(box, x_y, tmp_dict_quotes_word);
                 //printf(GREEN"                    >> Result str = %s\n\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
                 //printf(YELLOW"uxu we're here\n"RESET_COLOR);
                 //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
                 //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);
-            }
-            else if (is_in_env(box, x_y, prompt)) //sí en env . Coger hassta fin palabra o hasta próximo dólar
-            {
-                //printf("                    case "YELLOW"3: env variable found\n"RESET_COLOR);
-                mng_to_replace_env(box, x_y, prompt);
-                //printf(BLUE"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
-
-            }
-            else //no en env
-            {
-                //printf("                    case "YELLOW"4: replace by [], not an env variable\n"RESET_COLOR);
-                mng_to_replace_delete(box, x_y, prompt);
-                //printf(MAGENTA"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
-
-            }
         }
+        else if (next_is_question(box, x_y))
+        {
+            x_y.index_y++;
+            x_y.index_y++;
+        }
+        else if (is_in_env(box, x_y, prompt)) //sí en env . Coger hassta fin palabra o hasta próximo dólar
+        {
+            printf("                    case "YELLOW"3: env variable found\n"RESET_COLOR);
+            mng_to_replace_env(box, x_y, prompt);
+            //printf(BLUE"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
+
+        }
+        else //no en env
+        {
+            printf("                    case "YELLOW"4: replace by [], not an env variable\n"RESET_COLOR);
+            mng_to_replace_delete(box, x_y, prompt);
+            //printf(MAGENTA"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);m
+        }
+    }
         //}
         //x_y.index_y++;
         //len_word--;
         //printf("status: y = %d, len_word = %d\n", x_y.index_y, len_word);
-    }
     //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
     //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);
     //printf("tmp_dict_qotes[%d] = %d\n", 2, (*tmp_dict_quotes_word)[2]);

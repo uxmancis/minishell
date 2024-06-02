@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 12:07:07 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:47:29 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,48 +104,56 @@ void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int
     //printf(GREEN"replace_pid_sec_dollar COMPLETED\n"RESET_COLOR);
 }
 
+/*
+*   Special chars include: 
+*       $ : 36 (decimal)
+*/
 int is_special_char(char c)
 {
     if (c >= 0 && c <= 47)
     {
-        printf("yes special char = %c\n", c);
+        //printf("yes special char = %c\n", c);
         return (1);
     }
-    printf("no special char = %c\n", c);
+    //printf("no special char = %c\n", c);
     return (0);
 }
 
 /*get_len_word
 *   Returns: len of substr to delete from particular word in rest_info_...(box)
 */
-int get_len_word(t_box **box, t_x_y_rest_info x_y)
+int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free)
 {
     int counter; //len_potential_env_variable_word;
-    int len_word;
+    int len_old_word;
 
     //printf("get_len_word, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
+    (void)box;
     counter = 0;
-    len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
-    printf("len_word_total = %d\n", len_word);
+    len_old_word = ft_strlen(tmp_old_word_before_free);
+    printf(MAGENTA"chequeito, tmp_old_word_before_free = %s\n"RESET_COLOR, tmp_old_word_before_free);
+    printf("len_old_word_total = %d\n", len_old_word);
     //printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
     x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
     //printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,(int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
-    while (x_y.index_y < len_word)
+    while (x_y.index_y < len_old_word)
     {
-        if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] !='$' && !is_special_char((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]))
+        //printf(">>value, old_rest[%d] = %c\n", x_y.index_y, tmp_old_word_before_free[x_y.index_y]);
+        if (!is_special_char(tmp_old_word_before_free[x_y.index_y]))
         {
+            //printf(GREEN"counter++; c = %c\n"RESET_COLOR, tmp_old_word_before_free[x_y.index_y]);
             counter++;
             //x_y.index_y++;
         }
         else
         {
-            //printf("didn't count, y = %d, len_word = %d\n", x_y.index_y, len_word);
+            //printf(RED"didn't count RETURN counter = %d, y = %d, c = %c, len_old_word = %d\n"RESET_COLOR, counter, x_y.index_y, tmp_old_word_before_free[x_y.index_y], len_old_word);
             return (counter);
         } 
-        if (x_y.index_y == len_word)
+        if (x_y.index_y == len_old_word)
             break; //safety
         x_y.index_y++;
     }
-    printf("get_len_word | len_word = %d\n", counter);
+    printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
     return (counter);
 }

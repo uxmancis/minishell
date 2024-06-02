@@ -221,7 +221,7 @@ int ft_boxes_init(t_prompt *prompt, int substr_id)
     if (get_rest(&box, &prompt) == -1)
         return (-1);
     //David aquí: EXECUTE
-    initialize_cmd(&box, prompt, substr_id);
+    //initialize_cmd(&box, prompt, substr_id);
     //Liberar
     ft_free_box(box);
     printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");

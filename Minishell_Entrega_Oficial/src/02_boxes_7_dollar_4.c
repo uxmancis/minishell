@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:01 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 12:02:28 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:46:51 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word, cha
     int counter; //len_potential_env_variable_word;
     //int len_word;
     
-    printf("get_len_word_2, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
+    //printf("get_len_word_2, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
     
     (void)box;
     counter = 0;
     //printf("len_old_word = %d\n", len_old_total_word);
     x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
-    printf("\n          get_len_word | x = %d, y = %d, len = %d\n", x_y.index_x, x_y.index_y, len_old_total_word);
+    //printf("\n          get_len_word | x = %d, y = %d, len = %d\n", x_y.index_x, x_y.index_y, len_old_total_word);
     while (x_y.index_y < len_old_total_word && ft_isalnum(old_word_2_check[x_y.index_y]))
     {
         // printf(MAGENTA"x = %d, y = %d\n"RESET_COLOR, x_y.index_x, x_y.index_y);
@@ -42,26 +42,28 @@ int get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word, cha
         x_y.index_y++;
         
     }
-    printf(GRAY"len_word = %d\n"RESET_COLOR, counter);
+    //printf(GRAY"len_word = %d\n"RESET_COLOR, counter);
     return (counter);
 }
 
-
+/*
+*   str_src = tmp_old_word_before_free 
+*/
 void replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new_total_word)
 {
     int len_to_delete;
     int ind_src;
     int index_dollar;
 
-    len_to_delete = get_len_word(box, x_y) + 1; //+1: dolarra ere kenduko doulako
+    len_to_delete = get_len_word(box, x_y, str_src); 
     //len_new_total_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
     ind_src = 0;
     index_dollar = x_y.index_y; //guardamos esta posición...
     x_y.index_y = 0; //...luego la seteamos a 0 para poder hacer bucle con ella
-    printf("replace_delete, new_len = %d, str_src = "YELLOW"%s"RESET_COLOR" index_dollar = %d, len_to_delete = %d, ind_src = %d", len_new_total_word, str_src, index_dollar, len_to_delete, ind_src);
+    printf("replace_delete, new_len = %d, str_src = "YELLOW"%s"RESET_COLOR" index_dollar = %d, len_to_delete = %d, ind_src = %d\n", len_new_total_word, str_src, index_dollar, len_to_delete, ind_src);
     while (len_new_total_word > 0)
     {
-        printf("ind_src = %d, index_dollar = %d, len_to_delete = %d\n", ind_src, index_dollar, len_to_delete);
+        printf("ind_src = %d, index_dollar = %d, len_to_delete ="YELLOW" %d\n\n"RESET_COLOR, ind_src, index_dollar, len_to_delete);
         if (ind_src == index_dollar) //si coincide con la posición del dólar recibida desde x_y
         {
             ind_src++;
@@ -104,13 +106,13 @@ void mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
 
     //3. Guardar nueva memoria
     len_word = get_len_word_2(box, x_y, len_old_total_word, tmp_rest_info_before_free);
-    printf("len_old_total_word = %d, len_word = %d\n", len_old_total_word, len_word);
+    //printf("len_old_total_word = %d, len_word = %d\n", len_old_total_word, len_word);
     new_len = len_old_total_word - 1 - len_word; //-1 quitar 1 dólar, -len_word
-    printf(YELLOW"new_len = %d"RESET_COLOR" (len_old - 1 dólar - len_word)\n", new_len);
+    //printf(YELLOW"new_len = %d"RESET_COLOR" (len_old - 1 dólar - len_word)\n", new_len);
     //if ((*box)->rest_info_potential_cmd[x_y.index_x])
         //ft_free((*box)->rest_info_potential_cmd[x_y.index_x]);
     //printf("x = %d\n", x_y.index_x);
-    printf("yepe yepe\n");
+    //printf("yepe yepe\n");
     (*box)->rest_info_potential_cmd[x_y.index_x] = malloc(sizeof(char) * (new_len + 1)); //+1 valor nulo
     (*box)->rest_info_potential_cmd[x_y.index_x][new_len] = '\0';
     replace_delete(box, tmp_rest_info_before_free, x_y, new_len);

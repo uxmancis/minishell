@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 13:55:56 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:56:37 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     //}
 }
 
+/*get_word_2
+*
+*   Returns: char *env_variable = the word we will aim to find in env.
+*
+*
+*   Called from is_in_env
+*/
 char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free)
 {
     char *env_variable; //potential
@@ -109,9 +116,9 @@ char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
     int x;
 
     (void)tmp_old_word_before_free;
-    //printf("                         get_word_2\n");
-    len_word = get_len_word(box, x_y);
-    //printf("                         len_word_potential_variable = %d\n", len_word);
+    printf("                         get_word_2\n");
+    len_word = get_len_word(box, x_y, tmp_old_word_before_free);
+    printf("                         len_word_potential_variable = %d\n", len_word);
     env_variable = malloc(sizeof(char) * (len_word + 1));
     env_variable[len_word] = '\0';
     x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
@@ -123,7 +130,7 @@ char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
         x++;
         x_y.index_y++;
     }
-    //printf("                         get_word_2 | word to find in env: %s\n", env_variable);
+    printf("                         get_word_2 | word to find in env: %s\n", env_variable);
     return (env_variable);
 }
 

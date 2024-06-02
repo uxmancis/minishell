@@ -29,6 +29,7 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_7_dollar_5.c \
 				02_boxes_7_dollar_6.c \
 				02_boxes_7_dollar_7.c \
+				02_boxes_7_dollar_8.c \
 				02_boxes_red_utils.c \
 				02_boxes_utils_nav.c \
 				02_boxes_word_utils_hrdc.c \
