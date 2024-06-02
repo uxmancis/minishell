@@ -12,6 +12,43 @@
 
 # include "../inc/minishell.h"
 
+/*ft_pipe_after_pipe
+*
+*   When there is no content between pipes, error is printed.
+*
+*   Returns: 
+*       1: pipe after pipe was found
+*       0: no pipe after pipe found
+*/
+int ft_pipe_after_pipe(char *input)
+{
+    int i;
+    int len;
+
+    i = 0;
+    len = ft_strlen(input);
+    printf("ft_pipe_after_pipe\n");
+    while (input[i] != '\0')
+    {
+        if (input[i] == '|')
+        {
+            while (ft_isspace(input[i]))
+                i++;
+            if (i == len)
+                return (0);
+            if (input[i])
+            {
+                if (input[i] == '|')
+                    return (1);
+            }
+            else
+                return (0);
+        }
+        i++;
+    }
+    return (0);
+}
+
 /* ft_get_substr
 *
 *   Returns:
@@ -33,6 +70,13 @@ int ft_get_substr(t_prompt *prompt)
         ft_puterror("syntax error: unclosed quotes\n");
         return(-1);
     }
+    if (ft_pipe_after_pipe(prompt->input))
+    {
+        ft_puterror("syntax error near unexpected token `||'\n");
+        return (-1);
+    }
+    if (ft_strlen(prompt->input) == 0)
+        return (-1); //input vacío
     //test dictionary
     printf(BLUE);
     //printf("test dictionary, len = %d\n", (int)ft_strlen(prompt->dict_quotes)); //ya ezin leike ze dict_quotes da int *

@@ -143,7 +143,7 @@ int possible_cases(t_box **box, int index)
 */
 int is_red(t_box **box, int index)
 {
-    if ((*box)->input_substr[index] == '<' || (*box)->input_substr[index] == '>')
+    if (((*box)->input_substr[index] == '<' || (*box)->input_substr[index] == '>') && (*box)->dict_quotes[index]== 0)
         return (1);
     return (0);
 }

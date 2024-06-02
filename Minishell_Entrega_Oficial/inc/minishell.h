@@ -303,6 +303,8 @@ void fill_with_nine(int **tmp_dict_quotes_word, int len);
 void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int **tmp_dict_quotes_word, int len_new_word);
 int is_special_char(char c);
 int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
+int get_len_word_3(t_box **box, t_x_y_rest_info x_y);
+
 //02_boxes_7_dollar_6.c
 int is_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes);
 int next_is_space_or_end (t_box **box, t_x_y_rest_info x_y);
