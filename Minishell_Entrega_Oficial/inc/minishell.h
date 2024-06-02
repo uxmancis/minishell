@@ -92,7 +92,8 @@ struct s_cmd
 };
 
 struct s_box
-{   char    *input_substr; //Substr virgen
+{   
+    char    *input_substr; //Substr virgen
     //int     id_substr;
     //pdte. dict_quotes
     int     infd;
@@ -128,7 +129,7 @@ struct s_box
     pid_t tmp_pid;
     char *tmp_pid_str;
 
-    t_prompt *prompt;
+    //t_prompt *prompt;
 };                        
 
 /* STR*/
@@ -153,7 +154,7 @@ struct s_prompt
     char **total_substr_input; //Input dividido en n cadenas (en base a pipes fuera de comillas)
     int *arr_index_pipes; //index of pipes
     t_vars *vars;
-    t_box *box;
+    //t_box *box;
 } ;
 
 
@@ -163,7 +164,7 @@ struct s_prompt
 
 //00_minishell.c
 // void ft_begin(int argc, char **argv, char **env);
-void ft_get_substr(t_prompt *prompt);
+int ft_get_substr(t_prompt *prompt);
 
 //00_env_data.c
 t_vars *ft_getenv_local(t_vars *line, char *name);
@@ -171,7 +172,7 @@ t_prompt *ft_init_data(char **envp);
 t_vars *ft_varsnew(char *name, char *value);
 
 //01_input_pipe.c
-void ft_where_r_pipes(t_prompt **prompt); //función Índice - Principal
+int ft_where_r_pipes(t_prompt **prompt); //función Índice - Principal
 int ft_is_pipe(t_prompt **t_prompt); //¿Hay pipes en posición válida? Y/N/Cuántos
 void set_index_pipe(t_prompt **prompt); //¿En qué posición están estos pipes? Input: dictionary. Output: arr_index_pipes
 
@@ -190,29 +191,35 @@ char *ft_split_from_to(int start, int end, char *src_input);
 //char	**ft_split_input(t_prompt prompt);
 
 //02_boxes.c
-void ft_gen_boxes(t_prompt *prompt);
-void ft_boxes_init(t_prompt *prompt, int substr_id);
-void get_dict_quotes(t_box *box);
+int ft_gen_boxes(t_prompt *prompt);
+int ft_boxes_init(t_prompt *prompt, int substr_id);
+int get_dict_quotes(t_box *box);
 void generate_substr(t_prompt *prompt, int substr_id, t_box *box);
 void ft_strcpy (char *str_src, char **str_dst);
+
+
+//02_boxes_init.c
+void ft_free_char(char **words, int nb_of_words);
+void ft_free_int(int **words, int nb_of_words);
+
 //02_boxes_redir.c
 int get_redirections(t_box *box);
-void ft_fill_red_info(t_box **box);
-void set_red_index_type(t_box **box); 
+int ft_fill_red_info(t_box **box);
+int set_red_index_type(t_box **box); 
 int set_red_greater_than(t_box **box, int *i, int index_of_arr);
 int set_red_less_than(t_box **box, int *i, int index_of_arr);
 int ft_get_numof_redir(t_box *box);
 char *ft_enum_to_str(int enumerator);
 
 //02_boxes_rest.c
-void get_rest (t_box *box, t_prompt **prompt);
+int get_rest (t_box *box, t_prompt **prompt);
 int ft_get_numof_heredocs(t_box **box);
 int ft_confirmed_end(t_box **box);
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
 int are_all_delimiters(int *arr_word_yes_no, t_box **box, t_red_type red_type);
 
 //02_boxes_hrdc_1.c
-void ft_heredocs(t_box **box, enum e_red_type);
+int ft_heredocs(t_box **box, enum e_red_type);
 int ft_get_numof_heredocs(t_box **box);
 void ft_check_delimiter(t_box **box);
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
@@ -228,7 +235,7 @@ int get_nb_of_red_type(t_box **box, t_red_type red_type);
 void get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_type);
 void get_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type);
 void get_word_mgmt(int *arr_ind_red_type, t_box **box, t_red_type red_type);
-void ft_check_first_word(t_box **box, t_red_type red_type);
+int ft_check_first_word(t_box **box, t_red_type red_type);
 
 //02_boxes_utils_nav.c
 int has_end_last_check(int start, int end, t_box **box);
@@ -274,7 +281,7 @@ void check_dollars_expansion(t_box **box, t_prompt **prompt);
 
 //02_boxes_7_dollar_2.c
 void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val);
-char *get_word_2(t_box **box, t_x_y_rest_info x_y);
+char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
 void cpy_to_val(char *str_src, char **str_dst);
 void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
 
@@ -286,7 +293,7 @@ int is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
 void get_old_word(char *str_src, char **str_dst);
 
 //02_boxes_7_dollar_4.c
-int get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word);
+int get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word, char *old_word_2_check);
 void replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new_total_word);
 void mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
 void cpy_arr_with_len(int **arr_src, int *arr_dst, int len);
@@ -366,5 +373,16 @@ int ft_strcmp_2(char *str_2_check, char *cmd);
 void ft_putchar(char c);
 void ft_builtin_pwd(t_prompt **prompt);
 int which_cmd(t_box **box, t_prompt **prompt);
+
+//utils_libft.c
+size_t	ft_strlen(const char *str);
+int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strdup(const char *s1);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int ft_isspace(int c);
+void	*ft_calloc(size_t count, size_t size);
+char	*ft_strdup(const char *s1);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+int	ft_isalnum(int c);
 
 #endif

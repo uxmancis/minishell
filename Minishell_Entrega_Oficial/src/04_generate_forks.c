@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:42:33 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/01 16:42:34 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:20:51 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int  baby_sister_for_the_childs(int input, int output, t_cmd *cmd_data)
         // exit_error(1);
     }
     printf(GREEN "After dup2 - Output FD: %d -> STDOUT: %d\n" RESET_COLOR, output, STDOUT_FILENO);
-    if (dup2(input, STDIN_FILENO) =<= -1) 
+    if (dup2(input, STDIN_FILENO) == -1) 
     {
         perror(RED "dup2 input" RESET_COLOR);
         // exit_error(1, d);
@@ -202,7 +202,9 @@ int childs(t_cmd *cmd_data, int index_child, t_box **box, t_prompt **data)
         baby_sister_for_the_childs(cmd_data->pipefd[index_child - 1][0], cmd_data->pipefd[index_child][1], cmd_data);
     }
     close_fdin_fdout(cmd_data, index_child);
-    which_cmd(box, data);
+    (void)box;
+    (void)data;
+    //which_cmd(box, data);
 
 
     // if (cmd_data->cmd_options == NULL || cmd_data->cmd_path == NULL) {

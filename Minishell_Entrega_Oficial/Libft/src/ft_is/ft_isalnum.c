@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:26:06 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/07 18:15:06 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:38:27 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_isalnum(int c)
 {
+	printf("ft_isalnum barruan\n");
 	if ((c >= 'a' && c <= 'z') \
 			|| (c >= 'A' && c <= 'Z') \
 			|| (c >= '0' && c <= '9'))

@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/13 20:19:46 by codespace         #+#    #+#              #
-#    Updated: 2024/06/01 16:29:19 by uxmancis         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME		=	minishell
 LIBFT		=	Libft/libft.a
 INC			= 	inc/
@@ -17,7 +5,6 @@ BINDIR		=	bin/
 SRC_DIR		= 	src/
 OBJ_DIR		=	objs/
 
-				
 SRC 		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_FILES	=	0_0_main.c \
 				00_env_data.c \
@@ -32,16 +19,16 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_4_infile.c \
 				02_boxes_5_outfile_append.c \
 				02_boxes_5_outfile_strong.c \
-				02_boxes_6_cmd_1.c\
-				02_boxes_6_cmd_2.c\
-				02_boxes_6_cmd_3.c\
-				02_boxes_7_dollar_1.c\
-				02_boxes_7_dollar_2.c\
-				02_boxes_7_dollar_3.c\
-				02_boxes_7_dollar_4.c\
-				02_boxes_7_dollar_5.c\
-				02_boxes_7_dollar_6.c\
-				02_boxes_7_dollar_7.c\
+				02_boxes_6_cmd_1.c \
+				02_boxes_6_cmd_2.c \
+				02_boxes_6_cmd_3.c \
+				02_boxes_7_dollar_1.c \
+				02_boxes_7_dollar_2.c \
+				02_boxes_7_dollar_3.c \
+				02_boxes_7_dollar_4.c \
+				02_boxes_7_dollar_5.c \
+				02_boxes_7_dollar_6.c \
+				02_boxes_7_dollar_7.c \
 				02_boxes_red_utils.c \
 				02_boxes_utils_nav.c \
 				02_boxes_word_utils_hrdc.c \
@@ -62,7 +49,7 @@ SRC_FILES	=	0_0_main.c \
 				
 OBJS_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-CC			= gcc #-fsanitize=address -g3
+CC			= gcc -fsanitize=address -g3
 FLAGS		= -Wall -Wextra -Werror
 # LIBS		=  -lreadline
 RM			= rm -rf
@@ -79,31 +66,30 @@ WHITE = \033[0;97m
 CLEAR = \033[0m
 OKLOGO = \033[80G\033[32m[OK]\033[0m\n
 
-
-# **************************************************************************** #
-# $(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(OBJ) -lreadline
-
 all:		$(NAME)
 
+$(NAME): build_message $(BINDIR)$(NAME)
 
-$(NAME): $(LIBFT) $(OBJS_FILES) 
-	mkdir -p $(BINDIR)
-	@$(CC) -o ./$(BINDIR)/$(NAME) $(FLAGS) $(OBJS_FILES) $(LIBFT) -I$(INC) -lreadline
-	@echo "$(BLUE)COMPILING MINISHELL...$(CLEAR)"
+build_message:
+#	@echo "$(BLUE)COMPILING MINISHELL...$(CLEAR)"
+
+$(BINDIR)$(NAME): $(OBJS_FILES) $(LIBFT)
+	$(CC) -o ./$(BINDIR)/$(NAME) $(FLAGS) $(OBJS_FILES) $(LIBFT) -I$(INC) -lreadline
 	@echo "$(GREEN)MINISHELL COMPILED SUCCESFUL!$(CLEAR)"
-			
+
 $(LIBFT):
 	@make -C Libft/
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAGS) -I$(INC) -c $< -o $@
+		@mkdir -p $(OBJ_DIR)
+		@mkdir -p $(BINDIR)
+		@$(CC) $(FLAGS) -I$(INC) -c $< -o $@
 						
 clean:
-			@echo "$(YELLOW)FILES REMOVED!$(DEF_COLOR)"
-			@$(RM) $(OBJ_DIR)
-			@$(RM) $(BINDIR)
-			@make -C Libft/ clean
+		@echo "$(YELLOW)FILES REMOVED!$(DEF_COLOR)"
+		@$(RM) $(OBJ_DIR)
+		@$(RM) $(BINDIR)
+		@make -C Libft/ clean
 			
 fclean:		clean
 			@$(RM)  $(NAME)

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/31 18:05:20 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/02 12:07:07 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ int is_special_char(char c)
 {
     if (c >= 0 && c <= 47)
     {
-        //printf("yes special char\n");
+        printf("yes special char = %c\n", c);
         return (1);
     }
-    //printf("no special char\n");
+    printf("no special char = %c\n", c);
     return (0);
 }
 
@@ -126,6 +126,7 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y)
     //printf("get_len_word, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
     counter = 0;
     len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
+    printf("len_word_total = %d\n", len_word);
     //printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
     x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
     //printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,(int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
@@ -140,13 +141,11 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y)
         {
             //printf("didn't count, y = %d, len_word = %d\n", x_y.index_y, len_word);
             return (counter);
-        }
-            
-            
+        } 
         if (x_y.index_y == len_word)
             break; //safety
         x_y.index_y++;
     }
-    //printf("counter = %d\n", counter);
+    printf("get_len_word | len_word = %d\n", counter);
     return (counter);
 }

@@ -191,8 +191,12 @@ int are_all_delimiters(int *arr_word_yes_no, t_box **box, t_red_type red_type)
 *                     In each position stores 1 or 0, depending
 *                     on if redirección has a word after it or not.
 *
+*   Returns:
+*       -1: Error
+*       0: Success
+*
 */
-void ft_check_first_word(t_box **box, t_red_type red_type)
+int ft_check_first_word(t_box **box, t_red_type red_type)
 {
     int *specif_arr_ind_red_type; //por claridad en el código
     int *arr_word_yes_no;
@@ -223,13 +227,29 @@ void ft_check_first_word(t_box **box, t_red_type red_type)
     {
         printf("dentro, red_type = %s\n", ft_enum_to_str(red_type));
         if (red_type == HEREDOC)
+        {
             ft_puterror("syntax error near unexpected token `<<'\n");
+            return (-1);
+        }
         if (red_type == INFILE)
+        {
             ft_puterror("syntax error near unexpected token `<'\n");
+            return (-1);
+        }
         if (red_type == OUTFILE_APPEND)
+        {
             ft_puterror("syntax error near unexpected token `>>'\n");
+            return (-1);
+        }
         if (red_type == OUTFILE_STRONG)
+        {
             ft_puterror("syntax error near unexpected token `>'\n");
+            return (-1);
+        }
+            
     }
     get_word_mgmt(specif_arr_ind_red_type, box, red_type);
+    free(arr_word_yes_no);
+    free(specif_arr_ind_red_type);
+    return (0);
 }

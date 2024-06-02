@@ -31,6 +31,11 @@ char *ft_enum_to_str(int enumerator)
 }
 
 //int ft_check_if_redir redir(t_box *box, char *input)
+/* ft_get_numof_redir
+*
+*   Returns:
+*       -1: 
+*/
 int ft_get_numof_redir(t_box *box)
 {
     int i;
@@ -52,7 +57,10 @@ int ft_get_numof_redir(t_box *box)
             if (/*i < (keep_len - 1) && */(box->input_substr[i + 1] == '<' || box->input_substr[i + 1] == '>'))
             {
                 if (box->input_substr[i + 2] == '<' || box->input_substr[i + 2] == '>')
+                {
                     ft_puterror("syntax error near unexpected token `newline'\n");
+                    return (-1);
+                }
                 else //2.a topatuta
                 {
                     if (box->dict_quotes[i] == 0) //asegurar que está fuera de comillas
@@ -100,7 +108,11 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
         if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
             if (((*box)->input_substr[(*i)+2] == '<' && (*box)->dict_quotes[(*i) + 2] == 0) || ((*box)->input_substr[(*i)+2] == '>' && (*box)->dict_quotes[(*i) + 2] == 0))//3rd position any kind of redirection = error
+            {
                 ft_puterror("syntax error near unexpected token `newline'\n");
+                return (-1);
+            }
+                
             //printf(">> i = %d, dict_quotes[%d] = %d\n", (*i), (*i), (*box)->dict_quotes[(*i)]);
             //Redirection assignment (HEREDOC)
             if ((*box)->dict_quotes[(*i)] == 0) //si está fuera de comillas
@@ -115,7 +127,10 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
                 return (-1);  
         }
         else if ((*box)->input_substr[(*i) + 1] == '>' && (*box)->dict_quotes[(*i) + 1] == 0) //si en 2ª posición está el contrario: error
+        {
             ft_puterror("syntax error near unexpected token `newline'\n");
+            return (-1);
+        }    
         else 
         {
             //printf(">> i = %d, dict_quotes[%d] = %d\n", (*i), (*i), (*box)->dict_quotes[(*i)]);
@@ -151,8 +166,10 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
         if ((*box)->input_substr[(*i) + 1] == '>' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
             if (((*box)->input_substr[(*i)+2] == '<' && (*box)->dict_quotes[(*i) + 2] == 0) || ((*box)->input_substr[(*i)+2] == '>' && (*box)->dict_quotes[(*i) + 2] == 0)) //3rd position any kind of redirection = error
+            {
                 ft_puterror("syntax error near unexpected token `newline'\n");
-            
+                return (-1);
+            }    
             if ((*box)->dict_quotes[(*i)] == 0 )//si está fuera de comillas
             {
                 //printf("line 140 | i = %d\n", (*i));
@@ -167,7 +184,10 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
                 return (-1);
         }
         else if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0) //si en 2ª posición está el contrario: error
+        {
             ft_puterror("syntax error near unexpected token `newline'\n");
+            return (-1);
+        }    
         else 
         {
             if ((*box)->dict_quotes[(*i)] == 0)//si está fuera de comillas
@@ -185,7 +205,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
     return (0);
 }
 
-void set_red_index_type(t_box **box)
+int set_red_index_type(t_box **box)
 {
     int i;
     int index_of_arr;
@@ -203,7 +223,9 @@ void set_red_index_type(t_box **box)
         {
             //printf(AQUAMARINE"< identified! - Send to LESS THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = %c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
             //printf("less than\n");
-            if (set_red_less_than(box, &i, index_of_arr) == 0) //< and << are assigned. Includes error management. We send &i in case it must be updated (+2, when double redirection is found)
+            if (set_red_less_than(box, &i, index_of_arr) == -1)
+                return (-1);
+            else if (set_red_less_than(box, &i, index_of_arr) == 0) //< and << are assigned. Includes error management. We send &i in case it must be updated (+2, when double redirection is found)
             {
                 printf(GREEN"               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n"RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));
                 index_of_arr++;
@@ -214,6 +236,8 @@ void set_red_index_type(t_box **box)
         {
             //printf(AQUAMARINE"> identified! - Send to GREATER THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = %c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
             //printf("greater than\n");
+            if (set_red_greater_than(box, &i, index_of_arr) == -1)
+                return (-1);
             if (set_red_greater_than(box, &i, index_of_arr) == 0)//> and >> are assigned. Includes error management. We send &i in case it must be updated (+2, when double redirection is found)
             {    printf(GREEN"               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n"RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));          
                  index_of_arr++;
@@ -227,9 +251,10 @@ void set_red_index_type(t_box **box)
         //len--;
         //printf("vuelta completed, i = %d, len = %d, input_substr[%d] = %c\n", i, len, i, (*box)->input_substr[i]);
     }
+    return (0);
 }
 
-void ft_fill_red_info(t_box **box)
+int ft_fill_red_info(t_box **box)
 {
     int i;
     int tmp_nb_of_red;
@@ -242,8 +267,10 @@ void ft_fill_red_info(t_box **box)
         tmp_nb_of_red--;
         i++;
     }
-    set_red_index_type(box);
+    if (set_red_index_type(box) == -1)
+        return (-1);
     printf("     02_boxes.c - ft_fill_red_info|"BLUE" dict_red_index_type"RESET_COLOR" generated✅\n");
+    return (0);
 }
 
 /*ft_is_redir
@@ -265,11 +292,15 @@ int get_redirections(t_box *box)
 {
     //int nb_of_red; //to malloc total_redir...
 
-    box->nb_of_redir = ft_get_numof_redir(box);
+    if (ft_get_numof_redir(box) == -1)
+        return (-1);
+    else
+        box->nb_of_redir = ft_get_numof_redir(box);
     //printf(BLUE"               nb_of_red = %d\n"RESET_COLOR, box->nb_of_redir);
     if (box->nb_of_redir == 0)
         return (0); 
     box->dict_red_index_type = malloc(sizeof(char*)*(box->nb_of_redir)); //1 array para cada redirección. En cada array, [0] = tipo de redir, [1] índice en el que se encuentra en el input_substr
-    ft_fill_red_info(&box); //se informa total_red_type_index
+    if (ft_fill_red_info(&box) == -1) //se informa total_red_type_index
+        return (-1);
     return (1);
 }

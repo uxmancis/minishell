@@ -6,7 +6,7 @@
 #    By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 20:29:37 by uxmancis          #+#    #+#              #
-#    Updated: 2024/06/01 16:29:38 by uxmancis         ###   ########.fr        #
+#    Updated: 2024/06/01 20:17:16 by uxmancis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,9 @@ NAME		=	libft.a
 INCLUDES	=	inc/
 SRC_DIR		=	src/
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror #-fsanitize=address -g3
+CCFLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
 AR			=	ar rc
 RM			=	rm -f
-
-
 
 SRC_FILES =	ft_is/ft_isalpha.c ft_is/ft_isdigit.c ft_is/ft_isalnum.c ft_is/ft_isascii.c ft_is/ft_isprint.c  ft_is/ft_isspace.c\
 			ft_mem/ft_calloc.c ft_mem/ft_memset.c ft_mem/ft_bzero.c ft_mem/ft_memcpy.c ft_mem/ft_memmove.c \

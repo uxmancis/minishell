@@ -164,11 +164,15 @@ void set_index_pipe(t_prompt **prompt)
     }
 }
 
-/*
+/*ft_where_r_pipes
 *   1. ft_is_pipe: Tells us whether if there are any pipes on valid position of input
 *   2. If yes pipes in valid location --> cretes array with indexes of found pipes
+*
+*   Returns:
+*       -1: Error: syntax error near unexpected token `|'
+*       0: Success
 */
-void ft_where_r_pipes(t_prompt **prompt)
+int ft_where_r_pipes(t_prompt **prompt)
 {
     //int nb_of_pipes;
     //char *arr_index_pipes; //must be created here (not sent as parameter and updated with &) as we need nb_of_pipes to know len of arr_index_pipes (for malloc)
@@ -177,7 +181,10 @@ void ft_where_r_pipes(t_prompt **prompt)
     (*prompt)->nb_of_pipes = ft_is_pipe(prompt); //el valor que queremos obtener es nb_of_pipes, por lo que desreferenciamos prompt (*prompt), no necesitamos que sus valores se actualicen
     printf(MAGENTA"01_input_pipe.c - ft_where_r_pipes: nb_of_pipes = %d\n"RESET_COLOR, (*prompt)->nb_of_pipes);
     if ((*prompt)->nb_of_pipes == -1)
+    {
         ft_puterror("syntax error near unexpected token `|'\n");
+        return (-1);
+    }
     else if ((*prompt)->nb_of_pipes > 0) // si sí que hay algún pipe carcter
     {
         (*prompt)->arr_index_pipes = malloc(sizeof(int) * ((*prompt)->nb_of_pipes)); //sin el más uno, es int*, no tiene '\0' al final para indicar final. Puedo usar el 0 como indicador de final. Ze la posición nunca será 0, ese error ya lo habré gestinado. Ze ona! Ta hola ahall dot len lortu! Aunque un poco rebuscado/chapu igual?
@@ -200,5 +207,5 @@ void ft_where_r_pipes(t_prompt **prompt)
         //return ((*prompt)->arr_index_pipes); //cuando devolvemos arr_index_pipes ya sabremos number of pipes, con ft_strlen
     }
     //printf(MAGENTA"salida de ft_where_r_pipes\n");
-    //return (0); //no pipes found
+    return (0); //no pipes found
 }

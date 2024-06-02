@@ -12,7 +12,15 @@
 
 # include "../inc/minishell.h"
 
-void ft_get_substr(t_prompt *prompt)
+/* ft_get_substr
+*
+*   Returns:
+*       -1: Error
+*               ft_quotes: syntax error: unclosed quotes
+*               ft_where_r_pipes: syntax error near unexpected token `|'
+*        0: Success
+*/
+int ft_get_substr(t_prompt *prompt)
 {    
     //int nb_of_substr;
     //conclusiones análisis: ¿qué conclusiones quiero?
@@ -21,7 +29,10 @@ void ft_get_substr(t_prompt *prompt)
     prompt->dict_quotes = malloc(sizeof(int) * (ft_strlen(prompt->input) + 1));
     prompt->dict_quotes[ft_strlen(prompt->input)] = '0'; //es para indicar final de array. Al ser int *, no nos deja '\0' para finalizar array. El 9 es el final. ¿Podríamos hacerlo char *? Sí, pero los indicadres son 0, 1, 2, integers. Podríamos hacerlo '0', '1' y '2', pero no quiero.
     if (ft_quotes (prompt->input, &prompt->dict_quotes)== -1) //1. Asegurar 100% comillas principales cerradas y generar dict_quotes (&: para que se actualicen los valores = se informe por primera vez el diccionario dict_quotes). Mando &prompt, para que se actualice el diccionario de vuelta.
+    {
         ft_puterror("syntax error: unclosed quotes\n");
+        return(-1);
+    }
     //test dictionary
     printf(BLUE);
     //printf("test dictionary, len = %d\n", (int)ft_strlen(prompt->dict_quotes)); //ya ezin leike ze dict_quotes da int *
@@ -38,9 +49,11 @@ void ft_get_substr(t_prompt *prompt)
     printf(RESET_COLOR);
     //init_instructions(input, prompt, dictionary); //to consider if pipe is pipe or not.
     //prompt->arr_index_pipes = ft_where_r_pipes(&prompt);
-    ft_where_r_pipes(&prompt);
+    if (ft_where_r_pipes(&prompt) == -1)
+        return (-1);
     if (prompt->nb_of_pipes > 0)
         ft_split_input(&prompt);
+    return (0);
     //printf(AQUAMARINE"RESULTADO SPLITEADO:\n");
     /*i = 0;
 	while (nb_of_substr > 0)

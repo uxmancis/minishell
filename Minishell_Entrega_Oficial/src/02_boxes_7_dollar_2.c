@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/31 17:57:19 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:55:56 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     tmp_old_word_before_free = malloc(sizeof(char) * (ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]) + 1));
     tmp_old_word_before_free[ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x])] = '\0';
     get_old_word((*box)->rest_info_potential_cmd[x_y.index_x], &tmp_old_word_before_free); //tmp_old_word_before_free ya lo tee
-    str_to_find = get_word_2(box, x_y);
+    str_to_find = get_word_2(box, x_y, tmp_old_word_before_free);
     len_str_to_find = ft_strlen(str_to_find);
     //printf("                         old word to keep = %s\n", tmp_old_word_before_free);
     
@@ -102,12 +102,13 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     //}
 }
 
-char *get_word_2(t_box **box, t_x_y_rest_info x_y)
+char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free)
 {
     char *env_variable; //potential
     int len_word;
     int x;
 
+    (void)tmp_old_word_before_free;
     //printf("                         get_word_2\n");
     len_word = get_len_word(box, x_y);
     //printf("                         len_word_potential_variable = %d\n", len_word);
@@ -146,10 +147,10 @@ void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
     int len_val;
     char *tmp_val; //funtzio honetan eukitzeko bakarrik, por readability
 
-    len_val = ft_strlen((ft_getenv_local((*prompt)->vars, get_word_2(box, x_y)))->val);
+    len_val = ft_strlen((ft_getenv_local((*prompt)->vars, get_word_2(box, x_y, "pdte.")))->val);
     tmp_val = malloc(sizeof(char)*(len_val + 1));
     tmp_val[len_val] = '\0';
-    cpy_to_val ((ft_getenv_local((*prompt)->vars, get_word_2(box, x_y)))->val, &tmp_val);
+    cpy_to_val ((ft_getenv_local((*prompt)->vars, get_word_2(box, x_y, "pdte.")))->val, &tmp_val);
     //printf("          mngt_to_replace_env | tmp_val copied! = "YELLOW"%s\n"RESET_COLOR, tmp_val);
     replace_env(box, x_y, tmp_val);
 }

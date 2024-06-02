@@ -24,6 +24,7 @@ int ft_infiles(t_box **box, t_red_type red_type)
     (*box)->is_infile = 1;
     (*box)->nb_of_infile = ft_get_numof_red_type(box, red_type);
     printf("     02_boxes_4_infile.c - "BLUE"ft_infiles"RESET_COLOR"|nb_of_infile = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_infile);
-    ft_check_first_word(box, red_type);
+    if (ft_check_first_word(box, red_type) == -1)
+        return (-1);
     return (0);
 }

@@ -12,11 +12,44 @@
 
 #include "../inc/minishell.h"
 
-void ft_begin(t_prompt *data)
+void ft_init_input(t_prompt *data)
 {
+    data->input = NULL;
+    data->prompt = NULL;
+    data->dict_quotes = NULL;
+    data->nb_of_pipes = 0;
+    data->nb_of_substr = 0;
+    data->line_infd = 0;
+    data->line_outfd = 0;
+    data->total_substr_input = NULL;
+    data->arr_index_pipes = NULL;
+    //data->vars = NULL;
+}
+
+void ft_free_input(t_prompt *data)
+{
+    if (data->input)
+        free(data->input);
+    if (data->prompt)
+        free(data->prompt);
+    if (data->dict_quotes)
+        free(data->dict_quotes);
+    if (data->total_substr_input)
+        ft_free_char(data->total_substr_input, data->nb_of_substr);
+    if (data->arr_index_pipes)
+        free(data->arr_index_pipes);
+}
+
+/*
+*   -1: Error, back to readline
+*           get_substr: -1 : Unclosed quotes
+*           ft_gen_boxes: -1: Unclosed quotes
+*/
+int ft_begin(t_prompt *data)
+{
+    ft_init_input(data);
     if (!(data->prompt= ft_put_name_system(data)))
         free(data->prompt);
-       
     if(!(data->input = readline(data->prompt)))
         exit(EXIT_SUCCESS);
     if (data->input && ft_strlen(data->input) > 0)
@@ -26,8 +59,13 @@ void ft_begin(t_prompt *data)
         rl_redisplay();
     }
     // Importante que se pueda vertificar con un if para de esta manera evitar problemas en un futuro
-    ft_get_substr(data);
-    ft_gen_boxes(data);  	
+    if (ft_get_substr(data) == -1 || ft_gen_boxes(data) == -1)
+    {
+        ft_free_input(data);
+        return (-1);
+    }
+    ft_free_input(data);
+    return (0);
 }
 
 void handle_signal(int signal) 
@@ -71,19 +109,17 @@ int handle_signal_for_process(pid_t pid, int sig, const char *error_message)
 
 int main(int argc, char **argv, char **envp)
 {
-
 	t_prompt *data;
     struct sigaction sa;
 
 	(void)argv;
-	(void)envp;
+
 	if (argc != 1)
 		perror("Error: No arguments are allowed.\n");
 	data = ft_init_data(envp);
     sa.sa_handler = handle_signal;
-    sigemptyset(&sa.sa_mask);
+    //sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
-
 
 	// else
 	ft_print_welcome();
@@ -98,5 +134,5 @@ int main(int argc, char **argv, char **envp)
     }
 	while (1)
 		ft_begin(data);
-
+    return (0);
 }

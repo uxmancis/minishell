@@ -26,14 +26,16 @@
 *       If heredocs is found with no end delimiter, then error message is printed
 +       and minishell program finishes its execution.
 */
-void ft_heredocs(t_box **box, t_red_type red_type)
+int ft_heredocs(t_box **box, t_red_type red_type)
 {
     (*box)->nb_of_heredocs = ft_get_numof_red_type(box, red_type);
     printf("     02_boxes_3_hrdc_1.c - "BLUE"ft_heredocs"RESET_COLOR"| numof_heredocs = "BLUE"%d"RESET_COLOR".\n", (*box)->nb_of_heredocs);
     //printf("              do heredocs have" BLUE" delimiter"RESET_COLOR"? yes[1] / no[0]\n");
     //ft_check_delimiter(box); //if 1 heredoc has no delimiter, program finishes
-    ft_check_first_word(box, red_type);
+    if (ft_check_first_word(box, red_type) == -1)
+        return (-1);
     //printf(MAGENTA"<<<<<<<<<<<<    check_delimiter completed     >>>>>>>>>>>>>\n"RESET_COLOR);
+    return (0);
 }
 
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box)

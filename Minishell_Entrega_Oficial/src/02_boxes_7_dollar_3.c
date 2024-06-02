@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:40 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/31 17:57:47 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:44:57 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_di
 int is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
 {
     //printf("                         is word in env? ");
-    if (ft_getenv_local((*prompt)->vars, get_word_2(box, x_y)))
+    if (ft_getenv_local((*prompt)->vars, get_word_2(box, x_y, "pdte.")))
     {
         //printf(GREEN" YES\n"RESET_COLOR);
         return (1);
