@@ -24,8 +24,8 @@
 */
 int is_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes)
 {
-    printf("     "YELLOW"is_dollar"RESET_COLOR" | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
-    printf(GREEN"--\n"RESET_COLOR);
+    //printf("     "YELLOW"is_dollar"RESET_COLOR" | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
+    //printf(GREEN"--\n"RESET_COLOR);
     //printf("     tmp_dict_quotes[%d]= %d\n", x_y.index_y, (*tmp_dict_quotes)[x_y.index_y]);
     //if (tmp_to_compare[x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
     if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] == '$' && ((*tmp_dict_quotes)[x_y.index_y] == 0 || (*tmp_dict_quotes)[x_y.index_y] == 2))

@@ -225,23 +225,23 @@ int ft_check_first_word(t_box **box, t_red_type red_type)
     //printf("hellowis\n");
     if (!are_all_delimiters(arr_word_yes_no, box, red_type))
     {
-        printf("dentro, red_type = %s\n", ft_enum_to_str(red_type));
+        //printf("dentro, red_type = %s\n", ft_enum_to_str(red_type));
         if (red_type == HEREDOC)
         {
             ft_puterror("syntax error near unexpected token `<<'\n");
             return (-1);
         }
-        if (red_type == INFILE)
+        else if (red_type == INFILE)
         {
             ft_puterror("syntax error near unexpected token `<'\n");
             return (-1);
         }
-        if (red_type == OUTFILE_APPEND)
+        else if (red_type == OUTFILE_APPEND)
         {
             ft_puterror("syntax error near unexpected token `>>'\n");
             return (-1);
         }
-        if (red_type == OUTFILE_STRONG)
+        else if (red_type == OUTFILE_STRONG)
         {
             ft_puterror("syntax error near unexpected token `>'\n");
             return (-1);

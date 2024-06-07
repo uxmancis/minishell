@@ -47,10 +47,10 @@ void get_word_infile_1(t_box **box, int *arr_ind_red_type)
         //printf("red_type_nb_x = %d\n", red_type_nb_x);
         //printf("total_red_nb_x = %d\n", total_red_nb_x);
         //printf("dict_red_index_type[%d][1] == %s\n", total_red_nb_x, ft_enum_to_str((*box)->dict_red_index_type[total_red_nb_x][1]));
-        if ((*box)->dict_red_index_type[total_red_nb_x][1] == INFILE)
+        if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == INFILE)
         {
             //printf(GREEN"bai, coincide\n"RESET_COLOR);
-            get_word_infile_2(arr_ind_red_type[red_type_nb_x] + 1, (*box)->dict_red_index_type[total_red_nb_x + 1][0] - 1, box, red_type_nb_x);
+            get_word_infile_2(arr_ind_red_type[red_type_nb_x] + 1, (*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box) + 1][0] - 1, box, red_type_nb_x);
             tmp_nb_of_red_type--;
             red_type_nb_x++;
             i++; //solo si sí coincide hacemos i++, para hacer referencia a la próxima redir
@@ -94,15 +94,17 @@ void get_word_infile_2(int start, int end, t_box **box, int red_type_nb_x)
     int len_delimiter;
     int keep_start_word;
     int i;
+    int len_input_str;
 
     //printf("get_word\n");
     printf(BLUE"               get_word_infile_2: start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, red_type_nb_x);
     len_delimiter = 0;
-    while (ft_isspace((*box)->input_substr[start]))
+    len_input_str = ft_strlen((*box)->input_substr);
+    while (!possible_cases(box, start) && start < len_input_str)
         start++;
     keep_start_word = start;
     //printf(MAGENTA"start = %d\n"RESET_COLOR, start);
-    while(!ft_isspace((*box)->input_substr[start]) && start <= end)
+    while(possible_cases(box, start) && start <= end)
     {
         start++;
         len_delimiter++;

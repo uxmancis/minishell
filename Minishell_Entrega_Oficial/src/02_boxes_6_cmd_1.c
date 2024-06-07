@@ -68,10 +68,13 @@ void cpy_rest_words(t_box **box)
     int tmp_nb_of_rest_words;
     int i;
 
-    printf("     cpy_rest_words, nb_of_words_rest = %d\n", (*box)->nb_of_words_rest);
-    (*box)->rest_info_potential_cmd = malloc(sizeof(char *) * (*box)->nb_of_words_rest);
-    //printf("done\n");
     tmp_nb_of_rest_words = (*box)->nb_of_words_rest;
+    printf("     cpy_rest_words, nb_of_words_rest = %d\n", tmp_nb_of_rest_words);
+    (*box)->rest_info_potential_cmd = malloc(sizeof(char *) * (tmp_nb_of_rest_words + 1));
+    (*box)->rest_info_potential_cmd[tmp_nb_of_rest_words] = malloc(sizeof(char) * 1);
+    (*box)->rest_info_potential_cmd[tmp_nb_of_rest_words][0] = '\0';
+    //printf("done\n");
+
     i = 0;
     while (tmp_nb_of_rest_words > 0)
     {

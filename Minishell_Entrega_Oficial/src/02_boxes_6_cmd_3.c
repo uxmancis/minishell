@@ -172,7 +172,7 @@ void cpy_1_word(t_box **box, int nb_of_word)
         len++;
         //printf("yes\n");
     }
-    printf("len = %d\n", len);
+    //printf("len = %d\n", len);
     //printf("holiwis\n");
     (*box)->rest_info_potential_cmd[nb_of_word] = malloc(sizeof(char) * (len + 1));
     (*box)->rest_info_potential_cmd[nb_of_word][len] = '\0';

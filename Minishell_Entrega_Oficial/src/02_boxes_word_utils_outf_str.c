@@ -29,18 +29,19 @@ void get_word_outf_str_1(t_box **box, int *arr_ind_red_type)
     red_type_nb_x = 0;
     total_red_nb_x = 0;
     i = 0;
-    printf("get_word_outf_str_1\n");
+    //printf("get_word_outf_str_1\n");
     while (tmp_nb_of_red_type > 0)
     {
         if (is_last_redir(box, arr_ind_red_type[i]))
         {
-            get_word_outf_str_2(arr_ind_red_type[i] + 1, (int)ft_strlen((*box)->input_substr) - 1, box, red_type_nb_x);
+            if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == OUTFILE_STRONG)
+                get_word_outf_str_2(arr_ind_red_type[red_type_nb_x] + 2, (int)ft_strlen((*box)->input_substr) - 1, box, red_type_nb_x);
             break;
         }
-        if ((*box)->dict_red_index_type[total_red_nb_x][1] == OUTFILE_STRONG)
+        if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == OUTFILE_STRONG)
         {
             //printf(GREEN"bai, coincide\n"RESET_COLOR);
-            get_word_outf_str_2(arr_ind_red_type[red_type_nb_x] + 1, (*box)->dict_red_index_type[total_red_nb_x + 1][0] - 1, box, red_type_nb_x);
+            get_word_outf_str_2(arr_ind_red_type[red_type_nb_x] + 1, (*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box) + 1][0] - 1, box, red_type_nb_x);
             tmp_nb_of_red_type--;
             red_type_nb_x++;
             i++;
@@ -83,15 +84,17 @@ void get_word_outf_str_2(int start, int end, t_box **box, int red_type_nb_x)
     int len_delimiter;
     int keep_start_word;
     int i;
+    int len_input_str;
 
     printf("get_word_outf_str_2\n");
     //printf(BLUE"start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, heredoc_nb);
     len_delimiter = 0;
-    while (ft_isspace((*box)->input_substr[start]))
+    len_input_str = ft_strlen((*box)->input_substr);
+    while (!possible_cases(box, start) && start < len_input_str)
         start++;
     keep_start_word = start;
     //printf(MAGENTA"start = %d\n"RESET_COLOR, start);
-    while(!ft_isspace((*box)->input_substr[start]) && start <= end)
+    while(possible_cases(box, start) && start <= end)
     {
         start++;
         len_delimiter++;

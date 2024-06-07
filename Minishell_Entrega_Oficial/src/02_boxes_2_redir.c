@@ -100,19 +100,19 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
 {
     //printf("< found, i = %d\n", (*i));
     //make sure it is correct that we enter here
-    //printf(YELLOW"<     i = %d\n", (*i));
+    //     i = %d\n", (*i));
     if ((*box)->input_substr[(*i)] != '<' && (*box)->dict_quotes[(*i)] == 0)
         return(EXIT_FAILURE); //was not supposed to be here
     else if ((*box)->input_substr[(*i)] == '<' && (*box)->dict_quotes[(*i)] == 0)
     {
         if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
+            //printf(AQUAMARINE"2nd < was found, i = %d\n"RESET_COLOR, *i);
             if (((*box)->input_substr[(*i)+2] == '<' && (*box)->dict_quotes[(*i) + 2] == 0) || ((*box)->input_substr[(*i)+2] == '>' && (*box)->dict_quotes[(*i) + 2] == 0))//3rd position any kind of redirection = error
             {
                 ft_puterror("syntax error near unexpected token `newline'\n");
                 return (-1);
             }
-                
             //printf(">> i = %d, dict_quotes[%d] = %d\n", (*i), (*i), (*box)->dict_quotes[(*i)]);
             //Redirection assignment (HEREDOC)
             if ((*box)->dict_quotes[(*i)] == 0) //si está fuera de comillas
@@ -121,6 +121,7 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
                 (*box)->dict_red_index_type[index_of_arr][0] = (*i); //INDEX of heredoc
                 (*box)->dict_red_index_type[index_of_arr][1] = HEREDOC; //TYPE of Redirection
                 (*i) = (*i) + 1; //when double redirection is assigned
+                return (0);
             //printf(AQUAMARINE"before i = %d, after i = %d\n"RESET_COLOR, (*i), (*i));
             }
             else
@@ -134,12 +135,14 @@ int set_red_less_than(t_box **box, int *i, int index_of_arr)
         else 
         {
             //printf(">> i = %d, dict_quotes[%d] = %d\n", (*i), (*i), (*box)->dict_quotes[(*i)]);
-            //Redirection assignment (HEREDOC)
+            //Redirection assignment (INFILE)
             if ((*box)->dict_quotes[(*i)] == 0) //si está fuera de comillas
             {
+                //printf(AQUAMARINE"only 1 redir, i = %d\n"RESET_COLOR, *i);
                 //printf("no debería habr entrado\n"); //probando casuística particular
                 (*box)->dict_red_index_type[index_of_arr][0] = (*i); //INDEX of heredoc
                 (*box)->dict_red_index_type[index_of_arr][1] = INFILE; //TYPE of Redirection
+                return (0);
                 //printf(AQUAMARINE"before ++i = %d\n"RESET_COLOR,(*i));
             }
             else
@@ -179,6 +182,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
                 //printf(AQUAMARINE"before ++i = %d\n", (*i));
                 (*i) = (*i) + 1; //when double redirection is assigned
                 //printf(AQUAMARINE"after ++i = %d\n", (*i));
+                return (0);
             }
             else
                 return (-1);
@@ -197,6 +201,7 @@ int set_red_greater_than(t_box **box, int *i, int index_of_arr)
                 //Redirection assignment (HEREDOC)
                 (*box)->dict_red_index_type[index_of_arr][0] = (*i); //INDEX of heredoc
                 (*box)->dict_red_index_type[index_of_arr][1] = OUTFILE_STRONG; //TYPE of Redirection
+                return (0);
             }
             else
                 return (-1);
@@ -221,27 +226,28 @@ int set_red_index_type(t_box **box)
         //printf(AQUAMARINE"hasi! i = %d\n"RESET_COLOR, i);
         if ((*box)->input_substr[i] == '<' && (*box)->dict_quotes[i] == 0)
         {
-            //printf(AQUAMARINE"< identified! - Send to LESS THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = %c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
+            //printf(AQUAMARINE"< identified! - Send to LESS THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = "YELLOW"%c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
             //printf("less than\n");
-            if (set_red_less_than(box, &i, index_of_arr) == -1)
-                return (-1);
-            else if (set_red_less_than(box, &i, index_of_arr) == 0) //< and << are assigned. Includes error management. We send &i in case it must be updated (+2, when double redirection is found)
+            if (set_red_less_than(box, &i, index_of_arr) == 0) //< and << are assigned. Includes error management. We send &i in case it must be updated (+2, when double redirection is found)
             {
                 printf(GREEN"               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n"RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));
                 index_of_arr++;
-            }      
+            }
+            else
+                return (-1);
                     
         }
         else if ((*box)->input_substr[i] == '>' && (*box)->dict_quotes[i] == 0)
         {
-            //printf(AQUAMARINE"> identified! - Send to GREATER THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = %c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
+            //printf(AQUAMARINE"> identified! - Send to GREATER THAN, i = "YELLOW"%d"AQUAMARINE" - input_substr[%d] = "YELLOW"%c\n"RESET_COLOR, i, i, (*box)->input_substr[i]);
             //printf("greater than\n");
-            if (set_red_greater_than(box, &i, index_of_arr) == -1)
-                return (-1);
             if (set_red_greater_than(box, &i, index_of_arr) == 0)//> and >> are assigned. Includes error management. We send &i in case it must be updated (+2, when double redirection is found)
-            {    printf(GREEN"               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n"RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));          
+            {    
+                printf(GREEN"               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n"RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));          
                  index_of_arr++;
             }
+            else
+                return (-1);
         }
         //else if ((*box)->input_substr[i] == '>')
         //HAU INPRIMAU HORIXA IKUSTEKO!

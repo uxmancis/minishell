@@ -27,7 +27,7 @@ int ft_pipe_after_pipe(char *input)
 
     i = 0;
     len = ft_strlen(input);
-    printf("ft_pipe_after_pipe\n");
+    //printf("ft_pipe_after_pipe\n");
     while (input[i] != '\0')
     {
         if (input[i] == '|')
