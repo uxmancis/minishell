@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
 /*  ft_pipe_last
 *
@@ -19,26 +19,26 @@
 *       1: YES, pipe in last position (will be managed as error)
 *       0: NO, other character in last position
 */
-int ft_pipe_last (char *input)
+int	ft_pipe_last(char *input)
 {
-    int i; 
+	int	i;
 
-    i = ft_strlen(input) - 1;
+	i = ft_strlen(input) - 1;
     //printf(BLUE"FT_PIPE_LAST, i = %d\n"RESET_COLOR, i);
-    while (i > 0)
-    {
-        //printf("input[%d] = %c\n", i, input[i]);
-        while (ft_isspace(input[i]))
-            i--;
-        if (input[i] == '|')
-        {
-            //printf(MAGENTA"pipe in last position\n"RESET_COLOR);
-            return (1);
-        }
-        else
-            break;
-    }
-    return (0);
+	while (i > 0)
+	{
+		//printf("input[%d] = %c\n", i, input[i]);
+		while (ft_isspace(input[i]))
+			i--;
+		if (input[i] == '|')
+		{
+			//printf(MAGENTA"pipe in last position\n"RESET_COLOR);
+			return (1);
+		}
+		else
+			break ;
+	}
+	return (0);
 }
 
 /*  ft_pipe_first
@@ -48,24 +48,24 @@ int ft_pipe_last (char *input)
 *       1: YES, pipe in first position (will be managed as error)
 *       0: NO, other character in first position
 */
-int ft_pipe_first (char *input)
+int	ft_pipe_first(char *input)
 {
-    int i; 
+	int	i;
 
-    i = 0;
-    while (input[i] != '\0')
-    {
-        while (ft_isspace(input[i]))
-            i++;
-        if (input[i] == '|')
-        {
-            //printf(MAGENTA"pipe in first position\n"RESET_COLOR);
-            return (1);
-        }
-        else
-            break;
-    }
-    return (0);
+	i = 0;
+	while (input[i] != '\0')
+	{
+		while (ft_isspace(input[i]))
+			i++;
+		if (input[i] == '|')
+		{
+			//printf(MAGENTA"pipe in first position\n"RESET_COLOR);
+			return (1);
+		}
+		else
+			break ;
+	}
+	return (0);
 }
 
 /*ft_pipe_first_or_last
@@ -74,15 +74,15 @@ int ft_pipe_first (char *input)
 *       1: Error found (pipe in first or last position)
 *       O: Everything ok, no pipes found in invalid position (first or last)
 */
-int ft_pipe_first_or_last (char *input)
+int	ft_pipe_first_or_last(char *input)
 {
-    if (ft_pipe_first(input) == 1 || ft_pipe_last(input) == 1)
-    {
-        //printf(RED"pipes in first or last position\n"RESET_COLOR);
-        return (-1);
-    }
-    //printf(GREEN"no pipes in first or last position\n"RESET_COLOR);
-    return (0);
+	if (ft_pipe_first(input) == 1 || ft_pipe_last(input) == 1)
+	{
+		//printf(RED"pipes in first or last position\n"RESET_COLOR);
+		return (-1);
+	}
+	//printf(GREEN"no pipes in first or last position\n"RESET_COLOR);
+	return (0);
 }
 
 
@@ -99,17 +99,17 @@ int ft_pipe_first_or_last (char *input)
 *       location of pipe (0: out of quotes, 1: inside single or 2. inside
 *       double quotes).
 */
-int ft_is_pipe(t_prompt **prompt)
+int	ft_is_pipe(t_prompt **prompt)
 {
-    int i;
-    int counter;
-    //int tmp_len_dict;
+	int	i;
+	int	counter;
 
-    //i = 0;
-    counter = 0;
-    //printf(YELLOW"input = %s\n"RESET_COLOR, prompt->input);
-    //tmp_len_dict = ft_strlen(prompt->input);
-    /*printf("dict_quotes: ");
+	//int tmp_len_dict;
+	//i = 0;
+	counter = 0;
+	//printf(YELLOW"input = %s\n"RESET_COLOR, prompt->input);
+	//tmp_len_dict = ft_strlen(prompt->input);
+	/*printf("dict_quotes: ");
     while (tmp_len_dict > 0)
     {
         printf("%c", (int)prompt->dict_quotes[i]);
@@ -118,21 +118,21 @@ int ft_is_pipe(t_prompt **prompt)
     }
     printf("\n");*/
     i = 0;
-    while ((*prompt)->input[i] != '\0')
-    {
-        //printf(MAGENTA"case %d: input[%d] = %c, dict: %c\n"RESET_COLOR, i, i, prompt->input[i], prompt->dict_quotes[i]);
-        if ((*prompt)->input[i] == '|' && (*prompt)->dict_quotes[i] == 0) //eztakit dictionarykin zeba einbihoten konparau con '0' en vez de 0, ze ya no son chars, son int.
-        {
-            if (ft_pipe_first_or_last((*prompt)->input) == -1) //first or last position  --> //PDTE. actualizar lo de última posición: implementarlo bien. No nececsariamente tiene que estar en strlen -1 -> puede ser |   ddkfjjdsdf |      (espacios)
-                return (-1);
-            counter++;
-        }
-        i++;
-    }
-    //printf(MAGENTA"counter = %d\n"RESET_COLOR, counter);
-    if (counter == 0)
-        return (0); //no pipes found
-    return (counter); //returns number of found pipes
+	while ((*prompt)->input[i] != '\0')
+	{
+		//printf(MAGENTA"case %d: input[%d] = %c, dict: %c\n"RESET_COLOR, i, i, prompt->input[i], prompt->dict_quotes[i]);
+		if ((*prompt)->input[i] == '|' && (*prompt)->dict_quotes[i] == 0) //eztakit dictionarykin zeba einbihoten konparau con '0' en vez de 0, ze ya no son chars, son int.
+		{
+			if (ft_pipe_first_or_last((*prompt)->input) == -1) //first or last position  --> //PDTE. actualizar lo de última posición: implementarlo bien. No nececsariamente tiene que estar en strlen -1 -> puede ser |   ddkfjjdsdf |      (espacios)
+				return (-1);
+			counter++;
+		}
+		i++;
+	}
+	//printf(MAGENTA"counter = %d\n"RESET_COLOR, counter);
+	if (counter == 0)
+		return (0); //no pipes found
+	return (counter); //returns number of found pipes
 }
 
 /*DESCRIPTION:
@@ -143,25 +143,25 @@ int ft_is_pipe(t_prompt **prompt)
 *   Additionally, array is created with indexes of input
 *   where pipes are located.
 */
-void set_index_pipe(t_prompt **prompt)
+void	set_index_pipe(t_prompt **prompt)
 {
-    int i;
-    int y; 
+	int	i;
+	int	y;
 
-    i = 0;
-    y = 0;
-    while ((*prompt)->input[i] != '\0')
-    {
-        if ((*prompt)->input[i] == '|')
-        {
-            if ((*prompt)->dict_quotes[i] == 0) //si sí está fuera de comillas el pipe, '0' en el diccionario, entonces sí es un pipe cuyo índice quiero guardar
-            {
-                (*prompt)->arr_index_pipes[y] = i; //me guardo el índice del pipe en arr_index_pipes
-                y++;
-            }
-        }
-        i++;
-    }
+	i = 0;
+	y = 0;
+	while ((*prompt)->input[i] != '\0')
+	{
+		if ((*prompt)->input[i] == '|')
+		{
+			if ((*prompt)->dict_quotes[i] == 0) //si sí está fuera de comillas el pipe, '0' en el diccionario, entonces sí es un pipe cuyo índice quiero guardar
+			{
+				(*prompt)->arr_index_pipes[y] = i; //me guardo el índice del pipe en arr_index_pipes
+				y++;
+			}
+		}
+		i++;
+	}
 }
 
 /*ft_where_r_pipes
@@ -203,7 +203,7 @@ int ft_where_r_pipes(t_prompt **prompt)
             i++;
             aux_para_imprimir_nb_of_pipes--;
         }
-        printf(MAGENTA"salida de ft_where_r_pipes\n");
+        //printf(MAGENTA"salida de ft_where_r_pipes\n");
         //return ((*prompt)->arr_index_pipes); //cuando devolvemos arr_index_pipes ya sabremos number of pipes, con ft_strlen
     }
     //printf(MAGENTA"salida de ft_where_r_pipes\n");

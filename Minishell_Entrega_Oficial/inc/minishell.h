@@ -165,6 +165,7 @@ struct s_prompt
 //00_minishell.c
 // void ft_begin(int argc, char **argv, char **env);
 int ft_get_substr(t_prompt *prompt);
+int	ft_check_quotes_and_pipes(t_prompt *prompt);
 
 //00_env_data.c
 t_vars *ft_getenv_local(t_vars *line, char *name);
@@ -256,8 +257,9 @@ int ft_get_numof_red_type(t_box **box, t_red_type red_type); //generic para todo
 int ft_outfile_strong(t_box **box, t_red_type red_type);
 
 //02_boxes_6_cmd_1.c
-void ft_get_cmd_args(t_box **box, t_prompt **prompt);
-void   ft_cmd_args (t_box **box, t_prompt **prompt);
+int ft_get_cmd_args(t_box **box, t_prompt **prompt);
+int   ft_cmd_args (t_box **box, t_prompt **prompt);
+int is_empty_str_first_cmd (t_box **box);
 
 //02_boxes_6_cmd_2.c
 void init_what_to_take(t_box **box);

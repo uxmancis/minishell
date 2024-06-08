@@ -36,38 +36,58 @@ static void	ft_export_all(t_vars *list)
 //         }
 //     }
 //     return (expanded_var);
+//
+// if (line->name && !strcmp(line->name, name))
+//            -> Asegúrate de que 'line->name' está correctamente inicializado
 // }
-t_vars *ft_getenv_local(t_vars *line, char *name)
+t_vars	*ft_getenv_local(t_vars *line, char *name)
 {
-	 if (line == NULL) 
-		{
+	if (line == NULL)
+	{
 		perror("Error: No  or pwd\n");
-        return (NULL);   
-		}
-    while (line)
-    {
-        // Asegúrate de que 'line->name' está correctamente inicializado
-        if (line->name && !strcmp(line->name, name))
-        {
-            return (line);
-        }
-        line = line->next;
-    }
-    return (NULL);
+		return (NULL);
+	}
+	while (line)
+	{
+		if (line->name && !strcmp(line->name, name))
+			return (line);
+		line = line->next;
+	}
+	return (NULL);
 }
 
-int ft_write_val(t_vars *new, char *value) // This function writes the value of the variable in the environment
+/*ft_write_val
+*
+*	Writes value of the variable in the environment.
+*
+*	How?
+*		if (!value) //checks whether if the value is NULL
+*			free(new->val); //frees allocated memory variable's value
+*		if (value) // If the value is not NULL 
+*					[08062024 - UML: if? should it be else if?]
+*/
+int	ft_write_val(t_vars *new, char *value)
 {
-	if (!value) // This if statement checks if the value is NULL
-		free(new->val); 
-		// Free the memory allocated for the value of the variable
-	if (value) // If the value is not NULL
+	if (!value)
+		free(new->val);
+	if (value) 
 		new->val = ft_strdup(value);
 		// printf("new->val = %s\n", new->val);
 	return (0);
 }
 
-int ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
+/*	ft_setenv_local
+*
+*		if (overwrite) // If the variable already exists
+*		{ ft_write_val(tmp, value); // This function writes the 
+*					//value of the variable in the environment local.
+*		}
+*
+*		// This if statement checks if the variable is the last one in the list		
+*		if (!(new = ft_varsnew(ft_strdup(name), ft_strdup(value))))
+*
+*/
+int	ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 {
 	t_vars	*tmp;
 	t_vars	*new;
@@ -75,19 +95,17 @@ int ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	tmp = list;
 	while (tmp)
 	{
-		// if 
 		if (!ft_strcmp(tmp->name, name))
 		{
-			if (overwrite) // If the variable already exists
+			if (overwrite)
 			{
-				ft_write_val(tmp, value); // This function writes the value of the variable in the environment local.
+				ft_write_val(tmp, value); 
 				return (0);
 			}
 			return (-1);
 		}
 		if (!tmp->next) // If the next variable is NULL
 		{
-			// This if statement checks if the variable is the last one in the list
 			if (!(new = ft_varsnew(ft_strdup(name), ft_strdup(value))))
 				return (-1);
 			tmp->next = new; // Assigns the new variable to the next variable
@@ -100,21 +118,26 @@ int ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	return (0);
 }
 
-t_vars *ft_varsnew(char *name, char *value) // This function creates a new variable in the environment local and volcate memory for it	
+/*ft_varsnew
+*
+*	Creates a new variable in the environment local and volcate memory for it.
+*
+*	How?
+*		// Allocating memory for the new variable
+*		
+*/
+t_vars	*ft_varsnew(char *name, char *value)
 {
 	t_vars	*new;
 
-	// Allocating memory for the new variable
-	if (!(new = (t_vars *)malloc(sizeof(t_vars)))) // Verifies if the allocation was successful and returns NULL if it was not
-			return (NULL); 
+	if (!(new = (t_vars *)malloc(sizeof(t_vars))))
+		return (NULL);
 	new->name = name;
 	new->val = value;
 	new->is_exp = 0;
 	new->next = NULL;
 	return (new);
-	
 }
-
 
 // Function to import the environment variables
 static void ft_import_envp(t_prompt *data, char **envp)
@@ -171,11 +194,11 @@ static void ft_import_envp(t_prompt *data, char **envp)
 // data->baseline_out_fd
 
 // Function to initialize the data structure
-t_prompt *ft_init_data(char **envp)
+t_prompt	*ft_init_data(char **envp)
 {
-	(void)envp;
-	
 	t_prompt *data;
+
+	(void)envp;
 	// Allocating memory for the data structure
 	// Verifies if the allocation was successful
 	if (!(data = (t_prompt *)malloc(sizeof(t_prompt))))
@@ -190,7 +213,7 @@ t_prompt *ft_init_data(char **envp)
 	data->prompt = NULL;
 	// function to import the environment variables
 	printf("Data Initialized\n");
-	return(data);
+	return (data);
 }
 
  

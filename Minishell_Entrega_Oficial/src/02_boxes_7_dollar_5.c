@@ -131,8 +131,8 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
     (void)box;
     counter = 0;
     len_old_word = ft_strlen(tmp_old_word_before_free);
-    printf(MAGENTA"chequeito, tmp_old_word_before_free = %s\n"RESET_COLOR, tmp_old_word_before_free);
-    printf("len_old_word_total = %d\n", len_old_word);
+    //printf(MAGENTA"chequeito, tmp_old_word_before_free = %s\n"RESET_COLOR, tmp_old_word_before_free);
+    //printf("len_old_word_total = %d\n", len_old_word);
     //printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
     x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
     //printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,(int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
@@ -154,7 +154,7 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
             break; //safety
         x_y.index_y++;
     }
-    printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
+    //printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
     return (counter);
 }
 
@@ -195,6 +195,6 @@ int get_len_word_3(t_box **box, t_x_y_rest_info x_y)
             break; //safety
         x_y.index_y++;
     }
-    printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
+    //printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
     return (counter);
 }

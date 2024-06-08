@@ -105,12 +105,12 @@ void get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
 *   a single word or not between redirecciones.
 *
 */
-void get_word_hrdc_2(int start, int end, t_box **box, int red_type_nb_x)
+void	get_word_hrdc_2(int start, int end, t_box **box, int red_type_nb_x)
 {
-    int len_delimiter;
-    int keep_start_word;
-    int i;
-    int len_input_str;
+	int	len_delimiter;
+	int	keep_start_word;
+	int	i;
+	int	len_input_str;
 
     printf("get_word\n");
     printf(BLUE"start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, red_type_nb_x);

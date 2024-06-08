@@ -254,7 +254,8 @@ int get_rest (t_box *box, t_prompt **prompt)
     //box->micasa[2] = 'u';
     //box->micasa[3] = '\0';
     //printf(">>>>>>>>>>>> name = %s\n", box->micasa);
-    ft_cmd_args(&box, prompt);
+    if (ft_cmd_args(&box, prompt) == -1)
+        return (-1);
     return (0);
 }
 

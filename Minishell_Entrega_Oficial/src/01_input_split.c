@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
 /*
 *	ft_split_from_to:
@@ -18,12 +18,12 @@
 *	len_substr = (end - start + 1)
 *		end - start + 1: so that both positions are included in substr.
 */
-char *ft_split_from_to(int start, int end, char *src_input)
+char	*ft_split_from_to(int start, int end, char *src_input)
 {
-	char *dst;
-	int len_substr;
-	int index_src;
-	int index_dst;
+	char	*dst;
+	int		len_substr;
+	int		index_src;
+	int		index_dst;
 
 	//printf(">> ft_split_from_to\n");
 	if (end > (int)ft_strlen(src_input))
@@ -58,7 +58,7 @@ char *ft_split_from_to(int start, int end, char *src_input)
 *
 *	Returns: nb_of_substr (solo para debuggear)
 */
-void ft_split_input(t_prompt **prompt)
+void	ft_split_input(t_prompt **prompt)
 {
 	int tmp_nb_of_substr;
 	//char **total_substr_input;
@@ -68,7 +68,6 @@ void ft_split_input(t_prompt **prompt)
 	int index_end;
 	int i;
 	//int aux_para_imprimir_nb_of_substr;
-	
 	//nb_of_substr = ft_strlen(arr_index_pipes) + 1;
 	//nb_of_substr = (*prompt)->nb_of_pipes + 1;
 	//aux_para_imprimir_nb_of_substr = nb_of_substr; //pdte. eliminar. Para debugear
