@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 18:11:06 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 09:20:13 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,11 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
     (void)box;
     counter = 0;
     len_old_word = ft_strlen(tmp_old_word_before_free);
-    //printf(MAGENTA"chequeito, tmp_old_word_before_free = %s\n"RESET_COLOR, tmp_old_word_before_free);
-    //printf("len_old_word_total = %d\n", len_old_word);
+    printf(MAGENTA"chequeito, tmp_old_word_before_free = %s\n"RESET_COLOR, tmp_old_word_before_free);
+    printf(">>>> len_old_word_total = %d\n", len_old_word);
     //printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
     x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
-    //printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,(int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
+    printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,(int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
     while (x_y.index_y < len_old_word)
     {
         //printf(">>value, old_rest[%d] = %c\n", x_y.index_y, tmp_old_word_before_free[x_y.index_y]);
@@ -154,7 +154,7 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
             break; //safety
         x_y.index_y++;
     }
-    //printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
+    printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
     return (counter);
 }
 

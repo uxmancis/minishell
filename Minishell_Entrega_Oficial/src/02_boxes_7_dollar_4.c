@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:01 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 17:46:51 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 10:37:16 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,21 @@ void replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new
     //printf("after: %s\n", (*box)->rest_info_potential_cmd[x_y.index_x]);
 }
 
+size_t	tmp_ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	printf("ft_strlen, str = '%s'\n", str);
+	while (str[i] != '\0')
+	{
+		printf(">>> str[%d] = %c\n", (int)i, str[i]);
+		i++;
+	}
+	printf("ft_strlen result, counter = %d\n", (int)i);
+	return (i);
+}
+
 void mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
 {
     int len_old_total_word;
@@ -91,10 +106,13 @@ void mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
     int new_len;
     int len_word;
 
+    //IF CONTAINS NON ASCII --> RETURN
+
     //printf("     mng_to_replace_delete\n");
     (void)prompt;
     //1. Guardar contenido original en tmp_rest_info_before_free
-    len_old_total_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
+    len_old_total_word = tmp_ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
+    printf(GREEN"word = '%s'\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
     printf("          len_old_total_word = %d\n", len_old_total_word);
     tmp_rest_info_before_free = malloc(sizeof(char)*(len_old_total_word + 1));
     tmp_rest_info_before_free[len_old_total_word] = '\0';
@@ -118,7 +136,10 @@ void mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
     replace_delete(box, tmp_rest_info_before_free, x_y, new_len);
 }
 
-void cpy_arr_with_len(int **arr_src, int *arr_dst, int len)
+/*
+*   
+*/
+void cpy_arr_with_len(int *arr_src, int *arr_dst, int len)
 {
     int i;
     int two_times;

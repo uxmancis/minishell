@@ -6,12 +6,16 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:26:06 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 17:45:15 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 09:12:31 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
 
+/*	ft_isalnum
+*
+*	Incluye ft_isascii.
+*/
 int	ft_isalnum(int c)
 {
 	//printf("ft_isalnum barruan\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 10:52:53 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/07 18:31:50 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/09 08:42:36 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	//printf("ft_strlen, str = '%s'\n", str);
 	while (str[i] != '\0')
 	{
+		//printf(">>> str[%d] = %c\n", (int)i, str[i]);
 		i++;
 	}
+	//printf("ft_strlen result, counter = %d\n", (int)i);
 	return (i);
 }
 /*int main(void)

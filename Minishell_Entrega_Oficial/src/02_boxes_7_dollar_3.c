@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:40 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 18:05:49 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 10:35:17 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void put_arr(int *arr, int len)
     printf(RESET_COLOR);
 }
 
-void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word)
+void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word)
 {
     int len_old_word;
     int len_process_pid;
@@ -82,12 +82,12 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_di
     cpy_arr_with_len(tmp_dict_quotes_word, tmp_tmp_dict_quotes_word, (len_old_word - 2)); //to keep old tmp_dict_quotes_word (because we'll generate a new one)
     tmp_rest_info_before_free = malloc(sizeof(char)*(len_old_word + 1));
     tmp_rest_info_before_free[len_old_word] = '\0';
-    cpy_word((*box)->rest_info_potential_cmd[x_y.index_x], &tmp_rest_info_before_free);
+    cpy_word((*box)->rest_info_potential_cmd[x_y.index_x], tmp_rest_info_before_free);
     //printf("     tmp_tmp_dict_quotes_word = ");
     //put_arr(tmp_tmp_dict_quotes_word, len_old_word); //to debug
     printf("\n");
-    free(*tmp_dict_quotes_word); //ya lo hemos guardado en tmp_tmp_dict_quotes_word - ¿me está generando segfault?
-    *tmp_dict_quotes_word = NULL;
+    free(tmp_dict_quotes_word); //ya lo hemos guardado en tmp_tmp_dict_quotes_word - ¿me está generando segfault?
+    tmp_dict_quotes_word = NULL;
     
     //2. Get new info
     len_process_pid = get_len_pid(box);
@@ -105,7 +105,7 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_di
     (*box)->rest_info_potential_cmd[x_y.index_x][new_len] = '\0';
     replace_pid_sec_dollar(box, x_y, tmp_rest_info_before_free, tmp_dict_quotes_word, new_len);
     //printf(">>  let's finish it!\n");
-    finish_to_update_dict_quotes(tmp_dict_quotes_word, new_len, tmp_tmp_dict_quotes_word, len_old_word);
+    finish_to_update_dict_quotes(&tmp_dict_quotes_word, new_len, tmp_tmp_dict_quotes_word, len_old_word);
     //printf(GREEN"uxu we're here\n"RESET_COLOR);
     //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
     //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);

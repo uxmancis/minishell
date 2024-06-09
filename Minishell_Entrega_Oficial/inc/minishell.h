@@ -275,8 +275,8 @@ int possible_cases(t_box **box, int index);
 void cpy_1_word(t_box **box, int nb_of_word);
 
 //02_boxes_7_dollar_1.c
-int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word, t_prompt **prompt);
-int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word);
+int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int *tmp_dict_quotes_word, t_prompt **prompt);
+int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word);
 int *generate_specif_dict_quotes(t_box **box, t_x_y_rest_info x_y, int len);
 void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt);
 void check_dollars_expansion(t_box **box, t_prompt **prompt);
@@ -284,13 +284,15 @@ void check_dollars_expansion(t_box **box, t_prompt **prompt);
 //02_boxes_7_dollar_2.c
 void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val);
 char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
+char *get_word_4(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
 void cpy_to_val(char *str_src, char **str_dst);
 void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
+
 
 //02_boxes_7_dollar_3.c
 void finish_to_update_dict_quotes (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word);
 void put_arr(int *arr, int len);
-void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word);
+void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word);
 int is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
 void get_old_word(char *str_src, char **str_dst);
 
@@ -308,7 +310,7 @@ int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
 int get_len_word_3(t_box **box, t_x_y_rest_info x_y);
 
 //02_boxes_7_dollar_6.c
-int is_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes);
+int is_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes);
 int next_is_space_or_end (t_box **box, t_x_y_rest_info x_y);
 int next_is_sec_dollar(t_box **box, t_x_y_rest_info x_y);
 void cpy_word (char *str_src, char **str_dst);

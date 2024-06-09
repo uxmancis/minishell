@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:59:29 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 17:00:39 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 10:31:54 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,18 @@
 *   the updated version. P.ej.: imagine it's already been updated 
 *   because ofother dollars before
 */
-int is_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes)
+int is_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes)
 {
-    //printf("     "YELLOW"is_dollar"RESET_COLOR" | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
+    printf("     "YELLOW"is_dollar"RESET_COLOR" | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
+    printf("    y = %d\n", x_y.index_y);
     //printf(GREEN"--\n"RESET_COLOR);
-    //printf("     tmp_dict_quotes[%d]= %d\n", x_y.index_y, (*tmp_dict_quotes)[x_y.index_y]);
+    printf("     tmp_dict_quotes[%d]= %d\n", x_y.index_y, tmp_dict_quotes[x_y.index_y]);
     //if (tmp_to_compare[x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
-    if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] == '$' && ((*tmp_dict_quotes)[x_y.index_y] == 0 || (*tmp_dict_quotes)[x_y.index_y] == 2))
+    if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
+    {
+        printf("yes! dollar :)\n");
         return (1);
+    }
     return (0);
 }
 
@@ -66,7 +70,7 @@ int next_is_sec_dollar(t_box **box, t_x_y_rest_info x_y)
     return (0);
 }
 
-void cpy_word (char *str_src, char **str_dst)
+void cpy_word (char *str_src, char *str_dst)
 {
     int len;
     int i;

@@ -12,11 +12,27 @@
 
 # include "../inc/minishell.h"
 
+int ft_isalnum_str(char *str)
+{
+    int i; 
+
+    i = 0;
+    while (str[i] != '\0')
+    {
+        if (!ft_isalnum(str[i]))
+            return (-1);
+        i++;
+    }
+    return (0);
+}
+
 /*
 *   return (0) only used to exit function when next_is_space
 */
-int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word, t_prompt **prompt)
+int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int *tmp_dict_quotes_word, t_prompt **prompt)
 {
+    char *word;
+    //int len_word;
     //int len_word; //to debug
     //printf("                    find_dollars_and_replace, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
     //len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
@@ -25,40 +41,60 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_qu
     {
         //printf("we're checkin here\n");
       */
-    if (is_dollar(box, x_y, tmp_dict_quotes_word))
+    if (is_dollar(box, *x_y, tmp_dict_quotes_word))
     {
-        //printf("                    dollar was found, y = %d, len_total = %d\n", x_y.index_y, (int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
-        if (next_is_space_or_end(box, x_y))
+        printf("                    dollar was found, y = %d, len_total = %d\n", x_y->index_y, (int)ft_strlen((*box)->rest_info_potential_cmd[x_y->index_x]));
+        if (next_is_space_or_end(box, *x_y))
         {
             //printf("                    case "YELLOW"1: only $\n"RESET_COLOR);
             return (0); //no need to replace, $ stays
         }  
-        else if(next_is_sec_dollar(box, x_y)) //después tiene contenido el dólar
+        else if(next_is_sec_dollar(box, *x_y)) //después tiene contenido el dólar
         {
             //printf("                    case "YELLOW"2: double $$ replace pid\n"RESET_COLOR);
-                mng_to_replace_sec_dollar(box, x_y, tmp_dict_quotes_word);
+                mng_to_replace_sec_dollar(box, *x_y, tmp_dict_quotes_word);
                 //printf(GREEN"                    >> Result str = %s\n\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
                 //printf(YELLOW"uxu we're here\n"RESET_COLOR);
                 //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
                 //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);
         }
-        else if (next_is_question(box, x_y))
+        else if (next_is_question(box, *x_y))
         {
-            x_y.index_y++;
-            x_y.index_y++;
+            x_y->index_y++;
+            //x_y.index_y++;
         }
-        else if (is_in_env(box, x_y, prompt)) //sí en env . Coger hassta fin palabra o hasta próximo dólar
+        else if (is_in_env(box, *x_y, prompt)) //sí en env . Coger hassta fin palabra o hasta próximo dólar
         {
             printf("                    case "YELLOW"3: env variable found\n"RESET_COLOR);
-            mng_to_replace_env(box, x_y, prompt);
-            //printf(BLUE"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
-
+            mng_to_replace_env(box, *x_y, prompt);
+            printf(BLUE"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y->index_x]);
         }
         else //no en env
         {
+            word = get_word_4(box, *x_y, NULL); //WIP
+            printf(BLUE"word = %s\n"RESET_COLOR, word);
+            if (word == NULL)
+            {
+                x_y->index_y++;
+                return (0);
+            }            
+            else if (ft_isalnum_str(word) == -1)
+            {
+                x_y->index_y++;
+                return (0);
+            }
             printf("                    case "YELLOW"4: replace by [], not an env variable\n"RESET_COLOR);
-            mng_to_replace_delete(box, x_y, prompt);
-            //printf(MAGENTA"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);m
+            mng_to_replace_delete(box, *x_y, prompt);
+            /*len_word = ft_strlen(word);
+            while (len_word > 0)
+            {
+                printf(BLUE"before: y = %d \n>>>>>>>>>> patras\n", x_y.index_y);
+                len_word--;
+                x_y.index_y--;
+                printf("after, y = %d\n"RESET_COLOR, x_y.index_y);
+            }*/
+            x_y->index_y--;
+            printf(MAGENTA"                    >> Result str = %s, y = %d\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y->index_x], x_y->index_y);
         }
     }
         //}
@@ -76,7 +112,7 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_qu
 *       1: Success, no more dollars were found allong word (taking quotes into account)
 *       0: Still more dollars to be analysed and then replaced
 */
-int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word)
+int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word)
 {
     int len_word;
     //int i; //to debug
@@ -95,7 +131,7 @@ int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word
         //printf("tmp_dict_qotes[%d] = %d\n", i, (*tmp_dict_quotes_word)[i]);
         if (is_dollar(box, x_y, tmp_dict_quotes_word))//si encuentra alguno
         {
-            //printf(GREEN"                   yes - STILL MORE DOLLARS, y = %d\n\n"RESET_COLOR, x_y.index_y);
+            printf(GREEN"                   yes - STILL MORE DOLLARS, y = %d\n\n"RESET_COLOR, x_y.index_y);
             return (0);
         }
         //i++;
@@ -104,7 +140,7 @@ int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word
         //printf("BUCLE: i = %d, len_word = %d\n", i, len_word);
     }
    //si llega hasta el final sin encontrar ningún dólar. Si ya ha llegado aquí, si ha salido del bucle, es porque ya hemos recorrido toda la palabra y no se han encontrado dólares válidos
-    //printf(RED"                   no - LAST DOLLAR WAS FOUND\n"RESET_COLOR);
+    printf(RED"                   no - LAST DOLLAR WAS FOUND\n"RESET_COLOR);
     return (1);
 }
 
@@ -182,18 +218,24 @@ void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
         //Cuando hagamos find_dollars_and_replace, dentro el tmp_dict_quotes_word se tiene que actualizar también. Tiene que venir actualizado de vuelta
         
         //2. Identify dollars
-        find_dollars_and_replace(box, x_y, &tmp_dict_quotes_word, prompt); //cada palabra
+        find_dollars_and_replace(box, &x_y, tmp_dict_quotes_word, prompt); //cada palabra
+        printf(BLUE">>>>>>>>> %d\n"RESET_COLOR, x_y.index_y);
         //printf(BLUE"uxu we're here\n"RESET_COLOR);
         //printf("tmp_dict_qotes[%d] = %d\n", 0, tmp_dict_quotes_word[0]);
         //printf("tmp_dict_qotes[%d] = %d\n", 1, tmp_dict_quotes_word[1]);
         //printf("tmp_dict_qotes[%d] = %d\n", 2, tmp_dict_quotes_word[2]);
-        if (no_more_dollars(box, x_y, &tmp_dict_quotes_word))
+        if (no_more_dollars(box, x_y, tmp_dict_quotes_word))
         {
-            //printf(BLUE">>>>>>>>> no more dollars in word\n"RESET_COLOR);
+            printf(BLUE">>>>>>>>> no more dollars in word\n"RESET_COLOR);
             break;
         }
-        if ((x_y.index_y + 1) == len_word) //prevent overflow, safety :)
+        if (x_y.index_y == len_word) //prevent overflow, safety :)
+        {
+            printf("LLEGAMOSS AL FINAL, len_word = %d, y = %d\n", len_word, x_y.index_y);
             break;
+        }
+        
+            
         tmp_to_debug++;
         x_y.index_y++;
     }

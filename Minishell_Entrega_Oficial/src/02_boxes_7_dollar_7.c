@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:00:12 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/31 18:00:23 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 10:24:11 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void fill_tmp_dict_quotes(t_box **box, int **tmp_dict_quotes_word, int len, int 
     while (len > 0) //Next to solve: aquí tmp_dict_quotes_word no está llegando con su nuevo len
     {
         (*tmp_dict_quotes_word)[i] = (*box)->dict_quotes[start];
-        //printf("          tmp_dict_qotes[%d] = %d\n", i, (*tmp_dict_quotes_word)[i]);
+        printf(GREEN"          tmp_dict_qotes[%d] = %d\n"RESET_COLOR, i, (*tmp_dict_quotes_word)[i]);
         len--;
         i++;
         //start++;

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/02 18:10:43 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 09:36:54 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,50 @@ char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_fre
     int x;
 
     (void)tmp_old_word_before_free;
-    printf("                         get_word_2\n");
+    printf("\n                         get_word_2\n");
     if (tmp_old_word_before_free)
         len_word = get_len_word(box, x_y, tmp_old_word_before_free);
     else
         len_word = get_len_word_3(box, x_y);
-    printf("                         len_word_potential_variable = %d\n", len_word);
+    printf(YELLOW"                         len_word_potential_variable = %d\n"RESET_COLOR, len_word);
+    env_variable = malloc(sizeof(char) * (len_word + 1));
+    env_variable[len_word] = '\0';
+    x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
+    x = 0;
+    while (len_word > 0)
+    {
+        env_variable[x] = (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y];
+        len_word--;
+        x++;
+        x_y.index_y++;
+    }
+    printf("                         get_word_2 | word to find in env: %s\n", env_variable);
+    return (env_variable);
+}
+
+/*get_word_2
+*
+*   Returns: char *env_variable = the word we will aim to find in env.
+*
+*
+*   Called from is_in_env
+*/
+char *get_word_4(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free)
+{
+    char *env_variable; //potential
+    int len_word;
+    int x;
+
+    (void)tmp_old_word_before_free;
+    printf("\n                         get_word_2\n");
+    if (tmp_old_word_before_free)
+        len_word = get_len_word(box, x_y, tmp_old_word_before_free);
+    else
+        len_word = get_len_word_3(box, x_y);
+    
+    if (len_word == 0)
+        return (NULL);
+    printf(YELLOW"                         len_word_potential_variable = %d\n"RESET_COLOR, len_word);
     env_variable = malloc(sizeof(char) * (len_word + 1));
     env_variable[len_word] = '\0';
     x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
