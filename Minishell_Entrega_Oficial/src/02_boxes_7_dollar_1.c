@@ -28,8 +28,16 @@ int ft_isalnum_str(char *str)
 
 /*
 *   return (0) only used to exit function when next_is_space
+*
+*   tmp_dict_quotes_word hay que pasarlo como int **, ya que hay ciertas funciones 
+*   a las que se les llama desde find_dollars_and_replace que sí que modifican
+*   los valores de la variable. E.g.: fill_with_nine, replace_pid_sec_dollar, 
+*   finish_to_update_dict_quotes. Todos estos ejemplos particularmente se llaman 
+*   desde mng_to_replace_sec_dollar. En el resto de funciones (foto actual)
+*   la variable puede pasarse desreferenciada, ya que las funciones a las que llamamos
+*   únicamente serán usuarios de la variable, pero no la modificarán.
 */
-int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int *tmp_dict_quotes_word, t_prompt **prompt)
+int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int **tmp_dict_quotes_word, t_prompt **prompt)
 {
     char *word;
     //int len_word;
@@ -41,7 +49,7 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int *tmp_dict_qu
     {
         //printf("we're checkin here\n");
       */
-    if (is_dollar(box, *x_y, tmp_dict_quotes_word))
+    if (is_dollar(box, *x_y, *tmp_dict_quotes_word))
     {
         printf("                    dollar was found, y = %d, len_total = %d\n", x_y->index_y, (int)ft_strlen((*box)->rest_info_potential_cmd[x_y->index_x]));
         if (next_is_space_or_end(box, *x_y))
@@ -66,7 +74,7 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int *tmp_dict_qu
         else if (is_in_env(box, *x_y, prompt)) //sí en env . Coger hassta fin palabra o hasta próximo dólar
         {
             printf("                    case "YELLOW"3: env variable found\n"RESET_COLOR);
-            mng_to_replace_env(box, *x_y, prompt);
+            mng_to_replace_env(box, *x_y, prompt, tmp_dict_quotes_word);
             printf(BLUE"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y->index_x]);
         }
         else //no en env
@@ -218,7 +226,7 @@ void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
         //Cuando hagamos find_dollars_and_replace, dentro el tmp_dict_quotes_word se tiene que actualizar también. Tiene que venir actualizado de vuelta
         
         //2. Identify dollars
-        find_dollars_and_replace(box, &x_y, tmp_dict_quotes_word, prompt); //cada palabra
+        find_dollars_and_replace(box, &x_y, &tmp_dict_quotes_word, prompt); //cada palabra
         printf(BLUE">>>>>>>>> %d\n"RESET_COLOR, x_y.index_y);
         //printf(BLUE"uxu we're here\n"RESET_COLOR);
         //printf("tmp_dict_qotes[%d] = %d\n", 0, tmp_dict_quotes_word[0]);

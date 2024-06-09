@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:40 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 10:35:17 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 11:15:21 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void put_arr(int *arr, int len)
     printf(RESET_COLOR);
 }
 
-void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word)
+void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word)
 {
     int len_old_word;
     int len_process_pid;
@@ -79,10 +79,10 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dic
     //1. Keep old info in tmp variables: char *tmp_rest_info_before_free, pero quitándole los 2 dólares que no necesitamos, and int *tmp_tmp_dict_quotes_word;
     len_old_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
     tmp_tmp_dict_quotes_word = malloc(sizeof(int)*(len_old_word - 2)); //no necesitamos +1 para valor nulo, le acabo de añadir -2 porque no vamos a meter info de los 2 dólares que queremos quitar                  
-    cpy_arr_with_len(tmp_dict_quotes_word, tmp_tmp_dict_quotes_word, (len_old_word - 2)); //to keep old tmp_dict_quotes_word (because we'll generate a new one)
+    cpy_arr_with_len(*tmp_dict_quotes_word, tmp_tmp_dict_quotes_word, (len_old_word - 2)); //to keep old tmp_dict_quotes_word (because we'll generate a new one)
     tmp_rest_info_before_free = malloc(sizeof(char)*(len_old_word + 1));
     tmp_rest_info_before_free[len_old_word] = '\0';
-    cpy_word((*box)->rest_info_potential_cmd[x_y.index_x], tmp_rest_info_before_free);
+    cpy_word((*box)->rest_info_potential_cmd[x_y.index_x], &tmp_rest_info_before_free);
     //printf("     tmp_tmp_dict_quotes_word = ");
     //put_arr(tmp_tmp_dict_quotes_word, len_old_word); //to debug
     printf("\n");
@@ -94,7 +94,7 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dic
     //printf("                    len_process_pid = %d, len_old_word = %d\n", len_process_pid, len_old_word);
     new_len = len_old_word - 2 + len_process_pid; //-2 por quitar los 2 dólares
     //printf(MAGENTA"                    new_len = %d\n"RESET_COLOR, new_len);
-    *tmp_dict_quotes_word = malloc(sizeof(int)*new_len); //no necesitamos +1 para valor nulo
+    tmp_dict_quotes_word = malloc(sizeof(int)*new_len); //no necesitamos +1 para valor nulo
     //if (!tmp_dict_quotes_word)
         //ft_puterror("Error when allocating memory\n");
     fill_with_nine(tmp_dict_quotes_word, new_len); //random value 9 to initialize, 9 is not possible in 
@@ -105,7 +105,7 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dic
     (*box)->rest_info_potential_cmd[x_y.index_x][new_len] = '\0';
     replace_pid_sec_dollar(box, x_y, tmp_rest_info_before_free, tmp_dict_quotes_word, new_len);
     //printf(">>  let's finish it!\n");
-    finish_to_update_dict_quotes(&tmp_dict_quotes_word, new_len, tmp_tmp_dict_quotes_word, len_old_word);
+    finish_to_update_dict_quotes(tmp_dict_quotes_word, new_len, tmp_tmp_dict_quotes_word, len_old_word);
     //printf(GREEN"uxu we're here\n"RESET_COLOR);
     //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
     //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);

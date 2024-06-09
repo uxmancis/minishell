@@ -15,8 +15,10 @@
 /*
 *	ft_split_from_to:
 *
-*	len_substr = (end - start + 1)
-*		end - start + 1: so that both positions are included in substr.
+*	
+*	Explanatory comments:
+*		len_substr = (end - start + 1)
+*			end - start + 1: so that both positions are included in substr.
 */
 char	*ft_split_from_to(int start, int end, char *src_input)
 {
@@ -31,10 +33,10 @@ char	*ft_split_from_to(int start, int end, char *src_input)
 		ft_puterror("error when accessing to memory - input_split.c\n");
 		return (NULL);
 	}
-	len_substr = (end - start + 1); //incluye ambas posiciones start y end en substr
+	len_substr = (end - start + 1);
 	//printf(RED">>>>> start = %d, end = %d, len_substr = %d\n"BLUE, (int)start, (int)end, len_substr);
 	//printf(RESET_COLOR);
-	dst = malloc(sizeof(char)*(len_substr + 1));
+	dst = malloc(sizeof(char) * (len_substr + 1));
 	dst[len_substr] = '\0';
 	if (!dst)
 		ft_puterror("malloc error\n");

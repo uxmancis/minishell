@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:59:29 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 10:31:54 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 11:14:06 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int next_is_sec_dollar(t_box **box, t_x_y_rest_info x_y)
     return (0);
 }
 
-void cpy_word (char *str_src, char *str_dst)
+void cpy_word (char *str_src, char **str_dst)
 {
     int len;
     int i;

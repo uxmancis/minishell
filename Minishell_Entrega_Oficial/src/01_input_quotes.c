@@ -34,10 +34,19 @@ int	ft_quotes_2(char *input, int **dict_quotes, int i)
 }
 
 //int ft_quotes_3(t_prompt **prompt, int i)
+/*	ft_quotes_3
+*
+*	Returns:
+*		-1: Error: unclosed quotes
+*		i: 
+*	
+*	Comments:
+*			(*dict_quotes)[i] = 0; //Main double quotes
+*/
 int	ft_quotes_3(char *input, int **dict_quotes, int i)
 {
 	//printf(MAGENTA"        ENTRADA comillas DOBLES, input[%d] = %c\n"RESET_COLOR, i, input[i]);
-	(*dict_quotes)[i] = 0; //comillas principales (dobles) están fuera de comillas
+	(*dict_quotes)[i] = 0;
 	i++;
 	//printf("             i++, line 44, input[%d] = %c\n", i, input[i]);
 	while (input[i] != '\0' && input[i] != '\"')
@@ -49,7 +58,7 @@ int	ft_quotes_3(char *input, int **dict_quotes, int i)
 	}
 	//printf(MAGENTA"        SALIDA comillas DOBLES, input[%d] = %c\n\n"RESET_COLOR, i, input[i]);
 	if (i == (int)ft_strlen(input))
-		return (-1); //Error: unclosed quotes
+		return (-1);
 	else
 		return (i);
 }
@@ -69,6 +78,12 @@ int	ft_quotes_3(char *input, int **dict_quotes, int i)
 *
 *   I want to use ft_quotes for dict_quotes in t_prompt, but also
 *   dict_quotes in t_box. 
+*
+*	Comments:
+*		if (input[i] == '\'') // Inside SINGLE quotes. Are they closed?
+*		else if (input[i] == '\"') // Inside DOUBLE quotes. Are they closed?
+*
+
 --------------------------------------------------------------*/
 //int ft_quotes(t_prompt **prompt) //kenduta komentarixuak
 int	ft_quotes(char *input, int **dict_quotes)
@@ -81,13 +96,13 @@ int	ft_quotes(char *input, int **dict_quotes)
 	printf(RESET_COLOR);
 	while (input[i] != '\0')
 	{
-		if (input[i] == '\'') //una vez entramos en comilla SIMPLE verificamos si están cerradas
+		if (input[i] == '\'')
 		{
 			i = ft_quotes_2(input, dict_quotes, i); //
 			if (i == -1)
 				return (-1);
 		}
-		if (input[i] == '\"')//una vez entramos en comilla DOBLE verificamos si están cerradas
+		else if (input[i] == '\"')
 		{
 			i = ft_quotes_3(input, dict_quotes, i);
 			if (i == -1)
@@ -101,7 +116,7 @@ int	ft_quotes(char *input, int **dict_quotes)
 		//printf("post ++, i = %d\n", i);
 	}
 	//printf(GREEN"<< salida de bucle - análisis comillas\n"RESET_COLOR);
-	return (0); //Success, quotes properly closed and dictionary created
+	return (0);
 }
 
 /*ft_where_r_u
@@ -113,7 +128,7 @@ int	ft_quotes(char *input, int **dict_quotes)
 *       1: Inside single quotes ('  ')
 *       2: Inside double quotes ("  ")
 */
-int	ft_where_r_u (int index, int *dictionary)
+int	ft_where_r_u(int index, int *dictionary)
 {
 	return (dictionary[index]);
 }

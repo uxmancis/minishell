@@ -6,13 +6,13 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 09:36:54 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 11:45:45 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/minishell.h"
 
-void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
+void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val, int **tmp_dict_quotes_word)
 {
     int ind_new_word;
     char *tmp_old_word_before_free;
@@ -24,17 +24,21 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     int keep_len_new_word;
     char *str_to_find;
     int len_str_to_find;
+    int *new_dict_quotes_word; //to keep info //llamado int *tmp_tmp_dict_quotes en mng_to_replace_sec_dollar (02_boxes_7_dollar_3.c)
+    int len_old_word;
     //printf("replace_env | x = %d, y = %d\n", x_y.index_x, x_y.index_y);
     ind_new_word = 0;
     
     //1st: copy old info (old word in rest_info y la palabra a buscar)
+    len_old_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
     tmp_old_word_before_free = malloc(sizeof(char) * (ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]) + 1));
     tmp_old_word_before_free[ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x])] = '\0';
     get_old_word((*box)->rest_info_potential_cmd[x_y.index_x], &tmp_old_word_before_free); //tmp_old_word_before_free ya lo tee
     str_to_find = get_word_2(box, x_y, tmp_old_word_before_free);
     len_str_to_find = ft_strlen(str_to_find);
-    //printf("                         old word to keep = %s\n", tmp_old_word_before_free);
     
+    //printf("                         old word to keep = %s\n", tmp_old_word_before_free);
+
     //2. Hacer free de la info antigua
     ft_free((*box)->rest_info_potential_cmd[x_y.index_x]);
     new_len = ft_strlen(tmp_old_word_before_free) - 1 - ft_strlen(str_to_find) + ft_strlen(tmp_val);
@@ -46,9 +50,13 @@ void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val)
     len_val = ft_strlen(tmp_val);
     ind_val = 0;
     keep_len_new_word = new_len;
+    
     //printf("                         new_len = %d, keep_new_len = %d\n", new_len, keep_len_new_word);
     /*while (new_len > 0)
     {*/
+    new_dict_quotes_word = malloc(sizeof(int) * new_len);
+    cpy_arr_with_len(*tmp_dict_quotes_word, new_dict_quotes_word, (len_old_word - 2))
+
         //1. si antes del dólar hay cositas, copiarlas
         if (ind_new_word < ind_dollar) //if to debug, print just in this case, but only once (outside of while loop)
         {
@@ -190,7 +198,7 @@ void cpy_to_val(char *str_src, char **str_dst)
     }
 }
 
-void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
+void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt, int **tmp_dict_quotes_word)
 {
     int len_val;
     char *tmp_val; //funtzio honetan eukitzeko bakarrik, por readability
@@ -200,5 +208,5 @@ void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
     tmp_val[len_val] = '\0';
     cpy_to_val ((ft_getenv_local((*prompt)->vars, get_word_2(box, x_y, NULL)))->val, &tmp_val);
     //printf("          mngt_to_replace_env | tmp_val copied! = "YELLOW"%s\n"RESET_COLOR, tmp_val);
-    replace_env(box, x_y, tmp_val);
+    replace_env(box, x_y, tmp_val, tmp_dict_quotes_word);
 }

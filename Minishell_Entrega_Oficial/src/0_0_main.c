@@ -105,8 +105,8 @@ int	handle_signal_for_process(pid_t pid, int sig, const char *error_message)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_prompt *data;
-	struct sigaction sa;
+	t_prompt			*data;
+	struct sigaction	sa;
 
 	(void)argv;
 	if (argc != 1)
@@ -118,14 +118,14 @@ int	main(int argc, char **argv, char **envp)
 	ft_print_welcome();
 	rl_initialize();
 	using_history();
-    if (sigaction(SIGINT, &sa, NULL) == -1 ||
-        sigaction(SIGQUIT, &sa, NULL) == -1 ||
-        sigaction(SIGTSTP, &sa, NULL) == -1) 
-    {
-        perror("Error al establecer el manejador de señales");
-        return -1;
-    }
+	if (sigaction(SIGINT, &sa, NULL) == -1
+		|| sigaction(SIGQUIT, &sa, NULL) == -1
+		|| sigaction(SIGTSTP, &sa, NULL) == -1) 
+	{
+		perror("Error al establecer el manejador de señales");
+		return (-1);
+	}
 	while (1)
 		ft_begin(data);
-    return (0);
+	return (0);
 }

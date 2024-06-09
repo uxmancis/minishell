@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:01 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 10:37:16 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 11:05:29 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,13 +149,13 @@ void cpy_arr_with_len(int *arr_src, int *arr_dst, int len)
     //printf(GREEN"cpy_arr_with_len\n"RESET_COLOR);
     while (len > 0)
     {
-        if ((*arr_src)[i] == '$' && two_times != 2) //solo quiero que pase de 2 dólares, si hay más luego noo
+        if (arr_src[i] == '$' && two_times != 2) //solo quiero que pase de 2 dólares, si hay más luego noo
         {
             i++;
             two_times++;
             //printf(BLUE"hellowis\n"RESET_COLOR);
         }
-        arr_dst[i] = (*arr_src)[i];
+        arr_dst[i] = arr_src[i];
         //printf(GREEN"arr_src[%d] = %c\n"RESET_COLOR, i, (*arr_src)[i]);
         i++;
         len--;

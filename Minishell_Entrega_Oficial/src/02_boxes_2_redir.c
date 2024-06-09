@@ -10,81 +10,97 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
-
+#include "../inc/minishell.h"
 
 //useful to debug: to print enum name
-char *ft_enum_to_str(int enumerator)
+char	*ft_enum_to_str(int enumerator)
 {
-    if (enumerator == NO_REDIRECTION)
-        return ("NO_REDIRECTION");
-    else if (enumerator == OUTFILE_APPEND)
-        return (">>: OUTFILE_APPEND");
-    else if (enumerator == OUTFILE_STRONG)
-        return (">: OUTFILE_STRONG");
-    else if (enumerator == INFILE)
-        return ("<: INFILE");
-    else if (enumerator == HEREDOC)
-        return ("<<: HEREDOC");
-    else
-        return ("ERROR\n");
+	if (enumerator == NO_REDIRECTION)
+		return ("NO_REDIRECTION");
+	else if (enumerator == OUTFILE_APPEND)
+		return (">>: OUTFILE_APPEND");
+	else if (enumerator == OUTFILE_STRONG)
+		return (">: OUTFILE_STRONG");
+	else if (enumerator == INFILE)
+		return ("<: INFILE");
+	else if (enumerator == HEREDOC)
+		return ("<<: HEREDOC");
+	else
+		return ("ERROR\n");
+}
+
+/*check_if_three_redirs
+*	
+*	Returns:
+*		-1: Error: 3rd redirección was found
+*		0: Success: no 3rd redirección
+*/
+int	check_if_three_redirs(t_box *box, int i)
+{
+	if (box->input_substr[i + 2] == '<' || box->input_substr[i + 2] == '>')
+	{
+		ft_puterror("syntax error near unexpected token `newline'\n");
+		return (-1);
+	}
+	return (0);
 }
 
 //int ft_check_if_redir redir(t_box *box, char *input)
 /* ft_get_numof_redir
 *
 *   Returns:
-*       -1: 
+*       -1: Error (E.g.: 3rd redirección was found)
+*		0: Success
+*
+*	Explanatory comments:
+*		//1st redirección found
+*			if (i < keep_len && (box->input_substr[i] == '<' || box->input_substr[i] == '>' ))
+*		//2nd redirección found
+*			else if (box->dict_quotes[i] == 0)
+*
 */
-int ft_get_numof_redir(t_box *box)
+int	ft_get_numof_redir(t_box *box)
 {
-    int i;
-    int counter;
-    int len;
-    int keep_len;
+	int	i;
+	int	counter;
+	int	len;
+	int	keep_len;
 
-    i = 0;
-    counter = 0;
-    printf(RED"               input_substr = %s, len = %d\n"RESET_COLOR, box->input_substr, (int)ft_strlen(box->input_substr));
-    len = (int)ft_strlen(box->input_substr); //ns porq tengo que hacer -1 para que cuadre. Ya ez :)
-    keep_len = len;
-    //printf("len = %d\n", len);
-    while (i < keep_len/*box->input_substr[i] != '\0'*//*len > 0*/)
-    {
-        if (i < keep_len && (box->input_substr[i] == '<' || box->input_substr[i] == '>' )) //1.a topatuta
-        {
-            //printf("i = %d, len = %d\n", i, len);
-            if (/*i < (keep_len - 1) && */(box->input_substr[i + 1] == '<' || box->input_substr[i + 1] == '>'))
-            {
-                if (box->input_substr[i + 2] == '<' || box->input_substr[i + 2] == '>')
-                {
-                    ft_puterror("syntax error near unexpected token `newline'\n");
-                    return (-1);
-                }
-                else //2.a topatuta
-                {
-                    if (box->dict_quotes[i] == 0) //asegurar que está fuera de comillas
-                    {
-                        counter++;
-                        i = i + 2; //juateko ya hurrengora
-                        //printf(YELLOW"i = %d\n"RESET_COLOR, i);
-                    }
-                }
-            }
-            else
-            {
-                if (box->dict_quotes[i] == 0)
-                {
-                    counter++;
-                    i++;
-                    //printf(MAGENTA"i = %d\n"RESET_COLOR, i);
-                }
-            }
-        }
-        i++;
-        len--;
-        //printf("i = %d, len = %d\n", i, len);
-    }
+	i = 0;
+	counter = 0;
+	printf(RED"               input_substr = %s, len = %d\n"RESET_COLOR, box->input_substr, (int)ft_strlen(box->input_substr));
+	len = (int)ft_strlen(box->input_substr); //ns porq tengo que hacer -1 para que cuadre. Ya ez :)
+	keep_len = len;
+	//printf("len = %d\n", len);
+	while (i < keep_len/*box->input_substr[i] != '\0'*//*len > 0*/)
+	{
+		if (i < keep_len && (box->input_substr[i] == '<'
+				|| box->input_substr[i] == '>' ))
+		{
+			//printf("i = %d, len = %d\n", i, len);
+			if (/*i < (keep_len - 1) && */(box->input_substr[i + 1] == '<'
+					|| box->input_substr[i + 1] == '>'))
+			{
+				if (check_if_three_redirs(box, i) == -1)
+					return (-1);
+				else if (box->dict_quotes[i] == 0)
+				{
+					counter++;
+					i = i + 2; //juateko ya hurrengora
+					//printf(YELLOW"i = %d\n"RESET_COLOR, i);
+				}
+			}
+			else if (box->dict_quotes[i] == 0)
+			{
+				counter++;
+				i++;
+				//printf(MAGENTA"i = %d\n"RESET_COLOR, i);
+			}
+		}
+		i++;
+		len--;
+		//printf("i = %d, len = %d\n", i, len);
+	}
     //printf("nb_of_redirections = %d\n", counter);
     //printf(BLUE"               nb_of_red = %d\n"RESET_COLOR, box->nb_of_redir);
     printf("     02_boxes_redir.c - ft_get_numof_redir| Counted!✅"BLUE" nb_of_red = %d\n"RESET_COLOR, counter);
@@ -96,15 +112,15 @@ int ft_get_numof_redir(t_box *box)
 *           0: Success - Redirection was assigned
 *           -1: Redirection was finally NOT assigned (inside quotes)
 */
-int set_red_less_than(t_box **box, int *i, int index_of_arr)
+int	set_red_less_than(t_box **box, int *i, int index_of_arr)
 {
-    //printf("< found, i = %d\n", (*i));
-    //make sure it is correct that we enter here
-    //     i = %d\n", (*i));
-    if ((*box)->input_substr[(*i)] != '<' && (*box)->dict_quotes[(*i)] == 0)
-        return(EXIT_FAILURE); //was not supposed to be here
-    else if ((*box)->input_substr[(*i)] == '<' && (*box)->dict_quotes[(*i)] == 0)
-    {
+	//printf("< found, i = %d\n", (*i));
+	//make sure it is correct that we enter here
+	//     i = %d\n", (*i));
+	if ((*box)->input_substr[(*i)] != '<' && (*box)->dict_quotes[(*i)] == 0)
+		return(EXIT_FAILURE); //was not supposed to be here
+	else if ((*box)->input_substr[(*i)] == '<' && (*box)->dict_quotes[(*i)] == 0)
+	{
         if ((*box)->input_substr[(*i) + 1] == '<' && (*box)->dict_quotes[(*i) + 1] == 0)
         {
             //printf(AQUAMARINE"2nd < was found, i = %d\n"RESET_COLOR, *i);
@@ -260,23 +276,23 @@ int set_red_index_type(t_box **box)
     return (0);
 }
 
-int ft_fill_red_info(t_box **box)
+int	ft_fill_red_info(t_box **box)
 {
-    int i;
-    int tmp_nb_of_red;
+	int	i;
+	int	tmp_nb_of_red;
 
-    i = 0;
-    tmp_nb_of_red = (*box)->nb_of_redir;
-    while (tmp_nb_of_red > 0)
-    {
-        (*box)->dict_red_index_type[i] = malloc(sizeof(int)*2);
-        tmp_nb_of_red--;
-        i++;
-    }
-    if (set_red_index_type(box) == -1)
-        return (-1);
-    printf("     02_boxes.c - ft_fill_red_info|"BLUE" dict_red_index_type"RESET_COLOR" generated✅\n");
-    return (0);
+	i = 0;
+	tmp_nb_of_red = (*box)->nb_of_redir;
+	while (tmp_nb_of_red > 0)
+	{
+		(*box)->dict_red_index_type[i] = malloc(sizeof(int)*2);
+		tmp_nb_of_red--;
+		i++;
+	}
+	if (set_red_index_type(box) == -1)
+		return (-1);
+	printf("     02_boxes.c - ft_fill_red_info|"BLUE" dict_red_index_type"RESET_COLOR" generated✅\n");
+	return (0);
 }
 
 /*ft_is_redir
@@ -293,20 +309,19 @@ int ft_fill_red_info(t_box **box)
 *   total_red_type_index variable member (t_box) in the following way:
 *       [0]: Redirection type
 *       [1]: Redirection index in input_substr
+*
+*	ft_fill_red_info: total_red_type_index is set
 */
-int get_redirections(t_box *box)
+int	get_redirections(t_box *box)
 {
-    //int nb_of_red; //to malloc total_redir...
-
-    if (ft_get_numof_redir(box) == -1)
-        return (-1);
-    else
-        box->nb_of_redir = ft_get_numof_redir(box);
-    //printf(BLUE"               nb_of_red = %d\n"RESET_COLOR, box->nb_of_redir);
-    if (box->nb_of_redir == 0)
-        return (0); 
-    box->dict_red_index_type = malloc(sizeof(char*)*(box->nb_of_redir)); //1 array para cada redirección. En cada array, [0] = tipo de redir, [1] índice en el que se encuentra en el input_substr
-    if (ft_fill_red_info(&box) == -1) //se informa total_red_type_index
-        return (-1);
-    return (1);
+	if (ft_get_numof_redir(box) == -1)
+		return (-1);
+	else
+		box->nb_of_redir = ft_get_numof_redir(box);
+	if (box->nb_of_redir == 0)
+		return (0);
+	box->dict_red_index_type = malloc(sizeof(char*) * (box->nb_of_redir));
+	if (ft_fill_red_info(&box) == -1)
+		return (-1);
+	return (1);
 }

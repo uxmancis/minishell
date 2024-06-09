@@ -275,7 +275,7 @@ int possible_cases(t_box **box, int index);
 void cpy_1_word(t_box **box, int nb_of_word);
 
 //02_boxes_7_dollar_1.c
-int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int *tmp_dict_quotes_word, t_prompt **prompt);
+int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int **tmp_dict_quotes_word, t_prompt **prompt);
 int no_more_dollars(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word);
 int *generate_specif_dict_quotes(t_box **box, t_x_y_rest_info x_y, int len);
 void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt);
@@ -292,7 +292,7 @@ void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
 //02_boxes_7_dollar_3.c
 void finish_to_update_dict_quotes (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word);
 void put_arr(int *arr, int len);
-void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word);
+void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word);
 int is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
 void get_old_word(char *str_src, char **str_dst);
 
@@ -300,7 +300,7 @@ void get_old_word(char *str_src, char **str_dst);
 int get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word, char *old_word_2_check);
 void replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new_total_word);
 void mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
-void cpy_arr_with_len(int **arr_src, int *arr_dst, int len);
+void cpy_arr_with_len(int *arr_src, int *arr_dst, int len);
 void fill_with_nine(int **tmp_dict_quotes_word, int len);
 
 //02_boxes_7_dollar_5.c
