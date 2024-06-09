@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:40 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 11:15:21 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:00:57 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ void put_arr(int *arr, int len)
     printf(RESET_COLOR);
 }
 
-void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word)
+void	mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_dict_quotes_word)
 {
-    int len_old_word;
-    int len_process_pid;
-    char *tmp_rest_info_before_free; //to keep info
-    int new_len;
-    int *tmp_tmp_dict_quotes_word; //to keep info
+	int		len_old_word;
+	int		len_process_pid;
+	char	*tmp_rest_info_before_free; //to keep info
+	int		new_len;
+	int		*tmp_tmp_dict_quotes_word; //to keep info
 
     //printf(YELLOW"mng_to_replace_sec_dollar\n"RESET_COLOR);
     //1. Keep old info in tmp variables: char *tmp_rest_info_before_free, pero quitándole los 2 dólares que no necesitamos, and int *tmp_tmp_dict_quotes_word;
@@ -106,13 +106,6 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_di
     replace_pid_sec_dollar(box, x_y, tmp_rest_info_before_free, tmp_dict_quotes_word, new_len);
     //printf(">>  let's finish it!\n");
     finish_to_update_dict_quotes(tmp_dict_quotes_word, new_len, tmp_tmp_dict_quotes_word, len_old_word);
-    //printf(GREEN"uxu we're here\n"RESET_COLOR);
-    //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
-    //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);
-    //printf("tmp_dict_qotes[%d] = %d\n", 2, (*tmp_dict_quotes_word)[2]);
-    //printf("tmp_dict_qotes[%d] = %d\n", 3, (*tmp_dict_quotes_word)[3]);
-    //printf("tmp_dict_qotes[%d] = %d\n", 4, (*tmp_dict_quotes_word)[4]);
-
 }
 
 /*  is_in_env
@@ -122,29 +115,29 @@ void    mng_to_replace_sec_dollar(t_box **box, t_x_y_rest_info x_y, int **tmp_di
 *   ft_get_env_local(xxx, str_to_find)
 *       E.g.: ft_get_env_local(data->vars, "USER")
 */
-int is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
+int	is_in_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
 {
-    printf("\n\n                         is word in env? ");
-    if (ft_getenv_local((*prompt)->vars, get_word_2(box, x_y, NULL)))
-    {
-        printf("                         is word in env?"GREEN" YES\n"RESET_COLOR);
-        return (1);
-    }
-    printf("                         is word in env?"RED" NO\n"RESET_COLOR);  
-    return (0);
+	printf("\n\n                         is word in env? ");
+	if (ft_getenv_local((*prompt)->vars, get_word_2(box, x_y, NULL)))
+	{
+		printf("                         is word in env?"GREEN" YES\n"RESET_COLOR);
+		return (1);
+	}
+	printf("                         is word in env?"RED" NO\n"RESET_COLOR);  
+	return (0);
 }
 
-void get_old_word(char *str_src, char **str_dst)
+void	get_old_word(char *str_src, char **str_dst)
 {
-    int len_src;
-    int i;
+	int	len_src;
+	int	i;
 
-    len_src = ft_strlen(str_src);
-    i = 0;
-    while (len_src > 0)
-    {
-        (*str_dst)[i] = str_src[i];
-        len_src--;
-        i++;
-    }
+	len_src = ft_strlen(str_src);
+	i = 0;
+	while (len_src > 0)
+	{
+		(*str_dst)[i] = str_src[i];
+		len_src--;
+		i++;
+	}
 }

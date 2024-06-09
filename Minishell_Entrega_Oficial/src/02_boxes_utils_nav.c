@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
 /*Contains following functions:
 1. int has_end_last_check(int start, int end, t_box **box)
@@ -26,21 +26,21 @@
 *       1: YES, word was found (different to spaces and tabs)
 *       0: NO, no word was found
 */
-int has_end_last_check(int start, int end, t_box **box)
+int	has_end_last_check(int start, int end, t_box **box)
 {
-    //printf(MAGENTA"             start index = %d, end index = %d\n"RESET_COLOR, start, end);
-    while (start < end)
-    {
-        while (ft_isspace((*box)->input_substr[start]))
-            start++;
-        if (!ft_isspace((*box)->input_substr[start]))
-        {
-            //printf("something was found!\n");
-            return (1); //something was found! a word that works as end delimiter! :)
-        }
-    }
-    //printf(YELLOW"               NO HAY PALABRA FINAL\n"RESET_COLOR);
-    return (0);
+	//printf(MAGENTA"             start index = %d, end index = %d\n"RESET_COLOR, start, end);
+	while (start < end)
+	{
+		while (ft_isspace((*box)->input_substr[start]))
+			start++;
+		if (!ft_isspace((*box)->input_substr[start]))
+		{
+			//printf("something was found!\n");
+			return (1); //something was found! a word that works as end delimiter! :)
+		}
+	}
+	//printf(YELLOW"               NO HAY PALABRA FINAL\n"RESET_COLOR);
+	return (0);
 }
 
 /*Checks if current redirección is the last one or not.
