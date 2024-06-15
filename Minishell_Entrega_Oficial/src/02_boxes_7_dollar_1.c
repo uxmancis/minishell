@@ -49,6 +49,7 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int **tmp_dict_q
     {
         //printf("we're checkin here\n");
       */
+    printf("find_dollars_and_replace - ...looking for a new $ to expand... - y = %d\n", x_y->index_y);
     if (is_dollar(box, *x_y, *tmp_dict_quotes_word))
     {
         printf("                    dollar was found, y = %d, len_total = %d\n", x_y->index_y, (int)ft_strlen((*box)->rest_info_potential_cmd[x_y->index_x]));
@@ -59,12 +60,12 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int **tmp_dict_q
         }  
         else if(next_is_sec_dollar(box, *x_y)) //después tiene contenido el dólar
         {
-            //printf("                    case "YELLOW"2: double $$ replace pid\n"RESET_COLOR);
-                mng_to_replace_sec_dollar(box, *x_y, tmp_dict_quotes_word);
-                //printf(GREEN"                    >> Result str = %s\n\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
-                //printf(YELLOW"uxu we're here\n"RESET_COLOR);
-                //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
-                //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);
+            printf("                    case "YELLOW"2: double $$ replace pid\n"RESET_COLOR);
+            mng_to_replace_sec_dollar(box, *x_y, tmp_dict_quotes_word);
+            //printf(GREEN"                    >> Result str = %s\n\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
+            //printf(YELLOW"uxu we're here\n"RESET_COLOR);
+            //printf("tmp_dict_qotes[%d] = %d\n", 0, (*tmp_dict_quotes_word)[0]);
+            //printf("tmp_dict_qotes[%d] = %d\n", 1, (*tmp_dict_quotes_word)[1]);
         }
         else if (next_is_question(box, *x_y))
         {
@@ -75,7 +76,7 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int **tmp_dict_q
         {
             printf("                    case "YELLOW"3: env variable found\n"RESET_COLOR);
             mng_to_replace_env(box, *x_y, prompt, tmp_dict_quotes_word);
-            printf(BLUE"                    >> Result str = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y->index_x]);
+            printf(BLUE"                    >> Result str = %s, len = %d\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y->index_x], (int)ft_strlen((*box)->rest_info_potential_cmd[x_y->index_x]));
         }
         else //no en env
         {
@@ -105,6 +106,7 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int **tmp_dict_q
             printf(MAGENTA"                    >> Result str = %s, y = %d\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y->index_x], x_y->index_y);
         }
     }
+    printf(GREEN"$ expansion managed - done✅\n"RESET_COLOR);
         //}
         //x_y.index_y++;
         //len_word--;
@@ -123,24 +125,26 @@ int find_dollars_and_replace(t_box **box, t_x_y_rest_info *x_y, int **tmp_dict_q
 int	no_more_dollars(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes_word)
 {
 	int len_word;
-	//int i; //to debug
+	int i; //to debug
 
 	len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
-	//i = 0;
-	//printf("     02_boxes_7_dollar.c | "YELLOW" are there more dollars"RESET_COLOR" along word? "RESET_COLOR"len = %d, x = %d, y = %d, i = %d\n", len_word, x_y.index_x, x_y.index_y, i);
+    //printf(GREEN"no_more_dollars, len_word = %d\n", len_word);
+	i = 0;
+	//printf("     02_boxes_7_dollar.c - no_more_dollars | "YELLOW" are there more dollars"RESET_COLOR" along word? "RESET_COLOR"len = %d, x = %d, y = %d, i = %d\n", len_word, x_y.index_x, x_y.index_y, i);
 	x_y.index_y = 0;
 	while (len_word > 0)
 	{
-		//printf("rest_info[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
-		//printf("tmp_dict_qotes[%d] = %d\n", i, (*tmp_dict_quotes_word)[i]);
+		//printf(BLUE"rest_info[%d][%d] = %c\n"RESET_COLOR, x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
+		//printf(MAGENTA"tmp_dict_qotes[%d] = %d\n"RESET_COLOR, i, tmp_dict_quotes_word[i]);
 		if (is_dollar(box, x_y, tmp_dict_quotes_word))//si encuentra alguno
 		{
 			printf(GREEN"                   yes - STILL MORE DOLLARS, y = %d\n\n"RESET_COLOR, x_y.index_y);
 			return (0);
 		}
-		//i++;
+		i++;
 		x_y.index_y++;
 		len_word--;
+        //printf(YELLOW"len_word = %d\n"RESET_COLOR, len_word);
 		//printf("BUCLE: i = %d, len_word = %d\n", i, len_word);
 	}
 	//si llega hasta el final sin encontrar ningún dólar. Si ya ha llegado aquí, si ha salido del bucle, es porque ya hemos recorrido toda la palabra y no se han encontrado dólares válidos
@@ -195,6 +199,8 @@ void	get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
 	t_x_y_rest_info x_y;
 	//char *tmp_rest_info_word; creo que ya la variable doesn't make sense thx to infinite loop
 	int tmp_to_debug;
+    int tmp_len_to_debug;
+    int tmp_i;
 
 	printf("               Before: ["MAGENTA"%s"RESET_COLOR"]\n", (*box)->rest_info_potential_cmd[nb_word_x]);
 	x_y.index_x = nb_word_x;
@@ -203,10 +209,22 @@ void	get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
 	tmp_dict_quotes_word = NULL;
 	//1. tmp_dict_quotes is updated
 	//2. find_dollars_and_replace
-	while (1) //que recorra esta palabra (nb_word_x) tantas veces sea necesario (el len se va modificando when find_dollars_and_replace)hasta que no more dolars found along word
+    len_word = ft_strlen((*box)->rest_info_potential_cmd[nb_word_x]);
+	tmp_dict_quotes_word = generate_specif_dict_quotes(box, x_y, len_word);
+    while (1) //que recorra esta palabra (nb_word_x) tantas veces sea necesario (el len se va modificando when find_dollars_and_replace)hasta que no more dolars found along word
     {
         //printf(BLUE"     vuelta n.º %d - "RESET_COLOR, tmp_to_debug);
         len_word = ft_strlen((*box)->rest_info_potential_cmd[nb_word_x]);
+        tmp_len_to_debug = len_word;
+        tmp_i = 0;
+        printf(GREEN"check_situ, word = %s, y = %d\n" RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x], x_y.index_y);
+        while (tmp_len_to_debug > 0) //Next to solve: aquí tmp_dict_quotes_word no está llegando con su nuevo len
+        {
+            printf(GREEN"          tmp_dict_qotes[%d] = %d\n"RESET_COLOR, tmp_i, tmp_dict_quotes_word[tmp_i]);
+            tmp_len_to_debug--;
+            tmp_i++;
+            //start++;
+	    }
         //1. Generate (updadte*) tmp_dict_quotes
         //printf(MAGENTA"len_word = %d, x = %d\n"RESET_COLOR, len_word, nb_word_x);
         /*if (tmp_dict_quotes_word)
@@ -214,9 +232,14 @@ void	get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
             free(tmp_dict_quotes_word);
             tmp_dict_quotes_word = NULL;
         }*/
-        if (tmp_dict_quotes_word)
-            ft_free(tmp_dict_quotes_word);
-        tmp_dict_quotes_word = generate_specif_dict_quotes(box, x_y, len_word);
+       
+        //HAAAAAAAAAAAAAAAAAU KENDU BERRI
+        //if (tmp_dict_quotes_word)
+            //ft_free(tmp_dict_quotes_word);
+        //tmp_dict_quotes_word = generate_specif_dict_quotes(box, x_y, len_word); //tmp_dict_quotess_wrd is printed in green
+       
+       
+       
         //printf(MAGENTA"uxu we're here\n"RESET_COLOR);
         //printf("          ");
         //put_arr(tmp_dict_quotes_word, len_word);
@@ -231,8 +254,8 @@ void	get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
         //Cuando hagamos find_dollars_and_replace, dentro el tmp_dict_quotes_word se tiene que actualizar también. Tiene que venir actualizado de vuelta
         
         //2. Identify dollars
-        find_dollars_and_replace(box, &x_y, &tmp_dict_quotes_word, prompt); //cada palabra
-        printf(BLUE">>>>>>>>> %d\n"RESET_COLOR, x_y.index_y);
+        find_dollars_and_replace(box, &x_y, &tmp_dict_quotes_word, prompt); //cada palabra. tmp_dict_quotes_word MUST be updated so as to be used (no segfault) by no_more_dollars
+        printf(BLUE">>>>>>>>> y = %d\n"RESET_COLOR, x_y.index_y);
         //printf(BLUE"uxu we're here\n"RESET_COLOR);
         //printf("tmp_dict_qotes[%d] = %d\n", 0, tmp_dict_quotes_word[0]);
         //printf("tmp_dict_qotes[%d] = %d\n", 1, tmp_dict_quotes_word[1]);

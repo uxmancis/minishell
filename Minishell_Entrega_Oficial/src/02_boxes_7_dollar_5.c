@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 14:13:48 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/15 18:00:18 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 *
 *   Also new dict_quotes is generated (so than we can use it to check if no_more_dollars)
 */
-void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int **tmp_dict_quotes_word, int len_new_word)
+
+//replace_pid_sec_dollar(box, x_y, tmp_rest_info_before_free, keep_dict_quotes_word, tmp_dict_quotes_word, new_len);
+void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *old_word, int *keep_dict_quotes_word, int **tmp_dict_quotes_word, int new_len_word)
 {
     //int len_new_word;
     int len_pid_str;
@@ -27,14 +29,14 @@ void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int
     int keep_len;
 
     //fill_tmp_dict_quotes(box, &tmp_dict_quotes_word, len_word, (*box)->index_beginning_words_rest[nb_word_x]);
-    //printf("          replace_pid_sec_dollar | str_src = "YELLOW"%s"RESET_COLOR" - keepin' it | where is dollar, ind [%d]\n", str_src, x_y.index_y);
+    printf("          replace_pid_sec_dollar | str_src = "YELLOW"%s"RESET_COLOR" - keepin' it | where is dollar, ind [%d]\n", old_word, x_y.index_y);
     //len_new_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
     //printf(MAGENTA"                    len_new_word = %d\n"RESET_COLOR, len_new_word);
     len_pid_str = ft_strlen((*box)->tmp_pid_str);
     ind_dollar = x_y.index_y;
     x_y.index_y = 0;
     ind_old_word = 0;
-    keep_len = len_new_word;
+    keep_len = new_len_word;
     ind_pid_str = 0;
     /*while (len_new_word > 0)
     {
@@ -44,15 +46,20 @@ void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int
     
     
     //1. Hasta el $, simplemente copia
+    printf("Step 1: y = %d, ind_old_word = %d\n", x_y.index_y, ind_old_word);
+    //(*tmp_dict_quotes_word)[x_y.index_y]= 5;
+    //printf("pruebita = %d\n", (*tmp_dict_quotes_word)[x_y.index_y]);
     while (ind_pid_str != ind_dollar)
     {
         //printf(YELLOW"letsgo y = %d", x_y.index_y);
-        (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = str_src[ind_old_word]; //hasi dana kopixatzen hasta el dólar
+        (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = old_word[ind_old_word]; //hasi dana kopixatzen hasta el dólar
+        (*tmp_dict_quotes_word)[x_y.index_y] = keep_dict_quotes_word[ind_old_word];
         ind_pid_str++; //para que luego cojamos bien desde el dólar
         ind_old_word++;
         x_y.index_y++;
         //printf("printed\n"RESET_COLOR);
     }
+    printf("> step 1 completed\n");
     //2. Una vez encontramos el dólar, sustituimos
     if (ind_pid_str == ind_dollar) //un poquito redundante, y un poquito jugón el bucle anterior. En mi cabeza tiene que darse siempre ok, pero imagínate que no.. posible bucle infinito? jaj
     {
@@ -68,12 +75,12 @@ void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int
             ind_pid_str++;
             len_pid_str--;
             x_y.index_y++;
-            len_new_word--;
+            new_len_word--;
             //printf("len_word = %d, len_pid_str = %d, ind_pid_str = %d, y = %d\n", len_new_word, len_pid_str, ind_pid_str, x_y.index_y);
         }
         //saltarnos los 2 dólares
         two_times = 0;
-        while (two_times != 2 && ind_old_word < keep_len && str_src[ind_old_word] == '$'/* && ind_old_word == ind_dollar*/) //para saltarnos y no copiar los 2 dólares && safety to prevent overflow
+        while (two_times != 2 && ind_old_word < keep_len && old_word[ind_old_word] == '$'/* && ind_old_word == ind_dollar*/) //para saltarnos y no copiar los 2 dólares && safety to prevent overflow
         {
             ind_old_word++;
             two_times++;
@@ -84,24 +91,25 @@ void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int
         
     //printf(GREEN" No, \n"RESET_COLOR);
     //printf("          status check: len = %d\n", len_new_word);
-    
+    printf("> step 2 completed\n");
     //3. Si después todavía queda content:
-    if (len_new_word != 0) //si todavía hay más contenido, Rest info is copied
+    if (new_len_word != 0) //si todavía hay más contenido, Rest info is copied
     {
         while (x_y.index_y < keep_len)
         {
             //printf(MAGENTA"y = %d, len_total = %d\n"RESET_COLOR, x_y.index_y, keep_len);
-            (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = str_src[ind_old_word]; //hasi dana kopixatzen hasta el dólar
+            (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = old_word[ind_old_word]; //hasi dana kopixatzen hasta el dólar
+            (*tmp_dict_quotes_word)[x_y.index_y] = keep_dict_quotes_word[ind_old_word];
             //printf(BLUE"                   BEHEKUA assigned! [%d] = %c, len_word = %d\n"RESET_COLOR, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y], len_new_word);
             ind_old_word++;
             ind_pid_str++;
-            len_new_word--;
+            new_len_word--;
             x_y.index_y++;
         }
     }
     //printf("to check, str_src = %s, two_times = %d, ind_old_world = %d, len_new_word = %d\n", str_src, two_times, ind_old_word, len_new_word);        
     //printf("ya hemen, x = %d, y = %d, ind_old_word = %d\n", x_y.index_x, x_y.index_y, ind_old_word);        
-    //printf(GREEN"replace_pid_sec_dollar COMPLETED\n"RESET_COLOR);
+    printf(GREEN"replace_pid_sec_dollar COMPLETED\n"RESET_COLOR);
 }
 
 /*

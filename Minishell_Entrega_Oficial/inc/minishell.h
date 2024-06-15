@@ -282,11 +282,12 @@ void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt);
 void check_dollars_expansion(t_box **box, t_prompt **prompt);
 
 //02_boxes_7_dollar_2.c
-void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val);
+void cpy_arr_with_len_2 (int *arr_src, int **arr_dst, int len);
+void replace_env(t_box **box, t_x_y_rest_info x_y, char *tmp_val, int **tmp_dict_quotes_word);
 char *get_word_2(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
 char *get_word_4(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
 void cpy_to_val(char *str_src, char **str_dst);
-void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt);
+void mng_to_replace_env(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt, int **tmp_dict_quotes_word);
 
 
 //02_boxes_7_dollar_3.c
@@ -304,7 +305,7 @@ void cpy_arr_with_len(int *arr_src, int *arr_dst, int len);
 void fill_with_nine(int **tmp_dict_quotes_word, int len);
 
 //02_boxes_7_dollar_5.c
-void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *str_src, int **tmp_dict_quotes_word, int len_new_word);
+void replace_pid_sec_dollar(t_box **box, t_x_y_rest_info x_y, char *old_word, int *keep_dict_quotes_word, int **tmp_dict_quotes_word, int new_len_word);
 int is_special_char(char c);
 int get_len_word(t_box **box, t_x_y_rest_info x_y, char *tmp_old_word_before_free);
 int get_len_word_3(t_box **box, t_x_y_rest_info x_y);

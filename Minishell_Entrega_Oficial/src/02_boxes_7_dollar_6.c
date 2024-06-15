@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:59:29 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 14:16:45 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/15 18:49:10 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@
 */
 int	is_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes)
 {
-	printf("     "YELLOW"is_dollar"RESET_COLOR" | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
-	printf("    y = %d\n", x_y.index_y);
+	//printf("     "YELLOW"is_dollar"RESET_COLOR" | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
+	//printf("     y = %d\n", x_y.index_y);
 	//printf(GREEN"--\n"RESET_COLOR);
-	printf("     tmp_dict_quotes[%d]= %d\n", x_y.index_y, tmp_dict_quotes[x_y.index_y]);
+	//printf("     tmp_dict_quotes[%d]= %d\n", x_y.index_y, tmp_dict_quotes[x_y.index_y]);
 	//if (tmp_to_compare[x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
 	if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
 	{
-		printf("yes! dollar :)\n");
+		printf("     yes! dollar, y =%d :)\n", x_y.index_y);
 		return (1);
 	}
 	return (0);
@@ -86,12 +86,54 @@ void	cpy_word(char *str_src, char **str_dst)
 	//printf("               str_dst = "YELLOW"%s\n"RESET_COLOR, *str_dst);
 }
 
+int ft_get_pid()
+{
+	int fd;
+	char buffer[10];
+	ssize_t bytesRead;
+	int i;
+	int pid;
+	// Abrir el archivo /proc/self/stat
+	fd = open("/proc/self/stat", O_RDONLY);
+	if (fd == -1)
+	{
+		ft_puterror("Failed to open /proc/self/stat\n");
+		return (-1);
+	}
+	// Leer el contenido del archivo
+	bytesRead = read(fd, buffer, sizeof(buffer) - 1);
+    if (bytesRead == -1) {
+        ft_puterror("Failed to read from /proc/self/stat");
+        close(fd);
+        return (-1);
+    }
+	// Asegurarse de que el buffer esté terminado en null
+    buffer[bytesRead] = '\0';
+    // Extraer el PID (primer valor en el archivo /proc/self/stat)
+    i = 0;
+	pid = 0;
+	while (buffer[i] >= '0' && buffer[i] <= '9') {
+        pid = pid * 10 + (buffer[i] - '0');
+        i++;
+    }
+    //printf("El PID del proceso actual es: %d\n", pid);
+	// Cerrar el archivo
+    close(fd);
+	return (pid);
+}
+
+/*get_len_pid
+*
+*	Returns:
+*		-1: Error
+*/
 int	get_len_pid(t_box **box)
 {
 	int	len_process_pid;
+	int pid;
 
-	(*box)->tmp_pid = getpid();
-	(*box)->tmp_pid_str = basic_itoa((*box)->tmp_pid);
+	pid = ft_get_pid();
+	(*box)->tmp_pid_str = basic_itoa(pid);
 	len_process_pid = ft_strlen((*box)->tmp_pid_str);
 	return (len_process_pid);
 }

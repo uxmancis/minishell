@@ -162,7 +162,7 @@ int	are_all_delimiters(int *arr_word_yes_no, t_box **box, t_red_type red_type)
 }
 
 
-int put_error_red_type (enum red_type)
+int put_error_red_type (enum e_red_type red_type)
 {
 	if (red_type == HEREDOC)
 	{
