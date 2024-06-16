@@ -6,11 +6,11 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:40 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 12:56:07 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:49:45 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
 /*
 *   tmp_dict_quotes_word has already new_len.
@@ -25,32 +25,24 @@
 *   Variables:
 *       tmp_dict_quotes_word: New arr to get updated
 */
-void finish_to_update_dict_quotes (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word)
+void    finish_to_update_dict_quotes (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word)
 {
     int i;
     int index_old_dict;
 
-    //printf("finish_to_update_dict_quotes, new_len = %d, len_word = %d\n", new_len, len_old_word);
     i = 0;
     index_old_dict = 0;
-    //index_old_dict = 0;
-    //(void)tmp_tmp_dict_quotes_word;
-    //(void)new_len;
-    //len_old_word y número valores que todavía tienen 9 asignado tienen relación y siempre se entiende que deberán cuadrar perfe
     while (new_len > 0)
     {
         if ((*tmp_dict_quotes_word)[i] == 9)
         {
             (*tmp_dict_quotes_word)[i] = tmp_tmp_dict_quotes_word[index_old_dict];
-            //printf(BLUE"         assigned value! tmp_dict_quotes[%d] = %d\n"RESET_COLOR, i, (*tmp_dict_quotes_word)[i]);
             index_old_dict++;
         }
         i++;
         len_old_word--;
         new_len--;
-        //printf("                  len_old_word = %d, new_len = %d, i = %d, index_old_dict = %d\n", len_old_word, new_len, i, index_old_dict);
     }
-    //printf("done: finish_to_update_dict_quotes\n");
 }
 
 void put_arr(int *arr, int len)
@@ -146,13 +138,8 @@ void	mng_to_replace_sec_dollar(char  **word_to_be_updated, t_x_y_word x_y, int *
 */
 int	is_in_env(char *old_word_before_free, t_x_y_word x_y, t_prompt **prompt)
 {
-	//printf("\n\n                         is word in env? ");
 	if (ft_getenv_local((*prompt)->vars, get_word_2(old_word_before_free, x_y)))
-	{
-		//printf("                         is word in env?"GREEN" YES\n"RESET_COLOR);
 		return (1);
-	}
-	//printf("                         is word in env?"RED" NO\n"RESET_COLOR);  
 	return (0);
 }
 

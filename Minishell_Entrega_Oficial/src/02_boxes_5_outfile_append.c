@@ -55,17 +55,12 @@ int	is_red_type(t_box **box, t_red_type red_type)
 	while (tmp_nb_of_redir > 0)
 	{
 		if ((*box)->dict_red_index_type[i][1] == (int)red_type)
-		{
-			//printf(GREEN"yes - infile was found\n"RESET_COLOR);
 			return (1);
-		}
 		tmp_nb_of_redir--;
 		i++;
 	}
-	//printf(RED"no - infile was not found\n"RESET_COLOR);
 	return (0);
 }
-
 
 /*ft_infiles
 *
@@ -73,7 +68,6 @@ int	is_red_type(t_box **box, t_red_type red_type)
 */
 int	ft_outfile_append(t_box **box, t_red_type red_type)
 {
-	//printf("WE ARE IN ft_outfile_append :)\n");
 	if (!is_red_type(box, red_type))
 		return (0);
 	(*box)->is_outfile_append = 1;

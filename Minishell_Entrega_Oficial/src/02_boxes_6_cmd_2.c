@@ -47,13 +47,10 @@ void	mark_redir(t_box **box)
 	int	i;
 	int	current_ind_in_substr;
 
-	//printf(GREEN"mark_redir\n"RESET_COLOR);
-	//printf("     len dict_red_index_type = %d\n", (*box)->nb_of_redir);
 	i = 0;
 	tmp_nb_of_redir = (*box)->nb_of_redir;
 	while (tmp_nb_of_redir > 0)
 	{
-		//printf("i = %d, dict_red_index_type[%d][1] = %s\n", i, i, ft_enum_to_str((*box)->dict_red_index_type[i][1]));
 		if ((*box)->dict_red_index_type[i][1] == HEREDOC
 			|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
 		{
@@ -69,9 +66,7 @@ void	mark_redir(t_box **box)
 		}
 		i++;
 		tmp_nb_of_redir--;
-		//printf("result: i = %d, tmp_nb_of_redir = %d\n", i, tmp_nb_of_redir);
 	}
-	//printf(GREEN"END mark_redir\n"RESET_COLOR);
 }
 
 void	mark_word_2(int start, int end, t_box **box)
@@ -79,24 +74,14 @@ void	mark_word_2(int start, int end, t_box **box)
 	int	len_word;
 
 	len_word = 0;
-	//printf("mark_word_2: start = %d, end = %d\n", start, end);
-	//while (ft_isspace((*box)->input_substr[start]) && start <= end)
 	while (!possible_cases(box, start) && start <=end)
-	{
-		//printf("Before, start: %d\n", start);
 		start++;
-		//printf("After, start = %d\n", start);
-	}
-	//while(!ft_isspace((*box)->input_substr[start]) && start <= end)
 	while (possible_cases(box, start) && start <= end)
 	{
-		//printf("asignar 'W', posición %d\n", start);
 		(*box)->what_to_take[start] = 'W';
 		start++;
 		len_word++;
-		//printf("yes\n");
 	}
-	//printf("      mark_word_2: "GREEN"DONE!\n"RESET_COLOR);
 }
 
 /*mark_word
@@ -106,6 +91,14 @@ void	mark_word_2(int start, int end, t_box **box)
 *
 *	if (is_last_redir_2) //end: ft_strlen (start: según el caso + 1 o + 2)
 *	else //end: index next redirección (start: según el caso + 1 o + 2)
+*
+*	Additional explanatory comments:
+*		if last redir: start: posición de redirección (+1 o +2), end: ft_strlen
+*		else (still more redirs): start: posición de redirección (+1 o +2), end: posición next redirección
+*		{
+*			if (red_type == HEREDOC || red_type ?? OUTFILE_APPEND): start + 2
+*			if (red_type == INFILE || red_type ?? OUTFILE_STRONG): start + 2
+*		}
 *		
 */
 void	mark_word(t_box **box)
@@ -113,48 +106,32 @@ void	mark_word(t_box **box)
 	int	tmp_nb_of_redir;
 	int	i;
 
-	//printf("     mark_word\n");
 	tmp_nb_of_redir = (*box)->nb_of_redir;
 	i = 0;
 	while (tmp_nb_of_redir > 0)
 	{
-		//printf("          redir n.º "MAGENTA"%d"RESET_COLOR" en dict_quotes de "MAGENTA"%d"RESET_COLOR" en total\n", i + 1, (*box)->nb_of_redir);
-		//printf("          dict_redir_ind_type[%d] = %d\n", i, (*box)->dict_red_index_type[i][0]);
 		if (is_last_redir_2(box, i)) //start: posición de redirección (+1 o +2), end: ft_strlen
 		{
-			//printf(GREEN"sí es última redirección. Particularmente:\n"RESET_COLOR);
 			if ((*box)->dict_red_index_type[i][1] == HEREDOC
 				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
-			{
-				//printf("   es HEREDOC o OUTFILE_APPEND\n");
-				mark_word_2((*box)->dict_red_index_type[i][0] + 2, ft_strlen((*box)->input_substr) - 1, box);
-			}
+					mark_word_2((*box)->dict_red_index_type[i][0] + 2, ft_strlen((*box)->input_substr) - 1, box);
 			else if (((*box)->dict_red_index_type[i][1] == INFILE
 				|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
-            {
-				//printf("   es INFILE o OUTFILE_STRONG\n");
 				mark_word_2((*box)->dict_red_index_type[i][0] + 1, ft_strlen((*box)->input_substr) - 1, box);
-			}
 			break;
 		}
-		else //start: posición de redirección (+1 o +2), end: posición next redirección
-        {
-			//printf(RED"no es última redirección. Particularmente:\n"RESET_COLOR);
-			if ((*box)->dict_red_index_type[i][1] == HEREDOC || (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND) //start: +2
-			{
-				//printf("   es HEREDOC o OUTFILE_APPEND\n");
+		else
+		{
+			if ((*box)->dict_red_index_type[i][1] == HEREDOC
+				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
 				mark_word_2((*box)->dict_red_index_type[i][0] + 2, (*box)->dict_red_index_type[i + 1][0] - 1, box);
-			}
-			else if (((*box)->dict_red_index_type[i][1] == INFILE || (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG)) //start: +1
-			{
-				//printf("   es INFILE o OUTFILE_STRONG\n");
-				mark_word_2((*box)->dict_red_index_type[i][0] + 1, (*box)->dict_red_index_type[i + 1][0] - 1, box);
-			}            
+			else if (((*box)->dict_red_index_type[i][1] == INFILE
+				|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
+				mark_word_2((*box)->dict_red_index_type[i][0] + 1, (*box)->dict_red_index_type[i + 1][0] - 1, box);   
 		}
 		tmp_nb_of_redir--;
-        i++;
+		i++;
 	}
-	//printf("mark_word: "GREEN"DONE!\n"RESET_COLOR);
 }
 
 /*is_last_redir_2
@@ -167,19 +144,7 @@ void	mark_word(t_box **box)
 */
 int	is_last_redir_2(t_box **box, int nb_redir_x)
 {
-	// int tmp_nb_of_redir;
-
-	//tmp_nb_of_redir = (*box)->nb_of_redir;
-	//printf("     is_last_redir_2\n");
-	//printf("     REDIR actual = posición: %d\n", ind_redir_in_substr);
-	//printf("     REDIR actual = posición: %d, tipo: %s\n", ind_redir_in_substr, ft_enum_to_str((*box)->dict_red_index_type[nb_redir_x][1]));
-	//printf("     REDIR actual = posición: %d, tipo: %s\n", ind_redir_in_substr, ft_enum_to_str((*box)->dict_red_index_type[ind_redir_in_substr][1]));
-	//printf("     nb_of_redir = %d\n", tmp_nb_of_redir);
 	if (nb_redir_x + 1 == (*box)->nb_of_redir)
-	{
-		//printf(GREEN"yes is last redir\n"RESET_COLOR);
 		return (1);
-	}
-	//printf(RED"NO still more redirs\n"RESET_COLOR);
 	return (0);
 }

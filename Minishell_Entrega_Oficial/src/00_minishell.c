@@ -27,7 +27,6 @@ int	ft_pipe_after_pipe(char *input, int *dict_quotes)
 
 	i = 0;
 	len = ft_strlen(input);
-    //printf("ft_pipe_after_pipe\n");
 	while (input[i] != '\0')
 	{
 		if (input[i] == '|' && dict_quotes[i] == 0)
@@ -49,7 +48,6 @@ int	ft_pipe_after_pipe(char *input, int *dict_quotes)
 	return (0);
 }
 
-
 /*
 *	Comentarios antiguos:
 *		//Es para indicar final de array. 
@@ -60,17 +58,21 @@ int	ft_pipe_after_pipe(char *input, int *dict_quotes)
 *		prompt->dict_quotes[ft_strlen(prompt->input)] = '0';
 *
 *
-*	if (ft_quotes == -1) //Make sure main quotes are close Asegurar 100% comillas principales cerradas y generar dict_quotes (&: para que se actualicen los valores = se informe por primera vez el diccionario dict_quotes). Mando &prompt, para que se actualice el diccionario de vuelta.
+*	if (ft_quotes == -1) //Make sure main quotes are close
+*	//Asegurar 100% comillas principales cerradas y generar
+*	//dict_quotes (&: para que se actualicen los valores 
+*	// = se informe por primera vez el diccionario dict_quotes).
+*	//Mando &prompt, para que se actualice el diccionario de vuelta.
 */
 int	ft_check_quotes_and_pipes(t_prompt *prompt)
 {
 	prompt->nb_of_substr = 1;
 	prompt->dict_quotes = malloc(sizeof(int) * (ft_strlen(prompt->input) + 1));
-	prompt->dict_quotes[ft_strlen(prompt->input)] = '0'; 
-	if (ft_quotes (prompt->input, &prompt->dict_quotes)== -1) 
+	prompt->dict_quotes[ft_strlen(prompt->input)] = '0';
+	if (ft_quotes (prompt->input, &prompt->dict_quotes) == -1)
 	{
 		ft_puterror("syntax error: unclosed quotes\n");
-		return(-1);
+		return (-1);
 	}
 	if (ft_pipe_after_pipe(prompt->input, prompt->dict_quotes))
 	{
@@ -78,7 +80,7 @@ int	ft_check_quotes_and_pipes(t_prompt *prompt)
 		return (-1);
 	}
 	if (ft_strlen(prompt->input) == 0)
-		return (-1); //input vacío
+		return (-1);
 	return (0);
 }
 
@@ -110,12 +112,4 @@ int	ft_get_substr(t_prompt *prompt)
 	if (prompt->nb_of_pipes > 0)
 		ft_split_input(&prompt);
 	return (0);
-	//printf(AQUAMARINE"RESULTADO SPLITEADO:\n");
-	/*i = 0;
-	while (nb_of_substr > 0)
-	{
-		printf(AQUAMARINE"substr%d = %s\n"RESET_COLOR, i, prompt->total_substr_input[i]);
-		nb_of_substr--;
-		i++;
-	}*/
 }

@@ -47,10 +47,7 @@ int	get_ind(int redir_ind_in_substr, t_box **box)
 	while (tmp_nb_of_redir > 0)
 	{
 		if ((*box)->dict_red_index_type[x][0] == redir_ind_in_substr)
-		{
-			//printf(GRAY"result of get_ind = %d\n"RESET_COLOR, x);
 			return (x);
-		}
 		tmp_nb_of_redir--;
 		x++;
 	}
@@ -71,34 +68,29 @@ int	get_ind(int redir_ind_in_substr, t_box **box)
 */
 void	get_word(int start, int end, t_box **box, int heredoc_nb)
 {
-	int len_delimiter;
-	int keep_start_word;
-	int i;
+	int	len_delimiter;
+	int	keep_start_word;
+	int	i;
 
-	//printf("get_word\n");
-	//printf(BLUE"start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, heredoc_nb);
 	len_delimiter = 0;
 	while (ft_isspace((*box)->input_substr[start]))
 		start++;
 	keep_start_word = start;
-	//printf(MAGENTA"start = %d\n"RESET_COLOR, start);
-	while(!ft_isspace((*box)->input_substr[start]) && start <= end)
+	while(!ft_isspace((*box)->input_substr[start])
+		&& start <= end)
 	{
 		start++;
 		len_delimiter++;
-		//printf("yes\n");
 	}
-	//printf("len_delimiter = %d\n", len_delimiter);
 	(*box)->words_hrdc[heredoc_nb] = malloc(sizeof(char) * (len_delimiter + 1));
 	(*box)->words_hrdc[heredoc_nb][len_delimiter] = '\0';
 	i = 0;
 	while (len_delimiter > 0)
 	{
-		//printf(GREEN"yepejoxepe, heredoc_nb = %d, i = %d, keep_start_word = %d\n"RESET_COLOR, heredoc_nb, i, keep_start_word);
-		(*box)->words_hrdc[heredoc_nb][i] = (*box)->input_substr[keep_start_word];
+		(*box)->words_hrdc[heredoc_nb][i]
+			= (*box)->input_substr[keep_start_word];
 		i++;
 		keep_start_word++;
 		len_delimiter--;
 	}
-	//printf(GREEN"done\n"RESET_COLOR);
 }

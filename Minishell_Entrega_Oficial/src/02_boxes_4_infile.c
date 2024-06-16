@@ -18,7 +18,6 @@
 */
 int	ft_infiles(t_box **box, t_red_type red_type)
 {
-	//printf("WE ARE IN ft_infile :)\n");
 	if (!is_red_type(box, red_type))
 		return (0);
 	(*box)->is_infile = 1;

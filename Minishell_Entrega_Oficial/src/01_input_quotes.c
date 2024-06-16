@@ -13,22 +13,25 @@
 #include "../inc/minishell.h"
 
 //int ft_quotes_2(t_prompt **prompt, int i)
+/*ft_quotes_2
+*
+*	Returns:
+*		-1: Erro: unclosed quotes
+*
+*	Additional comments:
+*		(*dict_quotes)[i] = 0; //out of quotes (0) assigned to main quotes
+*/
 int	ft_quotes_2(char *input, int **dict_quotes, int i)
 {
-	//printf(YELLOW"        ENTRADA comillas simples, input[%d] = %c\n"RESET_COLOR, i, input[i]);
-	(*dict_quotes)[i] = 0; //comillas principales (simples) están fuera de comillas
-	//printf("i++, line 29, input[%d] = %c\n", i, (*prompt)->input[i]);
+	(*dict_quotes)[i] = 0;
 	i++;
 	while (input[i] != '\0' && input[i] != '\'')
 	{
-		//printf("             dentro comillas simples, input[%d] = %c\n", i, input[i]);
-		(*dict_quotes)[i] = 1; //dentro de comillas simples
+		(*dict_quotes)[i] = 1;
 		i++;
-		//printf("             i++, line 44, input[%d] = %c\n", i, input[i]);
 	}
-	//printf(YELLOW"        SALIDA comillas simples, input[%d] = %c\n\n"RESET_COLOR, i, input[i]);
 	if (i == (int)ft_strlen(input))
-		return (-1); //Error: unclosed quotes
+		return (-1);
 	else
 		return (i);
 }
@@ -42,21 +45,17 @@ int	ft_quotes_2(char *input, int **dict_quotes, int i)
 *	
 *	Comments:
 *			(*dict_quotes)[i] = 0; //Main double quotes
+*			(*dict_quotes)[i] = 2; //Inside double quotes
 */
 int	ft_quotes_3(char *input, int **dict_quotes, int i)
 {
-	//printf(MAGENTA"        ENTRADA comillas DOBLES, input[%d] = %c\n"RESET_COLOR, i, input[i]);
 	(*dict_quotes)[i] = 0;
 	i++;
-	//printf("             i++, line 44, input[%d] = %c\n", i, input[i]);
 	while (input[i] != '\0' && input[i] != '\"')
 	{
-		//printf("             dentro comillas DOBLES, input[%d] = %c\n", i, input[i]);
-		(*dict_quotes)[i] = 2; //dentro de comillas dobles
+		(*dict_quotes)[i] = 2;
 		i++;
-		//printf("             i++, line 44, input[%d] = %c\n", i, input[i]);
 	}
-	//printf(MAGENTA"        SALIDA comillas DOBLES, input[%d] = %c\n\n"RESET_COLOR, i, input[i]);
 	if (i == (int)ft_strlen(input))
 		return (-1);
 	else
@@ -88,17 +87,15 @@ int	ft_quotes_3(char *input, int **dict_quotes, int i)
 //int ft_quotes(t_prompt **prompt) //kenduta komentarixuak
 int	ft_quotes(char *input, int **dict_quotes)
 {
-	int	i; 
+	int	i;
 
 	i = 0;
-	//printf("len_input = %d, input = %s\n", (int)ft_strlen(input), input);
-	//printf(RED">> entrada en bucle - análisis comillas\n"RESET_COLOR);
 	printf(RESET_COLOR);
 	while (input[i] != '\0')
 	{
 		if (input[i] == '\'')
 		{
-			i = ft_quotes_2(input, dict_quotes, i); //
+			i = ft_quotes_2(input, dict_quotes, i);
 			if (i == -1)
 				return (-1);
 		}
@@ -108,14 +105,9 @@ int	ft_quotes(char *input, int **dict_quotes)
 			if (i == -1)
 				return (-1);
 		}
-		//printf("pre ++, i = %d\n", i);
-		(*dict_quotes)[i] = 0; //fuera de comillas
-		//if (i != (int)ft_strlen(input)) //solo para printear. Sin este if nos imprime un caracter de más, yendo ya más allá de la cadena "input". Eso ya no quiero que me lo imprimas.
-			//printf("i++, line 49, input[%d] = %c\n", i, input[i]);
+		(*dict_quotes)[i] = 0;
 		i++;
-		//printf("post ++, i = %d\n", i);
 	}
-	//printf(GREEN"<< salida de bucle - análisis comillas\n"RESET_COLOR);
 	return (0);
 }
 

@@ -6,28 +6,26 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 11:00:13 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:44:48 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
-void cpy_arr_with_len_2 (int *arr_src, int **arr_dst, int len)
+void	cpy_arr_with_len_2(int *arr_src, int **arr_dst, int len)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (len > 0)
-    {
-        (*arr_dst)[i] = arr_src[i];
-        i++;
-        len--;
-        //printf(MAGENTA"bai, i = %d, len = %d\n"RESET_COLOR, i, len);
-    }
-    //printf(GREEN"ya\n"RESET_COLOR);
+	i = 0;
+	while (len > 0)
+	{
+		(*arr_dst)[i] = arr_src[i];
+		i++;
+		len--;
+	}
 }
 
-void replace_env(char **word_to_be_updated, t_x_y_word x_y, char *tmp_val, int **tmp_dict_quotes_word)
+void	replace_env(char **word_to_be_updated, t_x_y_word x_y, char *tmp_val, int **tmp_dict_quotes_word)
 {
     int ind_new_word;
     char *tmp_old_word_before_free;
@@ -39,14 +37,11 @@ void replace_env(char **word_to_be_updated, t_x_y_word x_y, char *tmp_val, int *
     int keep_len_new_word;
     char *str_to_find;
     int len_str_to_find;
-    //int *new_dict_quotes_word; //to keep info //llamado int *tmp_tmp_dict_quotes en mng_to_replace_sec_dollar (02_boxes_7_dollar_3.c)
     int len_old_word;
     int *keep_old_dict_quotes_word;
-    //int *new_dict_quotes_word; not necessary, as same tmp_dict_quotes_word is updated after free
-    //printf("replace_env | x = %d, y = %d\n", x_y.index_x, x_y.index_y);
+
     ind_new_word = 0;
     
-    //printf(BLUE"replace_env\n"RESET_COLOR);
     //1st: copy old info (old word in rest_info y la palabra a buscar)
         //1.1.- Old_word
     len_old_word = ft_strlen(*word_to_be_updated);
@@ -165,32 +160,29 @@ void replace_env(char **word_to_be_updated, t_x_y_word x_y, char *tmp_val, int *
 *
 *   Called from is_in_env
 */
-char *get_word_2(char *old_word_before_free, t_x_y_word x_y)
+char	*get_word_2(char *old_word_before_free, t_x_y_word x_y)
 {
-    char *env_variable; //potential
-    int len_word;
-    int x;
+	char	*env_variable;
+	int		len_word;
+	int		x;
 
-    (void)old_word_before_free;
-    //printf("\n                         get_word_2\n");
-    if (old_word_before_free)
-        len_word = get_len_word(old_word_before_free, x_y);
-    else
-        len_word = get_len_word_3(old_word_before_free, x_y);
-    //printf(YELLOW"                         len_word_potential_variable = %d\n"RESET_COLOR, len_word);
-    env_variable = malloc(sizeof(char) * (len_word + 1));
-    env_variable[len_word] = '\0';
-    x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
-    x = 0;
-    while (len_word > 0)
-    {
-        env_variable[x] = old_word_before_free[x_y.index_y];
-        len_word--;
-        x++;
-        x_y.index_y++;
-    }
-    //printf("                         get_word_2 | word to find in env: %s\n", env_variable);
-    return (env_variable);
+	(void)old_word_before_free;
+	if (old_word_before_free)
+		len_word = get_len_word(old_word_before_free, x_y);
+	else
+		len_word = get_len_word_3(old_word_before_free, x_y);
+	env_variable = malloc(sizeof(char) * (len_word + 1));
+	env_variable[len_word] = '\0';
+	x_y.index_y++;
+	x = 0;
+	while (len_word > 0)
+	{
+		env_variable[x] = old_word_before_free[x_y.index_y];
+		len_word--;
+		x++;
+		x_y.index_y++;
+	}
+	return (env_variable);
 }
 
 /*get_word_2
@@ -200,72 +192,43 @@ char *get_word_2(char *old_word_before_free, t_x_y_word x_y)
 *
 *   Called from is_in_env
 */
-char *get_word_4(char *old_word_before_free, t_x_y_word x_y)
+char	*get_word_4(char *old_word_before_free, t_x_y_word x_y)
 {
-    char *env_variable; //potential
-    int len_word;
-    int x;
+	char	*env_variable;
+	int		len_word;
+	int		x;
 
-    printf("\n                         get_word_2\n");
-    if (old_word_before_free)
-        len_word = get_len_word(old_word_before_free, x_y);
-    else
-        len_word = get_len_word_3(old_word_before_free, x_y);
-    
-    if (len_word == 0)
-        return (NULL);
-    printf(YELLOW"                         len_word_potential_variable = %d\n"RESET_COLOR, len_word);
-    env_variable = malloc(sizeof(char) * (len_word + 1));
-    env_variable[len_word] = '\0';
-    x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
-    x = 0;
-    while (len_word > 0)
-    {
-        env_variable[x] = old_word_before_free[x_y.index_y];
-        len_word--;
-        x++;
-        x_y.index_y++;
-    }
-    printf("                         get_word_2 | word to find in env: %s\n", env_variable);
-    return (env_variable);
+	if (old_word_before_free)
+		len_word = get_len_word(old_word_before_free, x_y);
+	else
+		len_word = get_len_word_3(old_word_before_free, x_y);
+	if (len_word == 0)
+		return (NULL);
+	env_variable = malloc(sizeof(char) * (len_word + 1));
+	env_variable[len_word] = '\0';
+	x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
+	x = 0;
+	while (len_word > 0)
+	{
+		env_variable[x] = old_word_before_free[x_y.index_y];
+		len_word--;
+		x++;
+		x_y.index_y++;
+	}
+	return (env_variable);
 }
 
-void cpy_to_val(char *str_src, char **str_dst)
+void	cpy_to_val(char *str_src, char **str_dst)
 {
-    int len;
-    int i;
+	int	len;
+	int	i;
 
-    len = ft_strlen(str_src);
-    i = 0;
-    while (len > 0)
-    {
-        (*str_dst)[i] = str_src[i];
-        len--;
-        i++;
-    }
-}
-
-/*mng_to_replace_env
-*
-*   VAL = el valor por el que vamos a sustituir la palabra. The content of
-*   assigned to X variable in env.
-*
-*   E.g.:
-*       get_word_2 result = USER (word to look for in env)
-*       char *tmp_val = uxmancis (VAL = result = assigned content to USER variable
-*                       in env)
-*/
-void mng_to_replace_env(char **word_to_be_updated, t_x_y_word x_y, t_prompt **prompt, int **tmp_dict_quotes_word)
-{
-    int len_val;
-    char *tmp_val; //funtzio honetan eukitzeko bakarrik, por readability
-
-    //printf(GRAY"mng_to_replace_env\n"RESET_COLOR);
-    len_val = ft_strlen(ft_getenv_local((*prompt)->vars, get_word_2(*word_to_be_updated, x_y))->val);
-   // printf(RED"len_val = %d\n"RESET_COLOR, len_val);
-    tmp_val = malloc(sizeof(char)*(len_val + 1));
-    tmp_val[len_val] = '\0';
-    cpy_to_val ((ft_getenv_local((*prompt)->vars, get_word_2(*word_to_be_updated, x_y)))->val, &tmp_val);
-    //printf(RED"          mngt_to_replace_env | tmp_val copied! = "YELLOW"%s\n"RESET_COLOR, tmp_val);
-    replace_env(word_to_be_updated, x_y, tmp_val, tmp_dict_quotes_word);
+	len = ft_strlen(str_src);
+	i = 0;
+	while (len > 0)
+	{
+		(*str_dst)[i] = str_src[i];
+		len--;
+		i++;
+	}
 }

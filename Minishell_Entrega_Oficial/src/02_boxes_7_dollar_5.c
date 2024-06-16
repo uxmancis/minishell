@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 12:57:16 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:54:50 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,7 @@ void replace_pid_sec_dollar(t_w_d *w_d, char *keep_old_word, int *keep_old_dict,
 int	is_special_char(char c)
 {
 	if ((c >= 0 && c <= 47) || (c >= 58 && c <= 64))
-	{
-		//printf("yes special char = %c\n", c);
 		return (1);
-	}
-	//printf("no special char = %c\n", c);
 	return (0);
 }
 
@@ -137,75 +133,48 @@ int	is_special_char(char c)
 */
 int	get_len_word(char *old_word_before_free, t_x_y_word x_y)
 {
-	int counter; //len_potential_env_variable_word;
-	int len_old_word;
+	int	counter;
+	int	len_old_word;
 
-	//printf("get_len_word, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
 	counter = 0;
 	len_old_word = ft_strlen(old_word_before_free);
-	//printf(MAGENTA"chequeito, tmp_old_word_before_free = %s\n"RESET_COLOR, tmp_old_word_before_free);
-	//printf(">>>> len_old_word_total = %d\n", len_old_word);
-    //printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
-	x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
-	//printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,len_old_word);
+	x_y.index_y++;
 	while (x_y.index_y < len_old_word)
 	{
-		//printf(">>value, old_rest[%d] = %c\n", x_y.index_y, tmp_old_word_before_free[x_y.index_y]);
 		if (!is_special_char(old_word_before_free[x_y.index_y]))
-		{
-			//printf(GREEN"counter++; c = %c\n"RESET_COLOR, tmp_old_word_before_free[x_y.index_y]);
 			counter++;
-			//x_y.index_y++;
-		}
 		else
-		{
-			//printf(RED"didn't count RETURN counter = %d, y = %d, c = %c, len_old_word = %d\n"RESET_COLOR, counter, x_y.index_y, tmp_old_word_before_free[x_y.index_y], len_old_word);
 			return (counter);
-		}
 		if (x_y.index_y == len_old_word)
-			break; //safety
+			break ;
 		x_y.index_y++;
 	}
-	//printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
 	return (counter);
 }
 
 /*get_len_word_3
 *   
-*   Same as get_len_word, but instead of tmp_before_free, we use word in (*box)->rest
+*   Same as get_len_word, but instead of tmp_before_free, we use word in
+*	(*box)->rest
 *   Returns: len of substr to delete from particular word in rest_info_...(box)
 */
 int	get_len_word_3(char *word_to_be_updated, t_x_y_word x_y)
 {
-	int counter; //len_potential_env_variable_word;
-	int len_old_word;
+	int	counter;
+	int	len_old_word;
 
-	//printf("get_len_word, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
 	counter = 0;
 	len_old_word = ft_strlen(word_to_be_updated);
-	//printf(MAGENTA"chequeito, palabrita = %s\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
-	//printf("len_old_word_total = %d\n", len_old_word);
-	//printf("len_word = %d, y = %d\n", len_word, x_y.index_y);
-	x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
-	//printf("get_len_word, y = %d, len_total = %d\n", x_y.index_y,(int)ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]));
+	x_y.index_y++;
 	while (x_y.index_y < len_old_word)
 	{
-		//printf(">>value, old_rest[%d] = %c\n", x_y.index_y, tmp_old_word_before_free[x_y.index_y]);
 		if (!is_special_char(word_to_be_updated[x_y.index_y]))
-		{
-			//printf(GREEN"counter++; c = %c\n"RESET_COLOR, tmp_old_word_before_free[x_y.index_y]);
 			counter++;
-			//x_y.index_y++;
-		}
 		else
-		{
-			//printf(RED"didn't count RETURN counter = %d, y = %d, c = %c, len_old_word = %d\n"RESET_COLOR, counter, x_y.index_y, tmp_old_word_before_free[x_y.index_y], len_old_word);
 			return (counter);
-		}
 		if (x_y.index_y == len_old_word)
-			break; //safety
+			break ;
 		x_y.index_y++;
 	}
-	//printf(MAGENTA"get_len_word | counter = %d\n"RESET_COLOR, counter);
 	return (counter);
 }

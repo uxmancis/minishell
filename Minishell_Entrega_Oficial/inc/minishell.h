@@ -175,6 +175,7 @@ typedef struct s_word_and_dictquotes
 // void ft_begin(int argc, char **argv, char **env);
 int ft_get_substr(t_prompt *prompt);
 int	ft_check_quotes_and_pipes(t_prompt *prompt);
+int	ft_begin(t_prompt *data);
 
 //00_env_data.c
 t_vars *ft_getenv_local(t_vars *line, char *name);
@@ -201,28 +202,36 @@ char *ft_split_from_to(int start, int end, char *src_input);
 //char	**ft_split_input(t_prompt prompt);
 
 //02_boxes.c
-int ft_gen_boxes(t_prompt *prompt);
-int ft_boxes_init(t_prompt *prompt, int substr_id);
-int get_dict_quotes(t_box *box);
-void generate_substr(t_prompt *prompt, int substr_id, t_box *box);
+int	ft_boxes_init(t_box **box, t_prompt *prompt, int substr_id);
+int	get_dict_quotes(t_box **box);
+void	generate_substr(t_prompt *prompt, int substr_id, t_box **box);
 void ft_strcpy (char *str_src, char **str_dst);
 
 
-//02_boxes_init.c
+//02_boxes_init_1.c
+
 void ft_free_char(char **words, int nb_of_words);
 void ft_free_int(int **words, int nb_of_words);
 
+//02_boxes_init_2.c
+void	get_single_str(t_prompt *prompt, t_box **box);
+int	ft_get_what_to_take(t_box **box);
+
+//02_boxes_init_3.c
+int	ft_gen_boxes(t_prompt *prompt);
+
 //02_boxes_redir.c
-int get_redirections(t_box *box);
+int get_redirections(t_box **box);
 int ft_fill_red_info(t_box **box);
 int set_red_index_type(t_box **box); 
 int set_red_greater_than(t_box **box, int *i, int index_of_arr);
 int set_red_less_than(t_box **box, int *i, int index_of_arr);
-int ft_get_numof_redir(t_box *box);
+int ft_get_numof_redir(t_box **box);
 char *ft_enum_to_str(int enumerator);
+int	check_if_three_redirs(t_box **box, int i);
 
 //02_boxes_rest.c
-int get_rest (t_box *box, t_prompt **prompt);
+int get_rest (t_box **box, t_prompt **prompt);
 int ft_get_numof_heredocs(t_box **box);
 int ft_confirmed_end(t_box **box);
 void get_arr_heredoc(int **arr_ind_heredoc, t_box **box);
@@ -284,13 +293,17 @@ int possible_cases(t_box **box, int index);
 void cpy_1_word(t_box **box, int nb_of_word);
 
 //02_boxes_7_dollar_1.c
-//int find_dollars_and_replace(t_box **box, t_x_y_word *x_y, int **tmp_dict_quotes_word, t_prompt **prompt);
+void	expand_infile_words(t_box **box, t_prompt **prompt);
+void	expand_outfile_strong_words(t_box **box, t_prompt **prompt);
+void	expand_outfile_append_words(t_box **box, t_prompt **prompt);
+void	expand_rest_info_potential_cmd(t_box **box, t_prompt **prompt);
+void	check_dollars_expansion(t_box **box, t_prompt **prompt);
+
+
 int find_dollars_and_replace(char **word_to_be_updated, t_x_y_word *x_y, int **tmp_dict_quotes_word, t_prompt **prompt); //Objetivo: ver si puedo no pasarle box, y en vez de esto pasarle la palabra a actualizar
 int	no_more_dollars(char *word_to_be_checked, t_x_y_word x_y, int *tmp_dict_quotes_word);
 int	*generate_specif_dict_quotes(t_box **box, char *word_to_be_updated, int nb_word_x, char flag);
-//void get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt);
-void	get_each_word_updated(char *word_to_be_updated, int nb_word_x, t_box **box, t_prompt **prompt);
-void	check_dollars_expansion(t_box **box, t_prompt **prompt);
+void	get_each_word_up(char *w, int nb_word_x, t_box **box, t_prompt **prompt);
 
 //02_boxes_7_dollar_2.c
 void cpy_arr_with_len_2 (int *arr_src, int **arr_dst, int len);

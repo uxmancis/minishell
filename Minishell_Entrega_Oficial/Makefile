@@ -9,11 +9,15 @@ SRC 		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_FILES	=	0_0_main.c \
 				00_env_data.c \
 				00_minishell.c \
-				01_input_pipe.c \
+				01_input_pipe_1.c \
+				01_input_pipe_2.c \
 				01_input_quotes.c \
 				01_input_split.c \
-				02_boxes_1_init.c \
-				02_boxes_2_redir.c \
+				02_boxes_1_init_1.c \
+				02_boxes_1_init_2.c \
+				02_boxes_1_init_3.c \
+				02_boxes_2_redir_1.c \
+				02_boxes_2_redir_2.c \
 				02_boxes_3_hrdc_1.c \
 				02_boxes_3_hrdc_2.c \
 				02_boxes_4_infile.c \
@@ -22,6 +26,7 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_6_cmd_1.c \
 				02_boxes_6_cmd_2.c \
 				02_boxes_6_cmd_3.c \
+				02_boxes_6_cmd_4.c \
 				02_boxes_7_dollar_1.c \
 				02_boxes_7_dollar_2.c \
 				02_boxes_7_dollar_3.c \
@@ -30,6 +35,8 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_7_dollar_6.c \
 				02_boxes_7_dollar_7.c \
 				02_boxes_7_dollar_8.c \
+				02_boxes_7_dollar_9.c \
+				02_boxes_7_dollar_10.c \
 				02_boxes_red_utils.c \
 				02_boxes_utils_nav.c \
 				02_boxes_word_utils_hrdc.c \

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
 static void	ft_export_all(t_vars *list)
 {
@@ -83,7 +83,8 @@ int	ft_write_val(t_vars *new, char *value)
 *					//value of the variable in the environment local.
 *		}
 *
-*		// This if statement checks if the variable is the last one in the list		
+*		// This if statement checks if the variable is the last one
+*		//in the list		
 *		if (!(new = ft_varsnew(ft_strdup(name), ft_strdup(value))))
 *
 */
