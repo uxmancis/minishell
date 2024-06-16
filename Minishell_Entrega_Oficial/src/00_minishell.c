@@ -20,7 +20,7 @@
 *       1: pipe after pipe was found
 *       0: no pipe after pipe found
 */
-int	ft_pipe_after_pipe(char *input)
+int	ft_pipe_after_pipe(char *input, int *dict_quotes)
 {
 	int	i;
 	int	len;
@@ -30,7 +30,7 @@ int	ft_pipe_after_pipe(char *input)
     //printf("ft_pipe_after_pipe\n");
 	while (input[i] != '\0')
 	{
-		if (input[i] == '|')
+		if (input[i] == '|' && dict_quotes[i] == 0)
 		{
 			while (ft_isspace(input[i]))
 				i++;
@@ -38,7 +38,7 @@ int	ft_pipe_after_pipe(char *input)
 				return (0);
 			if (input[i + 1])
 			{
-				if (input[i + 1] == '|')
+				if (input[i + 1] == '|' && dict_quotes[i] == 0)
 					return (1);
 			}
 			else
@@ -72,7 +72,7 @@ int	ft_check_quotes_and_pipes(t_prompt *prompt)
 		ft_puterror("syntax error: unclosed quotes\n");
 		return(-1);
 	}
-	if (ft_pipe_after_pipe(prompt->input))
+	if (ft_pipe_after_pipe(prompt->input, prompt->dict_quotes))
 	{
 		ft_puterror("syntax error near unexpected token `||'\n");
 		return (-1);
@@ -101,11 +101,10 @@ int	ft_get_substr(t_prompt *prompt)
 	len_input = ft_strlen(prompt->input);
 	while (len_input > 0)
 	{
-		printf("dictionary[%d] = %d\n", i, prompt->dict_quotes[i]);
+		printf("dictionary[%d] = %d\n"RESET_COLOR, i, prompt->dict_quotes[i]);
 		len_input--;
 		i++;
 	}
-	printf(RESET_COLOR);
 	if (ft_where_r_pipes(&prompt) == -1)
 		return (-1);
 	if (prompt->nb_of_pipes > 0)

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:01 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/09 14:10:22 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/16 10:31:23 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,19 @@
 /*get_len_word
 *   Returns: len of substr to delete from particular word in rest_info_...(box)
 */
-int	get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word, char *old_word_2_check)
+int	get_len_word_2(char *old_word_2_check_before_free, t_x_y_word x_y)
 {
 	int counter; //len_potential_env_variable_word;
+	int len_old_word;
 	//int len_word;
 
 	//printf("get_len_word_2, x = %d, y = %d\n", x_y.index_x, x_y.index_y);
-	(void)box;
+	len_old_word = ft_strlen(old_word_2_check_before_free);
 	counter = 0;
 	//printf("len_old_word = %d\n", len_old_total_word);
 	x_y.index_y++; //i = posición de dólar. HUrrengotik hasi bihar gara - Ezta aktualizauko bueltan, eztoulako &-akin bialdu
 	//printf("\n          get_len_word | x = %d, y = %d, len = %d\n", x_y.index_x, x_y.index_y, len_old_total_word);
-	while (x_y.index_y < len_old_total_word && ft_isalnum(old_word_2_check[x_y.index_y]))
+	while (x_y.index_y < len_old_word && ft_isalnum(old_word_2_check_before_free[x_y.index_y]))
 	{
 		// printf(MAGENTA"x = %d, y = %d\n"RESET_COLOR, x_y.index_x, x_y.index_y);
 		// printf("old_word_to_check[%d] = %c\n", x_y.index_y, old_word_2_check[x_y.index_y]);
@@ -47,13 +48,13 @@ int	get_len_word_2(t_box **box, t_x_y_rest_info x_y, int len_old_total_word, cha
 /*
 *   str_src = tmp_old_word_before_free 
 */
-void	replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new_total_word)
+void	replace_delete(char **word_to_be_updated, char *str_src, t_x_y_word x_y, int len_new_total_word)
 {
 	int	len_to_delete;
 	int	ind_src;
 	int	index_dollar;
 
-	len_to_delete = get_len_word(box, x_y, str_src); 
+	len_to_delete = get_len_word(str_src, x_y); 
 	//len_new_total_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
 	ind_src = 0;
 	index_dollar = x_y.index_y; //guardamos esta posición...
@@ -72,7 +73,7 @@ void	replace_delete(t_box **box, char *str_src, t_x_y_rest_info x_y, int len_new
 			}
 		}
 		printf("ind_src = %d\n", ind_src);
-		(*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] = str_src[ind_src]; //aquellas Y que son del que hay que borrar, no se llegan a copiar en el nuevo rest_...
+		(*word_to_be_updated)[x_y.index_y] = str_src[ind_src]; //aquellas Y que son del que hay que borrar, no se llegan a copiar en el nuevo rest_...
 		//printf(GREEN"                   assigned! rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
 		ind_src++;
 		len_new_total_word--;
@@ -103,7 +104,7 @@ size_t	tmp_ft_strlen(const char *str)
 *	2nd, free old memory
 *	3rd, allocate new memory
 */
-void	mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
+void	mng_to_replace_delete(char **word_to_be_updated, t_x_y_word x_y)
 {
 	int		len_old_total_word;
 	char	*tmp_rest_info_before_free;
@@ -111,26 +112,25 @@ void	mng_to_replace_delete(t_box **box, t_x_y_rest_info x_y, t_prompt **prompt)
 	int		len_word;
 
 	//printf("     mng_to_replace_delete\n");
-	(void)prompt;
 	//1. Guardar contenido original en tmp_rest_info_before_free
-	len_old_total_word = tmp_ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
-	printf(GREEN"word = '%s'\n"RESET_COLOR, (*box)->rest_info_potential_cmd[x_y.index_x]);
+	len_old_total_word = tmp_ft_strlen((*word_to_be_updated));
+	printf(GREEN"word = '%s'\n"RESET_COLOR, *word_to_be_updated);
 	printf("          len_old_total_word = %d\n", len_old_total_word);
 	tmp_rest_info_before_free = malloc(sizeof(char)*(len_old_total_word + 1));
 	tmp_rest_info_before_free[len_old_total_word] = '\0';
-	cpy_word((*box)->rest_info_potential_cmd[x_y.index_x], &tmp_rest_info_before_free);
+	cpy_word(*word_to_be_updated, &tmp_rest_info_before_free);
 	printf("keep it before free: "YELLOW"%s\n"RESET_COLOR, tmp_rest_info_before_free);
 	//2. Liberar antigua memoria
-	ft_free((*box)->rest_info_potential_cmd[x_y.index_x]);
+	ft_free(*word_to_be_updated);
 	//3. Guardar nueva memoria
-	len_word = get_len_word_2(box, x_y, len_old_total_word, tmp_rest_info_before_free);
+	len_word = get_len_word_2(tmp_rest_info_before_free,x_y);
 	//printf("len_old_total_word = %d, len_word = %d\n", len_old_total_word, len_word);
 	new_len = len_old_total_word - 1 - len_word; //-1 quitar 1 dólar, -len_word
 	//printf(YELLOW"new_len = %d"RESET_COLOR" (len_old - 1 dólar - len_word)\n", new_len);
     //printf("x = %d\n", x_y.index_x);
-	(*box)->rest_info_potential_cmd[x_y.index_x] = malloc(sizeof(char) * (new_len + 1)); //+1 valor nulo
-	(*box)->rest_info_potential_cmd[x_y.index_x][new_len] = '\0';
-	replace_delete(box, tmp_rest_info_before_free, x_y, new_len);
+	*word_to_be_updated = malloc(sizeof(char) * (new_len + 1)); //+1 valor nulo
+	(*word_to_be_updated)[new_len] = '\0';
+	replace_delete(word_to_be_updated, tmp_rest_info_before_free, x_y, new_len);
 }
 
 /*

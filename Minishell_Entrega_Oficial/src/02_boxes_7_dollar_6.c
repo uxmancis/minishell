@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:59:29 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/15 18:49:10 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/16 12:49:27 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,45 +22,45 @@
 *   the updated version. P.ej.: imagine it's already been updated 
 *   because ofother dollars before
 */
-int	is_dollar(t_box **box, t_x_y_rest_info x_y, int *tmp_dict_quotes)
+int	is_dollar(char *word_to_be_checked, t_x_y_word x_y, int *tmp_dict_quotes)
 {
 	//printf("     "YELLOW"is_dollar"RESET_COLOR" | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
-	//printf("     y = %d\n", x_y.index_y);
+	printf("     y = %d\n", x_y.index_y);
 	//printf(GREEN"--\n"RESET_COLOR);
 	//printf("     tmp_dict_quotes[%d]= %d\n", x_y.index_y, tmp_dict_quotes[x_y.index_y]);
 	//if (tmp_to_compare[x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
-	if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
+	if (word_to_be_checked[x_y.index_y] == '$' && (tmp_dict_quotes[x_y.index_y] == 0 || tmp_dict_quotes[x_y.index_y] == 2))
 	{
-		printf("     yes! dollar, y =%d :)\n", x_y.index_y);
+		//printf("     yes! dollar, y =%d :)\n", x_y.index_y);
 		return (1);
 	}
 	return (0);
 }
 
-int	next_is_space_or_end(t_box **box, t_x_y_rest_info x_y)
+int	next_is_space_or_end(char *word_to_be_updated, t_x_y_word x_y)
 {
     int	len_word;
 
-	len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
+	len_word = ft_strlen(word_to_be_updated);
 	if (x_y.index_y == len_word - 1) //END: $ in las position
 		return (1);
 	if ((x_y.index_y + 1) < len_word) //SPACE: si todavía sí hay más posiciones (a way to prevent overflow), then check if próxima posición es un ' '
 	{
-		if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y + 1] == ' ')
+		if (word_to_be_updated[x_y.index_y + 1] == ' ')
 			return (1);
 	}
     return (0);
 }
 
-int	next_is_sec_dollar(t_box **box, t_x_y_rest_info x_y)
+int	next_is_sec_dollar(char *word_to_be_updated, t_x_y_word x_y)
 {
 	int	len_word;
 
 	//printf("next_is_sec_dollar | rest_info_potential_cmd[%d][%d] = %c\n", x_y.index_x, x_y.index_x, (*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
-	len_word = ft_strlen((*box)->rest_info_potential_cmd[x_y.index_x]);
+	len_word = ft_strlen(word_to_be_updated);
 	if ((x_y.index_y + 1) < len_word) //a way to prevent overflow
 	{
-		if ((*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y + 1] == '$')
+		if (word_to_be_updated[x_y.index_y + 1] == '$')
 		{
 			//printf("                         second dollar identified!\n");
 			return (1);
@@ -86,7 +86,7 @@ void	cpy_word(char *str_src, char **str_dst)
 	//printf("               str_dst = "YELLOW"%s\n"RESET_COLOR, *str_dst);
 }
 
-int ft_get_pid()
+int ft_get_pid_int(void)
 {
 	int fd;
 	char buffer[10];
@@ -127,13 +127,14 @@ int ft_get_pid()
 *	Returns:
 *		-1: Error
 */
-int	get_len_pid(t_box **box)
+char *ft_get_pid_str()
 {
-	int	len_process_pid;
+	//int	len_process_pid;
+	char *pid_str;
 	int pid;
 
-	pid = ft_get_pid();
-	(*box)->tmp_pid_str = basic_itoa(pid);
-	len_process_pid = ft_strlen((*box)->tmp_pid_str);
-	return (len_process_pid);
+	pid = ft_get_pid_int();
+	pid_str = basic_itoa(pid);
+	//len_process_pid = ft_strlen(pid_str);
+	return (pid_str);
 }

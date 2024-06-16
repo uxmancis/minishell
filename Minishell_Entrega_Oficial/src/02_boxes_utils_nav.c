@@ -98,19 +98,19 @@ int has_end_word(int index_red_in_substr, t_box **box, int red_nb_x)
 {
     //int total_nb_of_redir;
     
-    //printf(GREEN">>> has_end_word: index_hrdc_in_substr = %d, red_nb_x = %d\n"RESET_COLOR, index_hrdc_in_substr, red_nb_x);
+    //printf(GREEN">>> has_end_word: index_red_in_substr = %d, red_nb_x = %d\n"RESET_COLOR, index_red_in_substr, red_nb_x);
     //total_nb_of_redir = (*box)->nb_of_redir;
     if (is_last_redir(box, index_red_in_substr))
     {
-        //printf("last redir here! :)\n");
-        if (index_red_in_substr + 2 == (int)ft_strlen((*box)->input_substr)) //si en la posición de después de heredoc no hay espacios ni hay nada. Heredoc sí o sí son 2 posiciones
+        //printf("last redir here! :), index_red_in_substr = %d, len_substr = %d\n", index_red_in_substr, (int)ft_strlen((*box)->input_substr));
+        if (index_red_in_substr + 1 == (int)ft_strlen((*box)->input_substr)) //si en la posición de después de heredoc no hay espacios ni hay nada. Heredoc sí o sí son 2 posiciones
         {
             //printf(GREEN"sí es last redir, no hay nada más\n"RESET_COLOR);
             //printf("     CONCLUSIÓN - 0: NO tiene end_delimiter. Return:"BLUE" 0\n\n"RESET_COLOR);
             return (0);
         }
         //printf(GREEN"sí es last redir, hay más len\n"RESET_COLOR);
-        if (has_end_last_check(index_red_in_substr + 2, (int)ft_strlen((*box)->input_substr), box)) //end = ft_strlen(input_substr);
+        if (has_end_last_check(index_red_in_substr + 1, (int)ft_strlen((*box)->input_substr), box)) //end = ft_strlen(input_substr);
         {
             //printf("    CONCLUSIÓN - 1: sí tiene end_delimiter. Return:"BLUE" 1\n\n"RESET_COLOR);
             return (1);
@@ -122,7 +122,7 @@ int has_end_word(int index_red_in_substr, t_box **box, int red_nb_x)
     //printf("FROM (start) index_hrdc_in_substr + 2 = %d\n", index_hrdc_in_substr + 2);
     //printf(MAGENTA"red_nb_x = %d\n"RESET_COLOR, red_nb_x);
     //printf("TO (end) index of next redir - 1: %d\n", (*box)->dict_red_index_type[red_nb_x + 1][0] - 1);
-    if (has_end_last_check(index_red_in_substr + 2, (*box)->dict_red_index_type[red_nb_x + 1][0] - 1, box)) //si todavía hay más redirecciones --> end = posición de la próxima redirección
+    if (has_end_last_check(index_red_in_substr + 1, (*box)->dict_red_index_type[red_nb_x + 1][0] - 1, box)) //si todavía hay más redirecciones --> end = posición de la próxima redirección
     {
         //printf("    CONCLUSIÓN - 2: sí tiene end_delimiter. Return:"BLUE" 1\n\n"RESET_COLOR);
         return (1);

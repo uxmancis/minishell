@@ -37,7 +37,7 @@ char *ft_enum_to_str(int enumerator)
  */
 int check_if_three_redirs(t_box *box, int i)
 {
-    if (box->input_substr[i + 2] == '<' || box->input_substr[i + 2] == '>')
+    if ((box->input_substr[i + 2] == '<' || box->input_substr[i + 2] == '>') && box->dict_quotes[i + 2] == 0)
     {
         ft_puterror("syntax error near unexpected token `newline'\n");
         return (-1);
@@ -74,10 +74,10 @@ int ft_get_numof_redir(t_box *box)
     // printf("len = %d\n", len);
     while (i < keep_len /*box->input_substr[i] != '\0'*/ /*len > 0*/)
     {
-        if (i < keep_len && (box->input_substr[i] == '<' || box->input_substr[i] == '>'))
+        if (i < keep_len && (box->input_substr[i] == '<' || box->input_substr[i] == '>') && box->dict_quotes[i] == 0)
         {
             // printf("i = %d, len = %d\n", i, len);
-            if (/*i < (keep_len - 1) && */ (box->input_substr[i + 1] == '<' || box->input_substr[i + 1] == '>'))
+            if (((box->input_substr[i + 1] == '<' || box->input_substr[i + 1] == '>')) && box->dict_quotes[i + 1] == 0)
             {
                 if (check_if_three_redirs(box, i) == -1)
                     return (-1);

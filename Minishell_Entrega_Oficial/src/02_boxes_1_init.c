@@ -214,7 +214,7 @@ int	ft_boxes_init(t_prompt *prompt, int substr_id)
 		i++;
 		len--;
 	}
-	printf("     02_boxes.c - ft_boxes_init| Copied!✅"BLUE" input_substr"RESET_COLOR" generated:"GREEN" %s\n"RESET_COLOR, box.input_substr);
+	printf("     02_boxes.c - ft_boxes_init| Copied!✅"BLUE" input_substr"RESET_COLOR" generated:"GREEN" %s"RESET_COLOR", len = %d\n", box.input_substr, (int)ft_strlen(box.input_substr));
 	if (get_dict_quotes(&box) == -1)
 		return (-1);
 	printf("     02_boxes.c - ft_boxes_init|"BLUE" dict_quotes"RESET_COLOR" generated✅\n");
@@ -227,7 +227,7 @@ int	ft_boxes_init(t_prompt *prompt, int substr_id)
 	//David aquí: EXECUTE
 	//initialize_cmd(&box, prompt, substr_id);
 	//Liberar
-	ft_free_box(box);
+	//ft_free_box(box);
 	printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
 	printf(BLUE"BOX GENERATION COMPLETED✅, box number = %d\n"RESET_COLOR, substr_id);
 	printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);

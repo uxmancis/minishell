@@ -183,8 +183,8 @@ int	ft_get_cmd_args(t_box **box, t_prompt **prompt)
 	printf(MAGENTA"     char *what_to_take"RESET_COLOR" generated✅\n");
 	ft_get_only_needed(box);
 	//printf("nb_of_words_rest = %d\n", (*box)->nb_of_words_rest);
-	if ((*box)->nb_of_words_rest > 0)
-		check_dollars_expansion(box, prompt);
+	//if ((*box)->nb_of_words_rest > 0) //ahora lo vamos a llamar siempre para checkear: infile, outfile_str, outfille_app, rest_words
+	check_dollars_expansion(box, prompt);
 	return (0);
 }
 

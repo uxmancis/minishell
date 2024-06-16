@@ -111,7 +111,7 @@ void	get_end_arr(int **arr_end, t_box **box, int *arr_ind_heredoc)
 		//}
 		//ind_red_total++;
 		//printf("tmp_nb_of_heredocs = %d\n", tmp_nb_of_heredocs);
-		//printf(BLUE"arr_ind_heredoc[%d] = %d\n"RESET_COLOR, i, arr_ind_heredoc[i]);
+		printf(BLUE"arr_ind_heredoc[%d] = %d\n"RESET_COLOR, i, arr_ind_heredoc[i]);
 	}
 	/*printf(YELLOW"tmp_to_debug_nb_of_heredocs = %d\n", tmp_to_debug_nb_of_heredocs);
     tmp_to_debug_i = 0;
