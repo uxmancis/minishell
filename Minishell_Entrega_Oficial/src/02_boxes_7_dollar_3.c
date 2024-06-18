@@ -6,127 +6,130 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:40 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 14:49:45 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:14:06 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*
+/* finish2up_dq: finish_to_update_dict_quotes
 *   tmp_dict_quotes_word has already new_len.
 *
 *   Was initialized with 9 value in its whole new_len.
 *
 *   0s were assigned in pid value indexes.
 *
-*   Rest info (still with 9 values) we'll get it from old/previous tmptmp_dict_quotes,
+*   Rest info (still with 9 values) we'll get it from
+*	old/previous tmptmp_dict_quotes,
 *   we used it to keep info of tmp_dict_quotes_word before it got new_len.
 *
 *   Variables:
-*       tmp_dict_quotes_word: New arr to get updated
+*       tdqw: tmp_dict_quotes_word: New arr to get updated
+*       tdqw: tmp_tmp_dict_quotes_word: New arr to get updated
 */
-void    finish_to_update_dict_quotes (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word)
+void	finish2up_dq(int **tdqw, int new_len, int *ttdqw, int len_old_word)
 {
-    int i;
-    int index_old_dict;
+	int	i;
+	int	index_old_dict;
 
-    i = 0;
-    index_old_dict = 0;
-    while (new_len > 0)
-    {
-        if ((*tmp_dict_quotes_word)[i] == 9)
-        {
-            (*tmp_dict_quotes_word)[i] = tmp_tmp_dict_quotes_word[index_old_dict];
-            index_old_dict++;
-        }
-        i++;
-        len_old_word--;
-        new_len--;
-    }
+	i = 0;
+	index_old_dict = 0;
+	while (new_len > 0)
+	{
+		if ((*tdqw)[i] == 9)
+		{
+			(*tdqw)[i] = ttdqw[index_old_dict];
+			index_old_dict++;
+		}
+		i++;
+		len_old_word--;
+		new_len--;
+	}
 }
 
-void put_arr(int *arr, int len)
+void	put_arr(int *arr, int len)
 {
-    int i; 
+	int	i;
 
-    i = 0;
-    while (len > 0)
-    {
-        printf(YELLOW"%d", arr[i]);
-        i++;
-        len--;
-    }
-    printf(RESET_COLOR);
+	i = 0;
+	while (len > 0)
+	{
+		printf(YELLOW"%d", arr[i]);
+		i++;
+		len--;
+	}
+	printf(RESET_COLOR);
 }
+
+/*ft_free_word_and_dict
+*
+* w2p: word_to_be_updated
+*
+*
+*
+*/
+void	ft_free_word_and_dict(char **w2p, int **tmp_dict_quotes_word)
+{
+	if (*w2p)
+	{
+		free (*w2p);
+		*w2p = NULL;
+	}
+	if (*tmp_dict_quotes_word)
+	{
+		free(*tmp_dict_quotes_word);
+		*tmp_dict_quotes_word = NULL;
+	}
+}
+
+void	ft_malloc_and_set(char **str, int len_plus_one)
+{
+	int	len;
+
+	len = len_plus_one - 1;
+	*str = malloc(sizeof(char) * len_plus_one);
+	(*str)[len] = '\0';
+}
+
+
+void	assign_values(t_w_d **w_d, char **word_src, int **dict_q, int y)
+{
+	(*w_d)->w2update = *word_src;
+	(*w_d)->dict_q_to_update = *dict_q;
+	(*w_d)->y = y;
+}
+
+
 
 /*mng_to_replace_sec_dollar
 *
 *   particular word in (*box)->rest_info_potencial_cmd is updated
 *   tmp_dict_quotes_word is updated
+*
+*	keep_dict_q: keep_dict_quotes_word
 */
 void	mng_to_replace_sec_dollar(char  **word_to_be_updated, t_x_y_word x_y, int **tmp_dict_quotes_word)
 {
 	int		len_old_word;
-	int		len_pid;
-	char	*tmp_rest_info_before_free; //to keep info
+	char	*keep_rest_info;
 	int		new_len;
-	int		*keep_dict_quotes_word; //to keep info
-    char    *pid_str;
-    t_w_d   w_d;
+	int		*keep_dict_q;
+    t_w_d   *w_d;
 
-   // printf(YELLOW"mng_to_replace_sec_dollar\n"RESET_COLOR);
-    
-    //1. Keep old info in tmp variables: char *tmp_rest_info_before_free, pero quitándole los 2 dólares que no necesitamos, and int *tmp_tmp_dict_quotes_word;
-    len_old_word = ft_strlen(*word_to_be_updated);
-    //printf("len_old_word = %d\n", len_old_word);
-        //1.1.- keep Old word
-    tmp_rest_info_before_free = malloc(sizeof(char)*(len_old_word + 1));
-    tmp_rest_info_before_free[len_old_word] = '\0';
-    cpy_word(*word_to_be_updated, &tmp_rest_info_before_free);
-        //1.2.- keep old dictionary
-    keep_dict_quotes_word = malloc(sizeof(int)*len_old_word); //no necesitamos +1 para valor nulo, le acabo de añadir -2 porque no vamos a meter info de los 2 dólares que queremos quitar                  
-    cpy_arr_with_len_2(*tmp_dict_quotes_word, &keep_dict_quotes_word, len_old_word); //to keep old tmp_dict_quotes_word (because we'll generate a new one)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-    //2. Free old info
-        //2.1.- Free old word
-    if (*word_to_be_updated)
-    {
-        free (*word_to_be_updated);
-        *word_to_be_updated = NULL;
-    }
-        //2.2.- Free old dictionary
-    if (*tmp_dict_quotes_word)
-    {
-        free(*tmp_dict_quotes_word); //ya lo hemos guardado en tmp_tmp_dict_quotes_word - ¿me está generando segfault?
-        *tmp_dict_quotes_word = NULL;
-    }
-    //printf("     tmp_tmp_dict_quotes_word = ");
-    //put_arr(tmp_tmp_dict_quotes_word, len_old_word); //to debug
-    //printf("\n"); 
-    
-    //2. Get new info
-    pid_str = ft_get_pid_str();
-    len_pid = ft_strlen(pid_str);
-    //printf("                    len_process_pid = %d, len_old_word = %d\n", len_process_pid, len_old_word);
-    new_len = len_old_word - 2 + len_pid; //-2 por quitar los 2 dólares
-    printf(MAGENTA"                    new_len = %d\n"RESET_COLOR, new_len);
-    *tmp_dict_quotes_word = malloc(sizeof(int) * new_len); //no necesitamos +1 para valor nulo
-    //(*tmp_dict_quotes_word)[0] = 1;
-    //printf("probatxue, [0] = %d\n", (*tmp_dict_quotes_word)[0]);
-    //if (!tmp_dict_quotes_word)
-        //ft_puterror("Error when allocating memory\n");
-    //fill_with_nine(tmp_dict_quotes_word, new_len); //random value 9 to initialize, 9 is not possible in 
-    //printf("                    mng_to_replace_sec_dollar - Before rest_info_potential_cmd[%d][%d] = %s, len_old = %d, len_pid = %d, new_len = %d\n", x_y.index_x,x_y.index_y, (*box)->rest_info_potential_cmd[x_y.index_x], len_old_word, len_process_pid, new_len);
-    //printf("\n          tmp_rest_info_before_free = "YELLOW"%s"RESET_COLOR" | keep it to cpy, new_len = %d\n", tmp_rest_info_before_free, new_len);
-    *word_to_be_updated = ft_calloc(new_len + 1, sizeof(char));
-    (*word_to_be_updated)[new_len] = '\0';
-    w_d.word_to_be_updated = *word_to_be_updated; //word to be updated (str) //Pdte. asignarlo
-    w_d.dict_quotes_to_be_updated = *tmp_dict_quotes_word; //dict to be updated (arr) //Pdte. asignarlo
-    //w_d.y; //posición en str (word to be updated)
-    w_d.y = x_y.index_y;
-    replace_pid_sec_dollar(&w_d, tmp_rest_info_before_free, keep_dict_quotes_word, new_len); //word y dict to be updated, keep_old word (tmp_rest_info_before_free), keep_old_dict(keep_dict_quotes_word)
-    //printf(">>  let's finish it!\n");
-    finish_to_update_dict_quotes(tmp_dict_quotes_word, new_len, keep_dict_quotes_word, len_old_word);
+	w_d = malloc(sizeof(t_w_d) * 1);
+	len_old_word = ft_strlen(*word_to_be_updated);
+	ft_malloc_and_set(&keep_rest_info, len_old_word + 1);
+	cpy_word(*word_to_be_updated, &keep_rest_info);
+	keep_dict_q = malloc(sizeof(int) * len_old_word);
+	cpy_arr_with_len_2(*tmp_dict_quotes_word, &keep_dict_q, len_old_word);
+	ft_free_word_and_dict(word_to_be_updated, tmp_dict_quotes_word);
+	new_len = len_old_word - 2 + ft_strlen(ft_get_pid_str());
+	*tmp_dict_quotes_word = malloc(sizeof(int) * new_len);
+	*word_to_be_updated = ft_calloc(new_len + 1, sizeof(char));
+	(*word_to_be_updated)[new_len] = '\0';
+	assign_values (&w_d, word_to_be_updated, tmp_dict_quotes_word, x_y.index_y);
+	replace_pid_sec_dollar(&w_d, keep_rest_info, keep_dict_q, new_len);
+	finish2up_dq(tmp_dict_quotes_word, new_len, keep_dict_q, len_old_word);
 }
 
 /*  is_in_env

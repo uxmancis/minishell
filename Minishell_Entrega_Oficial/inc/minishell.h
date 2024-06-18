@@ -158,12 +158,26 @@ struct s_prompt
     //t_box *box;
 } ;
 
+/*
+*   w2update = word to update
+*/
 typedef struct s_word_and_dictquotes
 {
-    char *word_to_be_updated;
-    int *dict_quotes_to_be_updated;
+    char *w2update;
+    int *dict_q_to_update;
     int x;
     int y;
+    int ind_pid_str;
+    int ind_old_word;
+    int ind_dollar;
+    int ind_new_word;
+    int keep_new_len_word;
+    int len_val;
+    int new_len;
+    int ind_val;
+    int len_str_to_find;
+    int keep_len_new_word;
+    char *tmp_val;
 }   t_w_d;
 
 
@@ -298,9 +312,7 @@ void	expand_outfile_strong_words(t_box **box, t_prompt **prompt);
 void	expand_outfile_append_words(t_box **box, t_prompt **prompt);
 void	expand_rest_info_potential_cmd(t_box **box, t_prompt **prompt);
 void	check_dollars_expansion(t_box **box, t_prompt **prompt);
-
-
-int find_dollars_and_replace(char **word_to_be_updated, t_x_y_word *x_y, int **tmp_dict_quotes_word, t_prompt **prompt); //Objetivo: ver si puedo no pasarle box, y en vez de esto pasarle la palabra a actualizar
+int find_dollar_replace(char **word_to_be_updated, t_x_y_word *x_y, int **tmp_dict_quotes_word, t_prompt **prompt); //Objetivo: ver si puedo no pasarle box, y en vez de esto pasarle la palabra a actualizar
 int	no_more_dollars(char *word_to_be_checked, t_x_y_word x_y, int *tmp_dict_quotes_word);
 int	*generate_specif_dict_quotes(t_box **box, char *word_to_be_updated, int nb_word_x, char flag);
 void	get_each_word_up(char *w, int nb_word_x, t_box **box, t_prompt **prompt);
@@ -314,11 +326,12 @@ void cpy_to_val(char *str_src, char **str_dst);
 void mng_to_replace_env(char **word_to_be_updated, t_x_y_word x_y, t_prompt **prompt, int **tmp_dict_quotes_word);
 
 //02_boxes_7_dollar_3.c
-void finish_to_update_dict_quotes (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word);
+void finish2up_dq (int **tmp_dict_quotes_word, int new_len, int *tmp_tmp_dict_quotes_word, int len_old_word);
 void put_arr(int *arr, int len);
 void	mng_to_replace_sec_dollar(char  **word_to_be_updated, t_x_y_word x_y, int **tmp_dict_quotes_word);
 int	is_in_env(char *old_word_before_free, t_x_y_word x_y, t_prompt **prompt);
 void get_old_word(char *str_src, char **str_dst);
+void	ft_free_word_and_dict(char **w2p, int **tmp_dict_quotes_word);
 
 //02_boxes_7_dollar_4.c
 int	get_len_word_2(char *old_word_2_check_before_free, t_x_y_word x_y);
@@ -328,7 +341,7 @@ void cpy_arr_with_len(int *arr_src, int *arr_dst, int len);
 void fill_with_nine(int **tmp_dict_quotes_word, int len);
 
 //02_boxes_7_dollar_5.c
-void replace_pid_sec_dollar(t_w_d *w_d, char *keep_old_word, int *keep_old_dict, int new_len_word);
+void replace_pid_sec_dollar(t_w_d **w_d, char *keep_old_word, int *keep_old_dict, int new_len_word);
 int is_special_char(char c);
 int	get_len_word(char *old_word_before_free, t_x_y_word x_y);
 int	get_len_word_3(char *word_to_be_updated, t_x_y_word x_y);

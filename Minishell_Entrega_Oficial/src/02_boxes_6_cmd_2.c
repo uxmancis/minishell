@@ -74,7 +74,7 @@ void	mark_word_2(int start, int end, t_box **box)
 	int	len_word;
 
 	len_word = 0;
-	while (!possible_cases(box, start) && start <=end)
+	while (!possible_cases(box, start) && start <= end)
 		start++;
 	while (possible_cases(box, start) && start <= end)
 	{
@@ -110,24 +110,28 @@ void	mark_word(t_box **box)
 	i = 0;
 	while (tmp_nb_of_redir > 0)
 	{
-		if (is_last_redir_2(box, i)) //start: posición de redirección (+1 o +2), end: ft_strlen
+		if (is_last_redir_2(box, i))
 		{
 			if ((*box)->dict_red_index_type[i][1] == HEREDOC
 				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
-					mark_word_2((*box)->dict_red_index_type[i][0] + 2, ft_strlen((*box)->input_substr) - 1, box);
+				mark_word_2((*box)->dict_red_index_type[i][0] + 2,
+					ft_strlen((*box)->input_substr) - 1, box);
 			else if (((*box)->dict_red_index_type[i][1] == INFILE
 				|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
-				mark_word_2((*box)->dict_red_index_type[i][0] + 1, ft_strlen((*box)->input_substr) - 1, box);
-			break;
+				mark_word_2((*box)->dict_red_index_type[i][0] + 1,
+					ft_strlen((*box)->input_substr) - 1, box);
+			break ;
 		}
 		else
 		{
 			if ((*box)->dict_red_index_type[i][1] == HEREDOC
 				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
-				mark_word_2((*box)->dict_red_index_type[i][0] + 2, (*box)->dict_red_index_type[i + 1][0] - 1, box);
+				mark_word_2((*box)->dict_red_index_type[i][0] + 2,
+					(*box)->dict_red_index_type[i + 1][0] - 1, box);
 			else if (((*box)->dict_red_index_type[i][1] == INFILE
 				|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
-				mark_word_2((*box)->dict_red_index_type[i][0] + 1, (*box)->dict_red_index_type[i + 1][0] - 1, box);   
+				mark_word_2((*box)->dict_red_index_type[i][0] + 1,
+					(*box)->dict_red_index_type[i + 1][0] - 1, box);   
 		}
 		tmp_nb_of_redir--;
 		i++;

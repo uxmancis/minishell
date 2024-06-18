@@ -150,7 +150,7 @@ void	cpy_1_word(t_box **box, int nb_of_word)
 	int	keep_start;
 	int	x;
 
-	start = (*box)->index_beginning_words_rest[nb_of_word]; //hasiera de dónde empieza la palabra word
+	start = (*box)->index_beginning_words_rest[nb_of_word];
 	keep_start = start;
 	len = 0;
 	while (possible_cases(box, start)

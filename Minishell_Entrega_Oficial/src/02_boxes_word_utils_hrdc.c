@@ -76,8 +76,8 @@ void	get_word_hrdc_2(int start, int end, t_box **box, int red_type_nb_x)
 	int	i;
 	int	len_input_str;
 
-    printf("get_word\n");
-    printf(BLUE"start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, red_type_nb_x);
+    //printf("get_word\n");
+    //printf(BLUE"start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, red_type_nb_x);
     len_delimiter = 0;
     len_input_str = ft_strlen((*box)->input_substr);
     //while (ft_isspace((*box)->input_substr[start]))
@@ -98,7 +98,7 @@ void	get_word_hrdc_2(int start, int end, t_box **box, int red_type_nb_x)
         len_delimiter++;
         //printf("yes\n");
     }
-    printf(YELLOW"len_delimiter = %d\n"RESET_COLOR, len_delimiter);
+    //printf(YELLOW"len_delimiter = %d\n"RESET_COLOR, len_delimiter);
     (*box)->words_hrdc[red_type_nb_x] = malloc(sizeof(char) * (len_delimiter + 1));
     (*box)->words_hrdc[red_type_nb_x][len_delimiter] = '\0';
     i = 0;

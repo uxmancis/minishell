@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:24:59 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 17:06:01 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/18 21:51:14 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,20 @@ void	ft_free_box(t_box box)
 		free(box.tmp_pid_str);
 }
 
+
+void	ft_boxes_initialize_2(t_box **box)
+{
+	(*box)->is_outfile_strong = 0;
+	(*box)->nb_of_outfile_strong = 0;
+	(*box)->words_outfile_strong = NULL;
+	(*box)->what_to_take = NULL;
+	(*box)->nb_of_words_rest = 0;
+	(*box)->index_beginning_words_rest = NULL;
+	(*box)->rest_info_potential_cmd = NULL;
+	(*box)->tmp_pid = -1;
+	(*box)->tmp_pid_str = NULL;
+}
+
 void	ft_boxes_initialize(t_box **box)
 {
 	(*box)->input_substr = NULL;
@@ -68,15 +82,7 @@ void	ft_boxes_initialize(t_box **box)
 	(*box)->is_outfile_append = 0;
 	(*box)->nb_of_outfile_append = 0;
 	(*box)->words_outfile_append = NULL;
-	(*box)->is_outfile_strong = 0;
-	(*box)->nb_of_outfile_strong = 0;
-	(*box)->words_outfile_strong = NULL;
-	(*box)->what_to_take = NULL;
-	(*box)->nb_of_words_rest = 0;
-	(*box)->index_beginning_words_rest = NULL;
-	(*box)->rest_info_potential_cmd = NULL;
-	(*box)->tmp_pid = -1;
-	(*box)->tmp_pid_str = NULL;
+	ft_boxes_initialize_2(box);
 }
 
 /*  ft_boxes_init, Initializes following variables in 
@@ -89,8 +95,8 @@ void	ft_boxes_initialize(t_box **box)
 */
 int	ft_boxes_init(t_box **box, t_prompt *prompt, int substr_id)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
 	*box = (t_box *)malloc(sizeof(t_box));
 	printf(BLUE"\n\n\n======ִֶָ𓂃 ࣪˖ ִֶָ🐇་༘࿐====ᯓ★_⋆˚࿔ 📦BOX NB: %d 𝜗𝜚˚⋆========𓇼🐚☾☼🦪========;༊;༊__\n"RESET_COLOR, substr_id);
@@ -99,7 +105,7 @@ int	ft_boxes_init(t_box **box, t_prompt *prompt, int substr_id)
 	if (prompt->nb_of_substr == 1)
 		get_single_str(prompt, box);
 	else
-		generate_substr(prompt, substr_id, box); //input_substr virgen
+		generate_substr(prompt, substr_id, box);
 	len = ft_strlen((*box)->input_substr);
 	i = 0;
 	while (len > 0)

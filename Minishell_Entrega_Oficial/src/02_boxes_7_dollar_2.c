@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 14:44:48 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:03:38 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,132 +25,107 @@ void	cpy_arr_with_len_2(int *arr_src, int **arr_dst, int len)
 	}
 }
 
-void	replace_env(char **word_to_be_updated, t_x_y_word x_y, char *tmp_val, int **tmp_dict_quotes_word)
+
+//void replace_env_1
+
+
+/*  replace_env
+*
+*   When still more info after replacing content, cpy rest.
+*/
+void	replace_env_last(t_w_d **w_d, int keep_len_new_word, char *keep_old_word, int *keep_old_dict)
 {
-    int ind_new_word;
-    char *tmp_old_word_before_free;
-    int new_len;
-    int ind_dollar;
-    int ind_old_word;
-    int len_val;
-    int ind_val;
-    int keep_len_new_word;
-    char *str_to_find;
-    int len_str_to_find;
+	(*w_d)->ind_old_word++;
+	while ((*w_d)->y < keep_len_new_word)
+	{
+		(*w_d)->w2update[(*w_d)->y] = keep_old_word[(*w_d)->ind_old_word];
+		(*w_d)->dict_q_to_update[(*w_d)->y] = keep_old_dict[(*w_d)->ind_old_word];
+		(*w_d)->y++;
+		(*w_d)->ind_old_word++;
+	}
+}
+
+void replace_env_step_2(t_w_d **w_d, int len_str_to_find, char *tmp_val)
+{
+    (*w_d)->ind_old_word++; // pasar del dólar
+    while (len_str_to_find > 0)
+    {
+        (*w_d)->ind_old_word++; //de la palabra "USER" también vamos a pasar
+        len_str_to_find--;
+    }
+    while ((*w_d)->len_val > 0)
+    {
+        (*w_d)->w2update[(*w_d)->y] = tmp_val[(*w_d)->ind_val];
+        (*w_d)->dict_q_to_update[(*w_d)->y] = 0;
+        (*w_d)->ind_val++;
+        (*w_d)->y++;
+        (*w_d)->len_val--;
+    }
+}
+
+void replace_env_step_1 (t_w_d **w_d, char *keep_old_word, int *keep_old_dict_quotes_word)
+{
+    while ((*w_d)->ind_new_word < (*w_d)->ind_dollar)
+    {
+        (*w_d)->w2update[(*w_d)->y] = keep_old_word[(*w_d)->ind_old_word];
+        (*w_d)->dict_q_to_update[(*w_d)->y] = keep_old_dict_quotes_word[(*w_d)->ind_old_word];
+        (*w_d)->ind_new_word++;
+        (*w_d)->ind_old_word++;
+        (*w_d)->y++;
+        (*w_d)->new_len--;
+    }
+}
+
+void	set_w_d(t_w_d **w_d, int y, char **w2up, int **tmp_dict_quotes_word)
+{
+	(*w_d)->ind_dollar = y;
+	(*w_d)->y = 0;
+	(*w_d)->w2update = *w2up;
+	(*w_d)->dict_q_to_update = *tmp_dict_quotes_word;
+	(*w_d)->ind_old_word = 0;
+	(*w_d)->ind_new_word = 0;
+	(*w_d)->ind_val = 0;
+}
+
+void cpy_everything (t_w_d **w_d, char *keep_old_word, int *keep_old_dict_quotes_word)
+{
+	if ((*w_d)->ind_new_word < (*w_d)->ind_dollar) //1. si antes del dólar hay cositas, copiarlas
+		replace_env_step_1(w_d, keep_old_word, keep_old_dict_quotes_word);
+	if ((*w_d)->ind_new_word == (*w_d)->ind_dollar) //2. una vez llegamos a la posición del dólar
+		replace_env_step_2(w_d, (*w_d)->len_str_to_find, (*w_d)->tmp_val);
+	if ((*w_d)->y < (*w_d)->keep_len_new_word) //3. Si todavía hay más info después de val
+		replace_env_last(w_d, (*w_d)->keep_len_new_word, keep_old_word, keep_old_dict_quotes_word);
+	(void)(*w_d)->keep_len_new_word;
+}
+
+/*
+*   w2up: word_to_be_updated
+*/
+void	replace_env(char **w2up, t_x_y_word x_y, char *tmp_val, int **tmp_dict_quotes_word)
+{
+    char *keep_old_word;
     int len_old_word;
     int *keep_old_dict_quotes_word;
+    t_w_d *w_d;
 
-    ind_new_word = 0;
-    
-    //1st: copy old info (old word in rest_info y la palabra a buscar)
-        //1.1.- Old_word
-    len_old_word = ft_strlen(*word_to_be_updated);
-    tmp_old_word_before_free = malloc(sizeof(char) * (ft_strlen(*word_to_be_updated) + 1));
-    tmp_old_word_before_free[ft_strlen(*word_to_be_updated)] = '\0';
-    get_old_word(*word_to_be_updated, &tmp_old_word_before_free); //tmp_old_word_before_free ya lo tee
-        //1.2.- Old_dictionary
+    w_d = malloc(sizeof(t_w_d) * 1);
+    len_old_word = ft_strlen(*w2up);
+    keep_old_word = malloc(sizeof(char) * (ft_strlen(*w2up) + 1));
+    keep_old_word[ft_strlen(*w2up)] = '\0';
+    get_old_word(*w2up, &keep_old_word);
     keep_old_dict_quotes_word = malloc(sizeof(int) * len_old_word);
     cpy_arr_with_len_2(*tmp_dict_quotes_word, &keep_old_dict_quotes_word, len_old_word); //old info is stored to be copied after keep_old_dict_quotes_word
-    str_to_find = get_word_2(tmp_old_word_before_free, x_y);
-    len_str_to_find = ft_strlen(str_to_find);
-    
-    //printf("                         old word to keep = %s\n", tmp_old_word_before_free);
-
-    //2. Hacer free de la info antigua
-        //2.1.- Old_word
-    //ft_free(*word_to_be_updated);
-    if (*word_to_be_updated)
-    {
-        free(*word_to_be_updated);
-        *word_to_be_updated = NULL;
-    }
-        //2.2.- Old_dictionary
-    //ft_free(*tmp_dict_quotes_word);
-    if (*tmp_dict_quotes_word)
-    {
-        free (*tmp_dict_quotes_word);
-        *tmp_dict_quotes_word = NULL;
-    }
-    
-    //3. Generate new information
-    new_len = ft_strlen(tmp_old_word_before_free) - 1 - ft_strlen(str_to_find) + ft_strlen(tmp_val);
-        //3.1.- New word
-    //printf(GREEN"new_len = %d\n"RESET_COLOR, new_len);
-    *word_to_be_updated = malloc(sizeof(char)*(new_len + 1));
-    (*word_to_be_updated)[new_len] = '\0';
-    *tmp_dict_quotes_word = malloc(sizeof(int) * new_len); //new dictionary
-    
-    
-    ind_dollar = x_y.index_y;
-    x_y.index_y = 0; //tengo sesnsación-intuición de que esta y = index_new_word
-    ind_old_word = 0;
-    len_val = ft_strlen(tmp_val);
-    ind_val = 0;
-    keep_len_new_word = new_len;
-    
-    //printf("                         new_len = %d, keep_new_len = %d\n", new_len, keep_len_new_word);
-    /*while (new_len > 0)
-    {*/
-    
-    //cpy_arr_with_len(*tmp_dict_quotes_word, new_dict_quotes_word, (len_old_word - 2));
-        //1. si antes del dólar hay cositas, copiarlas
-        if (ind_new_word < ind_dollar) //if to debug, print just in this case, but only once (outside of while loop)
-        {
-            while (ind_new_word < ind_dollar /*&& new_len > 0*/) //lo de new_len es una manera de prevent overflow
-            {
-                (*word_to_be_updated)[x_y.index_y] = tmp_old_word_before_free[ind_old_word];
-                (*tmp_dict_quotes_word)[x_y.index_y] = keep_old_dict_quotes_word[ind_old_word];
-                //printf(RED"assigned to update dictionary\n"RESET_COLOR);
-                ind_new_word++;
-                ind_old_word++;
-                x_y.index_y++;
-                new_len--;
-            }
-            //printf("                         1st step BEFORE dollar completed, str = "BLUE"%s"RESET_COLOR", %d len left\n", (*box)->rest_info_potential_cmd[x_y.index_x], keep_len_new_word - new_len);
-        } 
-        
-        //2. una vez llegamos a la posición del dólar
-        if (ind_new_word == ind_dollar)
-        {
-            //ind_old_word++; // pasar del dólar
-            while (len_str_to_find > 0)
-            {
-                ind_old_word++; //de la palabra "USER" también vamos a pasar
-                len_str_to_find--;
-            }
-            while (len_val > 0)
-            {
-                //printf("y = %d, ind_val = %d\n", x_y.index_y, ind_val);
-                (*word_to_be_updated)[x_y.index_y] = tmp_val[ind_val]; //aquí se asigna la palabra, so diccionario es = 0
-                (*tmp_dict_quotes_word)[x_y.index_y] = 0;
-                //printf(GRAY"assigned to update dictionary\n"RESET_COLOR);
-                ind_val++;
-                x_y.index_y++;
-                len_val--;
-            }
-            //printf("                         2nd step REPLACE dollar with ENV VAR completed, str = "BLUE"%s"RESET_COLOR", %d len left\n", (*box)->rest_info_potential_cmd[x_y.index_x], keep_len_new_word - new_len);
-
-        }
-
-        //3. Si todavía hay más info después de val
-        //printf("3. more info after expansion, y = %d, total_len_new_word = %d\n", x_y.index_y, keep_len_new_word);
-        if (x_y.index_y < keep_len_new_word) //if to debug, print just in this case, but only once (outside of while loop)
-        {
-            ind_old_word++; //hurrengora
-            //printf("                              Step 3: y = %d, len_total = %d\n", x_y.index_y, keep_len_new_word);
-            while (x_y.index_y < keep_len_new_word)
-            {
-                (*word_to_be_updated)[x_y.index_y] = tmp_old_word_before_free[ind_old_word];
-                //printf("                              assigned! [%d][%d] = %c\n", x_y.index_x, x_y.index_y,(*box)->rest_info_potential_cmd[x_y.index_x][x_y.index_y]);
-                (*tmp_dict_quotes_word)[x_y.index_y] = keep_old_dict_quotes_word[ind_old_word];
-                //printf(RED"2- assigned to update dictionary\n"RESET_COLOR);
-                x_y.index_y++;
-                ind_old_word++;
-            }
-            //printf("                         3rd step AFTER dollar completed, str = "BLUE"%s"RESET_COLOR", %d len left\n", (*box)->rest_info_potential_cmd[x_y.index_x], keep_len_new_word - new_len);
-        }
-        //new_len--;
-    //}
+    w_d->len_str_to_find = ft_strlen(get_word_2(keep_old_word, x_y));
+    ft_free_word_and_dict(w2up, tmp_dict_quotes_word);
+    w_d->new_len = ft_strlen(keep_old_word) - 1 - w_d->len_str_to_find + ft_strlen(tmp_val);
+    *w2up = malloc(sizeof(char)*(w_d->new_len + 1));
+    (*w2up)[w_d->new_len] = '\0';
+    *tmp_dict_quotes_word = malloc(sizeof(int) * w_d->new_len);
+	set_w_d(&w_d, x_y.index_y, w2up, tmp_dict_quotes_word);
+	w_d->tmp_val = tmp_val;
+	w_d->len_val = ft_strlen(tmp_val);
+	w_d->keep_len_new_word = w_d->new_len;
+	cpy_everything(&w_d, keep_old_word, keep_old_dict_quotes_word);
 }
 
 /*get_word_2
@@ -206,7 +181,7 @@ char	*get_word_4(char *old_word_before_free, t_x_y_word x_y)
 		return (NULL);
 	env_variable = malloc(sizeof(char) * (len_word + 1));
 	env_variable[len_word] = '\0';
-	x_y.index_y++; //i = dolarran posiziñua. Hurrengotik hasi bihar gara
+	x_y.index_y++;
 	x = 0;
 	while (len_word > 0)
 	{

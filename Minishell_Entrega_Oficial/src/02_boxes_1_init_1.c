@@ -56,7 +56,7 @@ int	get_dict_quotes(t_box **box)
 	int	i;
 
 	len = ft_strlen((*box)->input_substr);
-	(*box)->dict_quotes = malloc(sizeof(int)*len);
+	(*box)->dict_quotes = malloc(sizeof(int) * len);
 	if (ft_quotes ((*box)->input_substr, &(*box)->dict_quotes) == -1)
 	{
 		ft_puterror("syntax error: unclosed quotes\n");

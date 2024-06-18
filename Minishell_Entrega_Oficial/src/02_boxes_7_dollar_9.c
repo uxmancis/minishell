@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:32:18 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 16:42:07 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:21:52 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_isalnum_str(char *str)
 *
 *   w: word_to_be_updated = shorteded because of norminette (line too long)
 */
-int	find_dollars_and_replace(char **w, t_x_y_word *x_y, int **dict, t_prompt **prompt)
+int	find_dollar_replace(char **w, t_x_y_word *x_y, int **dict, t_prompt **p)
 {
 	char	*word;
 
@@ -53,8 +53,8 @@ int	find_dollars_and_replace(char **w, t_x_y_word *x_y, int **dict, t_prompt **p
 			mng_to_replace_sec_dollar(w, *x_y, dict);
 		else if (next_is_question(*w, *x_y))
 			x_y->index_y++;
-		else if (is_in_env(*w, *x_y, prompt))
-			mng_to_replace_env(w, *x_y, prompt, dict);
+		else if (is_in_env(*w, *x_y, p))
+			mng_to_replace_env(w, *x_y, p, dict);
 		else
 		{
 			word = get_word_4(*w, *x_y);
@@ -79,7 +79,7 @@ int	find_dollars_and_replace(char **w, t_x_y_word *x_y, int **dict, t_prompt **p
 int	no_more_dollars(char *w, t_x_y_word x_y, int *dict)
 {
 	int	len_word;
-	int i;
+	int	i;
 
 	len_word = ft_strlen(w);
 	i = 0;
@@ -156,7 +156,7 @@ void	get_each_word_up(char *w, int nb_word_x, t_box **box, t_prompt **prompt)
 	while (1)
 	{
 		len_word = ft_strlen(w);
-		find_dollars_and_replace(&w, &x_y, &tmp_dict_quotes_word, prompt);
+		find_dollar_replace(&w, &x_y, &tmp_dict_quotes_word, prompt);
 		if (no_more_dollars(w, x_y, tmp_dict_quotes_word)
 			|| x_y.index_y == len_word)
 			break ;

@@ -37,7 +37,8 @@ char	*ft_enum_to_str(int enumerator)
  */
 int	check_if_three_redirs(t_box **box, int i)
 {
-	if (((*box)->input_substr[i + 2] == '<' || (*box)->input_substr[i + 2] == '>')
+	if (((*box)->input_substr[i + 2] == '<'
+			|| (*box)->input_substr[i + 2] == '>')
 		&& (*box)->dict_quotes[i + 2] == 0)
 	{
 		ft_puterror("syntax error near unexpected token `newline'\n");

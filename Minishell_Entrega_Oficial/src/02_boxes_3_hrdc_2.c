@@ -76,7 +76,7 @@ void	get_word(int start, int end, t_box **box, int heredoc_nb)
 	while (ft_isspace((*box)->input_substr[start]))
 		start++;
 	keep_start_word = start;
-	while(!ft_isspace((*box)->input_substr[start])
+	while (!ft_isspace((*box)->input_substr[start])
 		&& start <= end)
 	{
 		start++;

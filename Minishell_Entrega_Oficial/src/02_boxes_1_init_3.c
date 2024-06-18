@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:26:26 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 16:48:40 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/18 21:52:11 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@
 */
 int	ft_gen_boxes(t_prompt *prompt)
 {
-	t_box **arr_boxes;
-	int	tmp_nb_boxes;
-	int	substr_id;
-	int i;
+	t_box	**arr_boxes;
+	int		tmp_nb_boxes;
+	int		substr_id;
+	int		i;
 
 	i = 0;
-	printf(BLUE"\n\nft_gen_boxes\n"RESET_COLOR);
 	tmp_nb_boxes = prompt->nb_of_substr;
 	printf("     02_boxes.c - ft_gen_boxes| nb_boxes = %d\n", prompt->nb_of_substr);
 	substr_id = 1;

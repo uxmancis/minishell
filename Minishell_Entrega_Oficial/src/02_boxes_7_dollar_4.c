@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:01 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 14:52:04 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:49:39 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	get_len_word_2(char *old_word_2_check_before_free, t_x_y_word x_y)
 
 /*
 *   str_src = tmp_old_word_before_free 
+*	wtu: word_to_be_updated
 */
-void	replace_delete(char **word_to_be_updated, char *str_src, t_x_y_word x_y, int len_new_total_word)
+void	replace_delete(char **wtu, char *str_src, t_x_y_word x_y, int len_new_total_word)
 {
 	int	len_to_delete;
 	int	ind_src;
@@ -56,8 +57,7 @@ void	replace_delete(char **word_to_be_updated, char *str_src, t_x_y_word x_y, in
 				len_to_delete--;
 			}
 		}
-		printf("ind_src = %d\n", ind_src);
-		(*word_to_be_updated)[x_y.index_y] = str_src[ind_src];
+		(*wtu)[x_y.index_y] = str_src[ind_src];
 		ind_src++;
 		len_new_total_word--;
 		x_y.index_y++;
@@ -93,11 +93,11 @@ void	mng_to_replace_delete(char **word_to_be_updated, t_x_y_word x_y)
 	int		len_word;
 
 	len_old_total_word = tmp_ft_strlen((*word_to_be_updated));
-	tmp_rest_info_before_free = malloc(sizeof(char)*(len_old_total_word + 1));
+	tmp_rest_info_before_free = malloc(sizeof(char) * (len_old_total_word + 1));
 	tmp_rest_info_before_free[len_old_total_word] = '\0';
 	cpy_word(*word_to_be_updated, &tmp_rest_info_before_free);
 	ft_free(*word_to_be_updated);
-	len_word = get_len_word_2(tmp_rest_info_before_free,x_y);
+	len_word = get_len_word_2(tmp_rest_info_before_free, x_y);
 	new_len = len_old_total_word - 1 - len_word;
 	*word_to_be_updated = malloc(sizeof(char) * (new_len + 1));
 	(*word_to_be_updated)[new_len] = '\0';

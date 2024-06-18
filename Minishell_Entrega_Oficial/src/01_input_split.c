@@ -85,7 +85,7 @@ void	ft_split_input(t_prompt **prompt)
 	tmp_nb_of_substr = (*prompt)->nb_of_substr;
 	while (tmp_nb_of_substr > 0)
 	{
-		if (tmp_nb_of_substr == 1) //en la última vuelta, se gestiona para que end index = fin de cadena (ft_strlen(input))
+		if (tmp_nb_of_substr == 1)
 		{
 			(*prompt)->total_substr_input[x] = ft_split_from_to(start, (ft_strlen((*prompt)->input) - 1), (*prompt)->input); //-1 ze uste dot bebai izengo zala hasta la posición anterior
 			printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
