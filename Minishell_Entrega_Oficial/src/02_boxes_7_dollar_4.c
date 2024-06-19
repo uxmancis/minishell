@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:01 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/18 22:49:39 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:21:31 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	mng_to_replace_delete(char **word_to_be_updated, t_x_y_word x_y)
 	*word_to_be_updated = malloc(sizeof(char) * (new_len + 1));
 	(*word_to_be_updated)[new_len] = '\0';
 	replace_delete(word_to_be_updated, tmp_rest_info_before_free, x_y, new_len);
+	free (tmp_rest_info_before_free);
 }
 
 /*

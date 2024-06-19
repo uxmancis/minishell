@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:05 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/19 00:03:38 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:39:34 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	cpy_arr_with_len_2(int *arr_src, int **arr_dst, int len)
 	while (len > 0)
 	{
 		(*arr_dst)[i] = arr_src[i];
+		printf("dict para ander[%d] = %d\n", i, (*arr_dst)[i]);
 		i++;
 		len--;
 	}
@@ -35,9 +36,10 @@ void	cpy_arr_with_len_2(int *arr_src, int **arr_dst, int len)
 */
 void	replace_env_last(t_w_d **w_d, int keep_len_new_word, char *keep_old_word, int *keep_old_dict)
 {
-	(*w_d)->ind_old_word++;
+	//(*w_d)->ind_old_word++;
 	while ((*w_d)->y < keep_len_new_word)
 	{
+		//printf(BLUE"y = %d, ind_old_word = %d\n"RESET_COLOR, (*w_d)->y, (*w_d)->ind_old_word);
 		(*w_d)->w2update[(*w_d)->y] = keep_old_word[(*w_d)->ind_old_word];
 		(*w_d)->dict_q_to_update[(*w_d)->y] = keep_old_dict[(*w_d)->ind_old_word];
 		(*w_d)->y++;
@@ -45,35 +47,35 @@ void	replace_env_last(t_w_d **w_d, int keep_len_new_word, char *keep_old_word, i
 	}
 }
 
-void replace_env_step_2(t_w_d **w_d, int len_str_to_find, char *tmp_val)
+void	replace_env_step_2(t_w_d **w_d, int len_str_to_find, char *tmp_val)
 {
-    (*w_d)->ind_old_word++; // pasar del dólar
-    while (len_str_to_find > 0)
-    {
-        (*w_d)->ind_old_word++; //de la palabra "USER" también vamos a pasar
-        len_str_to_find--;
-    }
-    while ((*w_d)->len_val > 0)
-    {
-        (*w_d)->w2update[(*w_d)->y] = tmp_val[(*w_d)->ind_val];
-        (*w_d)->dict_q_to_update[(*w_d)->y] = 0;
-        (*w_d)->ind_val++;
-        (*w_d)->y++;
-        (*w_d)->len_val--;
-    }
+	(*w_d)->ind_old_word++;
+	while (len_str_to_find > 0)
+	{
+		(*w_d)->ind_old_word++;
+		len_str_to_find--;
+	}
+	while ((*w_d)->len_val > 0)
+	{
+		(*w_d)->w2update[(*w_d)->y] = tmp_val[(*w_d)->ind_val];
+		(*w_d)->dict_q_to_update[(*w_d)->y] = 0;
+		(*w_d)->ind_val++;
+		(*w_d)->y++;
+		(*w_d)->len_val--;
+	}
 }
 
-void replace_env_step_1 (t_w_d **w_d, char *keep_old_word, int *keep_old_dict_quotes_word)
+void	replace_env_step_1(t_w_d **w_d, char *keep_old_word, int *keep_old_dict_quotes_word)
 {
-    while ((*w_d)->ind_new_word < (*w_d)->ind_dollar)
-    {
-        (*w_d)->w2update[(*w_d)->y] = keep_old_word[(*w_d)->ind_old_word];
-        (*w_d)->dict_q_to_update[(*w_d)->y] = keep_old_dict_quotes_word[(*w_d)->ind_old_word];
-        (*w_d)->ind_new_word++;
-        (*w_d)->ind_old_word++;
-        (*w_d)->y++;
-        (*w_d)->new_len--;
-    }
+	while ((*w_d)->ind_new_word < (*w_d)->ind_dollar)
+	{
+		(*w_d)->w2update[(*w_d)->y] = keep_old_word[(*w_d)->ind_old_word];
+		(*w_d)->dict_q_to_update[(*w_d)->y] = keep_old_dict_quotes_word[(*w_d)->ind_old_word];
+		(*w_d)->ind_new_word++;
+		(*w_d)->ind_old_word++;
+		(*w_d)->y++;
+		(*w_d)->new_len--;
+	}
 }
 
 void	set_w_d(t_w_d **w_d, int y, char **w2up, int **tmp_dict_quotes_word)
@@ -87,13 +89,19 @@ void	set_w_d(t_w_d **w_d, int y, char **w2up, int **tmp_dict_quotes_word)
 	(*w_d)->ind_val = 0;
 }
 
+/*  cpy_everything
+* //1. si antes del dólar hay cositas, copiarlas
+* //2. una vez llegamos a la posición del dólar
+* //3. Si todavía hay más info después de val
+*
+*/
 void cpy_everything (t_w_d **w_d, char *keep_old_word, int *keep_old_dict_quotes_word)
 {
-	if ((*w_d)->ind_new_word < (*w_d)->ind_dollar) //1. si antes del dólar hay cositas, copiarlas
+	if ((*w_d)->ind_new_word < (*w_d)->ind_dollar)
 		replace_env_step_1(w_d, keep_old_word, keep_old_dict_quotes_word);
-	if ((*w_d)->ind_new_word == (*w_d)->ind_dollar) //2. una vez llegamos a la posición del dólar
+	if ((*w_d)->ind_new_word == (*w_d)->ind_dollar)
 		replace_env_step_2(w_d, (*w_d)->len_str_to_find, (*w_d)->tmp_val);
-	if ((*w_d)->y < (*w_d)->keep_len_new_word) //3. Si todavía hay más info después de val
+	if ((*w_d)->y < (*w_d)->keep_len_new_word)
 		replace_env_last(w_d, (*w_d)->keep_len_new_word, keep_old_word, keep_old_dict_quotes_word);
 	(void)(*w_d)->keep_len_new_word;
 }
@@ -103,20 +111,26 @@ void cpy_everything (t_w_d **w_d, char *keep_old_word, int *keep_old_dict_quotes
 */
 void	replace_env(char **w2up, t_x_y_word x_y, char *tmp_val, int **tmp_dict_quotes_word)
 {
-    char *keep_old_word;
-    int len_old_word;
-    int *keep_old_dict_quotes_word;
-    t_w_d *w_d;
+	char	*keep_old_word;
+	int		len_old_word;
+	int		*keep_old_dict_quotes_word;
+	t_w_d	*w_d;
 
-    w_d = malloc(sizeof(t_w_d) * 1);
+    printf("replace_env\n");
+	w_d = malloc(sizeof(t_w_d) * 1);
+	w_d->w2update = NULL;
+	w_d->dict_q_to_update = NULL;
+	w_d->tmp_val = NULL;
     len_old_word = ft_strlen(*w2up);
+	printf("len_old_word = %d, word = %s\n", len_old_word, *w2up);
     keep_old_word = malloc(sizeof(char) * (ft_strlen(*w2up) + 1));
     keep_old_word[ft_strlen(*w2up)] = '\0';
     get_old_word(*w2up, &keep_old_word);
     keep_old_dict_quotes_word = malloc(sizeof(int) * len_old_word);
-    cpy_arr_with_len_2(*tmp_dict_quotes_word, &keep_old_dict_quotes_word, len_old_word); //old info is stored to be copied after keep_old_dict_quotes_word
+    cpy_arr_with_len_2(*tmp_dict_quotes_word, &keep_old_dict_quotes_word, len_old_word);
     w_d->len_str_to_find = ft_strlen(get_word_2(keep_old_word, x_y));
     ft_free_word_and_dict(w2up, tmp_dict_quotes_word);
+	//ft_free_char(w2up)
     w_d->new_len = ft_strlen(keep_old_word) - 1 - w_d->len_str_to_find + ft_strlen(tmp_val);
     *w2up = malloc(sizeof(char)*(w_d->new_len + 1));
     (*w2up)[w_d->new_len] = '\0';
@@ -125,6 +139,7 @@ void	replace_env(char **w2up, t_x_y_word x_y, char *tmp_val, int **tmp_dict_quot
 	w_d->tmp_val = tmp_val;
 	w_d->len_val = ft_strlen(tmp_val);
 	w_d->keep_len_new_word = w_d->new_len;
+	printf("new_len = %d\n, OLD word = %s\n\n", w_d->new_len, keep_old_word);
 	cpy_everything(&w_d, keep_old_word, keep_old_dict_quotes_word);
 }
 

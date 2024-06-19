@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:55:40 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/18 23:14:06 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:31:55 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,24 +112,35 @@ void	mng_to_replace_sec_dollar(char  **word_to_be_updated, t_x_y_word x_y, int *
 {
 	int		len_old_word;
 	char	*keep_rest_info;
-	int		new_len;
+	//int		new_len;
 	int		*keep_dict_q;
     t_w_d   *w_d;
+	char	*tmp;
 
+	tmp = ft_get_pid_str();
 	w_d = malloc(sizeof(t_w_d) * 1);
+	w_d->w2update = NULL;
+	w_d->dict_q_to_update = NULL;
+	w_d->tmp_val = NULL;
 	len_old_word = ft_strlen(*word_to_be_updated);
 	ft_malloc_and_set(&keep_rest_info, len_old_word + 1);
 	cpy_word(*word_to_be_updated, &keep_rest_info);
 	keep_dict_q = malloc(sizeof(int) * len_old_word);
 	cpy_arr_with_len_2(*tmp_dict_quotes_word, &keep_dict_q, len_old_word);
 	ft_free_word_and_dict(word_to_be_updated, tmp_dict_quotes_word);
-	new_len = len_old_word - 2 + ft_strlen(ft_get_pid_str());
-	*tmp_dict_quotes_word = malloc(sizeof(int) * new_len);
-	*word_to_be_updated = ft_calloc(new_len + 1, sizeof(char));
-	(*word_to_be_updated)[new_len] = '\0';
+	w_d->new_len = len_old_word - 2 + ft_strlen(tmp);
+	*tmp_dict_quotes_word = malloc(sizeof(int) * w_d->new_len);
+	*word_to_be_updated = ft_calloc(w_d->new_len + 1, sizeof(char));
+	//(*word_to_be_updated)[new_len] = '\0';
 	assign_values (&w_d, word_to_be_updated, tmp_dict_quotes_word, x_y.index_y);
-	replace_pid_sec_dollar(&w_d, keep_rest_info, keep_dict_q, new_len);
-	finish2up_dq(tmp_dict_quotes_word, new_len, keep_dict_q, len_old_word);
+	replace_pid_sec_dollar(&w_d, keep_rest_info, keep_dict_q, w_d->new_len);
+	finish2up_dq(tmp_dict_quotes_word, w_d->new_len, keep_dict_q, len_old_word);
+	free (keep_dict_q);
+	free (keep_rest_info);
+	free (w_d);
+	free (tmp);
+	//printf("\n\n ---------------------------------- W_D %s --------------------\n\n", w_d->w2update);
+	//printf("\n\n ---------------------------------- W %s --------------------\n\n", *word_to_be_updated);
 }
 
 /*  is_in_env
@@ -141,8 +152,24 @@ void	mng_to_replace_sec_dollar(char  **word_to_be_updated, t_x_y_word x_y, int *
 */
 int	is_in_env(char *old_word_before_free, t_x_y_word x_y, t_prompt **prompt)
 {
-	if (ft_getenv_local((*prompt)->vars, get_word_2(old_word_before_free, x_y)))
+	char	*tmp;
+
+	tmp = NULL;
+	tmp = get_word_2(old_word_before_free, x_y);
+	if (ft_getenv_local((*prompt)->vars, tmp))
+	{
+		if (tmp)
+		{
+			free (tmp);
+			tmp = NULL;
+		}
 		return (1);
+	}
+	if (tmp)
+	{
+		free (tmp);
+		tmp = NULL;
+	}
 	return (0);
 }
 

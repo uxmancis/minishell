@@ -23,7 +23,7 @@ void	expand_infile_words(t_box **box, t_prompt **prompt)
 	(*box)->flag_word_or_cmd = 'W';
 	while (tmp_nb_of_words_infile > 0)
 	{
-		get_each_word_up((*box)->words_infile[nb_infile_x], nb_infile_x, box, prompt);
+		get_each_word_up(&(*box)->words_infile[nb_infile_x], nb_infile_x, box, prompt);
 		nb_infile_x++;
 		tmp_nb_of_words_infile--;
 	}
@@ -46,7 +46,7 @@ void	expand_outfile_strong_words(t_box **box, t_prompt **prompt)
 	(*box)->flag_word_or_cmd = 'W';
 	while (tmp_nb_of_words_outf_str > 0)
 	{
-		get_each_word_up((*box)->words_outfile_strong[nb_outfile_str_x], nb_outfile_str_x, box, prompt);
+		get_each_word_up(&(*box)->words_outfile_strong[nb_outfile_str_x], nb_outfile_str_x, box, prompt);
 		nb_outfile_str_x++;
 		tmp_nb_of_words_outf_str--;
 	}
@@ -69,7 +69,7 @@ void	expand_outfile_append_words(t_box **box, t_prompt **prompt)
 	(*box)->flag_word_or_cmd = 'W';
 	while (tmp_nb_of_words_outf_app > 0)
 	{
-		get_each_word_up((*box)->words_outfile_append[nb_outfile_app_x], nb_outfile_app_x, box, prompt);
+		get_each_word_up(&(*box)->words_outfile_append[nb_outfile_app_x], nb_outfile_app_x, box, prompt);
 		nb_outfile_app_x++;
 		tmp_nb_of_words_outf_app--;
 	}
@@ -92,10 +92,11 @@ void	expand_rest_info_potential_cmd(t_box **box, t_prompt **prompt)
 	(*box)->flag_word_or_cmd = 'C';
 	while (tmp_nb_of_words_rest_info > 0)
 	{
-		get_each_word_up((*box)->rest_info_potential_cmd[nb_word_rest_x], nb_word_rest_x, box, prompt);
+		get_each_word_up(&(*box)->rest_info_potential_cmd[nb_word_rest_x], nb_word_rest_x, box, prompt);
 		nb_word_rest_x++;
 		tmp_nb_of_words_rest_info--;
 	}
+
 }
 
 /*
@@ -110,4 +111,5 @@ void	check_dollars_expansion(t_box **box, t_prompt **prompt)
 	expand_outfile_strong_words(box, prompt);
 	expand_outfile_append_words(box, prompt);
 	expand_rest_info_potential_cmd(box, prompt);
+	//printf("\n\n ----------------------------- %s -----------------------\n\n", (*box)->rest_info_potential_cmd[0]);
 }

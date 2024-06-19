@@ -89,10 +89,15 @@ void	ft_free_char(char **words, int nb_of_words)
 	if (words != NULL)
 	{
 		x = 0;
+		printf(BLUE"nb_of_words = %d\n"RESET_COLOR, nb_of_words);
 		while (x < nb_of_words)
 		{
 			if (words[x])
+			{
+				//printf(GREEN"hellowis, words[%d] = %s\n"RESET_COLOR, x, words[x]);
 				free(words[x]);
+				words[x] = NULL;
+			}
 			x++;
 		}
 		free (words);

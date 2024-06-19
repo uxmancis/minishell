@@ -24,8 +24,7 @@ void	cpy_rest_words(t_box **box)
 	tmp_nb = (*box)->nb_of_words_rest;
 	printf("     cpy_rest_words, nb_of_words_rest = %d\n", tmp_nb);
 	(*box)->rest_info_potential_cmd = malloc(sizeof(char *) * (tmp_nb + 1));
-	(*box)->rest_info_potential_cmd[tmp_nb] = malloc(sizeof(char) * 1);
-	(*box)->rest_info_potential_cmd[tmp_nb][0] = '\0';
+	(*box)->rest_info_potential_cmd[tmp_nb] = NULL;
 	i = 0;
 	while (tmp_nb > 0)
 	{

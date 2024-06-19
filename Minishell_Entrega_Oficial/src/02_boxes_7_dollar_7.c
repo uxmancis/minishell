@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:00:12 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 14:59:53 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:22:52 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	ft_free(void *arr)
 {
-	free (arr);
-	arr = NULL;
+	if (arr)
+	{
+		free (arr);
+		arr = NULL;
+	}
 }
 
 /*is_dollar

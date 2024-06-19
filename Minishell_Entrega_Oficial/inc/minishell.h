@@ -227,7 +227,13 @@ void ft_strcpy (char *str_src, char **str_dst);
 void ft_free_char(char **words, int nb_of_words);
 void ft_free_int(int **words, int nb_of_words);
 
-//02_boxes_init_2.c
+//02_boxes_1_init_2.c
+void	ft_free_int(int **words, int nb_of_words);
+void	ft_free_box(t_box *box);
+void	ft_boxes_initialize_2(t_box **box);
+void	ft_boxes_initialize(t_box **box);
+int	ft_boxes_init(t_box **box, t_prompt *prompt, int substr_id);
+int	get_rest(t_box **box, t_prompt **prompt);
 void	get_single_str(t_prompt *prompt, t_box **box);
 int	ft_get_what_to_take(t_box **box);
 
@@ -315,7 +321,7 @@ void	check_dollars_expansion(t_box **box, t_prompt **prompt);
 int find_dollar_replace(char **word_to_be_updated, t_x_y_word *x_y, int **tmp_dict_quotes_word, t_prompt **prompt); //Objetivo: ver si puedo no pasarle box, y en vez de esto pasarle la palabra a actualizar
 int	no_more_dollars(char *word_to_be_checked, t_x_y_word x_y, int *tmp_dict_quotes_word);
 int	*generate_specif_dict_quotes(t_box **box, char *word_to_be_updated, int nb_word_x, char flag);
-void	get_each_word_up(char *w, int nb_word_x, t_box **box, t_prompt **prompt);
+void	get_each_word_up(char **w, int nb_word_x, t_box **box, t_prompt **prompt);
 
 //02_boxes_7_dollar_2.c
 void cpy_arr_with_len_2 (int *arr_src, int **arr_dst, int len);

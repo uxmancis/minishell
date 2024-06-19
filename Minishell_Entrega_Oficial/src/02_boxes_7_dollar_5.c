@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:45 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/18 22:08:11 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:03:03 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ void	replace_pid_2_replace_dollar(t_w_d **w_d, char *keep_old_word)
 {
 	int	len_pid_str;
 	int	two_times;
+	char *tmp;
 
-	len_pid_str = ft_strlen(ft_get_pid_str());
+	tmp = ft_get_pid_str();
+	len_pid_str = ft_strlen(tmp);
 	two_times = 0;
 	if ((*w_d)->ind_pid_str == (*w_d)->ind_dollar)
 	{
 		(*w_d)->ind_pid_str = 0;
 		while (len_pid_str > 0)
 		{
-			(*w_d)->w2update[(*w_d)->y] = ft_get_pid_str()[(*w_d)->ind_pid_str];
+			(*w_d)->w2update[(*w_d)->y] = tmp[(*w_d)->ind_pid_str];
 			(*w_d)->dict_q_to_update[(*w_d)->y] = 0;
 			(*w_d)->ind_pid_str++;
 			len_pid_str--;
@@ -68,6 +70,7 @@ void	replace_pid_2_replace_dollar(t_w_d **w_d, char *keep_old_word)
 			two_times++;
 		}
 	}
+	free(tmp);
 }
 
 /*replace_pid_3_after_dollar
@@ -109,7 +112,7 @@ void	replace_pid_sec_dollar(t_w_d **w_d, char *kow, int *kod, int nlw)
 	(*w_d)->keep_new_len_word = nlw;
 	replace_pid_1_cpy_before_d(w_d, kow, kod);
 	if ((*w_d)->ind_pid_str == (*w_d)->ind_dollar)
-		replace_pid_2_replace_dollar(w_d, kow);
+		replace_pid_2_replace_dollar(w_d, kow); //malloc pid de itoa
 	if (nlw != 0)
 		rep_pid_3_after_dollar(w_d, kow, kod, nlw);
 }
