@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:32:39 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 16:04:57 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:18:05 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while ((s1[i] != '\0' || s2[i] != '\0'))
 	{
 		if (s1[i] == s2[i])
-		{
+		{	
 			i++;
 		}
 		else
@@ -79,12 +79,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (s2);
 }
 
-int	ft_isspace(int c)
+int ft_isspace(int c)
 {
-	if (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\r' || c == '\f' || c == '\v')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' || c == '\v')
 		return (1);
-	return (0);
+    return (0);
 }
 
 void	*ft_calloc(size_t count, size_t size)
@@ -93,6 +92,7 @@ void	*ft_calloc(size_t count, size_t size)
 	unsigned char	*temp;
 	size_t			total;
 
+	// i = 0;
 	total = size * count;
 	dst = malloc (total);
 	if (!dst)

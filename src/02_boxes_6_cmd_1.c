@@ -22,8 +22,7 @@ void	cpy_rest_words(t_box **box)
 	int	i;
 
 	tmp_nb = (*box)->nb_of_words_rest;
-	if (DEBUG_MODE != 0)
-		printf("     cpy_rest_words, nb_of_words_rest = %d\n", tmp_nb);
+	printf("     cpy_rest_words, nb_of_words_rest = %d\n", tmp_nb);
 	(*box)->rest_info_potential_cmd = malloc(sizeof(char *) * (tmp_nb + 1));
 	(*box)->rest_info_potential_cmd[tmp_nb] = NULL;
 	i = 0;
@@ -40,11 +39,7 @@ void	ft_get_only_needed(t_box **box)
 	(*box)->nb_of_words_rest = rest_numof_words(box);
 	if ((*box)->nb_of_words_rest == 0)
 		return ;
-	if (DEBUG_MODE != 0)
-	{
-		printf("               rest_numof_words | counter = ");
-		printf(MAGENTA"%d\n"RESET_COLOR, (*box)->nb_of_words_rest);
-	}
+	printf("               rest_numof_words | counter = "MAGENTA"%d\n"RESET_COLOR, (*box)->nb_of_words_rest);
 	rest_get_ind_beginning_words(box);
 	cpy_rest_words(box);
 }
@@ -61,8 +56,7 @@ int	ft_get_cmd_args(t_box **box, t_prompt **prompt)
 {
 	if (ft_get_what_to_take(box) == -1)
 		return (-1);
-	if (DEBUG_MODE != 0)
-		printf(MAGENTA"     char *what_to_take"RESET_COLOR" generated✅\n");
+	printf(MAGENTA"     char *what_to_take"RESET_COLOR" generated✅\n");
 	ft_get_only_needed(box);
 	check_dollars_expansion(box, prompt);
 	return (0);
@@ -76,8 +70,7 @@ int	ft_get_cmd_args(t_box **box, t_prompt **prompt)
 */
 int	ft_cmd_args(t_box **box, t_prompt **prompt)
 {
-	if (DEBUG_MODE != 0)
-		printf("     02_boxes_6_cmd.c - "MAGENTA"ft_cmd_args\n"RESET_COLOR);
+	printf("     02_boxes_6_cmd.c - "MAGENTA"ft_cmd_args\n"RESET_COLOR);
 	if (ft_get_cmd_args(box, prompt) == -1)
 		return (-1);
 	return (0);

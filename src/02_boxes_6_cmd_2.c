@@ -94,8 +94,7 @@ void	mark_word_2(int start, int end, t_box **box)
 *
 *	Additional explanatory comments:
 *		if last redir: start: posición de redirección (+1 o +2), end: ft_strlen
-*		else (still more redirs): start: posición de redirección (+1 o +2),
-*		end: posición next redirección
+*		else (still more redirs): start: posición de redirección (+1 o +2), end: posición next redirección
 *		{
 *			if (red_type == HEREDOC || red_type ?? OUTFILE_APPEND): start + 2
 *			if (red_type == INFILE || red_type ?? OUTFILE_STRONG): start + 2

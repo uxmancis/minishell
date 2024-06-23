@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 12:19:51 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 16:29:31 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:31:26 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**ft_split2(char const *s, char c, char **dst)
 		while (s[i] == c)
 			i++;
 		if (s[i] != c && s[i] != '\0')
-		{
+		{	
 			dst[y] = malloc(sizeof(char) * (ft_substr_len(s, c, i) + 1));
 			ft_memcpy(dst[y], (s + i), ft_substr_len(s, c, i));
 			dst[y++][ft_substr_len(s, c, i)] = '\0';

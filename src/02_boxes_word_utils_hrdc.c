@@ -22,6 +22,9 @@ void	get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
 
 	tmp_nb_of_red_type = get_nb_of_red_type(box, HEREDOC);
 	keep_nb_of_red_type = tmp_nb_of_red_type;
+	printf("\n\n------------------------------ %d ------------------------\n\n", tmp_nb_of_red_type);
+	if (keep_nb_of_red_type <= 0)
+		return;
 	(*box)->words_hrdc = malloc(sizeof(char *) * tmp_nb_of_red_type);
 	if (!(*box)->words_hrdc)
 		perror("\n\nmalloc error: words_hrdc\n");
@@ -44,17 +47,23 @@ void	get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
 			i++;
 		}
 		if (i == keep_nb_of_red_type)
-			break ;
+			break;
 		total_red_nb_x++;
 	}
-	put_parsing_box_words_hrdc(box, HEREDOC);
+	tmp_nb_of_red_type = get_nb_of_red_type(box, HEREDOC);
+	i = 0;
+	while (tmp_nb_of_red_type > 0)
+	{
+		printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_hrdc[i]);
+		tmp_nb_of_red_type--;
+		i++;
+	}
+	(*box)->words_hrdc_tmp = (*box)->words_hrdc;
+
+	printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_hrdc"RESET_COLOR" generated✅\n");
+	printf("     -----------------------------------------------\n\n");
 }
 
-void	update_variables_4(int *start, int *len_delimiter)
-{
-	*start = *start + 1;
-	*len_delimiter = *len_delimiter + 1;
-}
 
 /* 
 *   Puts each word in corresponding space inside 
@@ -66,33 +75,32 @@ void	update_variables_4(int *start, int *len_delimiter)
 *   that might exist after it. It doesn't care whether if there is
 *   a single word or not between redirecciones.
 *
-*	r: red_type_nb_x
-*	k: keep_start_word
-*
 */
-void	get_word_hrdc_2(int start, int end, t_box **box, int r)
+void	get_word_hrdc_2(int start, int end, t_box **box, int red_type_nb_x)
 {
 	int	len_delimiter;
-	int	k;
+	int	keep_start_word;
 	int	i;
 	int	len_input_str;
 
-	len_delimiter = 0;
-	len_input_str = ft_strlen((*box)->input_substr);
-	while (!possible_cases(box, start) && start < len_input_str)
-		start++;
-	k = start;
-	while (possible_cases(box, start) && start <= end)
-		update_variables_4(&start, &len_delimiter);
-	(*box)->words_hrdc[r] = malloc(sizeof(char)
-			* (len_delimiter + 1));
-	(*box)->words_hrdc[r][len_delimiter] = '\0';
-	i = 0;
-	while (len_delimiter > 0)
-	{
-		(*box)->words_hrdc[r][i] = (*box)->input_substr[k];
-		i++;
-		k++;
-		len_delimiter--;
-	}
+    len_delimiter = 0;
+    len_input_str = ft_strlen((*box)->input_substr);
+    while (!possible_cases(box, start) && start < len_input_str)
+        start++;
+    keep_start_word = start; //el bueno, este vamos a usar como real comienzo desde el que empezar a copiar
+    while(possible_cases(box, start) && start <= end)
+    {
+        start++;
+        len_delimiter++;
+    }
+    (*box)->words_hrdc[red_type_nb_x] = malloc(sizeof(char) * (len_delimiter + 1));
+    (*box)->words_hrdc[red_type_nb_x][len_delimiter] = '\0';
+    i = 0;
+    while (len_delimiter > 0)
+    {
+        (*box)->words_hrdc[red_type_nb_x][i] = (*box)->input_substr[keep_start_word];
+        i++;
+        keep_start_word++;
+        len_delimiter--;
+    }
 }

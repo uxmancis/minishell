@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_generate_forks.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:53:18 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/23 01:15:58 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:54:50 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,51 +39,57 @@ static void	pipe_manager(t_prompt *data, t_box *box, int id)
 	close(fd_out);
 }
 
-int	create_child_process(t_box *box, t_prompt *data, int box_id)
+static int	handle_builtin_commands(t_box *box, t_prompt *data)
 {
-	int		exit_code;
-	pid_t	pid;
+	int	exit_code;
 
 	exit_code = 0;
-	box->envp = ft_gen_envp(data);
-	if (box->rest_info_potential_cmd && box->rest_info_potential_cmd[0] != NULL
-		&& ft_strlen(box->rest_info_potential_cmd[0]) > 0)
+	if (ft_strcmp_2(box->rest_info_potential_cmd[0], "export"))
 	{
-		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "export"))
-		{
-			ft_export_builtin(data, box->rest_info_potential_cmd);
-			return (exit_code);
-		}
-		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "unset")
-			&& box->rest_info_potential_cmd[0] != NULL)
-		{
-			ft_unset_builtin(&data, box->rest_info_potential_cmd);
-			return (exit_code);
-		}
-		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "cd"))
-		{
-			exit_code = ft_cd_builtin(&data, box->rest_info_potential_cmd);
-			return (exit_code);
-		}
-		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "exit"))
-		{
-			ft_exit_builtin(box, data, exit_code);
-			return (exit_code);
-		}
+		ft_export_builtin(data, box->rest_info_potential_cmd);
+		return (exit_code);
 	}
-	if (!box->rest_info_potential_cmd)
-		exit(exit_code);
-	if (box->heredoc_fd) {
-		box->heredoc_fd = data->tmp_in;
-		data->tmp_in = open("/tmp/heredoc.tmp", O_RDONLY, 0644);
+	else if (ft_strcmp_2(box->rest_info_potential_cmd[0], "unset")
+		&& box->rest_info_potential_cmd[0] != NULL)
+	{
+		ft_unset_builtin(&data, box->rest_info_potential_cmd);
+		return (exit_code);
 	}
-	pipe_manager(data, box, box_id);
+	return (0);
+}
+
+static int	handle_builtin_commands_2(t_box *box, t_prompt *data)
+{
+	int	exit_code;
+
+	exit_code = 0;
+	if (ft_strcmp_2(box->rest_info_potential_cmd[0], "cd"))
+	{
+		exit_code = ft_cd_builtin(&data, box->rest_info_potential_cmd);
+		return (exit_code);
+	}
+	else if (ft_strcmp_2(box->rest_info_potential_cmd[0], "exit"))
+	{
+		ft_exit_builtin(box, data, exit_code);
+		return (exit_code);
+	}
+	else if (ft_strcmp_2(box->rest_info_potential_cmd[0], "$?"))
+	{
+		printf(RED "sign $?\n" RESET_COLOR);
+		printf("Exit_code %d", exit_code);
+		return (exit_code);
+	}
+	return (0);
+}
+
+static int	childs(t_box *box, t_prompt *data)
+{
+	pid_t	pid;
+	int		exit_code;
+
 	pid = fork();
-	if (box->heredoc_fd) {
-		data->tmp_in = box->heredoc_fd;
-		box->heredoc_fd = 0;
-	}
 	data->pid = pid;
+	exit_code = 0;
 	if (pid == -1)
 	{
 		perror("fork");
@@ -96,9 +102,34 @@ int	create_child_process(t_box *box, t_prompt *data, int box_id)
 			exit_code = which_cmd(box, &data);
 		else
 			exit_code = ft_run_command(&box, data);
-		exit(EXIT_SUCCESS);
+		ft_free_char(box->envp, 0);
+		exit(exit_code);
 	}
+	return (exit_code);
+}
+
+int	create_child_process(t_box *box, t_prompt *data, int box_id)
+{
+	int	exit_code;
+
+	exit_code = 0;
+	if (box->rest_info_potential_cmd && box->rest_info_potential_cmd[0] != NULL
+		&& ft_strlen(box->rest_info_potential_cmd[0]) > 0)
+	{
+		if (handle_builtin_commands(box, data) == -1)
+			exit(exit_code);
+		if (handle_builtin_commands_2(box, data) == -1)
+			exit(exit_code);
+	}
+	box->envp = ft_gen_envp(data);
+	if (!box->rest_info_potential_cmd)
+		exit(exit_code);
+	pipe_manager(data, box, box_id);
+	childs(box, data);
 	dup2(data->pipefd[1], STDOUT_FILENO);
 	close(data->pipefd[1]);
+	ft_free_char(box->envp, 0);
+	if (box->pids)
+		ft_free(box->pids);
 	return (exit_code);
 }

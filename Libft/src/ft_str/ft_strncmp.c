@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 21:07:10 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 16:28:32 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:31:55 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while ((s1[i] != '\0' || s2[i] != '\0'))
 	{
 		if (s1[i] == s2[i])
-		{
+		{	
 			i++;
 		}
 		else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_redirects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:29:16 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 01:06:33 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 17:51:00 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,46 +119,58 @@ int	handle_output_strong(t_box **box, int index_red)
 	return (0);
 }
 
-int	handle_redirects(t_box **box)
-{
-	int	tmp_nb_of_red_type;
-	int	index_red;
+// int	handle_redirects(t_box **box)
+// {
+// 	int	tmp_nb_of_red_type;
+// 	int	index_red;
 
-	tmp_nb_of_red_type = (*box)->nb_of_redir;
-	index_red = 0;
-	while (tmp_nb_of_red_type > 0)
-	{
-		if ((*box)->dict_red_index_type[index_red][1] == INFILE)
-		{
-			if (handle_input_infile(box, index_red) == -1)
-				return (-1);
-			(*box)->words_infile++;
-		}
-		else if ((*box)->dict_red_index_type[index_red][1] == OUTFILE_STRONG)
-		{
-			if (handle_output_strong(box, index_red) == -1)
-				return (-1);
-			(*box)->words_outfile_strong++;
-		}
-		else if ((*box)->dict_red_index_type[index_red][1] == HEREDOC)
-		{
-			if (handle_heredoc(box) == -1)
-				return (-1);
-			(*box)->words_hrdc++;
-			//tmp_nb_of_red_type--;
-			if ((*box)->nb_of_heredocs > 1)
-			{
-				tmp_nb_of_red_type -= (*box)->nb_of_heredocs - 1;
-			}
-		}
-		else if ((*box)->dict_red_index_type[index_red][1] == OUTFILE_APPEND)
-		{
-			if (handle_output_append(box, index_red) == -1)
-				return (-1);
-			(*box)->words_outfile_append++;
-		}
-		index_red++;
-		tmp_nb_of_red_type--;
-	}
-	return (0);
-}
+// 	tmp_nb_of_red_type = (*box)->nb_of_redir;
+// 	index_red = 0;
+// 	while (tmp_nb_of_red_type > 0)
+// 	{
+// 		if ((*box)->dict_red_index_type[index_red][1] == INFILE)
+// 		{
+// 			if (handle_input_infile(box, index_red) == -1)
+// 				return (-1);
+// 			free(*((*box)->words_infile));
+// 			*((*box)->words_infile) = NULL;
+// 			(*box)->words_infile++;
+// 		}
+// 		else if ((*box)->dict_red_index_type[index_red][1] == OUTFILE_STRONG)
+// 		{
+// 			if (handle_output_strong(box, index_red) == -1)
+// 				return (-1);
+// 			free(*((*box)->words_outfile_strong));
+// 			*((*box)->words_outfile_strong) = NULL;
+// 			(*box)->words_outfile_strong++;
+// 		}
+// 		else if ((*box)->dict_red_index_type[index_red][1] == HEREDOC)
+// 		{
+// 			if (handle_heredoc(box) == -1)
+// 				return (-1);
+// 			free(*((*box)->words_hrdc));
+// 			*((*box)->words_hrdc) = NULL;
+// 			(*box)->words_hrdc++;
+// 			//tmp_nb_of_red_type--;
+// 			if ((*box)->nb_of_heredocs > 1)
+// 			{
+// 				tmp_nb_of_red_type -= (*box)->nb_of_heredocs - 1;
+// 			}
+// 		}
+// 		else if ((*box)->dict_red_index_type[index_red][1] == OUTFILE_APPEND)
+// 		{
+// 			if (handle_output_append(box, index_red) == -1)
+// 				return (-1);
+// 			free(*((*box)->words_outfile_append));
+// 			*((*box)->words_outfile_append) = NULL;
+// 			(*box)->words_outfile_append++;
+// 		}
+// 		index_red++;
+// 		tmp_nb_of_red_type--;
+// 	}
+// 	(*box)->words_outfile_append = (*box)->words_outfile_append_tmp;
+// 	(*box)->words_infile = (*box)->words_infile_tmp;
+// 	(*box)->words_hrdc = (*box)->words_hrdc_tmp;
+// 	(*box)->words_outfile_strong = (*box)->words_outfile_strong_tmp;
+// 	return (0);
+// }

@@ -48,20 +48,6 @@ int	rest_numof_words(t_box **box)
 	return (counter);
 }
 
-
-void	update_variables_2(int *i, int *len)
-{
-	*len = *len - 1;
-	*i = *i + 1;
-}
-
-void	rest_get_ind_beginning_words_2(t_box **box, int *x, int i)
-{
-	(*box)->index_beginning_words_rest[*x] = i;
-	put_parsing_box_index_words(box, *x);
-	*x = *x + 1;
-}
-
 /*rest_get_ind_beginning_words
 *
 *   It's almost the same function as rest_numof_words.
@@ -80,8 +66,7 @@ void	rest_get_ind_beginning_words(t_box **box)
 	int	keep_len;
 	int	x;
 
-	(*box)->index_beginning_words_rest = malloc(sizeof(int)
-			* (*box)->nb_of_words_rest);
+	(*box)->index_beginning_words_rest = malloc(sizeof(int) * (*box)->nb_of_words_rest);
 	len = ft_strlen((*box)->input_substr);
 	keep_len = len;
 	i = 0;
@@ -91,13 +76,18 @@ void	rest_get_ind_beginning_words(t_box **box)
 		if ((*box)->what_to_take[i] == 'Y')
 		{
 			if (possible_cases(box, i))
-				rest_get_ind_beginning_words_2(box, &x, i);
+			{
+				(*box)->index_beginning_words_rest[x] = i;
+				printf("                      index_beginning_words_rest[%d] = %d\n", x, (*box)->index_beginning_words_rest[x]);
+				x++;
+			}
 			while (possible_cases(box, i) && i < keep_len)
 				i++;
 		}
 		if (i == keep_len - 1 || i == keep_len)
 			break ;
-		update_variables_2(&i, &len);
+		len--;
+		i++;
 	}
 }
 
@@ -130,4 +120,55 @@ int	possible_cases(t_box **box, int index)
 		&& !ft_isspace((*box)->input_substr[index]))
 		return (1);
 	return (0);
+}
+
+/*Returns:
+*   1: Success, it's a redirección
+*   0: Failure, it's not a redirección
+*/
+int	is_red(t_box **box, int index)
+{
+	if (((*box)->input_substr[index] == '<'
+			|| (*box)->input_substr[index] == '>')
+		&& (*box)->dict_quotes[index] == 0)
+		return (1);
+	return (0);
+}
+
+/*cpy_1_word
+*
+*   Variables:
+*       nb_of_word: zenbagarren rest-eko hitza dan 
+				(posición en index_beginning_words_rest)
+*       start: index of beginning of word.
+*			Already precise. No need to go spaces++
+*/
+void	cpy_1_word(t_box **box, int nb_of_word)
+{
+	int	len;
+	int	start;
+	int	keep_start;
+	int	x;
+
+	start = (*box)->index_beginning_words_rest[nb_of_word];
+	keep_start = start;
+	len = 0;
+	while (possible_cases(box, start)
+		&& (start < (int)ft_strlen((*box)->input_substr))
+		&& !is_red(box, start))
+	{
+		start++;
+		len++;
+	}
+	(*box)->rest_info_potential_cmd[nb_of_word] = malloc(sizeof(char) * (len + 1));
+	(*box)->rest_info_potential_cmd[nb_of_word][len] = '\0';
+	x = 0;
+	while (len > 0)
+	{
+		(*box)->rest_info_potential_cmd[nb_of_word][x] = (*box)->input_substr[keep_start];
+		len--;
+		x++;
+		keep_start++;
+	}
+	printf("                      rest_info_potential_cmd[%d] = ["MAGENTA"%s"RESET_COLOR"]\n", nb_of_word, (*box)->rest_info_potential_cmd[nb_of_word]);
 }

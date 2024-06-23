@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:53:21 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 15:31:05 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/18 21:58:38 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,6 @@ void	mark_quotes(t_box **box)
 		i++;
 		len_substr--;
 	}
-}
-
-/*
-*	Returns:
-*		0: makes is_empty_str_first_cmd return 0
-*		-1: makes is_empty_str_first_cmd return -1
-*		1: does NOT make is_empty_str_first_cmd return anything
-*/
-int	is_empty_str_first_cmd_2(t_box **box, int keep_len_substr, int *i)
-{
-	if ((*box)->what_to_take[*i] == 'Q')
-	{
-		if ((*i + 1) < keep_len_substr
-			&& (*box)->what_to_take[*i + 1] == 'Q')
-			return (-1);
-	}
-	else if ((*box)->what_to_take[*i] == 'Y'
-		&& !ft_isspace((*box)->input_substr[*i]))
-		return (0);
-	*i = *i + 1;
-	return (1);
 }
 
 /*is_empty_str_first_cmd
@@ -73,7 +52,6 @@ int	is_empty_str_first_cmd(t_box **box)
 	int	len_substr;
 	int	keep_len_substr;
 	int	i;
-	int	result;
 
 	len_substr = ft_strlen((*box)->input_substr);
 	keep_len_substr = ft_strlen((*box)->input_substr);
@@ -86,9 +64,16 @@ int	is_empty_str_first_cmd(t_box **box)
 		while (i < keep_len_substr && ((*box)->what_to_take[i] == 'Y'
 				|| (*box)->what_to_take[i] == 'Q'))
 		{
-			result = is_empty_str_first_cmd_2(box, keep_len_substr, &i);
-			if (result == 0 || result == -1)
-				return (result);
+			if ((*box)->what_to_take[i] == 'Q')
+			{
+				if ((i + 1) < keep_len_substr
+					&& (*box)->what_to_take[i + 1] == 'Q')
+					return (-1);
+			}
+			else if ((*box)->what_to_take[i] == 'Y'
+				&& !ft_isspace((*box)->input_substr[i]))
+				return (0);
+			i++;
 		}
 		i++;
 		len_substr--;
@@ -113,9 +98,10 @@ int	is_empty_str_first_cmd(t_box **box)
 */
 int	ft_get_what_to_take(t_box **box)
 {
+	int	len;
+	int	i;
 
-	(*box)->what_to_take = malloc(sizeof(char)
-			* (ft_strlen((*box)->input_substr) + 1));
+	(*box)->what_to_take = malloc(sizeof(char) * (ft_strlen((*box)->input_substr) + 1));
 	(*box)->what_to_take[ft_strlen((*box)->input_substr)] = '\0';
 	init_what_to_take(box);
 	mark_redir(box);
@@ -126,19 +112,15 @@ int	ft_get_what_to_take(t_box **box)
 		ft_puterror("Command '' not found\n");
 		return (-1);
 	}
-	put_parsing_box_what_to_take(box);
-	return (0);
-}
-
-/*Returns:
-*   1: Success, it's a redirección
-*   0: Failure, it's not a redirección
-*/
-int	is_red(t_box **box, int index)
-{
-	if (((*box)->input_substr[index] == '<'
-			|| (*box)->input_substr[index] == '>')
-		&& (*box)->dict_quotes[index] == 0)
-		return (1);
+	//Print result of_what_to_take:
+	len = ft_strlen((*box)->input_substr);
+	i = 0;
+	printf("     what_to_take: len = %d\n", len);
+	while (len > 0)
+	{
+		printf("               what_to_take[%d] = %c\n", i, (*box)->what_to_take[i]);
+		len--;
+		i++;
+	}
 	return (0);
 }

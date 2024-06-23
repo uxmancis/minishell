@@ -87,4 +87,5 @@ void	ft_import_envp(t_prompt *data, char **envp)
 		}
 	}
 	ft_export_all(data->vars);
+	// printf("Imported envp correctly\n");
 }
