@@ -59,9 +59,11 @@ void	handle_eof(void)
 int	ft_begin(t_prompt *data)
 {
 	ft_init_input(data);
-	if (!(data->prompt = ft_put_name_system(data)))
+	data->prompt = ft_put_name_system(data);
+	if (!data->prompt)
 		free(data->prompt);
-	if (!(data->input = readline(data->prompt)))
+	data->input = readline(data->prompt);
+	if (!data->input)
 		handle_eof();
 	if (data->input && ft_strlen(data->input) > 0)
 	{
@@ -83,9 +85,10 @@ int	main(int argc, char **argv, char **envp)
 	t_prompt	*data;
 
 	(void)argv;
+	data = ft_init_data(envp);
 	if (argc != 1)
 		perror("Error: No arguments are allowed.\n");
-	if (!(data = ft_init_data(envp)))
+	if (!data)
 		perror("Error: Memory allocation failed.\n");
 	ft_print_welcome();
 	rl_initialize();

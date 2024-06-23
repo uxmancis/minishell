@@ -6,11 +6,29 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:26:26 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 12:30:40 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:38:43 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/*get_rest
+*
+*   Returns:
+*       -1: Error
+*       0: Success
+*
+*/
+int	get_rest(t_box **box, t_prompt **prompt)
+{
+	if (ft_heredocs(box, HEREDOC) == -1 || ft_infiles(box, INFILE) == -1
+		|| ft_outfile_append(box, OUTFILE_APPEND) == -1
+		|| ft_outfile_strong(box, OUTFILE_STRONG) == -1)
+		return (-1);
+	if (ft_cmd_args(box, prompt) == -1)
+		return (-1);
+	return (0);
+}
 
 /*
 *   Generates boxes based on nb_of_substr indicated in prompt

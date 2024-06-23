@@ -7,7 +7,10 @@ OBJ_DIR		=	objs/
 
 SRC 		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_FILES	=	0_0_main.c \
-				000_debug_mode.c \
+				000_debug_mode_1.c \
+				000_debug_mode_2.c \
+				000_debug_mode_3.c \
+				000_debug_mode_4.c \
 				00_env_data.c \
 				00_init_env.c \
 				00_minishell.c \
@@ -20,6 +23,8 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_1_init_3.c \
 				02_boxes_2_redir_1.c \
 				02_boxes_2_redir_2.c \
+				02_boxes_2_redir_3.c \
+				02_boxes_2_redir_4.c \
 				02_boxes_3_hrdc_1.c \
 				02_boxes_3_hrdc_2.c \
 				02_boxes_4_infile.c \
@@ -39,7 +44,8 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_7_dollar_8.c \
 				02_boxes_7_dollar_9.c \
 				02_boxes_7_dollar_10.c \
-				02_boxes_red_utils.c \
+				02_boxes_red_utils_1.c \
+				02_boxes_red_utils_2.c \
 				02_boxes_utils_nav.c \
 				02_boxes_word_utils_hrdc.c \
 				02_boxes_word_utils_infile.c \

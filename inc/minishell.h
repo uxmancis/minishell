@@ -196,6 +196,23 @@ void	put_parsing_input_pipes_2(t_prompt **prompt);
 void	put_parsing_input_pipes_3(t_prompt **prompt);
 void	put_parsing_input_substr(t_prompt **prompt);
 
+//000_debug_mode_2.c
+void	put_parsing_box_beginning(int substr_id, t_prompt *prompt, t_box **box);
+void	put_parsing_box_dict_quotes(t_box **box);
+void	put_parsing_box_numof_redir(int counter);
+void	put_parsing_box_numof_redir_2(void);
+void	put_parsing_box_numof_redir_3(t_box **box, int index_of_arr);
+
+//000_debug_mode_3.c
+void	put_parsing_box_numof_redir_4(t_box **box, int index_of_arr);
+void	put_parsing_box_words(t_box **b, t_red_type r, int	*y_n);
+void	put_parsing_box_words_hrdc(t_box **box, t_red_type red_type);
+void	put_parsing_box_words_inf(t_box **box, t_red_type red_type);
+void	put_parsing_box_words_outf_strong(t_box **box, t_red_type red_type);
+
+//000_debug_mode_4.c
+void	put_parsing_box_words_outf_app(t_box **box, t_red_type red_type);
+
 // 00_minishell.c
 //  void ft_begin(int argc, char **argv, char **env);
 int ft_get_substr(t_prompt *prompt);
@@ -249,15 +266,38 @@ void ft_free_char(char **words, int nb_of_words);
 void ft_free_int(int **words, int nb_of_words);
 void ft_boxes_initialize(t_box **box);
 
-// 02_boxes_redir.c
-int get_redirections(t_box **box);
-int ft_fill_red_info(t_box **box);
-int set_red_index_type(t_box **box);
-int set_red_greater_than(t_box **box, int *i, int index_of_arr);
-int set_red_less_than(t_box **box, int *i, int index_of_arr);
-int ft_get_numof_redir(t_box **box);
-char *ft_enum_to_str(int enumerator);
-int check_if_three_redirs(t_box **box, int i);
+// 02_boxes_redir_1.c
+char	*ft_enum_to_str(int enumerator);
+int	check_if_three_redirs(t_box **box, int i);
+int	ft_fill_red_info(t_box **box);
+int	get_redirections(t_box **box);
+
+//02_boxes_redir_2.c
+void	plusplus_counter_i(int *counter, int *i);
+void	plusplus_2(int *counter, int *i);
+void	plusminus(int *len, int *i);
+int	ft_get_numof_redir_part_2(t_box **box, int *i, int *counter);
+int	ft_get_numof_redir(t_box **box);
+
+//02_boxes_redir_3.c
+int	set_red_less_than_2(t_box **box, int *i, int index_of_arr);
+int	set_red_less_than_3(t_box **box, int *i, int index_of_arr);
+int	set_red_less_than(t_box **box, int *i, int index_of_arr);
+int set_red_greater_than_2(t_box **box, int *i, int index_of_arr);
+int set_red_greater_than_3(t_box **box, int *i, int index_of_arr);
+
+//02_boxes_redir_4.c
+int	set_red_index_type(t_box **box);
+int	set_red_greater_than(t_box **box, int *i, int index_of_arr);
+
+// int get_redirections(t_box **box);
+// int ft_fill_red_info(t_box **box);
+// int set_red_index_type(t_box **box);
+// int set_red_greater_than(t_box **box, int *i, int index_of_arr);
+// int set_red_less_than(t_box **box, int *i, int index_of_arr);
+// int ft_get_numof_redir(t_box **box);
+// char *ft_enum_to_str(int enumerator);
+// int check_if_three_redirs(t_box **box, int i);
 
 // 02_boxes_rest.c
 int get_rest(t_box **box, t_prompt **prompt);
@@ -279,6 +319,8 @@ void get_delimiters(int *arr_ind_heredoc, t_box **box);
 void get_word(int start, int end, t_box **box, int heredoc_nb);
 
 // 02_boxes_red_utils.c
+int	put_error_red_type(enum e_red_type red_type);
+void	is_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type);
 int get_nb_of_red_type(t_box **box, t_red_type red_type);
 void get_specif_index_red(int **arr_ind_red_type, t_box **box,
 						  t_red_type red_type);

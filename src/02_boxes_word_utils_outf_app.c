@@ -45,16 +45,17 @@ void	get_word_outf_app_1(t_box **box, int *arr_ind_red_type)
 			break ;
 		total_red_nb_x++;
 	}
-	tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_APPEND);
-	red_type_nb_x = 0;
-	while (tmp_nb_of_red_type > 0)
-	{
-		printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", red_type_nb_x, (*box)->words_outfile_append[red_type_nb_x]);
-		tmp_nb_of_red_type--;
-		red_type_nb_x++;
-	}
-	printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_outfile_append"RESET_COLOR" generated✅\n");
-	printf("     -----------------------------------------------\n\n");
+	put_parsing_box_words_outf_app(box, OUTFILE_APPEND);
+	// tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_APPEND);
+	// red_type_nb_x = 0;
+	// while (tmp_nb_of_red_type > 0)
+	// {
+	// 	printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", red_type_nb_x, (*box)->words_outfile_append[red_type_nb_x]);
+	// 	tmp_nb_of_red_type--;
+	// 	red_type_nb_x++;
+	// }
+	// printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_outfile_append"RESET_COLOR" generated✅\n");
+	// printf("     -----------------------------------------------\n\n");
 }
 
 
