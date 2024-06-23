@@ -29,7 +29,7 @@ void	ft_init_input(t_prompt *data)
 
 void	ft_free_prompt(t_prompt *data)
 {
-	t_vars  *tmp;
+	t_vars *tmp;
 	int i;
 
 	i = 0;
@@ -63,7 +63,7 @@ void	ft_free_prompt(t_prompt *data)
 
 void	ft_free_input(t_prompt *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	free(data->input);
@@ -84,6 +84,8 @@ void	ft_free_input(t_prompt *data)
 			data->arr_boxes[i] = NULL;
 			i++;
 		}
+	free(data->arr_boxes);
+	data->arr_boxes = NULL;
 }
 
 /*

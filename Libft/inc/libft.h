@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 20:04:35 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/17 22:02:47 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:31:18 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
-int     ft_isspace(int c);
+int		ft_isspace(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 size_t	ft_strlen(const char *str);
@@ -45,8 +45,8 @@ int		ft_atoi(const char *str);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int	    ft_putchar_fd(int c, int fd);
-int	    ft_putstr_fd(char *str, int fd);
+int		ft_putchar_fd(int c, int fd);
+int		ft_putstr_fd(char *str, int fd);
 
 // void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);

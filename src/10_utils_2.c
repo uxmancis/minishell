@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:59:22 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 16:23:21 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:52:28 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ void	ft_print_welcome(void)
 	ft_putstr_fd(DEF_COLOR, 1);
 }
 
+void	ft_put_name_system_2(char *sysname, char *user_name, char *pwd)
+{
+	ft_strcat(sysname, "@");
+	ft_strcat(sysname, CYAN);
+	ft_strcat(sysname, user_name);
+	ft_strcat(sysname, WHITE);
+	ft_strcat(sysname, " ➜ ");
+	ft_strcat(sysname, GREEN);
+	ft_strcat(sysname, pwd);
+	ft_strcat(sysname, WHITE);
+	ft_strcat(sysname, " $ " GREEN);
+	ft_strcat(sysname, RESET_COLOR);
+}
+
 char	*ft_put_name_system(t_prompt *data)
 {
 	char	*sysname;
@@ -44,16 +58,7 @@ char	*ft_put_name_system(t_prompt *data)
 	if (!sysname)
 		return (NULL);
 	ft_strcpyy_2(sysname, RED);
-	ft_strcat(sysname, "@");
-	ft_strcat(sysname, CYAN);
-	ft_strcat(sysname, user_name);
-	ft_strcat(sysname, WHITE);
-	ft_strcat(sysname, " ➜ ");
-	ft_strcat(sysname, GREEN);
-	ft_strcat(sysname, pwd);
-	ft_strcat(sysname, WHITE);
-	ft_strcat(sysname, " $ " GREEN);
-	ft_strcat(sysname, RESET_COLOR);
+	ft_put_name_system_2(sysname, user_name, pwd);
 	data->prompt = sysname;
 	return (sysname);
 }
@@ -75,9 +80,4 @@ int	ft_ischarset(char c, const char *set)
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
-}
-
-void	ft_putstr(char *str)
-{
-	printf("%s", str);
 }

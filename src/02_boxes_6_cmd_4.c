@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:53:21 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/18 21:58:38 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:03:26 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	is_empty_str_first_cmd(t_box **box)
 */
 int	ft_get_what_to_take(t_box **box)
 {
-
 	(*box)->what_to_take = malloc(sizeof(char)
 			* (ft_strlen((*box)->input_substr) + 1));
 	(*box)->what_to_take[ft_strlen((*box)->input_substr)] = '\0';

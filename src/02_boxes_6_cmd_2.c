@@ -12,28 +12,6 @@
 
 #include "../inc/minishell.h"
 
-/*  init_what_to_take
-*
-*   Initializes char *what_to_take variable (box) with
-*   'Y' value.
-*
-*   Y = YES to take as comand/argument.
-*/
-void	init_what_to_take(t_box **box)
-{
-	int	len;
-	int	i;
-
-	i = 0;
-	len = ft_strlen((*box)->input_substr);
-	while (len > 0)
-	{
-		(*box)->what_to_take[i] = 'Y';
-		len--;
-		i++;
-	}
-}
-
 /*mark_redir
 *
 *	tmp_nb_of_redir = len dict_red_index_type
@@ -84,6 +62,30 @@ void	mark_word_2(int start, int end, t_box **box)
 	}
 }
 
+void	mark_word_3(t_box **box, int i)
+{
+	if ((*box)->dict_red_index_type[i][1] == HEREDOC
+		|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
+		mark_word_2((*box)->dict_red_index_type[i][0] + 2,
+			ft_strlen((*box)->input_substr) - 1, box);
+	else if (((*box)->dict_red_index_type[i][1] == INFILE
+		|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
+		mark_word_2((*box)->dict_red_index_type[i][0] + 1,
+			ft_strlen((*box)->input_substr) - 1, box);
+}
+
+void	mark_word_4(t_box **box, int i)
+{
+	if ((*box)->dict_red_index_type[i][1] == HEREDOC
+				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
+		mark_word_2((*box)->dict_red_index_type[i][0] + 2,
+			(*box)->dict_red_index_type[i + 1][0] - 1, box);
+	else if (((*box)->dict_red_index_type[i][1] == INFILE
+		|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
+		mark_word_2((*box)->dict_red_index_type[i][0] + 1,
+			(*box)->dict_red_index_type[i + 1][0] - 1, box);
+}
+
 /*mark_word
 *
 *	· HEREDOC (<<) and OUTFILE_APPEND (>>): start: + 2
@@ -113,43 +115,12 @@ void	mark_word(t_box **box)
 	{
 		if (is_last_redir_2(box, i))
 		{
-			if ((*box)->dict_red_index_type[i][1] == HEREDOC
-				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
-				mark_word_2((*box)->dict_red_index_type[i][0] + 2,
-					ft_strlen((*box)->input_substr) - 1, box);
-			else if (((*box)->dict_red_index_type[i][1] == INFILE
-				|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
-				mark_word_2((*box)->dict_red_index_type[i][0] + 1,
-					ft_strlen((*box)->input_substr) - 1, box);
+			mark_word_3(box, i);
 			break ;
 		}
 		else
-		{
-			if ((*box)->dict_red_index_type[i][1] == HEREDOC
-				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
-				mark_word_2((*box)->dict_red_index_type[i][0] + 2,
-					(*box)->dict_red_index_type[i + 1][0] - 1, box);
-			else if (((*box)->dict_red_index_type[i][1] == INFILE
-				|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
-				mark_word_2((*box)->dict_red_index_type[i][0] + 1,
-					(*box)->dict_red_index_type[i + 1][0] - 1, box);   
-		}
+			mark_word_4(box, i);
 		tmp_nb_of_redir--;
 		i++;
 	}
-}
-
-/*is_last_redir_2
-*
-*   Compares nb_of_redirs with nb_redir_x.
-*
-*   Returns:
-*       1: YES is last redirección
-*       0: NO still more redirecciones in input_substr
-*/
-int	is_last_redir_2(t_box **box, int nb_redir_x)
-{
-	if (nb_redir_x + 1 == (*box)->nb_of_redir)
-		return (1);
-	return (0);
 }

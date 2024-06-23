@@ -77,31 +77,14 @@ void	get_single_str(t_prompt *prompt, t_box **box)
 
 void	ft_free_tab(char **words)
 {
-    int	x;
-
-    if (words != NULL)
-    {
-        x = 0;
-        while (words[x] != NULL)
-        {
-            free(words[x]);
-            x++;
-        }
-        free (words);
-        words = NULL;
-    }
-}
-
-void	ft_free_char(char **words, int nb_of_words)
-{
 	int	x;
 
 	if (words != NULL)
 	{
 		x = 0;
-		while (x < nb_of_words)
+		while (words[x] != NULL)
 		{
-            free(words[x]);
+			free(words[x]);
 			x++;
 		}
 		free (words);

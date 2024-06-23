@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:30:36 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 15:42:05 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:02:45 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,42 @@ void	cpy_1_word(t_box **box, int nb_of_word)
 		printf("[%d] = ["MAGENTA, nb_of_word);
 		printf("%s"RESET_COLOR"]\n",
 			(*box)->rest_info_potential_cmd[nb_of_word]);
+	}
+}
+
+/*is_last_redir_2
+*
+*   Compares nb_of_redirs with nb_redir_x.
+*
+*   Returns:
+*       1: YES is last redirección
+*       0: NO still more redirecciones in input_substr
+*/
+int	is_last_redir_2(t_box **box, int nb_redir_x)
+{
+	if (nb_redir_x + 1 == (*box)->nb_of_redir)
+		return (1);
+	return (0);
+}
+
+/*  init_what_to_take
+*
+*   Initializes char *what_to_take variable (box) with
+*   'Y' value.
+*
+*   Y = YES to take as comand/argument.
+*/
+void	init_what_to_take(t_box **box)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = ft_strlen((*box)->input_substr);
+	while (len > 0)
+	{
+		(*box)->what_to_take[i] = 'Y';
+		len--;
+		i++;
 	}
 }

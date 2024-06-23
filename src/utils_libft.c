@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_libft.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 20:32:39 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/22 15:18:05 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:49:53 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while ((s1[i] != '\0' || s2[i] != '\0'))
 	{
 		if (s1[i] == s2[i])
-		{	
+		{
 			i++;
 		}
 		else
@@ -79,55 +79,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (s2);
 }
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' || c == '\v')
-		return (1);
-    return (0);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void			*dst;
-	unsigned char	*temp;
-	size_t			total;
-
-	// i = 0;
-	total = size * count;
-	dst = malloc (total);
-	if (!dst)
-		return (0);
-	temp = dst;
-	while (total > 0)
-	{
-		*temp = '\0';
-		temp++;
-		total--;
-	}
-	return (dst);
-}
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if ((dst == NULL) && (src == NULL))
-		return (0);
-	while (i < n)
-	{
-		*(char *)(dst + i) = *(char *) src;
-		i++;
-		src++;
-	}
-	return (dst);
-}
-
-int	ft_isalnum(int c)
-{
-	if ((c >= 'a' && c <= 'z') \
-			|| (c >= 'A' && c <= 'Z') \
-			|| (c >= '0' && c <= '9'))
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\r' || c == '\f' || c == '\v')
 		return (1);
 	return (0);
 }

@@ -48,7 +48,6 @@ int	rest_numof_words(t_box **box)
 	return (counter);
 }
 
-
 void	update_variables_2(int *i, int *len)
 {
 	*len = *len - 1;

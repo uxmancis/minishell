@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:23:08 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/19 02:02:30 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:36:16 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
-
 
 static size_t	get_tab_size(const char *s, char c)
 {
@@ -21,10 +20,10 @@ static size_t	get_tab_size(const char *s, char c)
 	while (*s && s++)
 	{
 		while (*s != c && *s)
-		s++;
+			s++;
 		cnt++;
 		while (*s == c && *s)
-		s++;
+			s++;
 	}
 	return (cnt);
 }
@@ -39,7 +38,7 @@ static int	fill_tab(char const *s, char c, char **tab)
 	{
 		len = 0;
 		while (s[i] != c && s[i] && ++s)
-		len++;
+			len++;
 		tab[i] = malloc(len + 1);
 		if (!tab[i])
 		{
@@ -50,7 +49,7 @@ static int	fill_tab(char const *s, char c, char **tab)
 		}
 		ft_strlcpy(tab[i++], s - len, len + 1);
 		while (s[i] == c && s[i])
-		i++;
+			i++;
 	}
 	tab[i] = 0;
 	return (0);
