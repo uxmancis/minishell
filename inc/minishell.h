@@ -80,18 +80,22 @@ struct s_box
 	// About redirecciones:
 	int nb_of_heredocs;
 	char **words_hrdc; // delimiter words
+	char **words_hrdc_tmp; // delimiter words
 	int is_infile;
 	// YES[1]/NO[0] is there any infile '<' along dict_red_index_type
 	int nb_of_infile;	 // How many infile
 	char **words_infile; // infile filenames
+	char **words_infile_tmp; // infile filenames
 	int is_outfile_append;
 	// YES[1]/NO[0] is there any outfile_append '>>' along dict_red_index_type
 	int nb_of_outfile_append;	 // How many outfile append
 	char **words_outfile_append; // outfile filenames
+	char **words_outfile_append_tmp; // outfile filenames
 	int is_outfile_strong;
 	// YES[1]/NO[0] is there any outfile_append '>' along dict_red_index_type
 	int nb_of_outfile_strong;	 // How many outfile strong
 	char **words_outfile_strong; // outfile filenames
+	char **words_outfile_strong_tmp; // outfile filenames
 
 	// About command, flags and argumentos:
 	char *what_to_take;
@@ -160,6 +164,7 @@ struct s_prompt
 	int tmp_in;
 	int tmp_out;
 	// ----------------------------------------
+	t_box	**arr_boxes;
 };
 
 /*
@@ -188,6 +193,8 @@ typedef struct s_word_and_dictquotes
 //  void ft_begin(t_prompt *data);
 
 // 00_minishell.c
+void ft_free_input(t_prompt *data);
+void ft_free_prompt(t_prompt *data);
 //  void ft_begin(int argc, char **argv, char **env);
 int ft_get_substr(t_prompt *prompt);
 // 00_env_data.c
@@ -235,6 +242,7 @@ void ft_strcpy(char *str_src, char **str_dst);
 
 // 02_boxes_init.c
 void ft_free_char(char **words, int nb_of_words);
+void ft_free_tab(char **words);
 
 void ft_free_int(int **words, int nb_of_words);
 void ft_boxes_initialize(t_box **box);
@@ -451,6 +459,7 @@ int	ft_env_builtin(t_prompt **prompt, char **cmd);
 int ft_cd_builtin(t_prompt **data, char **cmd);
 int ft_check_dir_permission(char *path);
 void *ft_free_null(void *ptr);
+void ft_free_envp(t_prompt *data);
 char *ft_strjoin_arr(char **arr, char *del, int length);
 char *ft_route_parser(char *route);
 void ft_set_pwd(t_prompt **data, char *path);
@@ -468,7 +477,7 @@ void ft_signal_handler(void);
 void ft_signals(int signum);
 
 // 09_exit.c
-void ft_exit_builtin(t_box *box, t_prompt *prompt, int status);
+void ft_exit_builtin(t_prompt *prompt, int status);
 void ft_free_custom_envp(t_prompt *data);
 void ft_free_vars(t_prompt *data);
 void cleanup_command(char **cmd);
