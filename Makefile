@@ -78,7 +78,7 @@ SRC_FILES	=	0_0_main.c \
 				
 OBJS_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-CC			= gcc #-fsanitize=address -g3
+CC			= gcc -g3 #-fsanitize=address
 FLAGS		= -Wall -Wextra -Werror
 # LIBS		=  -lreadline
 RM			= rm -rf

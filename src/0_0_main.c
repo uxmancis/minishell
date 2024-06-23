@@ -25,6 +25,7 @@ void	ft_init_input(t_prompt *data)
 	data->nb_of_substr = 0;
 	data->total_substr_input = NULL;
 	data->arr_index_pipes = NULL;
+    data->arr_boxes = NULL;
 }
 
 void	ft_free_prompt(t_prompt *data)
@@ -61,6 +62,9 @@ void	ft_free_prompt(t_prompt *data)
 
 void	ft_free_input(t_prompt *data)
 {
+    int i;
+
+    i = 0;
     free(data->input);
     data->input = NULL;
     free(data->prompt);
@@ -71,6 +75,14 @@ void	ft_free_input(t_prompt *data)
     data->total_substr_input = NULL;
     free(data->arr_index_pipes);
     data->arr_index_pipes = NULL;
+    if (data->arr_boxes != NULL)
+        while (data->arr_boxes[i] != NULL)
+        {
+            ft_free_box(data->arr_boxes[i]);
+            free(data->arr_boxes[i]);
+            data->arr_boxes[i] = NULL;
+            i++;
+        }
 }
 
 /*

@@ -17,11 +17,9 @@ int process_infile(t_box **box, int index_red)
 	if (handle_input_infile(box, index_red) == -1)
 		return -1;
 
-	free((*box)->words_infile[index_red]);
-	(*box)->words_infile[index_red] = NULL;
+	free(*(*box)->words_infile);
+	*(*box)->words_infile = NULL;
 	(*box)->words_infile++;
-
-
 	return 0;
 }
 int process_outfile_strong(t_box **box, int index_red)
@@ -29,24 +27,19 @@ int process_outfile_strong(t_box **box, int index_red)
 	if (handle_output_strong(box, index_red) == -1)
 		return -1;
 
-	free((*box)->words_outfile_strong[index_red]);
-	(*box)->words_outfile_strong[index_red] = NULL;
+	free(*(*box)->words_outfile_strong);
+    *(*box)->words_outfile_strong = NULL;
 	(*box)->words_outfile_strong++;
-
-
 	return 0;
 }
-int process_heredoc(t_box **box, int index_red)
+int process_heredoc(t_box **box)
 {
 	if (handle_heredoc(box) == -1)
 		return -1;
 
-	free((*box)->words_hrdc[index_red]);
-	(*box)->words_hrdc[index_red] = NULL;
+	free(*(*box)->words_hrdc);
+    *(*box)->words_hrdc = NULL;
 	(*box)->words_hrdc++;
-
-
-
 	return 0;
 }
 int process_outfile_append(t_box **box, int index_red)
@@ -54,8 +47,8 @@ int process_outfile_append(t_box **box, int index_red)
 	if (handle_output_append(box, index_red) == -1)
 		return -1;
 
-	free((*box)->words_outfile_append[index_red]);
-	(*box)->words_outfile_append[index_red] = NULL;
+	free(*(*box)->words_outfile_append);
+    *(*box)->words_outfile_append = NULL;
 	(*box)->words_outfile_append++;
 
 
@@ -95,7 +88,7 @@ int	handle_redirects(t_box **box)
 		}
 		else if (redir_type == HEREDOC)
 		{
-			if (process_heredoc(box, index_red) == -1)
+			if (process_heredoc(box) == -1)
 				return (-1);
 			if ((*box)->nb_of_heredocs > 1)
 			{

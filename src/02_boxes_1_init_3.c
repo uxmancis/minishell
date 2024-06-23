@@ -44,7 +44,7 @@ int	ft_gen_boxes(t_prompt *prompt)
     prompt->pid = 0;
     prompt->pipefd[0] = 0;
     prompt->pipefd[1] = 1;
-	prompt->arr_boxes = (t_box**) malloc((tmp_nb_boxes + 1) * sizeof(t_box *));
+    prompt->arr_boxes = ft_calloc(tmp_nb_boxes + 1, sizeof(t_box *));
     prompt->arr_boxes[tmp_nb_boxes] = NULL;
 	while (i < tmp_nb_boxes)
 	{
