@@ -48,6 +48,20 @@ int	rest_numof_words(t_box **box)
 	return (counter);
 }
 
+
+void	update_variables_2(int *i, int *len)
+{
+	*len = *len - 1;
+	*i = *i + 1;
+}
+
+void	rest_get_ind_beginning_words_2(t_box **box, int *x, int i)
+{
+	(*box)->index_beginning_words_rest[*x] = i;
+	put_parsing_box_index_words(box, *x);
+	*x = *x + 1;
+}
+
 /*rest_get_ind_beginning_words
 *
 *   It's almost the same function as rest_numof_words.
@@ -66,7 +80,8 @@ void	rest_get_ind_beginning_words(t_box **box)
 	int	keep_len;
 	int	x;
 
-	(*box)->index_beginning_words_rest = malloc(sizeof(int) * (*box)->nb_of_words_rest);
+	(*box)->index_beginning_words_rest = malloc(sizeof(int)
+			* (*box)->nb_of_words_rest);
 	len = ft_strlen((*box)->input_substr);
 	keep_len = len;
 	i = 0;
@@ -76,18 +91,13 @@ void	rest_get_ind_beginning_words(t_box **box)
 		if ((*box)->what_to_take[i] == 'Y')
 		{
 			if (possible_cases(box, i))
-			{
-				(*box)->index_beginning_words_rest[x] = i;
-				//printf("                      index_beginning_words_rest[%d] = %d\n", x, (*box)->index_beginning_words_rest[x]);
-				x++;
-			}
+				rest_get_ind_beginning_words_2(box, &x, i);
 			while (possible_cases(box, i) && i < keep_len)
 				i++;
 		}
 		if (i == keep_len - 1 || i == keep_len)
 			break ;
-		len--;
-		i++;
+		update_variables_2(&i, &len);
 	}
 }
 

@@ -22,7 +22,12 @@ int	ft_outfile_strong(t_box **box, t_red_type red_type)
 		return (0);
 	(*box)->is_outfile_strong = 1;
 	(*box)->nb_of_outfile_strong = ft_get_numof_red_type(box, red_type);
-	//printf("     02_boxes_5_outfile_strong.c - "BLUE"ft_outfile_strong"RESET_COLOR"| nb_of_outfile_strong = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_outfile_strong);
+	if (DEBUG_MODE != 0)
+	{
+		printf("     02_boxes_5_outfile_strong.c - "BLUE"ft_outfile_strong");
+		printf(RESET_COLOR"| nb_of_outfile_strong = "BLUE"%d\n"RESET_COLOR,
+			(*box)->nb_of_outfile_strong);
+	}
 	if (ft_check_first_word(box, red_type) == -1)
 		return (-1);
 	return (0);

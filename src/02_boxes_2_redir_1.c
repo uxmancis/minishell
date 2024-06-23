@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_boxes_2_redir.c                                 :+:      :+:    :+:   */
+/*   02_boxes_2_redir_1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/19 15:10:51 by uxmancis         ###   ########.fr       */
+/*   Created: 2024/06/23 15:50:15 by uxmancis          #+#    #+#             */
+/*   Updated: 2024/06/23 15:50:15 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,12 @@ int	ft_fill_red_info(t_box **box)
 	}
 	if (set_red_index_type(box) == -1)
 		return (-1);
-	//printf("     02_boxes.c - ft_fill_red_info|" BLUE " dict_red_index_type" RESET_COLOR " generated✅\n");
-    return (0);
+	if (DEBUG_MODE != 0)
+	{
+		printf("     02_boxes.c - ft_fill_red_info|" BLUE);
+		printf(" dict_red_index_type" RESET_COLOR " generated✅\n");
+	}
+	return (0);
 }
 
 /*ft_is_redir
@@ -85,13 +89,17 @@ int	ft_fill_red_info(t_box **box)
  */
 int	get_redirections(t_box **box)
 {
-	if (ft_get_numof_redir(box) == -1)
+	int	result;
+
+	result = ft_get_numof_redir(box);
+	if (result == -1)
 		return (-1);
 	else
-		(*box)->nb_of_redir = ft_get_numof_redir(box);
+		(*box)->nb_of_redir = result;
 	if ((*box)->nb_of_redir == 0)
 		return (0);
-	(*box)->dict_red_index_type = malloc(sizeof(char *) * ((*box)->nb_of_redir));
+	(*box)->dict_red_index_type = malloc(sizeof(char *)
+			* ((*box)->nb_of_redir));
 	if (ft_fill_red_info(box) == -1)
 		return (-1);
 	return (1);

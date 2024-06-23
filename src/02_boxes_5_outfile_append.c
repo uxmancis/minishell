@@ -72,7 +72,12 @@ int	ft_outfile_append(t_box **box, t_red_type red_type)
 		return (0);
 	(*box)->is_outfile_append = 1;
 	(*box)->nb_of_outfile_append = ft_get_numof_red_type(box, red_type);
-	//printf("     02_boxes_5_outfile_append.c - "BLUE"ft_outfile_append"RESET_COLOR"| nb_of_outfile_append = "BLUE"%d\n"RESET_COLOR, (*box)->nb_of_outfile_append);
+	if (DEBUG_MODE != 0)
+	{
+		printf("     02_boxes_5_outfile_append.c - "BLUE"ft_outfile_append");
+		printf(RESET_COLOR"| nb_of_outfile_append = "BLUE"%d\n"RESET_COLOR,
+			(*box)->nb_of_outfile_append);
+	}
 	if (ft_check_first_word(box, red_type) == -1)
 		return (-1);
 	return (0);

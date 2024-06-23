@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 11:16:54 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/07 18:32:12 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 16:26:35 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_nodivisions(int n)
 
 	i = 0;
 	while (1)
-	{	
+	{
 		n = n / 10;
 		i++;
 		if (n == 0)

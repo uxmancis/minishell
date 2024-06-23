@@ -53,7 +53,6 @@ void	generate_substr(t_prompt *prompt, int substr_id, t_box **box)
 int	get_dict_quotes(t_box **box)
 {
 	int	len;
-	int	i;
 
 	len = ft_strlen((*box)->input_substr);
 	(*box)->dict_quotes = malloc(sizeof(int) * len);
@@ -62,13 +61,7 @@ int	get_dict_quotes(t_box **box)
 		ft_puterror("syntax error: unclosed quotes\n");
 		return (-1);
 	}
-	i = 0;
-	while (len > 0)
-	{
-		//printf("               dict_substr[%d] = %d\n", i, (*box)->dict_quotes[i]);
-		len--;
-		i++;
-	}
+	put_parsing_box_dict_quotes(box);
 	return (0);
 }
 
@@ -105,19 +98,12 @@ void	ft_free_char(char **words, int nb_of_words)
 
 	if (words != NULL)
 	{
-		//printf(BLUE"nb_of_words = %d\n"RESET_COLOR, nb_of_words);
 		x = 0;
 		while (x < nb_of_words)
 		{
-			//printf(GREEN"hellowis, words[%d] = %s\n"RESET_COLOR, x, words[x]);
-			if (words[x])
-			{
-				free(words[x]);
-				words[x] = NULL;
-			}
+            free(words[x]);
 			x++;
 		}
-		//printf("\n\nPOINTER = %p\n\n", words);
 		free (words);
 		words = NULL;
 	}

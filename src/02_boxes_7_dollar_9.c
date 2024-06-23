@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:32:18 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/19 23:28:30 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:39:55 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,21 +152,21 @@ int	*generate_specif_dict_quotes(t_box **box, char *w, int nb_word_x, char flag)
 *	w = word_to_be_updated (short because of norminette: Line too long)
 */
 //void	get_each_word_updated(t_box **box, int nb_word_x, t_prompt **prompt)
-void	get_each_word_up(char **w, int nb_word_x, t_box **box, t_prompt **prompt)
+void	get_each_word_up(char **w, int nb_word_x,
+	t_box **box, t_prompt **prompt)
 {
 	int			len_word;
 	int			*tmp_dict_quotes_word;
 	t_x_y_word	x_y;
 
-	if (!*w)
-		return;
-
-	//printf("               Before: ["MAGENTA"%s"RESET_COLOR"]\n", *w);
+	if (DEBUG_MODE != 0)
+		printf("               Before: ["MAGENTA"%s"RESET_COLOR"]\n", *w);
 	x_y.index_x = nb_word_x;
 	x_y.index_y = 0;
 	tmp_dict_quotes_word = NULL;
 	len_word = ft_strlen(*w);
-	tmp_dict_quotes_word = generate_specif_dict_quotes(box, *w, nb_word_x, (*box)->flag_word_or_cmd);
+	tmp_dict_quotes_word = generate_specif_dict_quotes(box, *w,
+			nb_word_x, (*box)->flag_word_or_cmd);
 	while (1)
 	{
 		len_word = ft_strlen(*w);
@@ -176,6 +176,7 @@ void	get_each_word_up(char **w, int nb_word_x, t_box **box, t_prompt **prompt)
 			break ;
 		x_y.index_y++;
 	}
-	//printf("               After: ["YELLOW"%s"RESET_COLOR"]\n\n", *w);
+	if (DEBUG_MODE != 0)
+		printf("               After: ["YELLOW"%s"RESET_COLOR"]\n\n", *w);
 	free (tmp_dict_quotes_word);
 }

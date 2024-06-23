@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 18:14:18 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/07 18:18:20 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 16:32:35 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	*ft_calloc(size_t count, size_t size)
 	unsigned char	*temp;
 	size_t			total;
 
-	// i = 0;
 	total = size * count;
 	dst = malloc (total);
 	if (!dst)
@@ -32,6 +31,7 @@ void	*ft_calloc(size_t count, size_t size)
 	}
 	return (dst);
 }
+
 /*int main(void)
 {
 	size_t mem_size;

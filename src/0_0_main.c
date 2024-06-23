@@ -24,7 +24,6 @@ void	ft_init_input(t_prompt *data)
 	data->nb_of_substr = 0;
 	data->total_substr_input = NULL;
 	data->arr_index_pipes = NULL;
-	// data->vars = NULL;
 }
 
 void	ft_free_prompt(t_prompt *data)
@@ -77,22 +76,26 @@ void	ft_free_input(t_prompt *data)
  *   -1: Error, back to readline
  *           get_substr: -1 : Unclosed quotes
  *           ft_gen_boxes: -1: Unclosed quotes
+ *
+ * if (isatty(STDIN_FILENO)) // Modo interactivo
  */
-
-void handle_eof()
+void	handle_eof(void)
 {
-    if (isatty(STDIN_FILENO)) // Modo interactivo
-    {
-        write(STDOUT_FILENO, "exit\n", 5);
-        exit(0);
-    }
+	if (isatty(STDIN_FILENO))
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		exit(0);
+	}
 }
+
 int	ft_begin(t_prompt *data)
 {
 	ft_init_input(data);
-	if (!(data->prompt = ft_put_name_system(data)))
+	data->prompt = ft_put_name_system(data);
+	if (!data->prompt)
 		free(data->prompt);
-	if (!(data->input = readline(data->prompt)))
+	data->input = readline(data->prompt);
+	if (!data->input)
 		handle_eof();
 	if (data->input && ft_strlen(data->input) > 0)
 	{
@@ -111,18 +114,19 @@ int	ft_begin(t_prompt *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_prompt *data;
-	(void)argv;
+	t_prompt	*data;
 
-	if (argc != 1)
-		perror("Error: No arguments are allowed.\n");
-	if (!(data = ft_init_data(envp)))
+	(void)argv;
+    if (argc != 1)
+        perror("Error: No arguments are allowed.\n");
+	data = ft_init_data(envp);
+	if (!data)
 		perror("Error: Memory allocation failed.\n");
 	ft_print_welcome();
 	rl_initialize();
 	using_history();
 	ft_signal_handler();
-	while (1) {
-        ft_begin(data);
-    }
+	while (1)
+		ft_begin(data);
+	return (0);
 }
