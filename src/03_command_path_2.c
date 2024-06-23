@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:02:19 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/22 19:11:57 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 17:47:01 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ int	ft_run_command(t_box **box, t_prompt *data)
 	}
 	else
 		(*box)->cmd_path = determine_command_path(box, data);
-	if ((*box)->cmd_path == NULL || execute_command(box) == -1)
+	if (execute_command(box) == -1 || (*box)->cmd_path == NULL )
 		exit_code = -1;
 	cleanup_command((*box)->command);
 	if (exit_code == -1)
 	{
-		exit(127);
 		free((*box)->cmd_path);
+		exit(127);
 	}
 	return (exit_code);
 }

@@ -3,33 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   02_boxes_1_init_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:26:26 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 15:45:52 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 13:31:38 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*get_rest
-*
-*   Returns:
-*       -1: Error
-*       0: Success
-*
-*/
-int	get_rest(t_box **box, t_prompt **prompt)
-{
-	if (ft_heredocs(box, HEREDOC) == -1 || ft_infiles(box, INFILE) == -1
-		|| ft_outfile_append(box, OUTFILE_APPEND) == -1
-		|| ft_outfile_strong(box, OUTFILE_STRONG) == -1)
-		return (-1);
-	if (ft_cmd_args(box, prompt) == -1)
-		return (-1);
-	return (0);
-}
-
+int	g_exitcode;
 /*
 *   Generates boxes based on nb_of_substr indicated in prompt
 *   structure.
@@ -42,7 +25,7 @@ int	get_rest(t_box **box, t_prompt **prompt)
 		ft_free_box(arr_boxes[i]);
 		i++;
 	}
-	
+
 */
 int	ft_gen_boxes(t_prompt *prompt)
 {

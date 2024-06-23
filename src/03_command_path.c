@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:00:19 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/22 19:08:03 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 13:27:24 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,3 @@ char	*ft_get_path(char *cmd, t_prompt *data)
 	free(path_tab);
 	return (path);
 }
-
-

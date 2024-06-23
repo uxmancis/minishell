@@ -15,6 +15,7 @@
 
 #include "../inc/minishell.h"
 
+
 void	ft_init_input(t_prompt *data)
 {
 	data->input = NULL;
@@ -81,13 +82,12 @@ void	ft_free_input(t_prompt *data)
  */
 void	handle_eof(void)
 {
-	if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO)) // Modo interactivo
 	{
 		write(STDOUT_FILENO, "exit\n", 5);
 		exit(0);
 	}
 }
-
 int	ft_begin(t_prompt *data)
 {
 	ft_init_input(data);
@@ -117,11 +117,15 @@ int	main(int argc, char **argv, char **envp)
 	t_prompt	*data;
 
 	(void)argv;
-    if (argc != 1)
-        perror("Error: No arguments are allowed.\n");
+    if (argc != 1) {
+        ft_puterror("Error: No arguments are allowed.\n");
+        return (-1);
+    }
 	data = ft_init_data(envp);
-	if (!data)
-		perror("Error: Memory allocation failed.\n");
+	if (!data) {
+        ft_puterror("Error: Memory allocation failed.\n");
+        return (-1);
+    }
 	ft_print_welcome();
 	rl_initialize();
 	using_history();

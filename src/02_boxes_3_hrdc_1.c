@@ -89,10 +89,6 @@ void	get_end_arr(int **arr_end, t_box **box, int *arr_ind_heredoc)
 				get_ind(arr_ind_heredoc[i], box));
 		tmp_nb_of_heredocs--;
 		i++;
-		if (DEBUG_MODE != 0)
-		{
-			printf(BLUE"arr_ind_heredoc[%d] = ", i);
-			printf("%d\n"RESET_COLOR, arr_ind_heredoc[i]);
-		}
+		printf(BLUE"arr_ind_heredoc[%d] = %d\n"RESET_COLOR, i, arr_ind_heredoc[i]);
 	}
 }

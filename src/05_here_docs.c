@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   05_here_docs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:28:26 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 01:02:56 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:29:20 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	handle_heredoc(t_box **box)
 		write(heredoc_fd, "\n", 1);
 		free(line);
 		line = NULL;
-		//(*box)->nb_of_heredocs--;
 	}
 	close(heredoc_fd);
 	(*box)->fd_in = open("/tmp/heredoc.tmp", O_RDONLY);

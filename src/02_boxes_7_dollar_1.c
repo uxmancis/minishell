@@ -73,7 +73,6 @@ void	expand_outfile_append_words(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_outf_app;
 	int	nb_outfile_app_x;
 
-	//printf("          which words are we checking?"YELLOW" - OUTFILE_APPEND_WORDS\n"RESET_COLOR);
 	if (DEBUG_MODE != 0)
 	{
 		printf("          which words are we checking?");

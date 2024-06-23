@@ -69,13 +69,10 @@ size_t	tmp_ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	//printf("ft_strlen, str = '%s'\n", str);
 	while (str[i] != '\0')
 	{
-		//printf(">>> str[%d] = %c\n", (int)i, str[i]);
 		i++;
 	}
-	//printf("ft_strlen result, counter = %d\n", (int)i);
 	return (i);
 }
 

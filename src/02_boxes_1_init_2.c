@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_boxes_1_init_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:24:59 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 15:49:36 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:34:49 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_free_box(t_box *box)
     free(box->pids);
 }
 
+
 void	ft_boxes_initialize_2(t_box **box)
 {
 	(*box)->is_outfile_strong = 0;
@@ -73,6 +74,7 @@ void	ft_boxes_initialize_2(t_box **box)
 void	ft_boxes_initialize(t_box **box)
 {
 	(*box)->input_substr = NULL;
+
 	(*box)->dict_quotes = NULL;
 	(*box)->nb_of_redir = 0;
 	(*box)->dict_red_index_type = NULL;
@@ -91,14 +93,16 @@ void	ft_boxes_initialize(t_box **box)
 	(*box)->is_outfile_append = 0;
 	(*box)->nb_of_outfile_append = 0;
 	(*box)->words_outfile_append = NULL;
-	(*box)->heredoc = 0;
-	(*box)->fd_in = -1;
-	(*box)->fd_out = -1;
-	(*box)->nb_pipes = 0;
-	(*box)->pids = 0;
-	(*box)->child = -1;
-	(*box)->cmd_options = NULL;
-	(*box)->cmd_path = NULL;
+	// COMANDS
+    (*box)->heredoc = 0;
+    (*box)->fd_in = -1;
+    (*box)->fd_out = -1;
+    (*box)->nb_pipes = 0;
+    (*box)->pids = 0;
+    (*box)->child = -1;
+    (*box)->cmd_options = NULL;
+    (*box)->cmd_path = NULL;
+    (*box)->envp = NULL;
 	ft_boxes_initialize_2(box);
 }
 
@@ -125,6 +129,23 @@ int	ft_box_init(t_box **box, t_prompt *prompt, int substr_id)
 		return (-1);
 	if (get_rest(box, &prompt) == -1)
 		return (-1);
-	put_parsing_box_end(substr_id);
+	return (0);
+}
+
+/*get_rest
+*
+*   Returns:
+*       -1: Error
+*       0: Success
+*
+*/
+int	get_rest(t_box **box, t_prompt **prompt)
+{
+	if (ft_heredocs(box, HEREDOC) == -1 || ft_infiles(box, INFILE) == -1
+		|| ft_outfile_append(box, OUTFILE_APPEND) == -1
+		|| ft_outfile_strong(box, OUTFILE_STRONG) == -1)
+		return (-1);
+	if (ft_cmd_args(box, prompt) == -1)
+		return (-1);
 	return (0);
 }

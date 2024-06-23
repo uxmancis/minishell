@@ -22,8 +22,6 @@ void	get_word_infile_1(t_box **box, int *arr_ind_red_type)
 
 	tmp_nb_of_red_type = get_nb_of_red_type(box, INFILE);
 	keep_nb_of_red_type = tmp_nb_of_red_type;
-	if (keep_nb_of_red_type <= 0)
-		return;
 	(*box)->words_infile = malloc(sizeof(char *) * tmp_nb_of_red_type);
 	red_type_nb_x = 0;
 	i = 0;
