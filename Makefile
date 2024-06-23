@@ -58,7 +58,6 @@ SRC_FILES	=	0_0_main.c \
 				03_command_path.c \
 				03_command_path_2.c \
 				04_generate_forks.c \
-				04_pipefd.c \
 				05_here_docs.c \
 				06_cd_bulting.c \
 				06_cd_bulting_2.c \

@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:53:18 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/23 14:54:50 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 19:47:26 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ static int	handle_builtin_commands(t_box *box, t_prompt *data)
 	exit_code = 0;
 	if (ft_strcmp_2(box->rest_info_potential_cmd[0], "export"))
 	{
-        exit_code = ft_export_builtin(data, box->rest_info_potential_cmd);
-        ft_free_tab(box->envp);
-        free(box->pids);
-        box->pids = NULL;
+		exit_code = ft_export_builtin(data, box->rest_info_potential_cmd);
+		ft_free_tab(box->envp);
+		free(box->pids);
+		box->pids = NULL;
 		return (exit_code);
 	}
 	else if (ft_strcmp_2(box->rest_info_potential_cmd[0], "unset")
 		&& box->rest_info_potential_cmd[0] != NULL)
 	{
-        exit_code = ft_unset_builtin(&data, box->rest_info_potential_cmd);
-        ft_free_tab(box->envp);
-        free(box->pids);
-        box->pids = NULL;
+		exit_code = ft_unset_builtin(&data, box->rest_info_potential_cmd);
+		ft_free_tab(box->envp);
+		free(box->pids);
+		box->pids = NULL;
 		return (exit_code);
 	}
 	return (0);
@@ -72,22 +72,21 @@ static int	handle_builtin_commands_2(t_box *box, t_prompt *data)
 	if (ft_strcmp_2(box->rest_info_potential_cmd[0], "cd"))
 	{
 		exit_code = ft_cd_builtin(&data, box->rest_info_potential_cmd);
-        ft_free_tab(box->envp);
-        free(box->pids);
-        box->pids = NULL;
+		ft_free_tab(box->envp);
+		free(box->pids);
+		box->pids = NULL;
 		return (exit_code);
 	}
 	else if (ft_strcmp_2(box->rest_info_potential_cmd[0], "exit"))
 	{
-        if (box->nb_pipes == 0) {
-            ft_exit_builtin(data, exit_code);
-        }
+		if (box->nb_pipes == 0)
+			ft_exit_builtin(data, exit_code);
 	}
 	else if (ft_strcmp_2(box->rest_info_potential_cmd[0], "$?"))
 	{
-        ft_free_tab(box->envp);
-        free(box->pids);
-        box->pids = NULL;
+		ft_free_tab(box->envp);
+		free(box->pids);
+		box->pids = NULL;
 		return (exit_code);
 	}
 	return (0);
@@ -114,8 +113,8 @@ static int	childs(t_box *box, t_prompt *data)
 		else
 			exit_code = ft_run_command(&box, data);
 		ft_free_tab(box->envp);
-        free(box->pids);
-        box->pids = NULL;
+		free(box->pids);
+		box->pids = NULL;
 		exit(exit_code);
 	}
 	return (exit_code);
@@ -130,20 +129,20 @@ int	create_child_process(t_box *box, t_prompt *data, int box_id)
 		&& ft_strlen(box->rest_info_potential_cmd[0]) > 0)
 	{
 		if (handle_builtin_commands(box, data) == -1)
-            return (exit_code);
+			return (exit_code);
 		if (handle_builtin_commands_2(box, data) == -1)
-            return (exit_code);
+			return (exit_code);
 	}
 	box->envp = ft_gen_envp(data);
 	if (!box->rest_info_potential_cmd)
-        return (exit_code);
+		return (exit_code);
 	pipe_manager(data, box, box_id);
 	childs(box, data);
 	dup2(data->pipefd[1], STDOUT_FILENO);
 	close(data->pipefd[1]);
 	ft_free_tab(box->envp);
-    box->envp = NULL;
-    free(box->pids);
+	box->envp = NULL;
+	free(box->pids);
 	box->pids = NULL;
 	return (exit_code);
 }

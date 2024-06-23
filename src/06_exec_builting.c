@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:45:31 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/22 19:38:16 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 19:49:36 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ int	ft_strcmp_2(char *str_2_check, char *cmd)
 int	ft_builtin_pwd(t_prompt **prompt)
 {
 	ft_putstr(ft_getenv_local((*prompt)->vars, "PWD")->val);
-	//printf("\n");
 	return (0);
 }
