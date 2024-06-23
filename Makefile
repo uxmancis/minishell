@@ -38,8 +38,10 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_7_dollar_1.c \
 				02_boxes_7_dollar_2.c \
 				02_boxes_7_dollar_3.c \
+				02_boxes_7_dollar_3_aux.c \
 				02_boxes_7_dollar_4.c \
 				02_boxes_7_dollar_5.c \
+				02_boxes_7_dollar_5_aux.c \
 				02_boxes_7_dollar_6.c \
 				02_boxes_7_dollar_7.c \
 				02_boxes_7_dollar_8.c \
@@ -49,6 +51,7 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_7_dollar_12.c \
 				02_boxes_red_utils_1.c \
 				02_boxes_red_utils_2.c \
+				02_boxes_red_utils_3.c \
 				02_boxes_utils_nav.c \
 				02_boxes_word_utils_hrdc.c \
 				02_boxes_word_utils_infile.c \

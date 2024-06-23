@@ -231,8 +231,8 @@ void ft_import_envp(t_prompt *data, char **envp);
 int ft_setenv_local(t_vars *list, char *name, char *value, int overwrite);
 
 // 00_init_env
-t_prompt *ft_init_data(char **envp);
 t_vars *ft_getenv_local(t_vars *line, char *name);
+t_prompt *ft_init_data(char **envp);
 t_vars *ft_varsnew(char *name, char *value);
 
 // 01_input_pipe.c
@@ -413,6 +413,11 @@ void finish_to_update_dict_quotes(int **tmp_dict_quotes_word, int new_len,
 								  int *tmp_tmp_dict_quotes_word, int len_old_word);
 void put_arr(int *arr, int len);
 void get_old_word(char *str_src, char **str_dst);
+void	ft_malloc_and_set(char **str, int len_plus_one);
+void	assign_values(t_w_d **w_d, char **word_src, int **dict_q, int y);
+
+//02_boxes_7_dollar_3_aux.c
+void	finish2up_dq(int **tdqw, int new_len, int *ttdqw, int len_old_word);
 
 // 02_boxes_7_dollar_4.c
 int	get_len_word_2(char *old_word_2_check_before_free, t_x_y_word x_y);
@@ -426,6 +431,9 @@ int	get_len_word(char *old_word_before_free, t_x_y_word x_y);
 int	get_len_word_3(char *word_to_be_updated, t_x_y_word x_y);
 void	replace_pid_sec_dollar(t_w_d **w_d, char *kow, int *kod, int nlw);
 int is_special_char(char c);
+
+//02_boxes_7_dollar_5_aux.c
+void	replace_pid_aux(t_w_d **w_d, int len_pid_str, char *tmp);
 
 // 02_boxes_7_dollar_6.c
 int	is_dollar(char *word_to_be_checked, t_x_y_word x_y, int *tmp_dict_quotes);

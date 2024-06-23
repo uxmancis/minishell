@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:58:01 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/19 23:21:31 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:32:26 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ int	get_len_word_2(char *old_word_2_check_before_free, t_x_y_word x_y)
 *   str_src = tmp_old_word_before_free 
 *	wtu: word_to_be_updated
 */
-void	replace_delete(char **wtu, char *str_src, t_x_y_word x_y, int len_new_total_word)
+void	replace_delete(char **wtu, char *str_src,
+	t_x_y_word x_y, int len_new_total_word)
 {
 	int	len_to_delete;
 	int	ind_src;
 	int	index_dollar;
 
-	len_to_delete = get_len_word(str_src, x_y); 
+	len_to_delete = get_len_word(str_src, x_y);
 	ind_src = 0;
 	index_dollar = x_y.index_y;
 	x_y.index_y = 0;

@@ -58,7 +58,6 @@ void	g2a(int start, int end, t_box **box, int r)
 	}
 }
 
-
 int	get_word_app_part_2(t_box **box, int *tmp_nb_of_red_type,
 	int *keep_nb_of_red_type, int *i)
 {

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 21:05:36 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 22:53:40 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 23:43:57 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,44 +19,42 @@
  *   ft_get_env_local(xxx, str_to_find)
  *       E.g.: ft_get_env_local(data->vars, "USER")
  */
-int	is_in_env(char *old_word_before_free, t_x_y_word x_y, t_prompt **prompt)
-{
-	char	*tmp;
+// int	is_in_env(char *old_word_before_free, t_x_y_word x_y, t_prompt **prompt)
+// {
+// 	char	*tmp;
 
-	tmp = NULL;
-	tmp = get_word_2(old_word_before_free, x_y);
-	if (ft_getenv_local((*prompt)->vars, tmp))
-	{
-		if (tmp)
-		{
-			free(tmp);
-			tmp = NULL;
-		}
-		return (1);
-	}
-	if (tmp)
-	{
-		free(tmp);
-		tmp = NULL;
-	}
-	return (0);
-}
+// 	tmp = NULL;
+// 	tmp = get_word_2(old_word_before_free, x_y);
+// 	if (ft_getenv_local((*prompt)->vars, tmp))
+// 	{
+// 		if (tmp)
+// 		{
+// 			free(tmp);
+// 			tmp = NULL;
+// 		}
+// 		return (1);
+// 	}
+// 	if (tmp)
+// 	{
+// 		free(tmp);
+// 		tmp = NULL;
+// 	}
+// 	return (0);
+// }
+// void	get_old_word(char *str_src, char **str_dst)
+// {
+// 	int	len_src;
+// 	int	i;
 
-void	get_old_word(char *str_src, char **str_dst)
-{
-	int	len_src;
-	int	i;
-
-	len_src = ft_strlen(str_src);
-	i = 0;
-	while (len_src > 0)
-	{
-		(*str_dst)[i] = str_src[i];
-		len_src--;
-		i++;
-	}
-}
-
+// 	len_src = ft_strlen(str_src);
+// 	i = 0;
+// 	while (len_src > 0)
+// 	{
+// 		(*str_dst)[i] = str_src[i];
+// 		len_src--;
+// 		i++;
+// 	}
+// }
 
 /*get_each_word_updated
 *

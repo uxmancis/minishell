@@ -18,7 +18,6 @@ void	update_variables_4(int *start, int *len_delimiter)
 	*len_delimiter = *len_delimiter + 1;
 }
 
-
 /* 
 *   Puts each word in corresponding space inside 
 *   char **words_infile variable (box structure).
