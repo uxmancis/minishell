@@ -7,6 +7,10 @@ OBJ_DIR		=	objs/
 
 SRC 		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_FILES	=	0_0_main.c \
+				000_debug_mode_1.c \
+				000_debug_mode_2.c \
+				000_debug_mode_3.c \
+				000_debug_mode_4.c \
 				00_env_data.c \
 				00_init_env.c \
 				00_minishell.c \
@@ -19,6 +23,8 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_1_init_3.c \
 				02_boxes_2_redir_1.c \
 				02_boxes_2_redir_2.c \
+				02_boxes_2_redir_3.c \
+				02_boxes_2_redir_4.c \
 				02_boxes_3_hrdc_1.c \
 				02_boxes_3_hrdc_2.c \
 				02_boxes_4_infile.c \
@@ -28,6 +34,7 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_6_cmd_2.c \
 				02_boxes_6_cmd_3.c \
 				02_boxes_6_cmd_4.c \
+				02_boxes_6_cmd_5.c \
 				02_boxes_7_dollar_1.c \
 				02_boxes_7_dollar_2.c \
 				02_boxes_7_dollar_3.c \
@@ -38,7 +45,8 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_7_dollar_8.c \
 				02_boxes_7_dollar_9.c \
 				02_boxes_7_dollar_10.c \
-				02_boxes_red_utils.c \
+				02_boxes_red_utils_1.c \
+				02_boxes_red_utils_2.c \
 				02_boxes_utils_nav.c \
 				02_boxes_word_utils_hrdc.c \
 				02_boxes_word_utils_infile.c \
@@ -50,6 +58,7 @@ SRC_FILES	=	0_0_main.c \
 				03_command_path.c \
 				03_command_path_2.c \
 				04_generate_forks.c \
+				04_pipefd.c \
 				05_here_docs.c \
 				06_cd_bulting.c \
 				06_cd_bulting_2.c \
@@ -57,11 +66,14 @@ SRC_FILES	=	0_0_main.c \
 				06_exec_builting_2.c \
 				06_export.c \
 				06_unset.c \
+				07_close.c \
 				07_signals.c \
 				09_exit.c \
 				09_free.c \
 				09_puterror.c \
-				10_utils.c 				
+				10_utils_1.c \
+				10_utils_2.c
+
 # main_redirections.c 
 				
 OBJS_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
