@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:17:33 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 14:39:43 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:55:35 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	set_red_greater_than(t_box **box, int *i, int index_of_arr)
 		&& (*box)->dict_quotes[(*i)] == 0)
 	{
 		if ((*box)->input_substr[(*i) + 1] == '>'
-				&& (*box)->dict_quotes[(*i) + 1] == 0)
+			&& (*box)->dict_quotes[(*i) + 1] == 0)
 			set_red_greater_than_2(box, i, index_of_arr);
 		else if ((*box)->input_substr[(*i) + 1] == '<'
 			&& (*box)->dict_quotes[(*i) + 1] == 0)

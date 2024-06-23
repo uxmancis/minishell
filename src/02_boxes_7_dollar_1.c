@@ -17,13 +17,18 @@ void	expand_infile_words(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_infile;
 	int	nb_infile_x;
 
-	printf("          which words are we checking?"YELLOW" - INFILE_WORDS\n"RESET_COLOR);
+	if (DEBUG_MODE != 0)
+	{
+		printf("          which words are we checking?");
+		printf(YELLOW" - INFILE_WORDS\n"RESET_COLOR);
+	}
 	tmp_nb_of_words_infile = (*box)->nb_of_infile;
 	nb_infile_x = 0;
 	(*box)->flag_word_or_cmd = 'W';
 	while (tmp_nb_of_words_infile > 0)
 	{
-		get_each_word_up(&(*box)->words_infile[nb_infile_x], nb_infile_x, box, prompt);
+		get_each_word_up(&(*box)->words_infile[nb_infile_x],
+			nb_infile_x, box, prompt);
 		nb_infile_x++;
 		tmp_nb_of_words_infile--;
 	}
@@ -40,13 +45,18 @@ void	expand_outfile_strong_words(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_outf_str;
 	int	nb_outfile_str_x;
 
-	printf("          which words are we checking?"YELLOW" - OUTFILE_STRONG_WORDS\n"RESET_COLOR);
+	if (DEBUG_MODE != 0)
+	{
+		printf("          which words are we checking?");
+		printf(YELLOW" - OUTFILE_STRONG_WORDS\n"RESET_COLOR);
+	}
 	tmp_nb_of_words_outf_str = (*box)->nb_of_outfile_strong;
 	nb_outfile_str_x = 0;
 	(*box)->flag_word_or_cmd = 'W';
 	while (tmp_nb_of_words_outf_str > 0)
 	{
-		get_each_word_up(&(*box)->words_outfile_strong[nb_outfile_str_x], nb_outfile_str_x, box, prompt);
+		get_each_word_up(&(*box)->words_outfile_strong[nb_outfile_str_x],
+			nb_outfile_str_x, box, prompt);
 		nb_outfile_str_x++;
 		tmp_nb_of_words_outf_str--;
 	}
@@ -63,13 +73,18 @@ void	expand_outfile_append_words(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_outf_app;
 	int	nb_outfile_app_x;
 
-	printf("          which words are we checking?"YELLOW" - OUTFILE_APPEND_WORDS\n"RESET_COLOR);
+	if (DEBUG_MODE != 0)
+	{
+		printf("          which words are we checking?");
+		printf(YELLOW" - OUTFILE_APPEND_WORDS\n"RESET_COLOR);
+	}
 	tmp_nb_of_words_outf_app = (*box)->nb_of_outfile_append;
 	nb_outfile_app_x = 0;
 	(*box)->flag_word_or_cmd = 'W';
 	while (tmp_nb_of_words_outf_app > 0)
 	{
-		get_each_word_up(&(*box)->words_outfile_append[nb_outfile_app_x], nb_outfile_app_x, box, prompt);
+		get_each_word_up(&(*box)->words_outfile_append[nb_outfile_app_x],
+			nb_outfile_app_x, box, prompt);
 		nb_outfile_app_x++;
 		tmp_nb_of_words_outf_app--;
 	}
@@ -86,17 +101,21 @@ void	expand_rest_info_potential_cmd(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_rest_info;
 	int	nb_word_rest_x;
 
-	printf("          which words are we checking?"YELLOW" - REST_WORDS_POTENCIAL_CMD\n"RESET_COLOR);
+	if (DEBUG_MODE != 0)
+	{
+		printf("          which words are we checking?");
+		printf(YELLOW" - REST_WORDS_POTENCIAL_CMD\n"RESET_COLOR);
+	}
 	tmp_nb_of_words_rest_info = (*box)->nb_of_words_rest;
 	nb_word_rest_x = 0;
 	(*box)->flag_word_or_cmd = 'C';
 	while (tmp_nb_of_words_rest_info > 0)
 	{
-		get_each_word_up(&(*box)->rest_info_potential_cmd[nb_word_rest_x], nb_word_rest_x, box, prompt);
+		get_each_word_up(&(*box)->rest_info_potential_cmd[nb_word_rest_x],
+			nb_word_rest_x, box, prompt);
 		nb_word_rest_x++;
 		tmp_nb_of_words_rest_info--;
 	}
-
 }
 
 /*
@@ -105,11 +124,14 @@ void	expand_rest_info_potential_cmd(t_box **box, t_prompt **prompt)
 */
 void	check_dollars_expansion(t_box **box, t_prompt **prompt)
 {
-	printf("----------------------------------------------\n\n");
-	printf("     02_boxes_6_cmd.c - "YELLOW"check_dollars_expansion\n"RESET_COLOR);
+	if (DEBUG_MODE != 0)
+	{
+		printf("----------------------------------------------\n\n");
+		printf("     02_boxes_6_cmd.c - "YELLOW);
+		printf("check_dollars_expansion\n"RESET_COLOR);
+	}
 	expand_infile_words(box, prompt);
 	expand_outfile_strong_words(box, prompt);
 	expand_outfile_append_words(box, prompt);
 	expand_rest_info_potential_cmd(box, prompt);
-	//printf("\n\n ----------------------------- %s -----------------------\n\n", (*box)->rest_info_potential_cmd[0]);
 }

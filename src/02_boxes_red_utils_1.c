@@ -12,13 +12,16 @@
 
 #include "../inc/minishell.h"
 
-//Pretends to be the single functions used for all redirections to check content (first word)
-//after redirección.
-
-//First, we'll copy the heredoc functions.
-//Then, we'll try using them calling them both from heredoc, but also from other redir types.
-//If successful, we'll delete previous specific functions for heredoc
-
+/*
+*	Pretends to be the single functions used for all redirections
+*	to check content (first word) after redirección.
+*
+*	First, we'll copy the heredoc functions.
+*	Then, we'll try using them calling them both from heredoc,
+*	but also from other redir types.
+*
+*	If successful, we'll delete previous specific functions for heredoc.
+*/
 
 /*get_nb_of_red_type
 *
@@ -51,9 +54,11 @@ int	get_nb_of_red_type(t_box **box, t_red_type red_type)
 *   Informs specif_arr_ind_red_type.
 *
 *   specif_arr_ind_red_type: stores indexes of red_type specified.
-*                     Len of array = number of redirecciones found of specified type (red_type).
+*                     Len of array = number of redirecciones found
+*					  of specified type (red_type).
 */
-void	get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_type)
+void	get_specif_index_red(int **arr_ind_red_type,
+		t_box **box, t_red_type red_type)
 {
 	int	tmp_nb_of_red_type;
 	int	i;
@@ -72,15 +77,6 @@ void	get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_ty
 		}
 		x++;
 	}
-	//para comprobaciones:
-	tmp_nb_of_red_type = get_nb_of_red_type(box, red_type);
-	i = 0;
-	while (tmp_nb_of_red_type > 0)
-	{
-		//printf(MAGENTA"arr_ind_red_type[%d] = %d\n"RESET_COLOR, i, (*arr_ind_red_type)[i]);
-		tmp_nb_of_red_type--;
-		i++;
-	}
 }
 
 /*get_word_red: Informes arr_word_yes_no variable: filled with 0 and 1.
@@ -92,7 +88,8 @@ void	get_specif_index_red(int **arr_ind_red_type, t_box **box, t_red_type red_ty
 *                             total redireccioness found along input_substr of
 *                             specified red type (e_red_type):
 */
-void	is_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_red_type red_type)
+void	is_word_red(int **arr_word_yes_no, t_box **box,
+		int *arr_ind_red_type, t_red_type red_type)
 {
 	int	tmp_nb_of_red_type;
 	int	i;
@@ -101,10 +98,11 @@ void	is_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type, t_re
 	i = 0;
 	while (tmp_nb_of_red_type > 0)
 	{
-		(*arr_word_yes_no)[i] = has_end_word(arr_ind_red_type[i], box, get_ind(arr_ind_red_type[i], box));
+		(*arr_word_yes_no)[i] = has_end_word(arr_ind_red_type[i],
+				box, get_ind(arr_ind_red_type[i], box));
 		tmp_nb_of_red_type--;
 		i++;
-    }
+	}
 }
 
 /*are_all_delimiters

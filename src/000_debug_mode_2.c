@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 12:43:43 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 13:52:33 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:55:50 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	put_parsing_box_numof_redir_2(void)
 		return ;
 	printf("     02_boxes_redir.c - " BLUE "set_red_index_type");
 	printf(RESET_COLOR "| Info about redirecciones is stored here:\n");
-
 }
 
 void	put_parsing_box_numof_redir_3(t_box **box, int index_of_arr)

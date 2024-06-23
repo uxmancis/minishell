@@ -32,8 +32,8 @@ int	ft_heredocs(t_box **box, t_red_type red_type)
 	if (DEBUG_MODE != 0)
 	{
 		printf("     02_boxes_3_hrdc_1.c - "BLUE"ft_heredocs"RESET_COLOR);
-		printf("| numof_heredocs = "BLUE"%d"RESET_COLOR".\n"
-			, (*box)->nb_of_heredocs);
+		printf("| numof_heredocs = "BLUE"%d"RESET_COLOR".\n",
+			(*box)->nb_of_heredocs);
 	}
 	if (ft_check_first_word(box, red_type) == -1)
 		return (-1);

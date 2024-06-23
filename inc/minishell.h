@@ -212,6 +212,9 @@ void	put_parsing_box_words_outf_strong(t_box **box, t_red_type red_type);
 
 //000_debug_mode_4.c
 void	put_parsing_box_words_outf_app(t_box **box, t_red_type red_type);
+void	put_parsing_box_index_words(t_box **box, int x);
+void	put_parsing_box_what_to_take(t_box **box);
+void	put_parsing_box_end(int substr_id);
 
 // 00_minishell.c
 //  void ft_begin(int argc, char **argv, char **env);
@@ -367,6 +370,13 @@ void cpy_1_word(t_box **box, int nb_of_word);
 
 //02_boxes_6_cmd_4.c
 int	ft_get_what_to_take(t_box **box);
+int	is_empty_str_first_cmd_2(t_box **box, int keep_len_substr, int *i);
+int	is_red(t_box **box, int index);
+
+//02_boxes_6_cmd_5.c
+void	update_variables_3(int *start, int *len);
+void	cpy_1_word_2(int len, int nb_of_word, t_box **box, int keep_start);
+void	cpy_1_word(t_box **box, int nb_of_word);
 
 // 02_boxes_7_dollar_1.c
 void	expand_infile_words(t_box **box, t_prompt **prompt);
@@ -535,6 +545,9 @@ void ft_print_welcome(void);
 int ft_sstrncmp(char *str, char c);
 void ft_puterror(char *str);
 void ft_putstr(char *str);
+
+//10_utils_1.c
+size_t	ft_strcpyy_2(char *dst, const char *src);
 
 // utils_libft.c
 size_t ft_strlen(const char *str);

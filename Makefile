@@ -34,6 +34,7 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_6_cmd_2.c \
 				02_boxes_6_cmd_3.c \
 				02_boxes_6_cmd_4.c \
+				02_boxes_6_cmd_5.c \
 				02_boxes_7_dollar_1.c \
 				02_boxes_7_dollar_2.c \
 				02_boxes_7_dollar_3.c \
@@ -68,7 +69,9 @@ SRC_FILES	=	0_0_main.c \
 				07_signals.c \
 				09_exit.c \
 				09_puterror.c \
-				10_utils.c 				
+				10_utils_1.c \
+				10_utils_2.c
+
 # main_redirections.c 
 				
 OBJS_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

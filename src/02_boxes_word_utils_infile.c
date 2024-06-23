@@ -46,16 +46,6 @@ void	get_word_infile_1(t_box **box, int *arr_ind_red_type)
 		total_red_nb_x++;
 	}
 	put_parsing_box_words_inf(box, INFILE);
-    // tmp_nb_of_red_type = get_nb_of_red_type(box, INFILE);
-    // i = 0;
-    // while (tmp_nb_of_red_type > 0)
-    // {
-    //     printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_infile[i]);
-    //     tmp_nb_of_red_type--;
-    //     i++;
-    // }
-    // printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_infile"RESET_COLOR" generated✅\n");
-    // printf("     -----------------------------------------------\n\n");
 }
 
 

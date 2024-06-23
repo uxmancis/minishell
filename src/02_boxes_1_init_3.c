@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:26:26 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 14:38:43 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:45:52 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	ft_gen_boxes(t_prompt *prompt)
 	i = 0;
 	while (arr_boxes[i] && keep_nb_boxes > 0)
 	{
-		printf("yes\n");
 		ft_free_box(arr_boxes[i]);
 		free(arr_boxes[i]);
 		arr_boxes[i] = NULL;

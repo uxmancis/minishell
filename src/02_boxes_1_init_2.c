@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:24:59 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 14:38:39 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:49:36 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	ft_free_box(t_box *box)
 		free(box->tmp_pid_str);
 }
 
-
 void	ft_boxes_initialize_2(t_box **box)
 {
 	(*box)->is_outfile_strong = 0;
@@ -66,7 +65,6 @@ void	ft_boxes_initialize_2(t_box **box)
 void	ft_boxes_initialize(t_box **box)
 {
 	(*box)->input_substr = NULL;
-
 	(*box)->dict_quotes = NULL;
 	(*box)->nb_of_redir = 0;
 	(*box)->dict_red_index_type = NULL;
@@ -112,8 +110,6 @@ int	ft_box_init(t_box **box, t_prompt *prompt, int substr_id)
 		return (-1);
 	if (get_rest(box, &prompt) == -1)
 		return (-1);
-	printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
-	printf(BLUE"BOX GENERATION COMPLETED✅, box number = %d\n"RESET_COLOR, substr_id);
-	printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);
+	put_parsing_box_end(substr_id);
 	return (0);
 }

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 10:52:36 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/05/07 18:31:44 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 16:28:47 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/libft.h"
 
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
-{	
+{
 	size_t	total_len;
 	int		z;
 	size_t	srclen;

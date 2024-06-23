@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:53:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 14:32:20 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:55:18 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	put_parsing_box_words_hrdc(t_box **box, t_red_type red_type)
 	while (tmp_nb_of_red_type > 0)
 	{
 		printf("                   word[%d] = ["BLUE, i);
-		printf("%s"RESET_COLOR"]\n",(*box)->words_hrdc[i]);
+		printf("%s"RESET_COLOR"]\n", (*box)->words_hrdc[i]);
 		tmp_nb_of_red_type--;
 		i++;
 	}
@@ -80,7 +80,7 @@ void	put_parsing_box_words_inf(t_box **box, t_red_type red_type)
 	while (tmp_nb_of_red_type > 0)
 	{
 		printf("                   word[%d] = ["BLUE, i);
-		printf("%s"RESET_COLOR"]\n",(*box)->words_infile[i]);
+		printf("%s"RESET_COLOR"]\n", (*box)->words_infile[i]);
 		tmp_nb_of_red_type--;
 		i++;
 	}
@@ -101,7 +101,7 @@ void	put_parsing_box_words_outf_strong(t_box **box, t_red_type red_type)
 	while (tmp_nb_of_red_type > 0)
 	{
 		printf("                   word[%d] = ["BLUE, i);
-		printf("%s"RESET_COLOR"]\n",(*box)->words_outfile_strong[i]);
+		printf("%s"RESET_COLOR"]\n", (*box)->words_outfile_strong[i]);
 		tmp_nb_of_red_type--;
 		i++;
 	}
