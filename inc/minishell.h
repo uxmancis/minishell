@@ -338,7 +338,7 @@ void get_specif_index_red(int **arr_ind_red_type, t_box **box,
 void get_word_red(int **arr_word_yes_no, t_box **box, int *arr_ind_red_type,
 				  t_red_type red_type);
 void get_word_mgmt(int *arr_ind_red_type, t_box **box, t_red_type red_type);
-int ft_check_first_word(t_box **box, t_red_type red_type);
+
 
 // 02_boxes_utils_nav.c
 int has_end_last_check(int start, int end, t_box **box);
@@ -404,6 +404,12 @@ void	mng_to_replace_sec_dollar(char  **word_to_be_updated, t_x_y_word x_y, int *
 void	ft_free_word_and_dict(char **w2p, int **tmp_dict_quotes_word);
 void finish_to_update_dict_quotes(int **tmp_dict_quotes_word, int new_len,
 								  int *tmp_tmp_dict_quotes_word, int len_old_word);
+void	free_mng_to_replace_sec_dollar(int *keep_dict_q, char *keep_rest_info,
+		t_w_d *w_d, char *tmp);
+void	finish2up_dq(int **tdqw, int new_len, int *ttdqw, int len_old_word);
+int		ft_check_first_word(t_box **box, t_red_type red_type);
+
+
 void put_arr(int *arr, int len);
 void get_old_word(char *str_src, char **str_dst);
 
@@ -419,6 +425,7 @@ int	get_len_word(char *old_word_before_free, t_x_y_word x_y);
 int	get_len_word_3(char *word_to_be_updated, t_x_y_word x_y);
 void	replace_pid_sec_dollar(t_w_d **w_d, char *kow, int *kod, int nlw);
 int is_special_char(char c);
+void	replace_pid_aux(t_w_d **w_d, int len, char *tmp);
 
 // 02_boxes_7_dollar_6.c
 int	is_dollar(char *word_to_be_checked, t_x_y_word x_y, int *tmp_dict_quotes);
