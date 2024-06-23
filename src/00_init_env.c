@@ -25,7 +25,18 @@ t_prompt	*ft_init_data(char **envp)
 	ft_import_envp(data, envp);
 	data->input = NULL;
 	data->prompt = NULL;
-	printf("Data Initialized\n");
+    data->dict_quotes = 0;
+    data->nb_of_pipes = 0;
+    data->nb_of_substr = 0;
+    data->total_substr_input = 0;
+    data->arr_index_pipes = 0;
+    data->fd_aux = 0;
+    data->pid = 0;
+    data->tmp_in = 0;
+    data->tmp_out = 0;
+    data->envp = 0;
+    data->arr_boxes = NULL;
+	//printf("Data Initialized\n");
 	return (data);
 }
 

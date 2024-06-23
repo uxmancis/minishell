@@ -78,7 +78,7 @@ void	rest_get_ind_beginning_words(t_box **box)
 			if (possible_cases(box, i))
 			{
 				(*box)->index_beginning_words_rest[x] = i;
-				printf("                      index_beginning_words_rest[%d] = %d\n", x, (*box)->index_beginning_words_rest[x]);
+				//printf("                      index_beginning_words_rest[%d] = %d\n", x, (*box)->index_beginning_words_rest[x]);
 				x++;
 			}
 			while (possible_cases(box, i) && i < keep_len)
@@ -170,5 +170,5 @@ void	cpy_1_word(t_box **box, int nb_of_word)
 		x++;
 		keep_start++;
 	}
-	printf("                      rest_info_potential_cmd[%d] = ["MAGENTA"%s"RESET_COLOR"]\n", nb_of_word, (*box)->rest_info_potential_cmd[nb_of_word]);
+	//printf("                      rest_info_potential_cmd[%d] = ["MAGENTA"%s"RESET_COLOR"]\n", nb_of_word, (*box)->rest_info_potential_cmd[nb_of_word]);
 }

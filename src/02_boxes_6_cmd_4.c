@@ -115,10 +115,10 @@ int	ft_get_what_to_take(t_box **box)
 	//Print result of_what_to_take:
 	len = ft_strlen((*box)->input_substr);
 	i = 0;
-	printf("     what_to_take: len = %d\n", len);
+	//printf("     what_to_take: len = %d\n", len);
 	while (len > 0)
 	{
-		printf("               what_to_take[%d] = %c\n", i, (*box)->what_to_take[i]);
+		//printf("               what_to_take[%d] = %c\n", i, (*box)->what_to_take[i]);
 		len--;
 		i++;
 	}

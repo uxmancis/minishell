@@ -16,10 +16,9 @@ static int	ft_readline(t_box **box, char *line)
 {
 	if (!line)
 		return (-1);
-
 	if (ft_strcmp(line, (*box)->words_hrdc[0]) == 0)
 	{
-		(*box)->words_hrdc++;
+		//(*box)->words_hrdc++;
 		free(line);
 		return (-1);
 	}
@@ -43,7 +42,7 @@ int	handle_heredoc(t_box **box)
 		write(heredoc_fd, "\n", 1);
 		free(line);
 		line = NULL;
-		(*box)->nb_of_heredocs--;
+		//(*box)->nb_of_heredocs--;
 	}
 	close(heredoc_fd);
 	(*box)->fd_in = open("/tmp/heredoc.tmp", O_RDONLY);

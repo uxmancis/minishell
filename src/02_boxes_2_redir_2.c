@@ -74,7 +74,7 @@ int	ft_get_numof_redir(t_box **box)
 
 	i = 0;
 	counter = 0;
-	printf(RED "               input_substr = %s, len = %d\n" RESET_COLOR, (*box)->input_substr, (int)ft_strlen((*box)->input_substr));
+	//printf(RED "               input_substr = %s, len = %d\n" RESET_COLOR, (*box)->input_substr, (int)ft_strlen((*box)->input_substr));
 	len = (int)ft_strlen((*box)->input_substr);
 	keep_len = len;
 	while (i < keep_len)
@@ -88,7 +88,7 @@ int	ft_get_numof_redir(t_box **box)
 		}
 		plusminus(&len, &i);
 	}
-	printf("     02_boxes_redir.c - ft_get_numof_redir| Counted!✅" BLUE " nb_of_red = %d\n" RESET_COLOR, counter);
+	//printf("     02_boxes_redir.c - ft_get_numof_redir| Counted!✅" BLUE " nb_of_red = %d\n" RESET_COLOR, counter);
 	return (counter);
 }
 
@@ -159,7 +159,7 @@ int	set_red_less_than(t_box **box, int *i, int index_of_arr)
 		else
 			set_red_less_than_3(box, i, index_of_arr);
 	}
-	printf(GREEN "               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n" RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));
+	//printf(GREEN "               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n" RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));
 	return (0);
 }
 
@@ -220,7 +220,7 @@ int	set_red_greater_than(t_box **box, int *i, int index_of_arr)
 		else
 			set_red_greater_than_3(box, i, index_of_arr);
 	}
-	printf(GREEN "               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n" RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));
+	//printf(GREEN "               redirection %d assigned:     [0]_INDEX: %d  [1]_TYPE: %s\n" RESET_COLOR, (index_of_arr + 1), (*box)->dict_red_index_type[index_of_arr][0], ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));
 	return (0);
 }
 
@@ -231,7 +231,7 @@ int	set_red_index_type(t_box **box)
 
 	i = 0;
 	index_of_arr = 0;
-	printf("     02_boxes_redir.c - " BLUE "set_red_index_type" RESET_COLOR "| Info about redirecciones is stored here:\n");
+	//printf("     02_boxes_redir.c - " BLUE "set_red_index_type" RESET_COLOR "| Info about redirecciones is stored here:\n");
 	while (i < (int)ft_strlen((*box)->input_substr))
 	{
 		if ((*box)->input_substr[i] == '<' && (*box)->dict_quotes[i] == 0)

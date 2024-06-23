@@ -52,37 +52,48 @@ int	create_child_process(t_box *box, t_prompt *data, int box_id)
 		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "export"))
 		{
 			ft_export_builtin(data, box->rest_info_potential_cmd);
+			ft_free_tab(box->envp);
+            free(box->pids);
+            box->pids = NULL;
 			return (exit_code);
 		}
 		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "unset")
 			&& box->rest_info_potential_cmd[0] != NULL)
 		{
 			ft_unset_builtin(&data, box->rest_info_potential_cmd);
+			ft_free_tab(box->envp);
+            free(box->pids);
+            box->pids = NULL;
 			return (exit_code);
 		}
 		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "cd"))
 		{
 			exit_code = ft_cd_builtin(&data, box->rest_info_potential_cmd);
+			ft_free_tab(box->envp);
+            free(box->pids);
+            box->pids = NULL;
 			return (exit_code);
 		}
 		if (ft_strcmp_2(box->rest_info_potential_cmd[0], "exit"))
 		{
-			ft_exit_builtin(box, data, exit_code);
-			return (exit_code);
+            if (box->nb_pipes == 0) {
+                ft_exit_builtin(data, exit_code);
+            }
 		}
 	}
-	if (!box->rest_info_potential_cmd)
-		exit(exit_code);
-	if (box->heredoc_fd) {
-		box->heredoc_fd = data->tmp_in;
-		data->tmp_in = open("/tmp/heredoc.tmp", O_RDONLY, 0644);
+	if (!box->rest_info_potential_cmd) {
+        return (exit_code);
 	}
+	// if (box->heredoc_fd) {
+	// 	box->heredoc_fd = data->tmp_in;
+	// 	data->tmp_in = open("/tmp/heredoc.tmp", O_RDONLY, 0644);
+	// }
 	pipe_manager(data, box, box_id);
 	pid = fork();
-	if (box->heredoc_fd) {
-		data->tmp_in = box->heredoc_fd;
-		box->heredoc_fd = 0;
-	}
+	// if (box->heredoc_fd) {
+	// 	data->tmp_in = box->heredoc_fd;
+	// 	box->heredoc_fd = 0;
+	// }
 	data->pid = pid;
 	if (pid == -1)
 	{
@@ -96,9 +107,16 @@ int	create_child_process(t_box *box, t_prompt *data, int box_id)
 			exit_code = which_cmd(box, &data);
 		else
 			exit_code = ft_run_command(&box, data);
-		exit(EXIT_SUCCESS);
+		ft_free_tab(box->envp);
+		if (box->pids)
+			free(box->pids);
+		exit(exit_code);
 	}
 	dup2(data->pipefd[1], STDOUT_FILENO);
 	close(data->pipefd[1]);
+	ft_free_tab(box->envp);
+    box->envp = NULL;
+    free(box->pids);
+	box->pids = NULL;
 	return (exit_code);
 }

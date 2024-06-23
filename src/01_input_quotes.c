@@ -90,7 +90,7 @@ int	ft_quotes(char *input, int **dict_quotes)
 	int	i;
 
 	i = 0;
-	printf(RESET_COLOR);
+	//printf(RESET_COLOR);
 	while (input[i] != '\0')
 	{
 		if (input[i] == '\'')

@@ -27,18 +27,50 @@ void	ft_init_input(t_prompt *data)
 	// data->vars = NULL;
 }
 
+void	ft_free_prompt(t_prompt *data)
+{
+    t_vars *tmp;
+    int i;
+
+    i = 0;
+    free(data->input);
+    free(data->prompt);
+    free(data->dict_quotes);
+    ft_free_char(data->total_substr_input, data->nb_of_substr);
+    free(data->arr_index_pipes);
+    while (data->vars != NULL) {
+        tmp = data->vars->next;
+        free(data->vars->name);
+        free(data->vars->val);
+        free(data->vars);
+        data->vars = tmp;
+    }
+    if (data->arr_boxes != NULL) {
+        while (data->arr_boxes[i] != NULL) {
+            ft_free_box(data->arr_boxes[i]);
+            free(data->arr_boxes[i]);
+            data->arr_boxes[i] = NULL;
+            i++;
+        }
+    }
+    free(data->arr_boxes);
+    ft_free_envp(data);
+    free(data);
+}
+
+
 void	ft_free_input(t_prompt *data)
 {
-	if (data->input)
-		free(data->input);
-	if (data->prompt)
-		free(data->prompt);
-	if (data->dict_quotes)
-		free(data->dict_quotes);
-	if (data->total_substr_input)
-		ft_free_char(data->total_substr_input, data->nb_of_substr);
-	if (data->arr_index_pipes)
-		free(data->arr_index_pipes);
+    free(data->input);
+    data->input = NULL;
+    free(data->prompt);
+    data->prompt = NULL;
+    free(data->dict_quotes);
+    data->dict_quotes = NULL;
+    ft_free_char(data->total_substr_input, data->nb_of_substr);
+    data->total_substr_input = NULL;
+    free(data->arr_index_pipes);
+    data->arr_index_pipes = NULL;
 }
 
 /*
@@ -80,7 +112,6 @@ int	ft_begin(t_prompt *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_prompt *data;
-
 	(void)argv;
 
 	if (argc != 1)
@@ -91,7 +122,7 @@ int	main(int argc, char **argv, char **envp)
 	rl_initialize();
 	using_history();
 	ft_signal_handler();
-	while (1)
-		ft_begin(data);
-	// return (0);
+	while (1) {
+        ft_begin(data);
+    }
 }

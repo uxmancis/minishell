@@ -65,7 +65,7 @@ int	get_dict_quotes(t_box **box)
 	i = 0;
 	while (len > 0)
 	{
-		printf("               dict_substr[%d] = %d\n", i, (*box)->dict_quotes[i]);
+		//printf("               dict_substr[%d] = %d\n", i, (*box)->dict_quotes[i]);
 		len--;
 		i++;
 	}
@@ -82,24 +82,42 @@ void	get_single_str(t_prompt *prompt, t_box **box)
 	ft_strcpy(prompt->input, &(*box)->input_substr);
 }
 
+void	ft_free_tab(char **words)
+{
+    int	x;
+
+    if (words != NULL)
+    {
+        x = 0;
+        while (words[x] != NULL)
+        {
+            free(words[x]);
+            x++;
+        }
+        free (words);
+        words = NULL;
+    }
+}
+
 void	ft_free_char(char **words, int nb_of_words)
 {
 	int	x;
 
 	if (words != NULL)
 	{
+		//printf(BLUE"nb_of_words = %d\n"RESET_COLOR, nb_of_words);
 		x = 0;
-		printf(BLUE"nb_of_words = %d\n"RESET_COLOR, nb_of_words);
 		while (x < nb_of_words)
 		{
-			if (words[x] != NULL)
+			//printf(GREEN"hellowis, words[%d] = %s\n"RESET_COLOR, x, words[x]);
+			if (words[x])
 			{
-				//printf(GREEN"hellowis, words[%d] = %s\n"RESET_COLOR, x, words[x]);
 				free(words[x]);
 				words[x] = NULL;
 			}
 			x++;
 		}
+		//printf("\n\nPOINTER = %p\n\n", words);
 		free (words);
 		words = NULL;
 	}

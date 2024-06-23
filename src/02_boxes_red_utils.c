@@ -209,7 +209,7 @@ int	ft_check_first_word(t_box **box, t_red_type red_type)
 	tmp_to_debug_i = 0;
 	while (tmp_to_debug_nb_of_red_type > 0)
 	{
-		printf("           is WORD after red_type? YES-NO[%d] = "BLUE"%d\n"RESET_COLOR, tmp_to_debug_i, arr_word_yes_no[tmp_to_debug_i]);
+		//printf("           is WORD after red_type? YES-NO[%d] = "BLUE"%d\n"RESET_COLOR, tmp_to_debug_i, arr_word_yes_no[tmp_to_debug_i]);
 		tmp_to_debug_nb_of_red_type--;
 		tmp_to_debug_i++;
 	}

@@ -20,7 +20,7 @@ void	cpy_arr_with_len_2(int *arr_src, int **arr_dst, int len)
 	while (len > 0)
 	{
 		(*arr_dst)[i] = arr_src[i];
-		printf("dict para ander[%d] = %d\n", i, (*arr_dst)[i]);
+		//printf("dict para ander[%d] = %d\n", i, (*arr_dst)[i]);
 		i++;
 		len--;
 	}

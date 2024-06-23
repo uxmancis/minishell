@@ -70,12 +70,12 @@ int	ft_builtin_echo(t_box *box)
 {
 	if (ft_strcmp_2(box->rest_info_potential_cmd[1], "-n"))
 	{
-		printf("\n-n found\n");
+		//printf("\n-n found\n");
 		put_without_next_line(&box);
 	}
 	else
 	{
-		printf("\n-n NOT found\n");
+		//printf("\n-n NOT found\n");
 		put_with_next_line(&box);
 		return (-1);
 	}

@@ -40,7 +40,7 @@ int	ft_where_r_pipes(t_prompt **p)
 	int	i_to_debug;
 
 	(*p)->nb_of_pipes = ft_is_pipe(p);
-	printf(MAGENTA"01_input_pipe.c - ft_where_r_pipes: nb_of_pipes = %d\n"RESET_COLOR, (*p)->nb_of_pipes);
+	//printf(MAGENTA"01_input_pipe.c - ft_where_r_pipes: nb_of_pipes = %d\n"RESET_COLOR, (*p)->nb_of_pipes);
 	i_to_debug = 0;
 	if (ft_check_nb_of_pipes(p) == -1)
 		return (-1);
@@ -53,7 +53,7 @@ int	ft_where_r_pipes(t_prompt **p)
 		aux_para_imprimir_nb_of_pipes = (*p)->nb_of_pipes;
 		while ((aux_para_imprimir_nb_of_pipes) > 0)
 		{
-			printf(MAGENTA"arr_index_pipes[%d] = %d\n"RESET_COLOR, i_to_debug, (*p)->arr_index_pipes[i_to_debug]);
+			//printf(MAGENTA"arr_index_pipes[%d] = %d\n"RESET_COLOR, i_to_debug, (*p)->arr_index_pipes[i_to_debug]);
 			i_to_debug++;
 			aux_para_imprimir_nb_of_pipes--;
 		}

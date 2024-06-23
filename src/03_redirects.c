@@ -132,18 +132,24 @@ int	handle_redirects(t_box **box)
 		{
 			if (handle_input_infile(box, index_red) == -1)
 				return (-1);
+			free(*((*box)->words_infile));
+			*((*box)->words_infile) = NULL;
 			(*box)->words_infile++;
 		}
 		else if ((*box)->dict_red_index_type[index_red][1] == OUTFILE_STRONG)
 		{
 			if (handle_output_strong(box, index_red) == -1)
 				return (-1);
+			free(*((*box)->words_outfile_strong));
+			*((*box)->words_outfile_strong) = NULL;
 			(*box)->words_outfile_strong++;
 		}
 		else if ((*box)->dict_red_index_type[index_red][1] == HEREDOC)
 		{
 			if (handle_heredoc(box) == -1)
 				return (-1);
+			free(*((*box)->words_hrdc));
+			*((*box)->words_hrdc) = NULL;
 			(*box)->words_hrdc++;
 			//tmp_nb_of_red_type--;
 			if ((*box)->nb_of_heredocs > 1)
@@ -155,10 +161,16 @@ int	handle_redirects(t_box **box)
 		{
 			if (handle_output_append(box, index_red) == -1)
 				return (-1);
+			free(*((*box)->words_outfile_append));
+			*((*box)->words_outfile_append) = NULL;
 			(*box)->words_outfile_append++;
 		}
 		index_red++;
 		tmp_nb_of_red_type--;
 	}
+	(*box)->words_outfile_append = (*box)->words_outfile_append_tmp;
+	(*box)->words_infile = (*box)->words_infile_tmp;
+	(*box)->words_hrdc = (*box)->words_hrdc_tmp;
+	(*box)->words_outfile_strong = (*box)->words_outfile_strong_tmp;
 	return (0);
 }

@@ -50,15 +50,16 @@ void	finish2up_dq(int **tdqw, int new_len, int *ttdqw, int len_old_word)
 void	put_arr(int *arr, int len)
 {
 	int	i;
+    (void)arr;
 
 	i = 0;
 	while (len > 0)
 	{
-		printf(YELLOW"%d", arr[i]);
+		//printf(YELLOW"%d", arr[i]);
 		i++;
 		len--;
 	}
-	printf(RESET_COLOR);
+	//printf(RESET_COLOR);
 }
 
 /*ft_free_word_and_dict

@@ -62,7 +62,7 @@ int	ft_fill_red_info(t_box **box)
 	}
 	if (set_red_index_type(box) == -1)
 		return (-1);
-	printf("     02_boxes.c - ft_fill_red_info|" BLUE " dict_red_index_type" RESET_COLOR " generated✅\n");
+	//printf("     02_boxes.c - ft_fill_red_info|" BLUE " dict_red_index_type" RESET_COLOR " generated✅\n");
     return (0);
 }
 

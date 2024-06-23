@@ -81,6 +81,6 @@ int	ft_strcmp_2(char *str_2_check, char *cmd)
 int	ft_builtin_pwd(t_prompt **prompt)
 {
 	ft_putstr(ft_getenv_local((*prompt)->vars, "PWD")->val);
-	printf("\n");
+	//printf("\n");
 	return (0);
 }

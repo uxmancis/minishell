@@ -47,7 +47,7 @@ int	ft_setenv_local(t_vars *list, char *name, char *value, int overwrite)
 	if (!new)
 	{
 		if (value == NULL)
-			new = ft_varsnew(ft_strdup(name), "");
+			new = ft_varsnew(ft_strdup(name), ft_strdup(""));
 		else
 			new = ft_varsnew(ft_strdup(name), ft_strdup(value));
 		if (!new)

@@ -51,10 +51,10 @@ int	ft_unset_builtin(t_prompt **prompt, char **cmd)
 	status = 0;
 	while (cmd[i])
 	{
-		printf(WHITE "HOLA\n%s\n\n" RESET_COLOR, cmd[i]);
+		//printf(WHITE "HOLA\n%s\n\n" RESET_COLOR, cmd[i]);
 		status += ft_delete_node(&(*prompt)->vars, cmd[i]);
 		i++;
 	}
-	printf(GREEN "Unset Generate\n" RESET_COLOR);
+	//printf(GREEN "Unset Generate\n" RESET_COLOR);
 	return (status);
 }

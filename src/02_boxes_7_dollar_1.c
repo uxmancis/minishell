@@ -17,7 +17,7 @@ void	expand_infile_words(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_infile;
 	int	nb_infile_x;
 
-	printf("          which words are we checking?"YELLOW" - INFILE_WORDS\n"RESET_COLOR);
+	//printf("          which words are we checking?"YELLOW" - INFILE_WORDS\n"RESET_COLOR);
 	tmp_nb_of_words_infile = (*box)->nb_of_infile;
 	nb_infile_x = 0;
 	(*box)->flag_word_or_cmd = 'W';
@@ -40,7 +40,7 @@ void	expand_outfile_strong_words(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_outf_str;
 	int	nb_outfile_str_x;
 
-	printf("          which words are we checking?"YELLOW" - OUTFILE_STRONG_WORDS\n"RESET_COLOR);
+	//printf("          which words are we checking?"YELLOW" - OUTFILE_STRONG_WORDS\n"RESET_COLOR);
 	tmp_nb_of_words_outf_str = (*box)->nb_of_outfile_strong;
 	nb_outfile_str_x = 0;
 	(*box)->flag_word_or_cmd = 'W';
@@ -63,7 +63,7 @@ void	expand_outfile_append_words(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_outf_app;
 	int	nb_outfile_app_x;
 
-	printf("          which words are we checking?"YELLOW" - OUTFILE_APPEND_WORDS\n"RESET_COLOR);
+	//printf("          which words are we checking?"YELLOW" - OUTFILE_APPEND_WORDS\n"RESET_COLOR);
 	tmp_nb_of_words_outf_app = (*box)->nb_of_outfile_append;
 	nb_outfile_app_x = 0;
 	(*box)->flag_word_or_cmd = 'W';
@@ -86,7 +86,7 @@ void	expand_rest_info_potential_cmd(t_box **box, t_prompt **prompt)
 	int	tmp_nb_of_words_rest_info;
 	int	nb_word_rest_x;
 
-	printf("          which words are we checking?"YELLOW" - REST_WORDS_POTENCIAL_CMD\n"RESET_COLOR);
+	//printf("          which words are we checking?"YELLOW" - REST_WORDS_POTENCIAL_CMD\n"RESET_COLOR);
 	tmp_nb_of_words_rest_info = (*box)->nb_of_words_rest;
 	nb_word_rest_x = 0;
 	(*box)->flag_word_or_cmd = 'C';
@@ -105,8 +105,8 @@ void	expand_rest_info_potential_cmd(t_box **box, t_prompt **prompt)
 */
 void	check_dollars_expansion(t_box **box, t_prompt **prompt)
 {
-	printf("----------------------------------------------\n\n");
-	printf("     02_boxes_6_cmd.c - "YELLOW"check_dollars_expansion\n"RESET_COLOR);
+	//printf("----------------------------------------------\n\n");
+	//printf("     02_boxes_6_cmd.c - "YELLOW"check_dollars_expansion\n"RESET_COLOR);
 	expand_infile_words(box, prompt);
 	expand_outfile_strong_words(box, prompt);
 	expand_outfile_append_words(box, prompt);

@@ -22,6 +22,8 @@ void	get_word_infile_1(t_box **box, int *arr_ind_red_type)
 
 	tmp_nb_of_red_type = get_nb_of_red_type(box, INFILE);
 	keep_nb_of_red_type = tmp_nb_of_red_type;
+	if (keep_nb_of_red_type <= 0)
+		return;
 	(*box)->words_infile = malloc(sizeof(char *) * tmp_nb_of_red_type);
 	red_type_nb_x = 0;
 	i = 0;
@@ -49,12 +51,14 @@ void	get_word_infile_1(t_box **box, int *arr_ind_red_type)
     i = 0;
     while (tmp_nb_of_red_type > 0)
     {
-        printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_infile[i]);
+        //printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_infile[i]);
         tmp_nb_of_red_type--;
         i++;
     }
-    printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_infile"RESET_COLOR" generated✅\n");
-    printf("     -----------------------------------------------\n\n");
+
+	(*box)->words_infile_tmp = (*box)->words_infile;
+    //printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_infile"RESET_COLOR" generated✅\n");
+    //printf("     -----------------------------------------------\n\n");
 }
 
 
@@ -76,7 +80,7 @@ void	get_word_infile_2(int start, int end, t_box **box, int red_type_nb_x)
 	int	i;
 	int	len_input_str;
 
-	printf(BLUE"               get_word_infile_2: start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, red_type_nb_x);
+	//printf(BLUE"               get_word_infile_2: start = %d, end = %d, heredoc_nb = %d\n"RESET_COLOR, start, end, red_type_nb_x);
 	len_delimiter = 0;
 	len_input_str = ft_strlen((*box)->input_substr);
 	while (!possible_cases(box, start) && start < len_input_str)

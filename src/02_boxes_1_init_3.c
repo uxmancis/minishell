@@ -28,25 +28,23 @@
 */
 int	ft_gen_boxes(t_prompt *prompt)
 {
-	t_box	**arr_boxes;
 	int		tmp_nb_boxes;
-	int		keep_nb_boxes;
-	int		substr_id;
 	int		i;
 
 	i = 0;
 	tmp_nb_boxes = prompt->nb_of_substr;
-	keep_nb_boxes = prompt->nb_of_substr;
-	printf("     02_boxes.c - ft_gen_boxes| nb_boxes = %d\n", prompt->nb_of_substr);
-	substr_id = 1;
-	arr_boxes = malloc(sizeof(t_box) * tmp_nb_boxes);
-	while (tmp_nb_boxes > 0)
+    prompt->tmp_in = dup(STDIN_FILENO);
+    prompt->tmp_out = dup(STDOUT_FILENO);
+    prompt->pid = 0;
+    prompt->pipefd[0] = 0;
+    prompt->pipefd[1] = 1;
+	prompt->arr_boxes = (t_box**) malloc((tmp_nb_boxes + 1) * sizeof(t_box *));
+    prompt->arr_boxes[tmp_nb_boxes] = NULL;
+	while (i < tmp_nb_boxes)
 	{
-		if (ft_box_init(&arr_boxes[i], prompt, substr_id) == -1)
+		if (ft_box_init(&prompt->arr_boxes[i], prompt, i + 1) == -1)
 			return (-1);
-		init_cmd(&arr_boxes[i], prompt, substr_id);
-		tmp_nb_boxes--;
-		substr_id++;
+		init_cmd(&prompt->arr_boxes[i], prompt, i + 1);
 		i++;
 	}
 	//David ejecuta
@@ -68,18 +66,15 @@ int	ft_gen_boxes(t_prompt *prompt)
 	}
     prompt->pipefd[0] = 0;
     prompt->pipefd[1] = 1;
-	
-	//Liberamos
 	i = 0;
-	while (arr_boxes[i] && keep_nb_boxes > 0)
+	while (prompt->arr_boxes[i] != NULL)
 	{
-		printf("yes\n");
-		ft_free_box(arr_boxes[i]);
-		free(arr_boxes[i]);
-		arr_boxes[i] = NULL;
+		ft_free_box(prompt->arr_boxes[i]);
+		free(prompt->arr_boxes[i]);
+		prompt->arr_boxes[i] = NULL;
 		i++;
-		keep_nb_boxes--;
 	}
-	free(arr_boxes);
+	free(prompt->arr_boxes);
+    prompt->arr_boxes = NULL;
 	return (0);
 }

@@ -158,7 +158,10 @@ void	get_each_word_up(char **w, int nb_word_x, t_box **box, t_prompt **prompt)
 	int			*tmp_dict_quotes_word;
 	t_x_y_word	x_y;
 
-	printf("               Before: ["MAGENTA"%s"RESET_COLOR"]\n", *w);
+	if (!*w)
+		return;
+
+	//printf("               Before: ["MAGENTA"%s"RESET_COLOR"]\n", *w);
 	x_y.index_x = nb_word_x;
 	x_y.index_y = 0;
 	tmp_dict_quotes_word = NULL;
@@ -173,6 +176,6 @@ void	get_each_word_up(char **w, int nb_word_x, t_box **box, t_prompt **prompt)
 			break ;
 		x_y.index_y++;
 	}
-	printf("               After: ["YELLOW"%s"RESET_COLOR"]\n\n", *w);
+	//printf("               After: ["YELLOW"%s"RESET_COLOR"]\n\n", *w);
 	free (tmp_dict_quotes_word);
 }

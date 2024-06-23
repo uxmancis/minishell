@@ -66,8 +66,11 @@ int	ft_pipe_after_pipe(char *input, int *dict_quotes)
 */
 int	ft_check_quotes_and_pipes(t_prompt *prompt)
 {
+    if (prompt->input == NULL) {
+        return (-1);
+    }
 	prompt->nb_of_substr = 1;
-	prompt->dict_quotes = malloc(sizeof(int) * (ft_strlen(prompt->input) + 1));
+ 	prompt->dict_quotes = malloc(sizeof(int) * (ft_strlen(prompt->input) + 1));
 	prompt->dict_quotes[ft_strlen(prompt->input)] = '0';
 	if (ft_quotes (prompt->input, &prompt->dict_quotes) == -1)
 	{
@@ -103,7 +106,7 @@ int	ft_get_substr(t_prompt *prompt)
 	len_input = ft_strlen(prompt->input);
 	while (len_input > 0)
 	{
-		printf("dictionary[%d] = %d\n"RESET_COLOR, i, prompt->dict_quotes[i]);
+		//printf("dictionary[%d] = %d\n"RESET_COLOR, i, prompt->dict_quotes[i]);
 		len_input--;
 		i++;
 	}

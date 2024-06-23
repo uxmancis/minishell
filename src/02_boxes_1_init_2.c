@@ -36,10 +36,14 @@ void	ft_free_box(t_box *box)
 	if (box->dict_quotes)
 		free(box->dict_quotes);
 	ft_free_int(box->dict_red_index_type, box->nb_of_redir);
-	ft_free_char(box->words_hrdc, box->nb_of_heredocs);
 	ft_free_char(box->words_infile, box->nb_of_infile);
+	ft_free_char(box->words_hrdc, box->nb_of_heredocs);
 	ft_free_char(box->words_outfile_append, box->nb_of_outfile_append);
 	ft_free_char(box->words_outfile_strong, box->nb_of_outfile_strong);
+	// free(box->words_outfile_strong);
+	// free(box->words_outfile_append);
+	// free(box->words_hrdc);
+	// free(box->words_infile);
 	if (box->what_to_take)
 		free(box->what_to_take);
 	if (box->index_beginning_words_rest)
@@ -47,6 +51,8 @@ void	ft_free_box(t_box *box)
 	ft_free_char(box->rest_info_potential_cmd, box->nb_of_words_rest);
 	if (box->tmp_pid_str)
 		free(box->tmp_pid_str);
+    ft_free_tab(box->envp);
+    free(box->pids);
 }
 
 
@@ -61,6 +67,8 @@ void	ft_boxes_initialize_2(t_box **box)
 	(*box)->rest_info_potential_cmd = NULL;
 	(*box)->tmp_pid = -1;
 	(*box)->tmp_pid_str = NULL;
+    (*box)->close_out = 0;
+    (*box)->close_in = 0;
 }
 
 void	ft_boxes_initialize(t_box **box)
@@ -72,6 +80,13 @@ void	ft_boxes_initialize(t_box **box)
 	(*box)->dict_red_index_type = NULL;
 	(*box)->nb_of_heredocs = 0;
 	(*box)->words_hrdc = NULL;
+	(*box)->words_hrdc_tmp = NULL;
+	(*box)->words_infile = NULL;
+	(*box)->words_infile_tmp = NULL;
+	(*box)->words_outfile_append = NULL;
+	(*box)->words_outfile_append_tmp = NULL;
+	(*box)->words_outfile_strong = NULL;
+	(*box)->words_outfile_strong_tmp = NULL;
 	(*box)->is_infile = 0;
 	(*box)->nb_of_infile = 0;
 	(*box)->words_infile = NULL;
@@ -104,8 +119,8 @@ int	ft_box_init(t_box **box, t_prompt *prompt, int substr_id)
 	int	i;
 
 	*box = (t_box *)malloc(sizeof(t_box));
-	printf(BLUE"\n\n\n======ִֶָ𓂃 ࣪˖ ִֶָ🐇་༘࿐====ᯓ★_⋆˚࿔ 📦BOX NB: %d 𝜗𝜚˚⋆========𓇼🐚☾☼🦪========;༊;༊__\n"RESET_COLOR, substr_id);
-	printf("     02_boxes.c - "BLUE"ft_boxes_init"RESET_COLOR": Boxes are generated here. Nb_of_substr to be created = "BLUE"%d"RESET_COLOR". Let's start!\n", prompt->nb_of_substr);
+	//printf(BLUE"\n\n\n======ִֶָ𓂃 ࣪˖ ִֶָ🐇་༘࿐====ᯓ★_⋆˚࿔ 📦BOX NB: %d 𝜗𝜚˚⋆========𓇼🐚☾☼🦪========;༊;༊__\n"RESET_COLOR, substr_id);
+	//printf("     02_boxes.c - "BLUE"ft_boxes_init"RESET_COLOR": Boxes are generated here. Nb_of_substr to be created = "BLUE"%d"RESET_COLOR". Let's start!\n", prompt->nb_of_substr);
 	ft_boxes_initialize(box);
 	if (prompt->nb_of_substr == 1)
 		get_single_str(prompt, box);
@@ -115,21 +130,21 @@ int	ft_box_init(t_box **box, t_prompt *prompt, int substr_id)
 	i = 0;
 	while (len > 0)
 	{
-		printf("               input_substr[%d] = %c\n", i, (*box)->input_substr[i]);
+		//printf("               input_substr[%d] = %c\n", i, (*box)->input_substr[i]);
 		i++;
 		len--;
 	}
-	printf("     02_boxes.c - ft_boxes_init| Copied!✅"BLUE" input_substr"RESET_COLOR" generated:"GREEN" %s"RESET_COLOR", len = %d\n", (*box)->input_substr, (int)ft_strlen((*box)->input_substr));
+	//printf("     02_boxes.c - ft_boxes_init| Copied!✅"BLUE" input_substr"RESET_COLOR" generated:"GREEN" %s"RESET_COLOR", len = %d\n", (*box)->input_substr, (int)ft_strlen((*box)->input_substr));
 	if (get_dict_quotes(box) == -1)
 		return (-1);
-	printf("     02_boxes.c - ft_boxes_init|"BLUE" dict_quotes"RESET_COLOR" generated✅\n");
+	//printf("     02_boxes.c - ft_boxes_init|"BLUE" dict_quotes"RESET_COLOR" generated✅\n");
 	if (get_redirections(box) == -1)
 		return (-1);
 	if (get_rest(box, &prompt) == -1)
 		return (-1);
-	printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
-	printf(BLUE"BOX GENERATION COMPLETED✅, box number = %d\n"RESET_COLOR, substr_id);
-	printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);
+	//printf("\n\n//pdte.: recopilar info de comandos, argumentos\n");
+	//printf(BLUE"BOX GENERATION COMPLETED✅, box number = %d\n"RESET_COLOR, substr_id);
+	//printf(BLUE"==============================================================================\n\n\n"RESET_COLOR);
 	return (0);
 }
 

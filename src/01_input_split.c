@@ -78,7 +78,7 @@ void	ft_split_input(t_prompt **prompt)
 	//printf("nb_pipes = %d, tmp_num_pipes = %d\n", (*prompt)->nb_of_pipes, tmp_num_pipes);
 	while (tmp_num_pipes > 0)
 	{
-		printf("array_index_pipes[%d] = %d\n", i, (*prompt)->arr_index_pipes[i]);
+		//printf("array_index_pipes[%d] = %d\n", i, (*prompt)->arr_index_pipes[i]);
 		tmp_num_pipes--;
 		i++;
 	}
@@ -88,13 +88,13 @@ void	ft_split_input(t_prompt **prompt)
 		if (tmp_nb_of_substr == 1)
 		{
 			(*prompt)->total_substr_input[x] = ft_split_from_to(start, (ft_strlen((*prompt)->input) - 1), (*prompt)->input); //-1 ze uste dot bebai izengo zala hasta la posición anterior
-			printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
+			//printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
 			break;
 		}	
 		else
 		{
 			(*prompt)->total_substr_input[x] = ft_split_from_to(start, ((*prompt)->arr_index_pipes[index_end] - 1), (*prompt)->input); //-1: substr hasta la posición anterior beti
-			printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
+			//printf(YELLOW"substr %d = %s\n"RESET_COLOR, x, (*prompt)->total_substr_input[x]);
 		}
 		start = ((*prompt)->arr_index_pipes[index_end]) + 1;
 		index_end++,

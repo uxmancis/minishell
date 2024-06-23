@@ -22,8 +22,9 @@ void	get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
 
 	tmp_nb_of_red_type = get_nb_of_red_type(box, HEREDOC);
 	keep_nb_of_red_type = tmp_nb_of_red_type;
-	printf("\n\n------------------------------ %d ------------------------\n\n", tmp_nb_of_red_type);
-	(*box)->words_hrdc = malloc(sizeof(char *) * tmp_nb_of_red_type);
+	if (keep_nb_of_red_type <= 0)
+		return;
+	(*box)->words_hrdc = malloc(sizeof(char *) * (keep_nb_of_red_type));
 	if (!(*box)->words_hrdc)
 		perror("\n\nmalloc error: words_hrdc\n");
 	red_type_nb_x = 0;
@@ -52,12 +53,13 @@ void	get_word_hrdc_1(t_box **box, int *arr_ind_red_type)
 	i = 0;
 	while (tmp_nb_of_red_type > 0)
 	{
-		printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_hrdc[i]);
+		//printf("                   word[%d] = ["BLUE"%s"RESET_COLOR"]\n", i, (*box)->words_hrdc[i]);
 		tmp_nb_of_red_type--;
 		i++;
 	}
-	printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_hrdc"RESET_COLOR" generated✅\n");
-	printf("     -----------------------------------------------\n\n");
+	(*box)->words_hrdc_tmp = (*box)->words_hrdc;
+	//printf("     02_boxes_rest.c - get_word_hrdc| "BLUE"char **words_hrdc"RESET_COLOR" generated✅\n");
+	//printf("     -----------------------------------------------\n\n");
 }
 
 

@@ -20,7 +20,7 @@
 
 // //     while (i < box->nb_pipes)
 // //     {
-// //         printf(WHITE"       nb_pipes ✅"RESET_COLOR BLUE" [%d] \n", box->nb_pipes);
+// //         //printf(WHITE"       nb_pipes ✅"RESET_COLOR BLUE" [%d] \n", box->nb_pipes);
 // 	//         if (pipe(box->pipefd + 2 * i) == -1)
 // 	//         {
 // 	//             perror("Could not create pipe");
