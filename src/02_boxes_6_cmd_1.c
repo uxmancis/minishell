@@ -38,6 +38,7 @@ void	cpy_rest_words(t_box **box)
 void	ft_get_only_needed(t_box **box)
 {
 	(*box)->nb_of_words_rest = rest_numof_words(box);
+	printf("ft_get_only_needed\n");
 	if ((*box)->nb_of_words_rest == 0)
 		return ;
 	if (DEBUG_MODE != 0)

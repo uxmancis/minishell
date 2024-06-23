@@ -192,7 +192,7 @@ typedef struct s_word_and_dictquotes
 // minishell.c
 //  void ft_begin(t_prompt *data);
 
-#define DEBUG_MODE 0 //0: Disabled, 1: Enabled
+#define DEBUG_MODE 1 //0: Disabled, 1: Enabled
 
 //000_debug_mode.c
 void	put_parsing_input_dict(t_prompt *prompt);
