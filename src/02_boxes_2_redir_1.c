@@ -56,7 +56,7 @@ int	ft_fill_red_info(t_box **box)
 	tmp_nb_of_red = (*box)->nb_of_redir;
 	while (tmp_nb_of_red > 0)
 	{
-		(*box)->dict_red_index_type[i] = malloc(sizeof(int) * 2);
+		(*box)->dictred_i_t[i] = malloc(sizeof(int) * 2);
 		tmp_nb_of_red--;
 		i++;
 	}
@@ -98,7 +98,7 @@ int	get_redirections(t_box **box)
 		(*box)->nb_of_redir = result;
 	if ((*box)->nb_of_redir == 0)
 		return (0);
-	(*box)->dict_red_index_type = malloc(sizeof(char *)
+	(*box)->dictred_i_t = malloc(sizeof(char *)
 			* ((*box)->nb_of_redir));
 	if (ft_fill_red_info(box) == -1)
 		return (-1);

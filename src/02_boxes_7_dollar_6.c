@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:59:29 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 14:58:19 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:41:56 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,10 @@ void	cpy_word(char *str_src, char **str_dst)
 	}
 }
 
-int	ft_get_pid_int(void)
+int	ft_get_pid_int(int fd, int i, int pid)
 {
-	int		fd;
 	char	buffer[10];
-	ssize_t	bytesRead;
-	int		i;
-	int		pid;
+	ssize_t	bytesread;
 
 	fd = open("/proc/self/stat", O_RDONLY);
 	if (fd == -1)
@@ -88,21 +85,17 @@ int	ft_get_pid_int(void)
 		ft_puterror("Failed to open /proc/self/stat\n");
 		return (-1);
 	}
-	bytesRead = read(fd, buffer, sizeof(buffer) - 1);
-	if (bytesRead == -1)
+	bytesread = read(fd, buffer, sizeof(buffer) - 1);
+	if (bytesread == -1)
 	{
 		ft_puterror("Failed to read from /proc/self/stat");
 		close(fd);
 		return (-1);
 	}
-	buffer[bytesRead] = '\0';
+	buffer[bytesread] = '\0';
 	i = 0;
 	pid = 0;
 	while (buffer[i] >= '0' && buffer[i] <= '9')
-	{
-		pid = pid * 10 + (buffer[i] - '0');
-		i++;
-	}
-	close(fd);
-	return (pid);
+		pid = pid * 10 + (buffer[i++] - '0');
+	return (close(fd), pid);
 }

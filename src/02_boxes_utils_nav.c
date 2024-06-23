@@ -58,7 +58,7 @@ int	is_last_redir(t_box **box, int index_current_redir)
 	redir_position = 0;
 	while (tmp_total_nb_of_redir > 0)
 	{
-		if (index_current_redir == (*box)->dict_red_index_type[redir_position][0])
+		if (index_current_redir == (*box)->dictred_i_t[redir_position][0])
 			break ;
 		tmp_total_nb_of_redir--;
 		counter_position++;
@@ -90,7 +90,7 @@ int has_end_word(int index_red_in_substr, t_box **box, int red_nb_x)
             return (1);
         return (0);
     }
-    if (has_end_last_check(index_red_in_substr + 1, (*box)->dict_red_index_type[red_nb_x + 1][0] - 1, box))
+    if (has_end_last_check(index_red_in_substr + 1, (*box)->dictred_i_t[red_nb_x + 1][0] - 1, box))
         return (1);
     return (0);
 }

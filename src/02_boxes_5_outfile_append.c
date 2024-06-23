@@ -29,7 +29,7 @@ int	ft_get_numof_red_type(t_box **box, t_red_type red_type)
 	counter = 0;
 	while (tmp_nb_of_redir > 0)
 	{
-		if ((*box)->dict_red_index_type[i][1] == (int)red_type)
+		if ((*box)->dictred_i_t[i][1] == (int)red_type)
 			counter++;
 		tmp_nb_of_redir--;
 		i++;
@@ -54,7 +54,7 @@ int	is_red_type(t_box **box, t_red_type red_type)
 	i = 0;
 	while (tmp_nb_of_redir > 0)
 	{
-		if ((*box)->dict_red_index_type[i][1] == (int)red_type)
+		if ((*box)->dictred_i_t[i][1] == (int)red_type)
 			return (1);
 		tmp_nb_of_redir--;
 		i++;

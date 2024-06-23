@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:16:44 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 14:39:10 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:45:48 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	set_red_less_than_2(t_box **box, int *i, int index_of_arr)
 	}
 	if ((*box)->dict_quotes[(*i)] == 0)
 	{
-		(*box)->dict_red_index_type[index_of_arr][0] = (*i);
-		(*box)->dict_red_index_type[index_of_arr][1] = HEREDOC;
+		(*box)->dictred_i_t[index_of_arr][0] = (*i);
+		(*box)->dictred_i_t[index_of_arr][1] = HEREDOC;
 		(*i) = (*i) + 1;
 		return (0);
 	}
@@ -37,8 +37,8 @@ int	set_red_less_than_3(t_box **box, int *i, int index_of_arr)
 {
 	if ((*box)->dict_quotes[(*i)] == 0)
 	{
-		(*box)->dict_red_index_type[index_of_arr][0] = (*i);
-		(*box)->dict_red_index_type[index_of_arr][1] = INFILE;
+		(*box)->dictred_i_t[index_of_arr][0] = (*i);
+		(*box)->dictred_i_t[index_of_arr][1] = INFILE;
 		return (0);
 	}
 	else
@@ -95,8 +95,8 @@ int	set_red_greater_than_2(t_box **box, int *i, int index_of_arr)
 	}
 	if ((*box)->dict_quotes[(*i)] == 0)
 	{
-		(*box)->dict_red_index_type[index_of_arr][0] = (*i);
-		(*box)->dict_red_index_type[index_of_arr][1] = OUTFILE_APPEND;
+		(*box)->dictred_i_t[index_of_arr][0] = (*i);
+		(*box)->dictred_i_t[index_of_arr][1] = OUTFILE_APPEND;
 		(*i) = (*i) + 1;
 		return (0);
 	}
@@ -108,8 +108,8 @@ int	set_red_greater_than_3(t_box **box, int *i, int index_of_arr)
 {
 	if ((*box)->dict_quotes[(*i)] == 0)
 	{
-		(*box)->dict_red_index_type[index_of_arr][0] = (*i);
-		(*box)->dict_red_index_type[index_of_arr][1] = OUTFILE_STRONG;
+		(*box)->dictred_i_t[index_of_arr][0] = (*i);
+		(*box)->dictred_i_t[index_of_arr][1] = OUTFILE_STRONG;
 		return (0);
 	}
 	else

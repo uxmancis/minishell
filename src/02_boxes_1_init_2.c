@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:24:59 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 20:41:31 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:45:48 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_free_box(t_box *box)
 		free(box->input_substr);
 	if (box->dict_quotes)
 		free(box->dict_quotes);
-	ft_free_int(box->dict_red_index_type, box->nb_of_redir);
+	ft_free_int(box->dictred_i_t, box->nb_of_redir);
 	ft_free_char(box->words_infile, box->nb_of_infile);
 	ft_free_char(box->words_hrdc, box->nb_of_heredocs);
 	ft_free_char(box->words_outfile_append, box->nb_of_outfile_append);
@@ -77,7 +77,7 @@ void	ft_boxes_initialize(t_box **box)
 	(*box)->input_substr = NULL;
 	(*box)->dict_quotes = NULL;
 	(*box)->nb_of_redir = 0;
-	(*box)->dict_red_index_type = NULL;
+	(*box)->dictred_i_t = NULL;
 	(*box)->nb_of_heredocs = 0;
 	(*box)->words_hrdc = NULL;
 	(*box)->words_hrdc_tmp = NULL;

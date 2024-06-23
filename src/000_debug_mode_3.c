@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 13:53:19 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 15:55:18 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:45:48 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	put_parsing_box_numof_redir_4(t_box **box, int index_of_arr)
 	printf(GREEN "               redirection %d assigned:",
 		index_of_arr + 1);
 	printf("     [0]_INDEX: %d  ",
-		(*box)->dict_red_index_type[index_of_arr][0]);
+		(*box)->dictred_i_t[index_of_arr][0]);
 	printf("[1]_TYPE: %s\n"RESET_COLOR,
-		ft_enum_to_str((*box)->dict_red_index_type[index_of_arr][1]));
+		ft_enum_to_str((*box)->dictred_i_t[index_of_arr][1]));
 }
 
 /*

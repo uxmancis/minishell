@@ -88,17 +88,17 @@ char	*ft_strcat(char *dest, const char *src)
 //while (*(str + i)) //loop to iterate over the string "str"
 //for the length of the string
 //Returns (i): // If the character at position "i" is equal
-//to the character "c" return the position "i"
-int	ft_sstrncmp(char *str, char c)
-{
-	int	i;
+// //to the character "c" return the position "i"
+// int	ft_sstrncmp(char *str, char c)
+// {
+// 	int	i;
 
-	i = 0;
-	while (*(str + i))
-	{
-		if (*(str + i) == c)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
+// 	i = 0;
+// 	while (*(str + i))
+// 	{
+// 		if (*(str + i) == c)
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (-1);
+// }

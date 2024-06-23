@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:56:52 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 20:52:35 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 22:58:56 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_isalnum(int c)
 	return (0);
 }
 
-void	ft_putstr(char *str)
-{
-	printf("%s", str);
-}
+// void	ft_putstr(char *str)
+// {
+// 	printf("%s", str);
+// }

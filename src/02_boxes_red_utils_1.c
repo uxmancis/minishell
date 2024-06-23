@@ -41,7 +41,7 @@ int	get_nb_of_red_type(t_box **box, t_red_type red_type)
 	counter = 0;
 	while (tmp_nb_of_redir > 0)
 	{
-		if ((*box)->dict_red_index_type[i][1] == (int)red_type)
+		if ((*box)->dictred_i_t[i][1] == (int)red_type)
 			counter++;
 		tmp_nb_of_redir--;
 		i++;
@@ -69,9 +69,9 @@ void	get_specif_index_red(int **arr_ind_red_type,
 	x = 0;
 	while (tmp_nb_of_red_type > 0)
 	{
-		if ((*box)->dict_red_index_type[x][1] == (int)red_type)
+		if ((*box)->dictred_i_t[x][1] == (int)red_type)
 		{
-			(*arr_ind_red_type)[i] = (*box)->dict_red_index_type[x][0];
+			(*arr_ind_red_type)[i] = (*box)->dictred_i_t[x][0];
 			i++;
 			tmp_nb_of_red_type--;
 		}

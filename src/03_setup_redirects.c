@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:29:16 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 20:17:14 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:38:48 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,52 +59,3 @@ void	restore_original_pointers(t_box **box)
 	(*box)->words_hrdc = (*box)->words_hrdc_tmp;
 	(*box)->words_outfile_strong = (*box)->words_outfile_strong_tmp;
 }
-
-int process_redirect(t_box **box, int index_red)
-{
-	int redir_type = (*box)->dict_red_index_type[index_red][1];
-
-	if (redir_type == INFILE)
-	{
-		return process_infile(box, index_red);
-	}
-	else if (redir_type == OUTFILE_STRONG)
-	{
-		return process_outfile_strong(box, index_red);
-	}
-	else if (redir_type == HEREDOC)
-	{
-		int result = process_heredoc(box);
-		if (result == 0 && (*box)->nb_of_heredocs > 1)
-		{
-			return (*box)->nb_of_heredocs - 1;
-		}
-		return result;
-	}
-	else if (redir_type == OUTFILE_APPEND)
-	{
-		return process_outfile_append(box, index_red);
-	}
-	return 0;
-}
-
-
-int handle_redirects(t_box **box)
-{
-	int tmp_nb_of_red_type = (*box)->nb_of_redir;
-	int index_red = 0;
-
-	while (tmp_nb_of_red_type > 0)
-	{
-		if (process_redirect(box, index_red) == -1)
-			return (-1);
-
-		index_red++;
-		tmp_nb_of_red_type--;
-	}
-
-	restore_original_pointers(box);
-
-	return (0);
-}
-

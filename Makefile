@@ -45,6 +45,8 @@ SRC_FILES	=	0_0_main.c \
 				02_boxes_7_dollar_8.c \
 				02_boxes_7_dollar_9.c \
 				02_boxes_7_dollar_10.c \
+				02_boxes_7_dollar_11.c \
+				02_boxes_7_dollar_12.c \
 				02_boxes_red_utils_1.c \
 				02_boxes_red_utils_2.c \
 				02_boxes_utils_nav.c \
@@ -65,11 +67,11 @@ SRC_FILES	=	0_0_main.c \
 				06_exec_builting_2.c \
 				06_export.c \
 				06_unset.c \
-				07_close.c \
 				07_signals.c \
 				09_exit.c \
 				09_free.c \
 				09_puterror.c \
+				10_utils.c \
 				10_utils_1.c \
 				10_utils_2.c
 

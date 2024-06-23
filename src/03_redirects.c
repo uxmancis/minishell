@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_redirects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:29:16 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 20:05:17 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:45:48 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,18 @@ int	handle_input_infile(t_box **box, int index_red)
 	int	i;
 
 	i = 0;
-	if ((*box)->dict_red_index_type[index_red][0] == OUTFILE_APPEND
-		|| (*box)->dict_red_index_type[index_red][0] == OUTFILE_APPEND
-		|| (*box)->dict_red_index_type[index_red][0] == NO_REDIRECTION)
+	if ((*box)->dictred_i_t[index_red][0] == OUTFILE_APPEND
+		|| (*box)->dictred_i_t[index_red][0] == OUTFILE_APPEND
+		|| (*box)->dictred_i_t[index_red][0] == NO_REDIRECTION)
 		return (-1);
 	if ((*box)->words_infile[i] != NULL
-		&& (*box)->dict_red_index_type[index_red][1] == INFILE)
+		&& (*box)->dictred_i_t[index_red][1] == INFILE)
 	{
 		if (ft_strlen((*box)->words_infile[i]) >= MAX_FILENAME_LENGTH)
 			return (-1);
 		(*box)->fd_in = open((*box)->words_infile[i], O_RDONLY);
 		if ((*box)->fd_in == -1)
-		{
-			close((*box)->fd_in);
-			return (-1);
-		}
+			return (close((*box)->fd_in), -1);
 		if (read((*box)->fd_in, NULL, 0) == -1)
 		{
 			perror(RED "Error al leer el archivo" RESET_COLOR);
@@ -70,11 +67,12 @@ int	handle_output_append(t_box **box, int index_red)
 	int	index_append;
 
 	index_append = 0;
-	if ((*box)->dict_red_index_type[index_red][1] != OUTFILE_APPEND)
+	if ((*box)->dictred_i_t[index_red][1] != OUTFILE_APPEND)
 		return (-1);
 	if ((*box)->words_outfile_append[index_append] != NULL)
 	{
-		if (ft_strlen((*box)->words_outfile_append[index_append]) >= MAX_FILENAME_LENGTH)
+		if (ft_strlen((*box)->words_outfile_append[index_append]) >= \
+				MAX_FILENAME_LENGTH)
 			return (-1);
 		if ((*box)->fd_out != -1)
 			close((*box)->fd_out);
@@ -97,11 +95,12 @@ int	handle_output_strong(t_box **box, int index_red)
 	int	index_strong;
 
 	index_strong = 0;
-	if ((*box)->dict_red_index_type[index_red][1] != OUTFILE_STRONG)
+	if ((*box)->dictred_i_t[index_red][1] != OUTFILE_STRONG)
 		return (-1);
 	if ((*box)->words_outfile_strong[index_strong] != NULL)
 	{
-		if (ft_strlen((*box)->words_outfile_strong[index_strong]) >= MAX_FILENAME_LENGTH)
+		if (ft_strlen((*box)->words_outfile_strong[index_strong]) >= \
+				MAX_FILENAME_LENGTH)
 			return (-1);
 		if ((*box)->fd_out != -1)
 			close((*box)->fd_out);
@@ -116,5 +115,27 @@ int	handle_output_strong(t_box **box, int index_red)
 	else
 		return (-1);
 	(*box)->close_out++;
+	return (0);
+}
+
+int	process_redirect(t_box **box, int index_red)
+{
+	int	redir_type;
+	int	result;
+
+	redir_type = (*box)->dictred_i_t[index_red][1];
+	if (redir_type == INFILE)
+		return (process_infile(box, index_red));
+	else if (redir_type == OUTFILE_STRONG)
+		return (process_outfile_strong(box, index_red));
+	else if (redir_type == HEREDOC)
+	{
+		result = process_heredoc(box);
+		if (result == 0 && (*box)->nb_of_heredocs > 1)
+			return ((*box)->nb_of_heredocs - 1);
+		return (result);
+	}
+	else if (redir_type == OUTFILE_APPEND)
+		return (process_outfile_append(box, index_red));
 	return (0);
 }

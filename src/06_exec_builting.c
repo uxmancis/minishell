@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   06_exec_builting.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:45:31 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 19:49:36 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 22:58:47 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ int	ft_strcmp_2(char *str_2_check, char *cmd)
  */
 int	ft_builtin_pwd(t_prompt **prompt)
 {
-	ft_putstr(ft_getenv_local((*prompt)->vars, "PWD")->val);
+	ft_putstr_fd(ft_getenv_local((*prompt)->vars, "PWD")->val, 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 14:44:58 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/16 15:02:42 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:42:24 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_get_pid_str(void)
 	char	*pid_str;
 	int		pid;
 
-	pid = ft_get_pid_int();
+	pid = ft_get_pid_int(0, 0, 0);
 	pid_str = basic_itoa(pid);
 	return (pid_str);
 }

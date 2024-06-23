@@ -12,37 +12,37 @@
 
 #include "../inc/minishell.h"
 
-// int ft_isspace(int c)
+// // int ft_isspace(int c)
+// // /* DESCRIPTION:
+// // Outputs the char c to the file descriptor fd.
+// // The function returns the number of characters printed 
+// //and -1 if fails to print.
+// // -----------------------------------------------------
+// //----------------------- */
+// int	ft_putchar_fd(int c, int fd)
+// {
+// 	write(fd, &c, 1);
+// 	return (1);
+// }
+
 // /* DESCRIPTION:
-// Outputs the char c to the file descriptor fd.
-// The function returns the number of characters printed 
-//and -1 if fails to print.
-// -----------------------------------------------------
-//----------------------- */
-int	ft_putchar_fd(int c, int fd)
-{
-	write(fd, &c, 1);
-	return (1);
-}
+// Outputs the string s to the file descriptor fd.
+// The function returns the number of characters printed and -1 if fails to print.
+// ---------------------------------------------------------------------------- */
+// int	ft_putstr_fd(char *str, int fd)
+// {
+// 	int	count;
 
-/* DESCRIPTION:
-Outputs the string s to the file descriptor fd.
-The function returns the number of characters printed and -1 if fails to print.
----------------------------------------------------------------------------- */
-int	ft_putstr_fd(char *str, int fd)
-{
-	int	count;
-
-	count = 0;
-	if (!str)
-		return (write(fd, "(null)", 6));
-	while (*str)
-	{
-		count += ft_putchar_fd(*str, fd);
-		str++;
-	}
-	return (count);
-}
+// 	count = 0;
+// 	if (!str)
+// 		return (write(fd, "(null)", 6));
+// 	while (*str)
+// 	{
+// 		count += ft_putchar_fd(*str, fd);
+// 		str++;
+// 	}
+// 	return (count);
+// }
 
 size_t	ft_strcpyy(char *dst, const char *src)
 {
@@ -64,18 +64,18 @@ size_t	ft_strcpyy(char *dst, const char *src)
 	return (i);
 }
 
-char	*ft_strcat(char *dest, const char *src)
-{
-	size_t	i;
+// char	*ft_strcat(char *dest, const char *src)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (*(dest + i))
-		i++;
-	while (*src)
-		*(dest + i++) = *src++;
-	*(dest + i) = '\0';
-	return (dest);
-}
+// 	i = 0;
+// 	while (*(dest + i))
+// 		i++;
+// 	while (*src)
+// 		*(dest + i++) = *src++;
+// 	*(dest + i) = '\0';
+// 	return (dest);
+// }
 
 int	ft_sstrncmp(char *str, char c)
 //Fuction to find the position of the equal sign

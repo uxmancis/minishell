@@ -75,7 +75,7 @@ struct s_box
 	// pdte. dict_quotes
 	int *dict_quotes;
 	int nb_of_redir;		   // number of redirecciones
-	int **dict_red_index_type; //[0]: index, [1]: type
+	int **dictred_i_t; //[0]: index, [1]: type
 
 	// About redirecciones:
 	int nb_of_heredocs;
@@ -387,8 +387,8 @@ void	cpy_1_word(t_box **box, int nb_of_word);
 
 // 02_boxes_7_dollar_1.c
 void	expand_infile_words(t_box **box, t_prompt **prompt);
-int find_dollars_and_replace(t_box **box, t_x_y_word x_y,
-							 int **tmp_dict_quotes_word, t_prompt **prompt);
+int	find_dollar_replace(char **w, t_x_y_word *x_y,
+		int **dict, t_prompt **p);
 void check_dollars_expansion(t_box **box, t_prompt **prompt);
 
 // 02_boxes_7_dollar_2.c
@@ -397,6 +397,13 @@ void	replace_env(char **w2up, t_x_y_word x_y, char *tmp_val, int **tmp_dict_quot
 char	*get_word_2(char *old_word_before_free, t_x_y_word x_y);
 void cpy_to_val(char *str_src, char **str_dst);
 char	*get_word_4(char *old_word_before_free, t_x_y_word x_y);
+void	replace_env_step_1(t_w_d **w_d, char *keep_old_word,
+	int *keep_old_dict_quotes_word);
+void	replace_env_step_2(t_w_d **w_d, int len_str_to_find, char *tmp_val);
+void	replace_env_last(t_w_d **w_d, int keep_len_new_word,
+	char *keep_old_word, int *keep_old_dict);
+void	set_w_d(t_w_d **w_d, int y, char **w2up, int **tmp_dict_quotes_word);
+
 
 // 02_boxes_7_dollar_3.c
 int	is_in_env(char *old_word_before_free, t_x_y_word x_y, t_prompt **prompt);
@@ -426,19 +433,22 @@ int	next_is_space_or_end(char *word_to_be_updated, t_x_y_word x_y);
 int	next_is_sec_dollar(char *word_to_be_updated, t_x_y_word x_y);
 void cpy_word(char *str_src, char **str_dst);
 int get_len_pid(t_box **box);
-int	ft_get_pid_int(void);
+int	ft_get_pid_int(int fd, int i, int pid);
 
 //02_boxes_7_dollar_8.c
 int	next_is_question(char *word_to_be_updated, t_x_y_word x_y);
 
 //02_boxes_7_dollar_9.c
-void	get_each_word_up(char **w, int nb_word_x, t_box **box, t_prompt **prompt);
 int	no_more_dollars(char *w, t_x_y_word x_y, int *dict);
 int	*generate_specif_dict_quotes(t_box **box, char *w, int nb_word_x, char flag);
 
 //02_boxes_7_dollar_10.c
 char	*ft_get_pid_str(void);
 void	mng_to_replace_env(char **w, t_x_y_word x_y, t_prompt **p, int **dict);
+
+//02_boxes_7_dollar_12.c
+void	get_each_word_up(char **w, int nb_word_x,
+	t_box **box, t_prompt **prompt);
 
 // 02_boxes_7_dollar_.c
 void ft_free(void *arr);
@@ -487,6 +497,16 @@ int handle_input_infile(t_box **box, int index_red);
 int handle_output_append(t_box **box, int index_red);
 int handle_output_strong(t_box **box, int index_red);
 int handle_redirects(t_box **box);
+void	restore_original_pointers(t_box **box);
+int		process_redirect(t_box **box, int index_red);
+int	process_infile(t_box **box, int index_red);
+int	process_outfile_strong(t_box **box, int index_red);
+int	process_heredoc(t_box **box);
+int	process_outfile_append(t_box **box, int index_red);
+
+
+
+
 // 05
 /*PRODDDDFFFFFFF*/
 // static char *ft_lst_to_str(t_vars *tmp) ;
@@ -535,6 +555,8 @@ int ft_builtin_pwd(t_prompt **prompt);
 // 07_signals.c
 void ft_signal_handler(void);
 void ft_signals(int signum);
+void	handle_eof(void);
+
 
 // 09_exit.c
 void ft_exit_builtin(t_prompt *prompt, int status);
@@ -551,20 +573,20 @@ char *ft_put_name_system(t_prompt *data);
 void ft_print_welcome(void);
 int ft_sstrncmp(char *str, char c);
 void ft_puterror(char *str);
-void ft_putstr(char *str);
+// void ft_putstr(char *str);
 
 //10_utils_1.c
 size_t	ft_strcpyy_2(char *dst, const char *src);
 
 // utils_libft.c
-size_t ft_strlen(const char *str);
-int ft_strcmp(const char *s1, const char *s2);
-char *ft_strdup(const char *s1);
-char *ft_substr(char const *s, unsigned int start, size_t len);
-int ft_isspace(int c);
-void *ft_calloc(size_t count, size_t size);
-char *ft_strdup(const char *s1);
-void *ft_memcpy(void *dst, const void *src, size_t n);
-int ft_isalnum(int c);
+// size_t ft_strlen(const char *str);
+// int ft_strcmp(const char *s1, const char *s2);
+// char *ft_strdup(const char *s1);
+// char *ft_substr(char const *s, unsigned int start, size_t len);
+// int ft_isspace(int c);
+// void *ft_calloc(size_t count, size_t size);
+// char *ft_strdup(const char *s1);
+// void *ft_memcpy(void *dst, const void *src, size_t n);
+// int ft_isalnum(int c);
 
 #endif

@@ -12,45 +12,11 @@
 
 #include "../inc/minishell.h"
 
-void	get_word_outf_app_1(t_box **box, int *arr_ind_red_type)
+void	update_variables_8(int *start, int *len_delimiter)
 {
-	int	tmp_nb_of_red_type;
-	int	keep_nb_of_red_type;
-	int	total_red_nb_x;
-	int	red_type_nb_x;
-	int	i;
-
-	tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_APPEND);
-	keep_nb_of_red_type = tmp_nb_of_red_type;
-	if (keep_nb_of_red_type <= 0)
-		return;
-	(*box)->words_outfile_append = malloc(sizeof(char *) * tmp_nb_of_red_type);
-	red_type_nb_x = 0;
-	total_red_nb_x = 0;
-	i = 0;
-	while (tmp_nb_of_red_type > 0)
-	{
-		if (is_last_redir(box, arr_ind_red_type[i]))
-		{
-			if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == OUTFILE_APPEND)
-				get_word_outf_app_2(arr_ind_red_type[red_type_nb_x] + 2, (int)ft_strlen((*box)->input_substr) - 1, box, red_type_nb_x);
-			break;
-        }
-		if ((*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box)][1] == OUTFILE_APPEND)
-		{
-			get_word_outf_app_2(arr_ind_red_type[red_type_nb_x] + 2, (*box)->dict_red_index_type[get_ind(arr_ind_red_type[i], box) + 1][0] - 1, box, red_type_nb_x);
-			tmp_nb_of_red_type--;
-			red_type_nb_x++;
-			i++;
-		}
-		if (i == keep_nb_of_red_type)
-			break ;
-		total_red_nb_x++;
-	}
-	put_parsing_box_words_outf_app(box, OUTFILE_APPEND);
-    (*box)->words_outfile_append_tmp = (*box)->words_outfile_append;
+	*start = *start + 1;
+	*len_delimiter = *len_delimiter + 1;
 }
-
 
 /* 
 *   Puts each word in corresponding space inside 
@@ -62,11 +28,13 @@ void	get_word_outf_app_1(t_box **box, int *arr_ind_red_type)
 *   that might exist after it. It doesn't care whether if there is
 *   a single word or not between redirecciones.
 *
+*	r: red_type_nb_x
+*	k: keep_start_word
 */
-void	get_word_outf_app_2(int start, int end, t_box **box, int red_type_nb_x)
+void	g2a(int start, int end, t_box **box, int r)
 {
 	int	len_delimiter;
-	int	keep_start_word;
+	int	k;
 	int	i;
 	int	len_input_str;
 
@@ -74,20 +42,66 @@ void	get_word_outf_app_2(int start, int end, t_box **box, int red_type_nb_x)
 	len_input_str = ft_strlen((*box)->input_substr);
 	while (!possible_cases(box, start) && start < len_input_str)
 		start++;
-	keep_start_word = start;
+	k = start;
 	while (possible_cases(box, start) && start <= end)
-	{
-		start++;
-		len_delimiter++;
-	}
-	(*box)->words_outfile_append[red_type_nb_x] = malloc(sizeof(char) * (len_delimiter + 1));
-	(*box)->words_outfile_append[red_type_nb_x][len_delimiter] = '\0';
+		update_variables_8(&start, &len_delimiter);
+	(*box)->words_outfile_append[r]
+		= malloc(sizeof(char) * (len_delimiter + 1));
+	(*box)->words_outfile_append[r][len_delimiter] = '\0';
 	i = 0;
 	while (len_delimiter > 0)
 	{
-		(*box)->words_outfile_append[red_type_nb_x][i] = (*box)->input_substr[keep_start_word];
+		(*box)->words_outfile_append[r][i] = (*box)->input_substr[k];
 		i++;
-		keep_start_word++;
+		k++;
 		len_delimiter--;
 	}
+}
+
+
+int	get_word_app_part_2(t_box **box, int *tmp_nb_of_red_type,
+	int *keep_nb_of_red_type, int *i)
+{
+	*tmp_nb_of_red_type = get_nb_of_red_type(box, OUTFILE_APPEND);
+	*keep_nb_of_red_type = *tmp_nb_of_red_type;
+	*i = 0;
+	if (*keep_nb_of_red_type > 0)
+		(*box)->words_outfile_append = malloc(sizeof(char *)
+				* (*tmp_nb_of_red_type));
+	return (*keep_nb_of_red_type);
+}
+
+static void	update_variables_7(int *t, int *i)
+{
+	*t = *t - 1;
+	*i = *i + 1;
+}
+
+void	get_word_outf_app_1(t_box **box, int *a)
+{
+	int	t;
+	int	k;
+	int	i;
+
+	if (get_word_app_part_2(box, &t, &k, &i) <= 0)
+		return ;
+	while (t > 0)
+	{
+		if (is_last_redir(box, a[i]))
+		{
+			if ((*box)->dictred_i_t[get_ind(a[i], box)][1] == OUTFILE_APPEND)
+				g2a(a[i] + 2, (int)ft_strlen((*box)->input_substr) - 1, box, i);
+			break ;
+		}
+		if ((*box)->dictred_i_t[get_ind(a[i], box)][1] == OUTFILE_APPEND)
+		{
+			g2a(a[i] + 2,
+				(*box)->dictred_i_t[get_ind(a[i], box) + 1][0] - 1, box, i);
+			update_variables_7(&t, &i);
+		}
+		if (i == k)
+			break ;
+	}
+	put_parsing_box_words_outf_app(box, OUTFILE_APPEND);
+	(*box)->words_outfile_append_tmp = (*box)->words_outfile_append;
 }

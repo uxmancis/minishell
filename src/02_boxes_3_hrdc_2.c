@@ -46,7 +46,7 @@ int	get_ind(int redir_ind_in_substr, t_box **box)
 	x = 0;
 	while (tmp_nb_of_redir > 0)
 	{
-		if ((*box)->dict_red_index_type[x][0] == redir_ind_in_substr)
+		if ((*box)->dictred_i_t[x][0] == redir_ind_in_substr)
 			return (x);
 		tmp_nb_of_redir--;
 		x++;

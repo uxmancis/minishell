@@ -55,9 +55,9 @@ void	get_arr_heredoc(int **arr_ind_heredoc, t_box **box)
 	x = 0;
 	while (tmp_nb_of_heredocs > 0)
 	{
-		if ((*box)->dict_red_index_type[x][1] == HEREDOC)
+		if ((*box)->dictred_i_t[x][1] == HEREDOC)
 		{
-			(*arr_ind_heredoc)[i] = (*box)->dict_red_index_type[x][0];
+			(*arr_ind_heredoc)[i] = (*box)->dictred_i_t[x][0];
 			i++;
 		}
 		x++;

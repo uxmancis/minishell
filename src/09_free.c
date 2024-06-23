@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   09_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:02:42 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/23 15:05:07 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:36:17 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,31 @@ void	cleanup_command(char **cmd)
 		i++;
 	}
 	free(cmd);
+}
+
+void	ft_free_input(t_prompt *data)
+{
+	int	i;
+
+	i = 0;
+	free(data->input);
+	data->input = NULL;
+	free(data->prompt);
+	data->prompt = NULL;
+	free(data->dict_quotes);
+	data->dict_quotes = NULL;
+	ft_free_char(data->total_substr_input, data->nb_of_substr);
+	data->total_substr_input = NULL;
+	free(data->arr_index_pipes);
+	data->arr_index_pipes = NULL;
+	if (data->arr_boxes != NULL)
+	{
+		while (data->arr_boxes[i] != NULL)
+		{
+			ft_free_box(data->arr_boxes[i]);
+			free(data->arr_boxes[i]);
+			data->arr_boxes[i] = NULL;
+			i++;
+		}
+	}
 }

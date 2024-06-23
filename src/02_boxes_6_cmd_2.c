@@ -29,17 +29,17 @@ void	mark_redir(t_box **box)
 	tmp_nb_of_redir = (*box)->nb_of_redir;
 	while (tmp_nb_of_redir > 0)
 	{
-		if ((*box)->dict_red_index_type[i][1] == HEREDOC
-			|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
+		if ((*box)->dictred_i_t[i][1] == HEREDOC
+			|| (*box)->dictred_i_t[i][1] == OUTFILE_APPEND)
 		{
-			current_ind_in_substr = (*box)->dict_red_index_type[i][0];
+			current_ind_in_substr = (*box)->dictred_i_t[i][0];
 			(*box)->what_to_take[current_ind_in_substr] = 'R';
 			(*box)->what_to_take[current_ind_in_substr + 1] = 'R';
 		}
-		else if ((*box)->dict_red_index_type[i][1] == INFILE
-			|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG)
+		else if ((*box)->dictred_i_t[i][1] == INFILE
+			|| (*box)->dictred_i_t[i][1] == OUTFILE_STRONG)
 		{
-			current_ind_in_substr = (*box)->dict_red_index_type[i][0];
+			current_ind_in_substr = (*box)->dictred_i_t[i][0];
 			(*box)->what_to_take[current_ind_in_substr] = 'R';
 		}
 		i++;
@@ -64,26 +64,26 @@ void	mark_word_2(int start, int end, t_box **box)
 
 void	mark_word_3(t_box **box, int i)
 {
-	if ((*box)->dict_red_index_type[i][1] == HEREDOC
-		|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
-		mark_word_2((*box)->dict_red_index_type[i][0] + 2,
+	if ((*box)->dictred_i_t[i][1] == HEREDOC
+		|| (*box)->dictred_i_t[i][1] == OUTFILE_APPEND)
+		mark_word_2((*box)->dictred_i_t[i][0] + 2,
 			ft_strlen((*box)->input_substr) - 1, box);
-	else if (((*box)->dict_red_index_type[i][1] == INFILE
-		|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
-		mark_word_2((*box)->dict_red_index_type[i][0] + 1,
+	else if (((*box)->dictred_i_t[i][1] == INFILE
+		|| (*box)->dictred_i_t[i][1] == OUTFILE_STRONG))
+		mark_word_2((*box)->dictred_i_t[i][0] + 1,
 			ft_strlen((*box)->input_substr) - 1, box);
 }
 
 void	mark_word_4(t_box **box, int i)
 {
-	if ((*box)->dict_red_index_type[i][1] == HEREDOC
-				|| (*box)->dict_red_index_type[i][1] == OUTFILE_APPEND)
-		mark_word_2((*box)->dict_red_index_type[i][0] + 2,
-			(*box)->dict_red_index_type[i + 1][0] - 1, box);
-	else if (((*box)->dict_red_index_type[i][1] == INFILE
-		|| (*box)->dict_red_index_type[i][1] == OUTFILE_STRONG))
-		mark_word_2((*box)->dict_red_index_type[i][0] + 1,
-			(*box)->dict_red_index_type[i + 1][0] - 1, box);
+	if ((*box)->dictred_i_t[i][1] == HEREDOC
+				|| (*box)->dictred_i_t[i][1] == OUTFILE_APPEND)
+		mark_word_2((*box)->dictred_i_t[i][0] + 2,
+			(*box)->dictred_i_t[i + 1][0] - 1, box);
+	else if (((*box)->dictred_i_t[i][1] == INFILE
+		|| (*box)->dictred_i_t[i][1] == OUTFILE_STRONG))
+		mark_word_2((*box)->dictred_i_t[i][0] + 1,
+			(*box)->dictred_i_t[i + 1][0] - 1, box);
 }
 
 /*mark_word

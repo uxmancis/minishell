@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:28:26 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 15:29:20 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:34:50 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	ft_readline(t_box **box, char *line)
 		return (-1);
 	if (ft_strcmp(line, (*box)->words_hrdc[0]) == 0)
 	{
-		//(*box)->words_hrdc++;
 		free(line);
 		return (-1);
 	}
