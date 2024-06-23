@@ -80,12 +80,13 @@ char	**split_command(t_box **box)
 
 int	ft_run_command(t_box **box, t_prompt *data)
 {
-	int		exit_code;
+	int exit_code;
 	char	*tmp;
 	char	*tmp2;
 
 	tmp = "/";
 	tmp2 = ".";
+    exit_code = 0;
 	(*box)->command = split_command(box);
 	if ((*box)->command == NULL)
 		return (-1);

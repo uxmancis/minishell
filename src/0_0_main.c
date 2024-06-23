@@ -15,7 +15,6 @@
 
 #include "../inc/minishell.h"
 
-
 void	ft_init_input(t_prompt *data)
 {
 	data->input = NULL;
@@ -25,52 +24,66 @@ void	ft_init_input(t_prompt *data)
 	data->nb_of_substr = 0;
 	data->total_substr_input = NULL;
 	data->arr_index_pipes = NULL;
+	data->arr_boxes = NULL;
 }
 
 void	ft_free_prompt(t_prompt *data)
 {
-    t_vars *tmp;
-    int i;
+	t_vars  *tmp;
+	int i;
 
-    i = 0;
-    free(data->input);
-    free(data->prompt);
-    free(data->dict_quotes);
-    ft_free_char(data->total_substr_input, data->nb_of_substr);
-    free(data->arr_index_pipes);
-    while (data->vars != NULL) {
-        tmp = data->vars->next;
-        free(data->vars->name);
-        free(data->vars->val);
-        free(data->vars);
-        data->vars = tmp;
-    }
-    if (data->arr_boxes != NULL) {
-        while (data->arr_boxes[i] != NULL) {
-            ft_free_box(data->arr_boxes[i]);
-            free(data->arr_boxes[i]);
-            data->arr_boxes[i] = NULL;
-            i++;
-        }
-    }
-    free(data->arr_boxes);
-    ft_free_envp(data);
-    free(data);
+	i = 0;
+	free(data->input);
+	free(data->prompt);
+	free(data->dict_quotes);
+	ft_free_char(data->total_substr_input, data->nb_of_substr);
+	free(data->arr_index_pipes);
+	while (data->vars != NULL)
+	{
+		tmp = data->vars->next;
+		free(data->vars->name);
+		free(data->vars->val);
+		free(data->vars);
+		data->vars = tmp;
+	}
+	if (data->arr_boxes != NULL)
+	{
+		while (data->arr_boxes[i] != NULL)
+		{
+			ft_free_box(data->arr_boxes[i]);
+			free(data->arr_boxes[i]);
+			data->arr_boxes[i] = NULL;
+			i++;
+		}
+	}
+	free(data->arr_boxes);
+	ft_free_envp(data);
+	free(data);
 }
-
 
 void	ft_free_input(t_prompt *data)
 {
-    free(data->input);
-    data->input = NULL;
-    free(data->prompt);
-    data->prompt = NULL;
-    free(data->dict_quotes);
-    data->dict_quotes = NULL;
-    ft_free_char(data->total_substr_input, data->nb_of_substr);
-    data->total_substr_input = NULL;
-    free(data->arr_index_pipes);
-    data->arr_index_pipes = NULL;
+	int i;
+
+	i = 0;
+	free(data->input);
+	data->input = NULL;
+	free(data->prompt);
+	data->prompt = NULL;
+	free(data->dict_quotes);
+	data->dict_quotes = NULL;
+	ft_free_char(data->total_substr_input, data->nb_of_substr);
+	data->total_substr_input = NULL;
+	free(data->arr_index_pipes);
+	data->arr_index_pipes = NULL;
+	if (data->arr_boxes != NULL)
+		while (data->arr_boxes[i] != NULL)
+		{
+			ft_free_box(data->arr_boxes[i]);
+			free(data->arr_boxes[i]);
+			data->arr_boxes[i] = NULL;
+			i++;
+		}
 }
 
 /*
@@ -114,18 +127,20 @@ int	ft_begin(t_prompt *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_prompt	*data;
+	t_prompt *data;
 
 	(void)argv;
-    if (argc != 1) {
-        ft_puterror("Error: No arguments are allowed.\n");
-        return (-1);
-    }
+	if (argc != 1)
+	{
+		ft_puterror("Error: No arguments are allowed.\n");
+		return (-1);
+	}
 	data = ft_init_data(envp);
-	if (!data) {
-        ft_puterror("Error: Memory allocation failed.\n");
-        return (-1);
-    }
+	if (!data)
+	{
+		ft_puterror("Error: Memory allocation failed.\n");
+		return (-1);
+	}
 	ft_print_welcome();
 	rl_initialize();
 	using_history();
