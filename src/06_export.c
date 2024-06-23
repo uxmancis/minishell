@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 21:09:52 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/22 19:15:35 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:33:35 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	ft_export_builtin(t_prompt *data, char **cmd)
 		return (!printf("Undefined error.\n"));
 	if (!cmd[1])
 		ft_export_list(data->vars);
-	// CHANGE cambio asignacion y evaluacion de i en while
 	while (cmd[++i])
 	{
 		if (!ft_strchr(cmd[i], '='))

@@ -65,7 +65,6 @@ SRC_FILES	=	0_0_main.c \
 				06_exec_builting_2.c \
 				06_export.c \
 				06_unset.c \
-				07_close.c \
 				07_signals.c \
 				09_exit.c \
 				09_free.c \

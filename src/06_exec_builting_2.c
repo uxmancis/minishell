@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:25:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/22 19:38:03 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:34:20 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,10 @@ int	ft_builtin_echo(t_box *box)
 {
 	if (ft_strcmp_2(box->rest_info_potential_cmd[1], "-n"))
 	{
-		//printf("\n-n found\n");
 		put_without_next_line(&box);
 	}
 	else
 	{
-		//printf("\n-n NOT found\n");
 		put_with_next_line(&box);
 		return (-1);
 	}
@@ -93,7 +91,6 @@ int	which_cmd(t_box *box, t_prompt **prompt)
 	exit_code = 0;
 	if ((int)ft_strlen(box->rest_info_potential_cmd[1]) == 0)
 		return (-1);
-	// CHANGE devuelve -1 en caso de error
 	if (!box->rest_info_potential_cmd)
 	{
 		ft_putstr(": command not found\n");

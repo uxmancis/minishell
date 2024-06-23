@@ -487,6 +487,16 @@ int handle_input_infile(t_box **box, int index_red);
 int handle_output_append(t_box **box, int index_red);
 int handle_output_strong(t_box **box, int index_red);
 int handle_redirects(t_box **box);
+void	restore_original_pointers(t_box **box);
+int		process_redirect(t_box **box, int index_red);
+int	process_infile(t_box **box, int index_red);
+int	process_outfile_strong(t_box **box, int index_red);
+int	process_heredoc(t_box **box);
+int	process_outfile_append(t_box **box, int index_red);
+
+
+
+
 // 05
 /*PRODDDDFFFFFFF*/
 // static char *ft_lst_to_str(t_vars *tmp) ;
@@ -535,6 +545,8 @@ int ft_builtin_pwd(t_prompt **prompt);
 // 07_signals.c
 void ft_signal_handler(void);
 void ft_signals(int signum);
+void	handle_eof(void);
+
 
 // 09_exit.c
 void ft_exit_builtin(t_prompt *prompt, int status);

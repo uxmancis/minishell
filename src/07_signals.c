@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:39:46 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/22 14:28:00 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:16:56 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	ft_signal_handler(void)
 	signal(SIGINT, ft_signals);
 	signal(SIGQUIT, ft_signals);
 	signal(SIGTERM, ft_signals);
+}
+
+void	handle_eof(void)
+{
+	if (isatty(STDIN_FILENO)) // Modo interactivo
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		exit(0);
+	}
 }

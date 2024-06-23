@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:02:19 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/06/23 17:47:01 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:13:48 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ char	*determine_command_path(t_box **box, t_prompt *data)
 	int	exit_code;
 
 	(void)exit_code;
-	// CHANGED hemos cambiado esto, cuando el input es una ruta abs ejecutable
 	if (access((*box)->rest_info_potential_cmd[0], X_OK) == 0)
 		(*box)->cmd_path = ft_strdup((*box)->rest_info_potential_cmd[0]);
 	else
-		(*box)->cmd_path = ft_get_path((*box)->rest_info_potential_cmd[0], \
+		(*box)->cmd_path = ft_get_path((*box)->rest_info_potential_cmd[0],
 				data);
 	if ((*box)->cmd_path == NULL)
 	{
@@ -80,24 +79,21 @@ char	**split_command(t_box **box)
 
 int	ft_run_command(t_box **box, t_prompt *data)
 {
-	int exit_code;
-	char	*tmp;
-	char	*tmp2;
+	int		exit_code;
 
-	tmp = "/";
-	tmp2 = ".";
-    exit_code = 0;
+	exit_code = 0;
 	(*box)->command = split_command(box);
 	if ((*box)->command == NULL)
 		return (-1);
-	if ((*box)->command[0] == tmp || (*box)->command[0] == tmp2)
+	if (ft_strcmp_2((*box)->command[0], "/" )
+		|| ft_strcmp_2((*box)->command[0], "."))
 	{
 		(*box)->cmd_path = (*box)->command[0];
 		(*box)->cmd_path++;
 	}
 	else
 		(*box)->cmd_path = determine_command_path(box, data);
-	if (execute_command(box) == -1 || (*box)->cmd_path == NULL )
+	if (execute_command(box) == -1 || (*box)->cmd_path == NULL)
 		exit_code = -1;
 	cleanup_command((*box)->command);
 	if (exit_code == -1)
