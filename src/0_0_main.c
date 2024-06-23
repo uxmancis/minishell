@@ -24,7 +24,6 @@ void	ft_init_input(t_prompt *data)
 	data->nb_of_substr = 0;
 	data->total_substr_input = NULL;
 	data->arr_index_pipes = NULL;
-	// data->vars = NULL;
 }
 
 void	ft_free_input(t_prompt *data)
@@ -45,16 +44,18 @@ void	ft_free_input(t_prompt *data)
  *   -1: Error, back to readline
  *           get_substr: -1 : Unclosed quotes
  *           ft_gen_boxes: -1: Unclosed quotes
+ * 
+ * if (isatty(STDIN_FILENO)) // Modo interactivo
  */
-
-void handle_eof()
+void	handle_eof(void)
 {
-    if (isatty(STDIN_FILENO)) // Modo interactivo
-    {
-        write(STDOUT_FILENO, "exit\n", 5);
-        exit(0);
-    }
+	if (isatty(STDIN_FILENO))
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		exit(0);
+	}
 }
+
 int	ft_begin(t_prompt *data)
 {
 	ft_init_input(data);
@@ -79,10 +80,9 @@ int	ft_begin(t_prompt *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_prompt *data;
+	t_prompt	*data;
 
 	(void)argv;
-
 	if (argc != 1)
 		perror("Error: No arguments are allowed.\n");
 	if (!(data = ft_init_data(envp)))
@@ -93,5 +93,5 @@ int	main(int argc, char **argv, char **envp)
 	ft_signal_handler();
 	while (1)
 		ft_begin(data);
-	// return (0);
+	return (0);
 }

@@ -94,19 +94,10 @@ int	ft_check_quotes_and_pipes(t_prompt *prompt)
 */
 int	ft_get_substr(t_prompt *prompt)
 {
-	int	len_input;
-	int	i;
-
 	if (ft_check_quotes_and_pipes(prompt) == -1)
 		return (-1);
-	i = 0;
-	len_input = ft_strlen(prompt->input);
-	while (len_input > 0)
-	{
-		printf("dictionary[%d] = %d\n"RESET_COLOR, i, prompt->dict_quotes[i]);
-		len_input--;
-		i++;
-	}
+	if (DEBUG_MODE != 0)
+		put_parsing_input_dict(prompt);
 	if (ft_where_r_pipes(&prompt) == -1)
 		return (-1);
 	if (prompt->nb_of_pipes > 0)

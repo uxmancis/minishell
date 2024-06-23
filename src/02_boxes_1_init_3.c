@@ -6,7 +6,7 @@
 /*   By: uxmancis <uxmancis@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:26:26 by uxmancis          #+#    #+#             */
-/*   Updated: 2024/06/23 01:24:03 by uxmancis         ###   ########.fr       */
+/*   Updated: 2024/06/23 12:30:40 by uxmancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,37 +37,41 @@ int	ft_gen_boxes(t_prompt *prompt)
 	i = 0;
 	tmp_nb_boxes = prompt->nb_of_substr;
 	keep_nb_boxes = prompt->nb_of_substr;
-	printf("     02_boxes.c - ft_gen_boxes| nb_boxes = %d\n", prompt->nb_of_substr);
+	if (DEBUG_MODE != 0)
+	{
+		printf("     02_boxes.c - ft_gen_boxes| nb_boxes = ");
+		printf("%d\n", prompt->nb_of_substr);
+	}
 	substr_id = 1;
 	arr_boxes = malloc(sizeof(t_box) * tmp_nb_boxes);
 	while (tmp_nb_boxes > 0)
 	{
 		if (ft_box_init(&arr_boxes[i], prompt, substr_id) == -1)
 			return (-1);
-		init_cmd(&arr_boxes[i], prompt, substr_id);
+		//init_cmd(&arr_boxes[i], prompt, substr_id);
 		tmp_nb_boxes--;
 		substr_id++;
 		i++;
 	}
 	//David ejecuta
-	dup2(prompt->tmp_in, 0);
-	dup2(prompt->tmp_out, 1);
-	close(prompt->tmp_out);
-	close(prompt->tmp_in);
-	int status;
-	status = 0;
-	waitpid(prompt->pid, &status, 0);
-    if (WIFEXITED(status))
-		status = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == 2)
-			status = 130;
-		else if ((WTERMSIG(status) == 3))
-			status = 131;
-	}
-    prompt->pipefd[0] = 0;
-    prompt->pipefd[1] = 1;
+	// dup2(prompt->tmp_in, 0);
+	// dup2(prompt->tmp_out, 1);
+	// close(prompt->tmp_out);
+	// close(prompt->tmp_in);
+	// int status;
+	// status = 0;
+	// waitpid(prompt->pid, &status, 0);
+    // if (WIFEXITED(status))
+	// 	status = WEXITSTATUS(status);
+	// if (WIFSIGNALED(status))
+	// {
+	// 	if (WTERMSIG(status) == 2)
+	// 		status = 130;
+	// 	else if ((WTERMSIG(status) == 3))
+	// 		status = 131;
+	// }
+    // prompt->pipefd[0] = 0;
+    // prompt->pipefd[1] = 1;
 	
 	//Liberamos
 	i = 0;

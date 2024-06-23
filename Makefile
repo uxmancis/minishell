@@ -7,6 +7,7 @@ OBJ_DIR		=	objs/
 
 SRC 		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_FILES	=	0_0_main.c \
+				000_debug_mode.c \
 				00_env_data.c \
 				00_init_env.c \
 				00_minishell.c \

@@ -187,6 +187,15 @@ typedef struct s_word_and_dictquotes
 // minishell.c
 //  void ft_begin(t_prompt *data);
 
+#define DEBUG_MODE 0 //0: Disabled, 1: Enabled
+
+//000_debug_mode.c
+void	put_parsing_input_dict(t_prompt *prompt);
+void	put_parsing_input_pipes_1(t_prompt **prompt);
+void	put_parsing_input_pipes_2(t_prompt **prompt);
+void	put_parsing_input_pipes_3(t_prompt **prompt);
+void	put_parsing_input_substr(t_prompt **prompt);
+
 // 00_minishell.c
 //  void ft_begin(int argc, char **argv, char **env);
 int ft_get_substr(t_prompt *prompt);
@@ -218,6 +227,7 @@ int ft_quotes_3(char *input, int **dict_quotes, int i);
 // 01_input_split.c
 void ft_split_input(t_prompt **prompt);
 char *ft_split_from_to(int start, int end, char *src_input);
+void	ft_split_input_2(t_prompt **p);
 // char	**ft_split_input(t_prompt prompt);
 
 //02_boxes_1_init_1.c
